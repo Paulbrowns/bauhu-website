@@ -5,10 +5,12 @@ import SiteFooter from '../components/SiteFooter.astro';
 import EditorialHero from '../components/EditorialHero.astro';
 
 const steps = [
-  ['01', 'Send your site details', 'Share the plot location, planning status, access, budget range, timeline and any survey or images.'],
-  ['02', 'Feasibility review', 'Bauhu reviews the site, route to delivery, likely constraints, design route and suitable model or residence approach.'],
-  ['03', 'Design and specification', 'The home is refined around climate, view, lifestyle, structure, logistics and the desired supply scope.'],
-  ['04', 'Manufacture and delivery', 'The building system is manufactured, packed and prepared for shipping, installation and local completion.'],
+  ['01', 'Send your site details', 'The first step is practical. Share the location, access, planning status, preferred size, budget range, timeline and any drawings, survey material or site photographs.'],
+  ['02', 'Feasibility review', 'Bauhu reviews the site conditions, likely route to delivery, model suitability, private residence potential and any early constraints that may affect scope or cost.'],
+  ['03', 'Define the right route', 'Some clients are best served by adapting a Bauhu model. Others require a private residence shaped more closely around the land, outlook and brief.'],
+  ['04', 'Design and specification', 'The home is refined around climate, view, shade, structure, logistics, supply scope and the practicalities of local completion.'],
+  ['05', 'Manufacture and delivery', 'Once agreed, the building system is manufactured, packed and prepared for shipping, installation and local works.'],
+  ['06', 'Local completion', 'Bauhu works around a clear division between the supplied system and the local works required for foundations, services, finishing and site specific completion.'],
 ];
 ---
 <BaseLayout title="How It Works | Bauhu" description="The guided Bauhu buyer journey from site review to design, manufacture and delivery.">
@@ -17,21 +19,26 @@ const steps = [
     <EditorialHero
       eyebrow="Guided buyer journey"
       title="A clear route from land to residence."
-      text="Bauhu helps clients understand what is possible before committing to a full design and manufacturing process."
+      text="Bauhu helps clients understand what is possible before committing to a full design and manufacturing process. The journey begins with the realities of the site."
       primaryHref="/start-your-project"
       primaryLabel="Start with your site"
     />
     <section class="section-pad bg-paper">
-      <div class="mx-auto max-w-site">
-        <div class="grid gap-5 md:grid-cols-2">
-          {steps.map(([number, title, text]) => (
-            <article class="bg-mist p-7 md:p-10">
-              <p class="text-sm text-clay">{number}</p>
-              <h2 class="mt-10 font-display text-4xl">{title}</h2>
-              <p class="mt-5 leading-7 text-ink/70">{text}</p>
-            </article>
-          ))}
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+        <div>
+          <p class="eyebrow text-clay">Process</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Designed to reduce uncertainty before you commit.</h2>
         </div>
+        <p class="text-lg leading-8 text-ink/70">Remote, coastal and island projects need clarity early. Bauhu’s process is designed to identify the right route, the likely constraints and the practical delivery path before detailed work begins.</p>
+      </div>
+      <div class="mx-auto mt-14 grid max-w-site gap-5 md:grid-cols-2">
+        {steps.map(([number, title, text]) => (
+          <article class="bg-mist p-7 md:p-10">
+            <p class="text-sm text-clay">{number}</p>
+            <h2 class="mt-10 font-display text-4xl">{title}</h2>
+            <p class="mt-5 leading-7 text-ink/70">{text}</p>
+          </article>
+        ))}
       </div>
     </section>
   </main>
