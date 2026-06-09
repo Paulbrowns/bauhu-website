@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout title="Engineering | Bauhu" description="Engineering and resilience information for Bauhu building systems.">
+  <SiteHeader />
+  <main class="bg-paper pt-32">
+    <section class="section-pad">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Engineering</p>
+        <h1 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-7xl">Designed for demanding coastal sites.</h1>
+        <p class="mt-8 max-w-2xl text-lg leading-8 text-ink/70">This section will explain the Bauhu steel frame system, coastal resilience, logistics, manufacturing process and local delivery approach.</p>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
