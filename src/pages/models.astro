@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import EditorialHero from '../components/EditorialHero.astro';
+
+const ranges = [
+  ['Caribbean', 'Island focused homes with shade, terraces and robust hurricane aware detailing.'],
+  ['Element', 'Compact, efficient model based homes for clear budgets and faster project planning.'],
+  ['Signature', 'Larger architectural homes using proven Bauhu planning logic and refined specification.'],
+];
+---
+<BaseLayout title="Model Based Homes | Bauhu" description="Explore Bauhu model based homes and adaptable ranges for remote and coastal sites.">
+  <SiteHeader />
+  <main>
+    <EditorialHero
+      eyebrow="Model based homes"
+      title="A clear starting point for a resilient Bauhu home."
+      text="Choose from proven Bauhu ranges and adapt the layout, specification and delivery approach to your site, budget and programme."
+      primaryHref="/start-your-project"
+      primaryLabel="Send site details"
+      secondaryHref="/projects"
+      secondaryLabel="View projects"
+    />
+    <section class="section-pad bg-paper">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Ranges</p>
+        <h2 class="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Proven models, refined for place.</h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-3">
+          {ranges.map(([name, text]) => (
+            <article class="min-h-80 bg-mist p-7">
+              <h3 class="font-display text-4xl">{name}</h3>
+              <p class="mt-24 leading-7 text-ink/70">{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
