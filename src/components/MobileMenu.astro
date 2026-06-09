@@ -1,0 +1,18 @@
+---
+const links = [
+  ['/', 'Home'],
+  ['/residences', 'Residences'],
+  ['/models', 'Models'],
+  ['/how-it-works', 'How it works'],
+  ['/resources', 'Resources'],
+  ['/start-your-project', 'Start your project'],
+];
+---
+<details class="lg:hidden">
+  <summary class="cursor-pointer rounded-full border border-paper/30 px-4 py-2 text-xs uppercase tracking-wide">Menu</summary>
+  <div class="absolute left-5 right-5 top-16 bg-ink p-5 shadow-xl">
+    {links.map(([href, label]) => (
+      <a href={href} class="block border-b border-paper/10 py-3 text-base">{label}</a>
+    ))}
+  </div>
+</details>
