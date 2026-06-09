@@ -5,7 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import EditorialHero from '../components/EditorialHero.astro';
 
 const ranges = [
-  ['Caribbean', 'Island focused homes with shade, terraces and robust hurricane aware detailing.'],
+  ['Caribbean', 'Island focused homes with shade, terraces and robust coastal detailing.'],
   ['Element', 'Compact, efficient model based homes for clear budgets and faster project planning.'],
   ['Signature', 'Larger architectural homes using proven Bauhu planning logic and refined specification.'],
 ];
@@ -23,17 +23,37 @@ const ranges = [
       secondaryLabel="View projects"
     />
     <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="eyebrow text-clay">Model route</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">A faster route without starting from a blank page.</h2>
+        </div>
+        <div class="space-y-7 text-lg leading-8 text-ink/70">
+          <p>The model based route is for clients who want the confidence of an existing Bauhu design, with the ability to refine layout, specification and delivery around their land.</p>
+          <p>It is not a one size fits all product. Each project still needs to respond to planning, local codes, foundations, access, exposure, shipping and the client’s intended use.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist">
       <div class="mx-auto max-w-site">
         <p class="eyebrow text-clay">Ranges</p>
         <h2 class="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Proven models, refined for place.</h2>
         <div class="mt-12 grid gap-5 md:grid-cols-3">
           {ranges.map(([name, text]) => (
-            <article class="min-h-80 bg-mist p-7">
+            <article class="min-h-80 bg-paper p-7">
               <h3 class="font-display text-4xl">{name}</h3>
               <p class="mt-24 leading-7 text-ink/70">{text}</p>
             </article>
           ))}
         </div>
+      </div>
+    </section>
+    <section class="section-pad bg-ink text-paper">
+      <div class="mx-auto max-w-site text-center">
+        <p class="eyebrow text-stone">Choosing a model</p>
+        <h2 class="mx-auto mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">The right model depends on the site as much as the plan.</h2>
+        <p class="mx-auto mt-8 max-w-2xl text-lg leading-8 text-paper/70">Bauhu can help identify which range is suitable once the location, access, planning position, desired size and budget range are understood.</p>
+        <a href="/start-your-project" class="mt-10 inline-flex rounded-full bg-paper px-7 py-4 text-sm uppercase tracking-wide text-ink">Send your site details</a>
       </div>
     </section>
   </main>
