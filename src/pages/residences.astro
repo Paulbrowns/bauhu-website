@@ -3,111 +3,176 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
-const designReferences = ['Jade', 'Amber', 'Serenity', 'Cap d\u2019Antibes', 'Moonstone', 'Casa Lavanda', 'Jimmy Hill'];
-
-const safetyPoints = [
-  ['Patented steel frame', 'A unique Bauhu construction system engineered to give the residence a precise, resilient structural core.'],
-  ['Hurricane resistant thinking', 'Homes are designed for exposed coastal conditions, with safety and strength considered from the first sketch.'],
-  ['Remote build logic', 'The system is specifically suited to hard to access locations where conventional building becomes slow and uncertain.'],
-  ['Architect led specification', 'Experienced architects shape each residence around the client, the land, the view and the way the home will be lived in.'],
-];
-
-const difficultSites = [
-  ['Remote Caribbean land', 'Private plots where access, shipping, local labour and sequencing need to be planned with care.'],
-  ['Exposed coastal positions', 'Homes designed with wind, sun, salt air, corrosion, privacy and long term maintenance in mind.'],
-  ['Spectacular view sites', 'Architecture that frames the horizon, opens to terraces and creates a calm relationship with the landscape.'],
+const designImages = [
+  '/images/residences/residences-hero-modern-villa.webp',
+  '/images/residence-placeholder.svg',
+  '/images/model-placeholder.svg',
+  '/images/residences/residences-hero-modern-villa.webp',
+  '/images/model-placeholder.svg',
+  '/images/residence-placeholder.svg',
 ];
 ---
-<BaseLayout title="Private Luxury Residences | Bauhu" description="One of a kind luxury Bauhu residences designed by experienced architects for remote, coastal and hurricane exposed locations.">
+<BaseLayout title="Private Residences | Bauhu" description="One of a kind luxury Bauhu residences engineered for remote Caribbean sites.">
   <SiteHeader />
-  <main class="bg-ink text-paper">
-    <section class="min-h-[92svh] px-5 pb-16 pt-36 lg:px-10 lg:pb-24">
-      <div class="mx-auto grid min-h-[72svh] max-w-site gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
+  <main class="bauhu-residences-page">
+    <section class="bauhu-hero">
+      <div class="bauhu-hero-inner">
+        <div class="bauhu-kicker">BAUHU Private Residences</div>
+        <h1>One-of-a-kind luxury residences, engineered for the Caribbean.</h1>
+        <p>Bespoke contemporary homes designed by experienced architects, tailored to each client, each site and each extraordinary view.</p>
+        <a class="bauhu-button" href="/start-your-project">Commission a Residence</a>
+      </div>
+    </section>
+
+    <section class="bauhu-intro">
+      <div class="bauhu-intro-inner">
         <div>
-          <p class="eyebrow text-stone">Bauhu Residences</p>
-          <h1 class="mt-6 font-display text-5xl leading-[0.92] md:text-7xl lg:text-8xl">One of a kind luxury residences for remarkable remote sites.</h1>
+          <div class="bauhu-kicker">Beyond Modular</div>
+          <h2>Architecture without compromise.</h2>
         </div>
+        <div class="bauhu-intro-copy">
+          <p>BAUHU creates custom-designed luxury residences for clients who want something singular: a home shaped by the land, the ocean, the climate and the way they want to live.</p>
+          <p>Every residence is individually conceived by our architects and delivered through BAUHU’s patented steel-frame construction system — a precise, resilient and highly adaptable method especially suited to remote Caribbean locations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bauhu-full-image" aria-label="Bauhu private residence image">
+      <img src="/images/residences/residences-hero-modern-villa.webp" alt="Bauhu private residence with pool and ocean view" loading="lazy" />
+    </section>
+
+    <section class="bauhu-design-section">
+      <div class="bauhu-design-inner">
+        <div class="bauhu-kicker">Design References</div>
+        <h2>Contemporary residences with presence.</h2>
+        <p>From sculptural cliffside villas to serene oceanfront retreats, BAUHU residences are designed to feel inevitable in their setting — dramatic, private and deeply personal.</p>
+      </div>
+    </section>
+
+    <section class="bauhu-image-grid-section" aria-label="Bauhu design image references">
+      <div class="bauhu-image-grid">
+        {designImages.map((image, index) => (
+          <img src={image} alt={`Bauhu design reference ${index + 1}`} loading="lazy" />
+        ))}
+      </div>
+    </section>
+
+    <section class="bauhu-safe-section">
+      <div class="bauhu-safe-inner">
         <div>
-          <img src="/images/residences/residences-hero-modern-villa.webp" alt="Modern Bauhu private residence with pool terrace" class="h-[62svh] min-h-[28rem] w-full object-cover" fetchpriority="high" />
-          <p class="mt-6 max-w-2xl text-lg leading-8 text-paper/72">Custom designed homes by experienced architects, created around the client, the site, the view and the realities of building safely in remote Caribbean locations.</p>
+          <div class="bauhu-kicker">Safe by Design</div>
+          <h2>Hurricane-resistant homes for demanding island environments.</h2>
+        </div>
+        <div class="bauhu-safe-copy">
+          <p>In the Caribbean, beauty and resilience must be designed together. BAUHU specialises in safe, hurricane-resistant homes that combine architectural ambition with structural intelligence.</p>
+          <p>Our patented steel-frame construction system gives each residence strength, precision and adaptability — supporting bold contemporary architecture while responding to the realities of island construction.</p>
+          <a class="bauhu-button bauhu-safe-button" href="/engineering">Explore the System</a>
         </div>
       </div>
     </section>
 
-    <section class="border-t border-paper/10 px-5 py-24 lg:px-10 lg:py-32">
-      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-        <div>
-          <p class="eyebrow text-stone">Beyond Modular</p>
-          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">This is not a modular home catalogue. It is private architecture with a safer way to build.</h2>
-        </div>
-        <div class="space-y-7 text-lg leading-8 text-paper/70">
-          <p>Bauhu is repositioned around custom designed luxury residences for clients who want a spectacular contemporary home in a difficult location. Each residence is shaped around personal requirements, lifestyle, privacy, orientation, view and the character of the land.</p>
-          <p>Behind the architecture is Bauhu\u2019s unique patented steel frame construction system. It gives the residence a serious structural foundation and makes the project better suited to remote, hard to access and hurricane exposed sites.</p>
-          <p>The result is not a standardised product. It is a one of a kind residence with architectural presence, engineered safety and a practical route to delivery.</p>
+    <section class="bauhu-proof-section">
+      <div class="bauhu-proof-inner">
+        <div class="bauhu-proof-grid">
+          <div class="bauhu-proof"><strong>01</strong><p>Custom-designed by experienced architects for each client, site and brief.</p></div>
+          <div class="bauhu-proof"><strong>02</strong><p>Specialists in hurricane-resistant, safe homes for Caribbean conditions.</p></div>
+          <div class="bauhu-proof"><strong>03</strong><p>Patented steel-frame construction system designed for strength and precision.</p></div>
+          <div class="bauhu-proof"><strong>04</strong><p>Ideally suited to remote, hard-to-access locations and challenging island logistics.</p></div>
         </div>
       </div>
     </section>
 
-    <section class="bg-paper px-5 py-24 text-ink lg:px-10 lg:py-32">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">Design References</p>
-        <div class="mt-6 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <h2 class="font-display text-4xl leading-tight md:text-6xl">Spectacular contemporary architecture, refined for island living.</h2>
-          <p class="text-lg leading-8 text-ink/70">The visual language should feel dramatic, luxurious and highly architectural. Think long horizontal lines, shaded terraces, glass, stone, water, privacy, calm interiors and homes that make the landscape feel cinematic.</p>
-        </div>
-        <div class="mt-14 grid gap-5 md:grid-cols-3">
-          <img src="/images/residences/residences-hero-modern-villa.webp" alt="Residence design reference" class="h-80 w-full object-cover" loading="lazy" />
-          <img src="/images/model-placeholder.svg" alt="Terrace design reference" class="h-80 w-full object-cover" loading="lazy" />
-          <img src="/images/residence-placeholder.svg" alt="Coastal site design reference" class="h-80 w-full object-cover" loading="lazy" />
-        </div>
-        <div class="mt-10 flex flex-wrap gap-3">
-          {designReferences.map((item) => (
-            <span class="rounded-full border border-ink/15 px-4 py-2 text-sm uppercase tracking-wide text-ink/65">{item}</span>
-          ))}
-        </div>
+    <section class="bauhu-quote-section">
+      <div class="bauhu-quote-inner">
+        <p class="bauhu-quote">For sites where ordinary construction is difficult, <em>BAUHU makes the extraordinary possible.</em></p>
       </div>
     </section>
 
-    <section class="px-5 py-24 lg:px-10 lg:py-32">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-stone">Safe by Design</p>
-        <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">Luxury is incomplete without safety, strength and certainty.</h2>
-        <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {safetyPoints.map(([title, text], index) => (
-            <article class="border border-paper/12 p-7">
-              <p class="eyebrow text-stone">0{index + 1}</p>
-              <h3 class="mt-14 font-display text-3xl">{title}</h3>
-              <p class="mt-5 leading-7 text-paper/65">{text}</p>
-            </article>
-          ))}
-        </div>
+    <section class="bauhu-benefits-section">
+      <div class="bauhu-benefits-grid">
+        <div class="bauhu-benefit-card"><h3>Remote Caribbean sites</h3><p>BAUHU is particularly suited to island properties, elevated plots, coastal sites and locations where access, labour and logistics demand a smarter construction strategy.</p></div>
+        <div class="bauhu-benefit-card"><h3>Architectural freedom</h3><p>The system supports dramatic contemporary architecture — open living, expansive glazing, generous terraces, cantilevers, shaded courtyards and panoramic views.</p></div>
+        <div class="bauhu-benefit-card"><h3>Private client service</h3><p>We work closely with clients from concept to completion, creating residences that are highly personal, deeply considered and unlike anything else.</p></div>
       </div>
     </section>
 
-    <section class="bg-mist px-5 py-24 text-ink lg:px-10 lg:py-32">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">Difficult Sites</p>
-        <div class="mt-6 grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <h2 class="font-display text-4xl leading-tight md:text-6xl">Built for places where ordinary construction is not enough.</h2>
-          <p class="text-lg leading-8 text-ink/70">Remote Caribbean locations can be extraordinary, but they are rarely simple. Bauhu is designed for clients who want contemporary architectural luxury without ignoring wind, logistics, structure, access and safety.</p>
-        </div>
-        <div class="mt-14 grid gap-5 md:grid-cols-3">
-          {difficultSites.map(([title, text]) => (
-            <article class="bg-paper p-7">
-              <h3 class="font-display text-3xl">{title}</h3>
-              <p class="mt-16 leading-7 text-ink/70">{text}</p>
-            </article>
-          ))}
-        </div>
-        <div class="mt-16 grid gap-8 bg-ink p-8 text-paper md:grid-cols-[1fr_auto] md:items-center lg:p-12">
-          <div>
-            <p class="eyebrow text-stone">Private Commission</p>
-            <h2 class="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-5xl">Begin with the land, the vision and the level of residence you want to create.</h2>
-          </div>
-          <a href="/start-your-project" class="inline-flex justify-center rounded-full bg-paper px-7 py-4 text-sm uppercase tracking-wide text-ink">Begin a private conversation</a>
-        </div>
-      </div>
+    <section class="bauhu-cta-section">
+      <h2>Commission a private BAUHU residence.</h2>
+      <p>For clients seeking a spectacular contemporary home in a remote Caribbean location, BAUHU offers bespoke design, architectural ambition and resilient construction in one integrated approach.</p>
+      <a class="bauhu-button bauhu-final-button" href="/start-your-project">Begin a Private Conversation</a>
     </section>
   </main>
   <SiteFooter />
 </BaseLayout>
+
+<style>
+  :global(html), :global(body) { overflow-x: hidden !important; }
+  .bauhu-residences-page { background:#050505; color:#f8f6f0; overflow:hidden; }
+  .bauhu-residences-page * { box-sizing:border-box; }
+  .bauhu-hero { position:relative; min-height:94vh; display:flex; align-items:flex-end; padding:110px 7vw; color:#f8f6f0; background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.88)), url('/images/residences/residences-hero-modern-villa.webp') center/cover no-repeat; overflow:hidden; }
+  .bauhu-hero-inner, .bauhu-design-inner, .bauhu-proof-inner, .bauhu-quote-inner { max-width:1500px; margin:0 auto; }
+  .bauhu-hero-inner { width:100%; position:relative; z-index:2; }
+  .bauhu-kicker { color:#c8a96a; text-transform:uppercase; letter-spacing:0.22em; font-size:12px; margin:0 0 22px; }
+  .bauhu-hero h1 { font-size:clamp(46px,7.4vw,112px); line-height:0.9; letter-spacing:-0.06em; margin:0 0 28px; font-weight:400; color:#f8f6f0; max-width:1120px; }
+  .bauhu-hero p { max-width:760px; font-size:clamp(19px,2vw,28px); line-height:1.35; color:rgba(248,246,240,0.84); margin:0; }
+  .bauhu-button { display:inline-block; margin-top:34px; padding:15px 24px; border:1px solid #c8a96a; color:#f8f6f0; text-decoration:none; text-transform:uppercase; letter-spacing:0.16em; font-size:12px; transition:all .3s ease; }
+  .bauhu-button:hover { background:#c8a96a; color:#050505; }
+  .bauhu-intro { padding:110px 7vw; background:#050505; }
+  .bauhu-intro-inner, .bauhu-safe-inner { max-width:1500px; margin:0 auto; display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
+  .bauhu-intro h2, .bauhu-design-section h2, .bauhu-safe-section h2 { font-size:clamp(44px,7vw,104px); line-height:.92; letter-spacing:-.055em; margin:0; font-weight:400; color:#f8f6f0; }
+  .bauhu-intro-copy p, .bauhu-safe-copy p { font-size:17px; line-height:1.75; color:rgba(248,246,240,0.72); margin:0 0 22px; }
+  .bauhu-full-image { width:100%; background:#050505; }
+  .bauhu-full-image img { display:block; width:100%; height:min(78vh,820px); object-fit:cover; }
+  .bauhu-design-section { padding:90px 7vw 55px; background:#050505; }
+  .bauhu-design-section h2 { margin:0 0 28px; max-width:1120px; }
+  .bauhu-design-section p { max-width:780px; font-size:clamp(19px,2vw,28px); line-height:1.35; color:rgba(248,246,240,.82); margin:0; }
+  .bauhu-image-grid-section { padding:20px 7vw 85px; background:#050505; }
+  .bauhu-image-grid { max-width:1500px; margin:0 auto; display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+  .bauhu-image-grid img { width:100%; height:360px; object-fit:cover; display:block; }
+  .bauhu-safe-section { padding:120px 7vw 85px; background:#050505; }
+  .bauhu-safe-button { margin-top:18px; }
+  .bauhu-proof-section { padding:30px 7vw 120px; background:#050505; }
+  .bauhu-proof-grid { display:grid; grid-template-columns:repeat(4, 1fr); border-top:1px solid rgba(255,255,255,.16); border-bottom:1px solid rgba(255,255,255,.16); }
+  .bauhu-proof { padding:34px 22px; border-right:1px solid rgba(255,255,255,.16); }
+  .bauhu-proof:last-child { border-right:0; }
+  .bauhu-proof strong { display:block; color:#c8a96a; font-size:13px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:14px; }
+  .bauhu-proof p { font-size:16px; line-height:1.55; color:rgba(248,246,240,.72); margin:0; }
+  .bauhu-quote-section { padding:120px 7vw 90px; background:#050505; }
+  .bauhu-quote { font-size:clamp(36px,5.4vw,82px); line-height:1.02; letter-spacing:-.05em; max-width:1180px; margin:0; color:#f8f6f0; font-weight:400; }
+  .bauhu-quote em { color:#c8a96a; font-style:normal; }
+  .bauhu-benefits-section { padding:60px 7vw 110px; background:#050505; }
+  .bauhu-benefits-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1500px; margin:0 auto; }
+  .bauhu-benefit-card { border:1px solid rgba(255,255,255,.16); padding:38px; min-height:280px; background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.01)); }
+  .bauhu-benefit-card h3 { font-size:clamp(26px,2.2vw,36px); line-height:1.05; font-weight:400; margin:0 0 22px; letter-spacing:-.035em; color:#f8f6f0; }
+  .bauhu-benefit-card p { font-size:16px; line-height:1.65; color:rgba(248,246,240,.68); margin:0; }
+  .bauhu-cta-section { background:radial-gradient(circle at 70% 30%, rgba(200,169,106,.20), transparent 36%), linear-gradient(135deg,#050505,#15120e); color:#f8f6f0; text-align:center; padding:135px 7vw; }
+  .bauhu-cta-section h2 { font-size:clamp(42px,6vw,88px); line-height:.96; letter-spacing:-.05em; font-weight:400; margin:0 auto 26px; max-width:1000px; color:#f8f6f0; }
+  .bauhu-cta-section p { max-width:720px; margin:0 auto; color:rgba(248,246,240,.72); font-size:clamp(18px,1.5vw,21px); line-height:1.6; }
+  .bauhu-final-button { margin-top:38px; }
+  @media screen and (max-width:900px){
+    .bauhu-hero{min-height:86vh; padding:90px 22px 70px;}
+    .bauhu-hero h1{font-size:clamp(36px,10.5vw,62px); line-height:.94; letter-spacing:-.045em; max-width:100%;}
+    .bauhu-hero p{max-width:100%;}
+    .bauhu-intro{padding:78px 22px;}
+    .bauhu-intro-inner,.bauhu-safe-inner{grid-template-columns:1fr; gap:34px;}
+    .bauhu-intro h2,.bauhu-design-section h2,.bauhu-safe-section h2,.bauhu-cta-section h2{font-size:clamp(36px,10.5vw,62px); line-height:.96; letter-spacing:-.045em; max-width:100%;}
+    .bauhu-full-image img{height:58vh;}
+    .bauhu-design-section{padding:78px 22px 42px;}
+    .bauhu-design-section p{max-width:100%;}
+    .bauhu-image-grid-section{padding:20px 22px 58px;}
+    .bauhu-image-grid{grid-template-columns:1fr; gap:16px;}
+    .bauhu-image-grid img{height:300px;}
+    .bauhu-safe-section{padding:88px 22px 58px;}
+    .bauhu-proof-section{padding:20px 22px 78px;}
+    .bauhu-proof-grid{grid-template-columns:1fr;}
+    .bauhu-proof{border-right:0; border-bottom:1px solid rgba(255,255,255,.16);}
+    .bauhu-proof:last-child{border-bottom:0;}
+    .bauhu-quote-section{padding:88px 22px 58px;}
+    .bauhu-quote{font-size:clamp(34px,10.5vw,62px); line-height:1.02; letter-spacing:-.045em; max-width:100%;}
+    .bauhu-benefits-section{padding:30px 22px 78px;}
+    .bauhu-benefits-grid{grid-template-columns:1fr;}
+    .bauhu-benefit-card{min-height:auto; padding:30px;}
+    .bauhu-cta-section{padding:88px 22px;}
+    .bauhu-cta-section p{max-width:100%;}
+  }
+</style>
