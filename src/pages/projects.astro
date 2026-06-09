@@ -2,15 +2,47 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+
+const locations = ['Bahamas', 'Jamaica', 'Antigua', 'Tortola', 'St John', 'Eleuthera'];
 ---
 <BaseLayout title="Projects | Bauhu" description="Bauhu project archive and case studies.">
   <SiteHeader />
   <main class="bg-paper pt-32">
     <section class="section-pad">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="eyebrow text-clay">Projects</p>
+          <h1 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-7xl">Real projects are the proof of the system.</h1>
+        </div>
+        <div class="space-y-7 text-lg leading-8 text-ink/70">
+          <p>The Bauhu project archive will bring together completed homes, active projects and legacy site material into a clearer set of case studies.</p>
+          <p>Each project page should explain location, model route, site conditions, delivery constraints and the role Bauhu played in the build.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-mist">
       <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">Projects</p>
-        <h1 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-7xl">A structured archive of Bauhu homes and locations.</h1>
-        <p class="mt-8 max-w-2xl text-lg leading-8 text-ink/70">This section will turn legacy project material into clear case studies, grouped by location, model route and residence type.</p>
+        <p class="eyebrow text-clay">Locations</p>
+        <h2 class="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">A clearer archive for existing search value.</h2>
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {locations.map((location) => (
+            <article class="flex min-h-64 items-end bg-forest p-7 text-paper">
+              <div>
+                <p class="eyebrow text-stone">Project location</p>
+                <h3 class="mt-4 font-display text-4xl">{location}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-paper">
+      <div class="mx-auto max-w-site text-center">
+        <p class="eyebrow text-clay">Migration note</p>
+        <h2 class="mx-auto mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Old project pages should become useful case studies, not dead redirects.</h2>
+        <p class="mx-auto mt-8 max-w-2xl text-lg leading-8 text-ink/70">The rebuild should preserve useful legacy project search traffic while improving the visitor experience and making each project easier to understand.</p>
       </div>
     </section>
   </main>
