@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import EditorialHero from '../components/EditorialHero.astro';
+
+const steps = [
+  ['01', 'Send your site details', 'Share the plot location, planning status, access, budget range, timeline and any survey or images.'],
+  ['02', 'Feasibility review', 'Bauhu reviews the site, route to delivery, likely constraints, design route and suitable model or residence approach.'],
+  ['03', 'Design and specification', 'The home is refined around climate, view, lifestyle, structure, logistics and the desired supply scope.'],
+  ['04', 'Manufacture and delivery', 'The building system is manufactured, packed and prepared for shipping, installation and local completion.'],
+];
+---
+<BaseLayout title="How It Works | Bauhu" description="The guided Bauhu buyer journey from site review to design, manufacture and delivery.">
+  <SiteHeader />
+  <main>
+    <EditorialHero
+      eyebrow="Guided buyer journey"
+      title="A clear route from land to residence."
+      text="Bauhu helps clients understand what is possible before committing to a full design and manufacturing process."
+      primaryHref="/start-your-project"
+      primaryLabel="Start with your site"
+    />
+    <section class="section-pad bg-paper">
+      <div class="mx-auto max-w-site">
+        <div class="grid gap-5 md:grid-cols-2">
+          {steps.map(([number, title, text]) => (
+            <article class="bg-mist p-7 md:p-10">
+              <p class="text-sm text-clay">{number}</p>
+              <h2 class="mt-10 font-display text-4xl">{title}</h2>
+              <p class="mt-5 leading-7 text-ink/70">{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
