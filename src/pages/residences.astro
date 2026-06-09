@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import EditorialHero from '../components/EditorialHero.astro';
+---
+<BaseLayout title="Private Residences | Bauhu" description="Commission a private Bauhu residence shaped around land, view, climate and lifestyle.">
+  <SiteHeader />
+  <main>
+    <EditorialHero
+      eyebrow="Private residences"
+      title="A home shaped by site, climate and view."
+      text="The private residence route is for clients seeking an architectural home refined around their land, lifestyle, privacy and long term resilience."
+      primaryHref="/start-your-project"
+      primaryLabel="Begin a private conversation"
+      secondaryHref="/how-it-works"
+      secondaryLabel="How it works"
+    />
+    <section class="section-pad bg-paper">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Commissioning process</p>
+        <div class="mt-6 grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+          <h2 class="font-display text-4xl leading-tight md:text-6xl">Designed with architectural calm, built with engineered certainty.</h2>
+          <div class="space-y-7 text-lg leading-8 text-ink/70">
+            <p>Bauhu residences begin with the realities of the site: access, wind exposure, sun, shade, views, privacy and the practicalities of building in island environments.</p>
+            <p>The result is a refined residence supported by a precise modular building system, reducing risk while preserving the character of a private architectural commission.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
