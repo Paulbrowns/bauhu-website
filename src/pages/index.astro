@@ -18,6 +18,17 @@ import EditorialHero from '../components/EditorialHero.astro';
     />
 
     <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div class="min-h-[32rem] bg-[linear-gradient(135deg,#243A32,#9A765E)]"></div>
+        <div>
+          <p class="eyebrow text-clay">The Bauhu approach</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Architecture, engineering and delivery considered as one.</h2>
+          <p class="mt-8 text-lg leading-8 text-ink/70">The site, climate, structure, shipping route and local build conditions are reviewed together from the beginning. This creates a calmer route to a serious island residence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-mist">
       <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
         <div>
           <p class="eyebrow text-clay">Two routes</p>
@@ -26,14 +37,14 @@ import EditorialHero from '../components/EditorialHero.astro';
         <p class="text-lg leading-8 text-ink/70">Begin with a one of a kind architectural commission shaped around your land, views and lifestyle, or adapt an existing Bauhu model for a faster route to a resilient island home.</p>
       </div>
       <div class="mx-auto mt-14 grid max-w-site gap-5 md:grid-cols-2">
-        <a href="/residences" class="group min-h-[26rem] bg-forest p-8 text-paper transition hover:-translate-y-1">
+        <a href="/residences" class="group min-h-[28rem] bg-forest p-8 text-paper transition hover:-translate-y-1">
           <p class="eyebrow text-stone">Private route</p>
-          <h3 class="mt-24 font-display text-4xl">Commission a Residence</h3>
+          <h3 class="mt-28 font-display text-4xl md:text-5xl">Commission a Residence</h3>
           <p class="mt-5 max-w-md leading-7 text-paper/70">A design led route for clients seeking a home shaped around site, climate, privacy and view.</p>
         </a>
-        <a href="/models" class="group min-h-[26rem] bg-stone p-8 text-ink transition hover:-translate-y-1">
+        <a href="/models" class="group min-h-[28rem] bg-stone p-8 text-ink transition hover:-translate-y-1">
           <p class="eyebrow text-clay">Model route</p>
-          <h3 class="mt-24 font-display text-4xl">Adapt a Bauhu Model</h3>
+          <h3 class="mt-28 font-display text-4xl md:text-5xl">Adapt a Bauhu Model</h3>
           <p class="mt-5 max-w-md leading-7 text-ink/70">A clear starting point using proven Bauhu ranges, refined for your site and budget.</p>
         </a>
       </div>
@@ -51,6 +62,16 @@ import EditorialHero from '../components/EditorialHero.astro';
             </div>
           ))}
         </div>
+        <a href="/how-it-works" class="mt-12 inline-flex rounded-full border border-paper/40 px-6 py-3 text-sm uppercase tracking-wide">View the process</a>
+      </div>
+    </section>
+
+    <section class="section-pad bg-paper">
+      <div class="mx-auto max-w-site text-center">
+        <p class="eyebrow text-clay">Begin</p>
+        <h2 class="mx-auto mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Start with the realities of your site.</h2>
+        <p class="mx-auto mt-8 max-w-2xl text-lg leading-8 text-ink/70">Send Bauhu the location, access information, planning status and any drawings or photographs. The first response should help clarify the right route.</p>
+        <a href="/start-your-project" class="mt-10 inline-flex rounded-full bg-forest px-7 py-4 text-sm uppercase tracking-wide text-paper">Send site details</a>
       </div>
     </section>
   </main>
