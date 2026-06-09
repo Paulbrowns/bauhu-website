@@ -1,4 +1,6 @@
 ---
+import MobileMenu from './MobileMenu.astro';
+
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/residences', label: 'Residences' },
@@ -15,6 +17,9 @@ const navItems = [
     <nav class="hidden items-center gap-7 text-xs uppercase tracking-wide lg:flex">
       {navItems.map((item) => <a class="transition hover:text-stone" href={item.href}>{item.label}</a>)}
     </nav>
-    <a href="/start-your-project" class="rounded-full border border-paper/40 px-4 py-2 text-xs uppercase tracking-wide transition hover:bg-paper hover:text-ink">Start your project</a>
+    <div class="flex items-center gap-3">
+      <a href="/start-your-project" class="hidden rounded-full border border-paper/40 px-4 py-2 text-xs uppercase tracking-wide transition hover:bg-paper hover:text-ink sm:inline-flex">Start your project</a>
+      <MobileMenu />
+    </div>
   </div>
 </header>
