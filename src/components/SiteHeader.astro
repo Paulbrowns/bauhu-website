@@ -1,0 +1,19 @@
+---
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/residences', label: 'Residences' },
+  { href: '/models', label: 'Models' },
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/engineering', label: 'Engineering' },
+];
+---
+<header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/85 text-paper backdrop-blur-md">
+  <div class="mx-auto flex max-w-site items-center justify-between px-5 py-4 lg:px-10">
+    <a href="/" class="font-display text-2xl tracking-[0.22em]" aria-label="Bauhu home">BAUHU</a>
+    <nav class="hidden items-center gap-7 text-xs uppercase tracking-wide lg:flex">
+      {navItems.map((item) => <a class="transition hover:text-stone" href={item.href}>{item.label}</a>)}
+    </nav>
+    <a href="/start-your-project" class="rounded-full border border-paper/40 px-4 py-2 text-xs uppercase tracking-wide transition hover:bg-paper hover:text-ink">Start your project</a>
+  </div>
+</header>
