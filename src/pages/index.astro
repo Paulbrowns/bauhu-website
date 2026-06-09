@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import EditorialHero from '../components/EditorialHero.astro';
+---
+<BaseLayout title="Bauhu | Luxury modular residences for island sites" description="Bauhu creates architectural residences and modular building systems for remote, coastal and hurricane exposed sites.">
+  <SiteHeader />
+  <main>
+    <EditorialHero
+      eyebrow="Architectural building systems"
+      title="Residences engineered for difficult island sites."
+      text="Bauhu combines refined residential design with a patented steel frame building system, created for coastal locations, remote logistics and hurricane exposed environments."
+      primaryHref="/residences"
+      primaryLabel="Commission a residence"
+      secondaryHref="/models"
+      secondaryLabel="Explore models"
+    />
+
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+        <div>
+          <p class="eyebrow text-clay">Two routes</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Private residences or model based homes.</h2>
+        </div>
+        <p class="text-lg leading-8 text-ink/70">Begin with a one of a kind architectural commission shaped around your land, views and lifestyle, or adapt an existing Bauhu model for a faster route to a resilient island home.</p>
+      </div>
+      <div class="mx-auto mt-14 grid max-w-site gap-5 md:grid-cols-2">
+        <a href="/residences" class="group min-h-[26rem] bg-forest p-8 text-paper transition hover:-translate-y-1">
+          <p class="eyebrow text-stone">Private route</p>
+          <h3 class="mt-24 font-display text-4xl">Commission a Residence</h3>
+          <p class="mt-5 max-w-md leading-7 text-paper/70">A design led route for clients seeking a home shaped around site, climate, privacy and view.</p>
+        </a>
+        <a href="/models" class="group min-h-[26rem] bg-stone p-8 text-ink transition hover:-translate-y-1">
+          <p class="eyebrow text-clay">Model route</p>
+          <h3 class="mt-24 font-display text-4xl">Adapt a Bauhu Model</h3>
+          <p class="mt-5 max-w-md leading-7 text-ink/70">A clear starting point using proven Bauhu ranges, refined for your site and budget.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="section-pad bg-ink text-paper">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-stone">Guided buyer journey</p>
+        <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">From site review to manufactured building system.</h2>
+        <div class="mt-14 grid gap-5 md:grid-cols-3">
+          {['Send your site details', 'Review feasibility', 'Design, manufacture and deliver'].map((item, index) => (
+            <div class="border border-paper/12 p-7">
+              <p class="text-sm text-stone">0{index + 1}</p>
+              <h3 class="mt-10 font-display text-3xl">{item}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
