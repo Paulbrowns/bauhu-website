@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Bauhu model placeholder</title>
+  <desc id="desc">Abstract model based home placeholder.</desc>
+  <rect width="1400" height="1000" fill="#ECE7DE"/>
+  <rect x="0" y="640" width="1400" height="360" fill="#D9D2C5"/>
+  <rect x="180" y="430" width="1040" height="240" fill="#243A32"/>
+  <rect x="230" y="485" width="250" height="115" fill="#F3F0EA" opacity="0.82"/>
+  <rect x="525" y="485" width="250" height="115" fill="#F3F0EA" opacity="0.7"/>
+  <rect x="820" y="485" width="250" height="115" fill="#F3F0EA" opacity="0.6"/>
+  <rect x="140" y="395" width="1120" height="42" fill="#9A765E"/>
+  <path d="M0 710 C300 660 480 690 700 640 C960 580 1120 610 1400 560 L1400 1000 L0 1000 Z" fill="#171716" opacity="0.16"/>
+  <text x="70" y="900" fill="#243A32" opacity="0.75" font-family="Georgia, serif" font-size="48">Bauhu model image slot</text>
+</svg>
