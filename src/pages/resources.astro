@@ -2,15 +2,43 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+
+const resources = [
+  ['Price guides', 'Model ranges, guide pricing and early budget references for suitable projects.'],
+  ['Technical notes', 'Engineering, supply scope, coastal resilience and system information.'],
+  ['Buyer questions', 'Clear answers on process, foundations, shipping, local works and delivery responsibilities.'],
+];
 ---
 <BaseLayout title="Resources | Bauhu" description="Guides, downloads and frequently asked questions.">
   <SiteHeader />
   <main class="bg-paper pt-32">
     <section class="section-pad">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">Resources</p>
-        <h1 class="mt-5 font-display text-5xl md:text-7xl">Guides, downloads and answers.</h1>
-        <p class="mt-8 max-w-2xl text-lg leading-8 text-ink/70">This section will hold price guides, technical notes, frequently asked questions and buyer resources.</p>
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="eyebrow text-clay">Resources</p>
+          <h1 class="mt-5 font-display text-5xl leading-tight md:text-7xl">Guides, downloads and answers.</h1>
+        </div>
+        <p class="text-lg leading-8 text-ink/70">The resources section should help serious buyers understand the Bauhu route before they make an enquiry. It will bring together pricing guidance, technical information, frequently asked questions and useful downloads.</p>
+      </div>
+    </section>
+
+    <section class="section-pad bg-mist">
+      <div class="mx-auto grid max-w-site gap-5 md:grid-cols-3">
+        {resources.map(([title, text]) => (
+          <article class="bg-paper p-7">
+            <h2 class="font-display text-3xl">{title}</h2>
+            <p class="mt-16 leading-7 text-ink/70">{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-pad bg-ink text-paper">
+      <div class="mx-auto max-w-site text-center">
+        <p class="eyebrow text-stone">Before enquiry</p>
+        <h2 class="mx-auto mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Useful information should lead to a better first conversation.</h2>
+        <p class="mx-auto mt-8 max-w-2xl text-lg leading-8 text-paper/70">The goal is not to replace a project review, but to help clients understand the likely route, responsibilities and questions before they send site details.</p>
+        <a href="/start-your-project" class="mt-10 inline-flex rounded-full bg-paper px-7 py-4 text-sm uppercase tracking-wide text-ink">Start your project</a>
       </div>
     </section>
   </main>
