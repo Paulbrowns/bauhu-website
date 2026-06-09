@@ -1,0 +1,11 @@
+{
+  "name": "Bauhu",
+  "short_name": "Bauhu",
+  "description": "Architectural residences and modular building systems for demanding sites.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F3F0EA",
+  "theme_color": "#243A32",
+  "icons": []
+}
