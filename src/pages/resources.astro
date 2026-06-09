@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout title="Resources | Bauhu" description="Guides, downloads and frequently asked questions.">
+  <SiteHeader />
+  <main class="bg-paper pt-32">
+    <section class="section-pad">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Resources</p>
+        <h1 class="mt-5 font-display text-5xl md:text-7xl">Guides, downloads and answers.</h1>
+        <p class="mt-8 max-w-2xl text-lg leading-8 text-ink/70">This section will hold price guides, technical notes, frequently asked questions and buyer resources.</p>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
