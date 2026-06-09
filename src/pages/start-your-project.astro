@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout title="Start Your Project | Bauhu" description="Send Bauhu your site details and begin the project review process.">
+  <SiteHeader />
+  <main class="bg-ink pt-32 text-paper">
+    <section class="section-pad">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="eyebrow text-stone">Start your project</p>
+          <h1 class="mt-5 font-display text-5xl leading-tight md:text-7xl">Send us your site details.</h1>
+          <p class="mt-8 text-lg leading-8 text-paper/70">The first step is a practical review of your location, site access, planning position, budget range and preferred route.</p>
+        </div>
+        <form class="grid gap-4 rounded-none bg-paper p-6 text-ink md:p-8" name="project-enquiry">
+          <input class="border border-stone bg-white px-4 py-3" placeholder="Name" />
+          <input class="border border-stone bg-white px-4 py-3" placeholder="Email" type="email" />
+          <input class="border border-stone bg-white px-4 py-3" placeholder="Site location" />
+          <select class="border border-stone bg-white px-4 py-3">
+            <option>Private residence</option>
+            <option>Model based home</option>
+            <option>Not sure yet</option>
+          </select>
+          <textarea class="min-h-40 border border-stone bg-white px-4 py-3" placeholder="Tell us about the plot, access, timeline and budget range"></textarea>
+          <button class="bg-forest px-6 py-4 text-sm uppercase tracking-wide text-paper" type="button">Submit enquiry</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
