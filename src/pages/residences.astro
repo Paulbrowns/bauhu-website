@@ -2,51 +2,104 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import EditorialHero from '../components/EditorialHero.astro';
 ---
-<BaseLayout title="Private Residences | Bauhu" description="Commission a private Bauhu residence shaped around land, view, climate and lifestyle.">
+<BaseLayout title="Private Residences | Bauhu" description="Private Bauhu residences for remote, coastal and hurricane exposed sites.">
   <SiteHeader />
-  <main>
-    <EditorialHero
-      eyebrow="Private residences"
-      title="A home shaped by site, climate and view."
-      text="The private residence route is for clients seeking an architectural home refined around their land, lifestyle, privacy and long term resilience."
-      primaryHref="/start-your-project"
-      primaryLabel="Begin a private conversation"
-      secondaryHref="/how-it-works"
-      secondaryLabel="How it works"
-    />
-    <section class="section-pad bg-paper">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">Commissioning process</p>
-        <div class="mt-6 grid gap-12 lg:grid-cols-[1fr_1.1fr]">
-          <h2 class="font-display text-4xl leading-tight md:text-6xl">Designed with architectural calm, built with engineered certainty.</h2>
-          <div class="space-y-7 text-lg leading-8 text-ink/70">
-            <p>A Bauhu residence begins with the land. Access, exposure, view, shade, privacy, planning position and local construction conditions are considered before the home is drawn in detail.</p>
-            <p>This is a private architectural route, but it is not an open ended experiment. The design is supported by Bauhu building system logic, helping reduce uncertainty on remote and coastal sites.</p>
-            <p>The result is a residence that feels settled in its place while benefiting from controlled manufacture, steel frame precision and a clear route to delivery.</p>
-          </div>
+  <main class="bg-ink text-paper">
+    <section class="min-h-[92svh] px-5 pb-16 pt-36 lg:px-10 lg:pb-24">
+      <div class="mx-auto grid min-h-[72svh] max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div>
+          <p class="eyebrow text-stone">Bauhu Residences</p>
+          <h1 class="mt-6 font-display text-5xl leading-[0.95] md:text-7xl lg:text-8xl">Private residences for difficult sites.</h1>
+        </div>
+        <div>
+          <img src="/images/residence-placeholder.svg" alt="Bauhu private residence" class="h-[62svh] min-h-[28rem] w-full object-cover" />
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-paper/72">Architectural homes shaped around land, climate, view and delivery. Designed for clients who need more than a standard modular home.</p>
         </div>
       </div>
     </section>
 
-    <section class="section-pad bg-mist">
-      <div class="mx-auto grid max-w-site gap-5 md:grid-cols-3">
-        <article class="bg-paper p-7">
-          <p class="eyebrow text-clay">01</p>
-          <h3 class="mt-12 font-display text-3xl">Site led</h3>
-          <p class="mt-5 leading-7 text-ink/70">Each residence responds to the plot, orientation, weather, approach and the way the client wants to live.</p>
-        </article>
-        <article class="bg-paper p-7">
-          <p class="eyebrow text-clay">02</p>
-          <h3 class="mt-12 font-display text-3xl">Architectural</h3>
-          <p class="mt-5 leading-7 text-ink/70">The emphasis is on proportion, shade, terraces, outlook, material character and a calm relationship with the landscape.</p>
-        </article>
-        <article class="bg-paper p-7">
-          <p class="eyebrow text-clay">03</p>
-          <h3 class="mt-12 font-display text-3xl">Buildable</h3>
-          <p class="mt-5 leading-7 text-ink/70">Design decisions are made with manufacture, shipping, structure and local completion in mind from the outset.</p>
-        </article>
+    <section class="border-t border-paper/10 px-5 py-24 lg:px-10 lg:py-32">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+        <div>
+          <p class="eyebrow text-stone">Beyond Modular</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Not a catalogue home. Not a conventional build.</h2>
+        </div>
+        <div class="space-y-7 text-lg leading-8 text-paper/70">
+          <p>Bauhu residences are for sites where ordinary construction is slow, uncertain or exposed to too much risk. The work begins with the land, the route to site and the practical realities of building there.</p>
+          <p>The result is a private architectural residence supported by a manufactured steel frame building system. It gives the project a controlled core while preserving the calm, site specific character of a designed home.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-paper px-5 py-24 text-ink lg:px-10 lg:py-32">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Design References</p>
+        <div class="mt-6 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <h2 class="font-display text-4xl leading-tight md:text-6xl">Island modernism, shaded terraces and homes that sit quietly in the landscape.</h2>
+          <p class="text-lg leading-8 text-ink/70">The design language is intentionally restrained. Deep shade, long horizontal lines, protected openings, generous terraces and a close relationship with the view are more important than decorative complexity.</p>
+        </div>
+        <div class="mt-14 grid gap-5 md:grid-cols-3">
+          <img src="/images/residence-placeholder.svg" alt="Residence design reference" class="h-80 w-full object-cover" loading="lazy" />
+          <img src="/images/model-placeholder.svg" alt="Terrace design reference" class="h-80 w-full object-cover" loading="lazy" />
+          <img src="/images/residence-placeholder.svg" alt="Coastal site design reference" class="h-80 w-full object-cover" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-24 lg:px-10 lg:py-32">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-stone">Safe by Design</p>
+        <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">Beauty is only useful if the home has a serious route to being built.</h2>
+        <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <article class="border border-paper/12 p-7">
+            <p class="eyebrow text-stone">01</p>
+            <h3 class="mt-14 font-display text-3xl">Steel frame</h3>
+            <p class="mt-5 leading-7 text-paper/65">A precise manufactured structure gives the residence a controlled core.</p>
+          </article>
+          <article class="border border-paper/12 p-7">
+            <p class="eyebrow text-stone">02</p>
+            <h3 class="mt-14 font-display text-3xl">Wind exposure</h3>
+            <p class="mt-5 leading-7 text-paper/65">Design decisions consider coastal and hurricane exposed conditions early.</p>
+          </article>
+          <article class="border border-paper/12 p-7">
+            <p class="eyebrow text-stone">03</p>
+            <h3 class="mt-14 font-display text-3xl">Shipping logic</h3>
+            <p class="mt-5 leading-7 text-paper/65">The building route is considered alongside the architecture from the start.</p>
+          </article>
+          <article class="border border-paper/12 p-7">
+            <p class="eyebrow text-stone">04</p>
+            <h3 class="mt-14 font-display text-3xl">Local completion</h3>
+            <p class="mt-5 leading-7 text-paper/65">Clear scope helps separate Bauhu supply from local site works.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-mist px-5 py-24 text-ink lg:px-10 lg:py-32">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Difficult Sites</p>
+        <div class="mt-6 grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <h2 class="font-display text-4xl leading-tight md:text-6xl">Made for places where building is rarely simple.</h2>
+          <p class="text-lg leading-8 text-ink/70">Remote islands, exposed coastlines and hard to access plots need more thought before construction begins. Bauhu is designed for those conditions.</p>
+        </div>
+        <div class="mt-14 grid gap-5 md:grid-cols-3">
+          <article class="bg-paper p-7">
+            <h3 class="font-display text-3xl">Remote plots</h3>
+            <p class="mt-16 leading-7 text-ink/70">Sites where labour, materials and sequencing are difficult to manage conventionally.</p>
+          </article>
+          <article class="bg-paper p-7">
+            <h3 class="font-display text-3xl">Coastal exposure</h3>
+            <p class="mt-16 leading-7 text-ink/70">Locations where wind, heat, corrosion and maintenance need to shape the design.</p>
+          </article>
+          <article class="bg-paper p-7">
+            <h3 class="font-display text-3xl">Island logistics</h3>
+            <p class="mt-16 leading-7 text-ink/70">Projects where shipping, unloading and local completion must be planned carefully.</p>
+          </article>
+        </div>
+        <div class="mt-16 text-center">
+          <a href="/start-your-project" class="inline-flex rounded-full bg-forest px-7 py-4 text-sm uppercase tracking-wide text-paper">Begin a private conversation</a>
+        </div>
       </div>
     </section>
   </main>
