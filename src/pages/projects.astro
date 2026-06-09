@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout title="Projects | Bauhu" description="Bauhu project archive and case studies.">
+  <SiteHeader />
+  <main class="bg-paper pt-32">
+    <section class="section-pad">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Projects</p>
+        <h1 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-7xl">A structured archive of Bauhu homes and locations.</h1>
+        <p class="mt-8 max-w-2xl text-lg leading-8 text-ink/70">This section will turn legacy project material into clear case studies, grouped by location, model route and residence type.</p>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
