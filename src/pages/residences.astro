@@ -4,12 +4,30 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
 const designImages = [
-  '/images/residences/residences-hero-modern-villa.webp',
-  '/images/residence-placeholder.svg',
-  '/images/model-placeholder.svg',
-  '/images/residences/residences-hero-modern-villa.webp',
-  '/images/model-placeholder.svg',
-  '/images/residence-placeholder.svg',
+  {
+    src: '/images/residences/amber-pool-elevation.webp',
+    alt: 'Bauhu residence with pool terrace and contemporary elevation',
+  },
+  {
+    src: '/images/residences/cap-dantibes-facade.webp',
+    alt: 'Cap d Antibes Bauhu residence facade',
+  },
+  {
+    src: '/images/residences/casa-lavanda.webp',
+    alt: 'Casa Lavanda contemporary Bauhu private residence',
+  },
+  {
+    src: '/images/residences/jade-pool-view.webp',
+    alt: 'Jade Bauhu residence with pool and exterior living space',
+  },
+  {
+    src: '/images/residences/luxuma-facade-wide.webp',
+    alt: 'Luxuma Bauhu residence wide facade view',
+  },
+  {
+    src: '/images/residences/moonstone-pergola-pool.webp',
+    alt: 'Moonstone Bauhu residence with pergola and pool',
+  },
 ];
 ---
 <BaseLayout title="Private Residences | Bauhu" description="One of a kind luxury Bauhu residences engineered for remote Caribbean sites.">
@@ -38,7 +56,7 @@ const designImages = [
     </section>
 
     <section class="bauhu-full-image" aria-label="Bauhu private residence image">
-      <img src="/images/residences/residences-hero-modern-villa.webp" alt="Bauhu private residence with pool and ocean view" loading="lazy" />
+      <img src="/images/residences/jimmy-hill-front-elevation-hero.webp" alt="Jimmy Hill Bauhu private residence front elevation" loading="lazy" />
     </section>
 
     <section class="bauhu-design-section">
@@ -51,8 +69,8 @@ const designImages = [
 
     <section class="bauhu-image-grid-section" aria-label="Bauhu design image references">
       <div class="bauhu-image-grid">
-        {designImages.map((image, index) => (
-          <img src={image} alt={`Bauhu design reference ${index + 1}`} loading="lazy" />
+        {designImages.map((image) => (
+          <img src={image.src} alt={image.alt} loading="lazy" />
         ))}
       </div>
     </section>
