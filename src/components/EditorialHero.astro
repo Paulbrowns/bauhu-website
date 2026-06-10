@@ -7,14 +7,22 @@ interface Props {
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
+  imageSrc?: string;
 }
 
-const { eyebrow, title, text, primaryHref, primaryLabel, secondaryHref, secondaryLabel } = Astro.props;
+const { eyebrow, title, text, primaryHref, primaryLabel, secondaryHref, secondaryLabel, imageSrc } = Astro.props;
 ---
 <section class="relative min-h-[88svh] overflow-hidden bg-ink text-paper">
-  <div class="absolute inset-0 opacity-40">
-    <div class="h-full w-full bg-[radial-gradient(circle_at_65%_25%,rgba(217,210,197,0.28),transparent_34%),linear-gradient(135deg,#171716_0%,#243A32_58%,#9A765E_100%)]"></div>
-  </div>
+  {imageSrc ? (
+    <>
+      <img src={imageSrc} alt="" class="absolute inset-0 h-full w-full object-cover" loading="eager" fetchpriority="high" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/35 via-ink/35 to-ink/90"></div>
+    </>
+  ) : (
+    <div class="absolute inset-0 opacity-40">
+      <div class="h-full w-full bg-[radial-gradient(circle_at_65%_25%,rgba(217,210,197,0.28),transparent_34%),linear-gradient(135deg,#171716_0%,#243A32_58%,#9A765E_100%)]"></div>
+    </div>
+  )}
   <div class="relative mx-auto flex min-h-[88svh] max-w-site items-end px-5 pb-16 pt-32 lg:px-10 lg:pb-24">
     <div class="max-w-4xl">
       <p class="eyebrow mb-6 text-stone">{eyebrow}</p>
