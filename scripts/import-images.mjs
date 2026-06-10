@@ -9,9 +9,21 @@ const sourceRoot = process.env.BAUHU_IMAGE_SOURCE || path.resolve(repoRoot, '..'
 const publicImagesRoot = path.resolve(repoRoot, 'public', 'images');
 
 const collections = {
+  home: {
+    source: path.join(sourceRoot, 'home'),
+    output: path.join(publicImagesRoot, 'home'),
+    width: 2000,
+    quality: 84,
+  },
   residences: {
     source: path.join(sourceRoot, 'residences'),
     output: path.join(publicImagesRoot, 'residences'),
+    width: 1800,
+    quality: 82,
+  },
+  developments: {
+    source: path.join(sourceRoot, 'developments'),
+    output: path.join(publicImagesRoot, 'developments'),
     width: 1800,
     quality: 82,
   },
@@ -90,7 +102,7 @@ async function importCollection(name, config) {
       .toFile(outputPath);
 
     imported.push(`/images/${name}/${outputName}`);
-    console.log(`Imported ${name}/${fileName} → public/images/${name}/${outputName}`);
+    console.log(`Imported ${name}/${fileName} -> public/images/${name}/${outputName}`);
   }
 
   return imported;
