@@ -2,62 +2,79 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { bauhuModels } from '../data/models';
 
 const filterGroups = [
   {
-    label: 'Budget range',
-    options: ['$500k–$750k', '$750k–$1m', '$1m–$1.5m', '$1.5m+'],
+    key: 'style',
+    label: 'Style',
+    options: [
+      { label: 'All', value: 'all' },
+      { label: 'Classic', value: 'Classic' },
+      { label: 'Contemporary', value: 'Contemporary' },
+    ],
   },
   {
+    key: 'price',
+    label: 'Guide price',
+    options: [
+      { label: 'All', value: 'all' },
+      { label: 'Under $250k', value: '0-250000' },
+      { label: '$250k-$500k', value: '250000-500000' },
+      { label: '$500k-$750k', value: '500000-750000' },
+      { label: '$750k-$1m', value: '750000-1000000' },
+      { label: '$1m+', value: '1000000-' },
+    ],
+  },
+  {
+    key: 'bedrooms',
     label: 'Bedrooms',
-    options: ['1–2', '3', '4', '5+'],
+    options: [
+      { label: 'All', value: 'all' },
+      { label: '1+', value: '1' },
+      { label: '2+', value: '2' },
+      { label: '3+', value: '3' },
+      { label: '4+', value: '4' },
+      { label: '5+', value: '5' },
+    ],
   },
   {
-    label: 'Home size',
-    options: ['Compact', 'Medium', 'Large', 'Estate'],
+    key: 'bathrooms',
+    label: 'Bathrooms',
+    options: [
+      { label: 'All', value: 'all' },
+      { label: '1+', value: '1' },
+      { label: '2+', value: '2' },
+      { label: '3+', value: '3' },
+      { label: '4+', value: '4' },
+    ],
   },
   {
-    label: 'Site type',
-    options: ['Flat', 'Sloping', 'Coastal', 'Remote island'],
+    key: 'storeys',
+    label: 'Storeys',
+    options: [
+      { label: 'All', value: 'all' },
+      { label: '1', value: '1' },
+      { label: '2', value: '2' },
+      { label: '3', value: '3' },
+    ],
   },
   {
-    label: 'Lifestyle',
-    options: ['Family', 'Entertaining', 'Guest suite', 'Pool terrace'],
-  },
-];
-
-const featuredModels = [
-  {
-    name: 'Jade',
-    bedrooms: '3 beds',
-    size: 'Approx. 210 m² internal',
-    budget: '$750k–$1m',
-    bestFor: 'Compact coastal living',
-    image: '/images/model-placeholder.svg',
-    summary: 'A refined single storey model residence with generous indoor outdoor living and a strong connection to the terrace.',
-  },
-  {
-    name: 'Amber',
-    bedrooms: '4 beds',
-    size: 'Approx. 280 m² internal',
-    budget: '$1m–$1.5m',
-    bestFor: 'Family island residence',
-    image: '/images/model-placeholder.svg',
-    summary: 'A larger model for families or guests, with flexible living areas, shaded outdoor space and scope for site specific adaptation.',
-  },
-  {
-    name: 'Serenity',
-    bedrooms: '5 beds',
-    size: 'Approx. 360 m² internal',
-    budget: '$1.5m+',
-    bestFor: 'Private villa lifestyle',
-    image: '/images/model-placeholder.svg',
-    summary: 'A substantial residence model for privacy, views, entertaining and a more expansive Caribbean way of living.',
+    key: 'area',
+    label: 'Built area',
+    options: [
+      { label: 'All', value: 'all' },
+      { label: 'Under 1,000 ft²', value: '0-1000' },
+      { label: '1,000-1,500 ft²', value: '1000-1500' },
+      { label: '1,500-2,500 ft²', value: '1500-2500' },
+      { label: '2,500-4,000 ft²', value: '2500-4000' },
+      { label: '4,000+ ft²', value: '4000-' },
+    ],
   },
 ];
 
 const steps = [
-  ['01', 'Choose a design direction', 'Begin with a Bauhu model that already suits your preferred scale, bedroom count, budget and way of living.'],
+  ['01', 'Choose a design direction', 'Begin with a Bauhu model that already suits your preferred style, scale, bedroom count, budget and way of living.'],
   ['02', 'Refine it around your site', 'We adapt the model around orientation, access, views, exposure, terraces, foundations and local construction realities.'],
   ['03', 'Specify the residence', 'Layouts, finishes, shading, glazing, pool terraces and outdoor areas are developed around your brief.'],
   ['04', 'Engineer for place', 'The final home is prepared through Bauhu’s steel frame system for the demands of the site and climate.'],
@@ -93,16 +110,27 @@ const steps = [
         <div class="models-selector-heading">
           <p class="models-kicker">Choose My Home</p>
           <h2>Find the Bauhu models that suit your brief.</h2>
-          <p>Use the selector to narrow the collection by budget, size, bedroom count, site type and lifestyle. The full model data will be connected here once the CSV is imported.</p>
+          <p>Filter the collection by style, guide price, bedroom count, bathrooms, storeys and built area. The result is a shortlist of model residences that can be refined around your site.</p>
+          <div class="models-filter-status">
+            <span id="model-result-count">{bauhuModels.length}</span> model residences shown
+          </div>
+          <button class="models-reset" type="button" id="model-reset-filters">Reset filters</button>
         </div>
 
-        <div class="models-filter-panel" aria-label="Model residence selector mockup">
+        <div class="models-filter-panel" aria-label="Model residence selector">
           {filterGroups.map((group) => (
-            <div class="models-filter-group">
+            <div class="models-filter-group" data-filter-group={group.key}>
               <h3>{group.label}</h3>
               <div class="models-filter-options">
-                {group.options.map((option) => (
-                  <button type="button">{option}</button>
+                {group.options.map((option, index) => (
+                  <button
+                    type="button"
+                    class={index === 0 ? 'is-active' : ''}
+                    data-filter-key={group.key}
+                    data-filter-value={option.value}
+                  >
+                    {option.label}
+                  </button>
                 ))}
               </div>
             </div>
@@ -118,25 +146,46 @@ const steps = [
           <h2>Architect-designed residences that can be adapted to place.</h2>
         </div>
 
-        <div class="models-grid">
-          {featuredModels.map((model) => (
-            <article class="model-card">
-              <img src={model.image} alt={`${model.name} Bauhu model residence`} loading="lazy" />
+        <div class="models-grid" id="models-grid">
+          {bauhuModels.map((model) => (
+            <article
+              class="model-card"
+              data-model-card
+              data-style={model.style}
+              data-price-min={model.guidePriceUsd ?? ''}
+              data-price-max={model.guidePriceUsdMax ?? ''}
+              data-bedrooms-min={model.bedroomsMin ?? ''}
+              data-bedrooms-max={model.bedroomsMax ?? ''}
+              data-bathrooms-min={model.bathroomsMin ?? ''}
+              data-bathrooms-max={model.bathroomsMax ?? ''}
+              data-storeys-min={model.storeysMin ?? ''}
+              data-storeys-max={model.storeysMax ?? ''}
+              data-area-min={model.builtAreaSqftMin ?? ''}
+              data-area-max={model.builtAreaSqftMax ?? ''}
+            >
+              <img src={model.image} alt={`${model.name} Bauhu model residence`} loading="lazy" onerror="this.src='/images/model-placeholder.svg'" />
               <div class="model-card-body">
                 <div class="model-card-topline">
                   <h3>{model.name}</h3>
-                  <span>{model.budget}</span>
+                  <span>{model.guidePriceLabel}</span>
                 </div>
+                <div class="model-style">{model.style}</div>
                 <div class="model-meta">
-                  <span>{model.bedrooms}</span>
-                  <span>{model.size}</span>
-                  <span>{model.bestFor}</span>
+                  <span>{model.bedroomsLabel} bedrooms</span>
+                  <span>{model.bathroomsLabel} bathrooms</span>
+                  <span>{model.storeysLabel} storeys</span>
+                  <span>{model.builtAreaLabel} ft²</span>
                 </div>
-                <p>{model.summary}</p>
+                <p>{model.shortDescription}</p>
                 <a href="/start-your-project">Discuss this model</a>
               </div>
             </article>
           ))}
+        </div>
+
+        <div class="models-empty" id="models-empty" hidden>
+          <h3>No matching models found.</h3>
+          <p>Try widening the guide price, bedroom count or built area filters, or send us your brief and we can recommend suitable options.</p>
         </div>
       </div>
     </section>
@@ -169,6 +218,133 @@ const steps = [
   <SiteFooter />
 </BaseLayout>
 
+<script>
+  const activeFilters = {
+    style: 'all',
+    price: 'all',
+    bedrooms: 'all',
+    bathrooms: 'all',
+    storeys: 'all',
+    area: 'all',
+  };
+
+  const cards = Array.from(document.querySelectorAll('[data-model-card]'));
+  const countElement = document.getElementById('model-result-count');
+  const emptyElement = document.getElementById('models-empty');
+  const resetButton = document.getElementById('model-reset-filters');
+  const filterButtons = Array.from(document.querySelectorAll('[data-filter-key]'));
+
+  function parseNumber(value) {
+    if (value === undefined || value === null || value === '') return null;
+    const number = Number(value);
+    return Number.isFinite(number) ? number : null;
+  }
+
+  function parseRange(value) {
+    if (value === 'all') return null;
+    const [minRaw, maxRaw] = value.split('-');
+    return {
+      min: minRaw === '' ? null : Number(minRaw),
+      max: maxRaw === '' ? null : Number(maxRaw),
+    };
+  }
+
+  function overlapsRange(itemMin, itemMax, filterRange) {
+    if (!filterRange) return true;
+    if (itemMin === null && itemMax === null) return false;
+    const actualMin = itemMin ?? itemMax;
+    const actualMax = itemMax ?? itemMin;
+    const filterMin = filterRange.min ?? Number.NEGATIVE_INFINITY;
+    const filterMax = filterRange.max ?? Number.POSITIVE_INFINITY;
+    return actualMax >= filterMin && actualMin <= filterMax;
+  }
+
+  function meetsMinimum(itemMin, itemMax, requiredValue) {
+    if (requiredValue === 'all') return true;
+    if (itemMin === null && itemMax === null) return false;
+    const actualMax = itemMax ?? itemMin;
+    return actualMax >= Number(requiredValue);
+  }
+
+  function includesExact(itemMin, itemMax, requiredValue) {
+    if (requiredValue === 'all') return true;
+    if (itemMin === null && itemMax === null) return false;
+    const required = Number(requiredValue);
+    const actualMin = itemMin ?? itemMax;
+    const actualMax = itemMax ?? itemMin;
+    return actualMin <= required && actualMax >= required;
+  }
+
+  function cardMatches(card) {
+    if (activeFilters.style !== 'all' && card.dataset.style !== activeFilters.style) return false;
+
+    const priceMin = parseNumber(card.dataset.priceMin);
+    const priceMax = parseNumber(card.dataset.priceMax);
+    if (!overlapsRange(priceMin, priceMax, parseRange(activeFilters.price))) return false;
+
+    const bedroomsMin = parseNumber(card.dataset.bedroomsMin);
+    const bedroomsMax = parseNumber(card.dataset.bedroomsMax);
+    if (!meetsMinimum(bedroomsMin, bedroomsMax, activeFilters.bedrooms)) return false;
+
+    const bathroomsMin = parseNumber(card.dataset.bathroomsMin);
+    const bathroomsMax = parseNumber(card.dataset.bathroomsMax);
+    if (!meetsMinimum(bathroomsMin, bathroomsMax, activeFilters.bathrooms)) return false;
+
+    const storeysMin = parseNumber(card.dataset.storeysMin);
+    const storeysMax = parseNumber(card.dataset.storeysMax);
+    if (!includesExact(storeysMin, storeysMax, activeFilters.storeys)) return false;
+
+    const areaMin = parseNumber(card.dataset.areaMin);
+    const areaMax = parseNumber(card.dataset.areaMax);
+    if (!overlapsRange(areaMin, areaMax, parseRange(activeFilters.area))) return false;
+
+    return true;
+  }
+
+  function updateCards() {
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const isVisible = cardMatches(card);
+      card.toggleAttribute('hidden', !isVisible);
+      if (isVisible) visibleCount += 1;
+    });
+
+    if (countElement) countElement.textContent = String(visibleCount);
+    if (emptyElement) emptyElement.hidden = visibleCount > 0;
+  }
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const key = button.dataset.filterKey;
+      const value = button.dataset.filterValue;
+      if (!key || !value) return;
+
+      activeFilters[key] = value;
+
+      filterButtons
+        .filter((candidate) => candidate.dataset.filterKey === key)
+        .forEach((candidate) => candidate.classList.toggle('is-active', candidate === button));
+
+      updateCards();
+    });
+  });
+
+  resetButton?.addEventListener('click', () => {
+    Object.keys(activeFilters).forEach((key) => {
+      activeFilters[key] = 'all';
+    });
+
+    filterButtons.forEach((button) => {
+      button.classList.toggle('is-active', button.dataset.filterValue === 'all');
+    });
+
+    updateCards();
+  });
+
+  updateCards();
+</script>
+
 <style>
   :global(html), :global(body) { overflow-x: hidden !important; }
   .models-page { background:#050505; color:#f8f6f0; overflow:hidden; font-family:Inter, system-ui, sans-serif; font-weight:300; font-synthesis:none; }
@@ -188,25 +364,33 @@ const steps = [
   .models-selector { padding:100px 7vw; background:#0a0a0a; }
   .models-selector-inner { display:grid; grid-template-columns:.9fr 1.1fr; gap:58px; align-items:start; }
   .models-selector-heading p:not(.models-kicker) { max-width:680px; font-size:18px; line-height:1.65; color:rgba(248,246,240,.66); margin:26px 0 0; }
+  .models-filter-status { margin-top:28px; color:rgba(248,246,240,.72); font-size:14px; letter-spacing:.08em; text-transform:uppercase; }
+  .models-filter-status span { color:#c8a96a; }
+  .models-reset { margin-top:18px; appearance:none; border:0; border-bottom:1px solid #c8a96a; background:transparent; color:#f8f6f0; padding:0 0 7px; text-transform:uppercase; letter-spacing:.16em; font-size:12px; cursor:pointer; }
   .models-filter-panel { border-top:1px solid rgba(255,255,255,.16); }
   .models-filter-group { display:grid; grid-template-columns:190px 1fr; gap:24px; padding:24px 0; border-bottom:1px solid rgba(255,255,255,.16); }
   .models-filter-group h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:28px; line-height:1.05; font-weight:400; margin:0; color:#f8f6f0; letter-spacing:-.035em; }
   .models-filter-options { display:flex; flex-wrap:wrap; gap:10px; }
-  .models-filter-options button { appearance:none; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.035); color:rgba(248,246,240,.78); padding:11px 14px; font:inherit; font-size:13px; cursor:default; }
-  .models-filter-options button:first-child { border-color:#c8a96a; color:#f8f6f0; }
+  .models-filter-options button { appearance:none; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.035); color:rgba(248,246,240,.78); padding:11px 14px; font:inherit; font-size:13px; cursor:pointer; }
+  .models-filter-options button.is-active { border-color:#c8a96a; color:#f8f6f0; background:rgba(200,169,106,.12); }
   .models-results { padding:100px 7vw 120px; background:#050505; }
   .models-results-heading { max-width:1040px; margin-bottom:48px; }
   .models-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
   .model-card { border:1px solid rgba(255,255,255,.16); background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.01)); }
+  .model-card[hidden] { display:none; }
   .model-card img { width:100%; height:300px; object-fit:cover; display:block; background:#111; }
   .model-card-body { padding:30px; }
   .model-card-topline { display:flex; justify-content:space-between; gap:20px; align-items:start; }
   .model-card h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:42px; line-height:1; font-weight:400; letter-spacing:-.04em; margin:0; color:#f8f6f0; }
-  .model-card-topline span { color:#c8a96a; font-size:12px; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; padding-top:7px; }
+  .model-card-topline span { color:#c8a96a; font-size:12px; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; padding-top:7px; text-align:right; }
+  .model-style { margin-top:12px; color:rgba(248,246,240,.52); text-transform:uppercase; letter-spacing:.16em; font-size:11px; }
   .model-meta { display:flex; flex-wrap:wrap; gap:8px; margin:24px 0; }
   .model-meta span { border:1px solid rgba(255,255,255,.14); padding:8px 10px; color:rgba(248,246,240,.66); font-size:12px; }
   .model-card p { color:rgba(248,246,240,.64); line-height:1.65; font-size:16px; margin:0; }
   .model-card a { display:inline-block; margin-top:28px; color:#f8f6f0; text-decoration:none; text-transform:uppercase; letter-spacing:.16em; font-size:12px; border-bottom:1px solid #c8a96a; padding-bottom:7px; }
+  .models-empty { border:1px solid rgba(255,255,255,.16); padding:42px; margin-top:22px; }
+  .models-empty h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:42px; line-height:1; font-weight:400; margin:0 0 18px; }
+  .models-empty p { color:rgba(248,246,240,.64); line-height:1.65; margin:0; }
   .models-process { padding:110px 7vw; background:#0a0a0a; }
   .models-process h2 { max-width:980px; }
   .models-process-grid { display:grid; grid-template-columns:repeat(4, 1fr); border-top:1px solid rgba(255,255,255,.16); border-bottom:1px solid rgba(255,255,255,.16); margin-top:54px; }
@@ -229,5 +413,7 @@ const steps = [
     .models-process-grid article { border-right:0; border-bottom:1px solid rgba(255,255,255,.16); }
     .models-process-grid article:last-child { border-bottom:0; }
     .model-card img { height:280px; }
+    .model-card-topline { display:block; }
+    .model-card-topline span { display:block; text-align:left; margin-top:12px; }
   }
 </style>
