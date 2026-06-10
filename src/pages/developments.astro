@@ -123,8 +123,9 @@ const process = [
   :global(html), :global(body) { overflow-x:hidden !important; }
   .developments-page { background:#050505; color:#f8f6f0; overflow:hidden; font-family:Inter, system-ui, sans-serif; font-weight:300; font-synthesis:none; }
   .developments-page * { box-sizing:border-box; }
-  .dev-hero { min-height:90vh; display:flex; align-items:flex-end; padding:120px 7vw 100px; background:radial-gradient(circle at 70% 22%, rgba(200,169,106,.18), transparent 34%), linear-gradient(135deg,#050505,#11100e 58%,#050505); }
+  .dev-hero { position:relative; min-height:90vh; display:flex; align-items:flex-end; padding:120px 7vw 100px; background:linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.9)), url('/images/developments/bauhu-resort-developments-hero.webp') center/cover no-repeat; overflow:hidden; }
   .dev-hero-inner, .dev-two-col, .dev-types-inner, .dev-quote-inner, .dev-advantages-inner, .dev-process-inner { max-width:1500px; margin:0 auto; width:100%; }
+  .dev-hero-inner { position:relative; z-index:2; }
   .dev-kicker { color:#c8a96a; text-transform:uppercase; letter-spacing:.22em; font-size:12px; margin:0 0 22px; font-weight:500; }
   .dev-hero h1, .dev-intro h2, .dev-types-section h2, .dev-quote, .dev-process-section h2, .dev-cta-section h2 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; color:#f8f6f0; letter-spacing:-.055em; }
   .dev-hero h1 { max-width:1160px; font-size:clamp(46px,7.4vw,112px); line-height:.9; margin:0 0 28px; }
