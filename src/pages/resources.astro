@@ -3,44 +3,163 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
-const resources = [
-  ['Price guides', 'Model ranges, guide pricing and early budget references for suitable projects.'],
-  ['Technical notes', 'Engineering, supply scope, coastal resilience and system information.'],
-  ['Buyer questions', 'Clear answers on process, foundations, shipping, local works and delivery responsibilities.'],
+const resourceAreas = [
+  ['Buyer questions', 'Clear answers for clients comparing bespoke residences, model residences, developments and the Bauhu construction route.'],
+  ['Technical confidence', 'Plain English explanations of the steel frame system, hurricane resistance, remote site logistics and long term resilience.'],
+  ['Project preparation', 'What we need from you at the start, what can be decided later, and how a serious first conversation should be prepared.'],
+];
+
+const faqGroups = [
+  {
+    title: 'Choosing the right Bauhu route',
+    questions: [
+      ['What is the difference between Private Residences and Model Residences?', 'Private Residences are fully bespoke architectural commissions designed from your brief and site. Model Residences are architect-designed starting points that can be adapted around your land, budget, bedroom requirement and way of living.'],
+      ['Is Bauhu a modular home company?', 'No. Bauhu uses a patented steel frame construction system, but the offer is architectural and project-led. The aim is not to sell generic modules, but to deliver resilient contemporary buildings with a more controlled route to construction.'],
+      ['Can a model residence be changed?', 'Yes. A model is a starting point. Layouts, terraces, openings, shading, finishes and site response can be refined before the project is engineered and delivered.'],
+      ['When should I choose a fully bespoke residence?', 'Choose the Private Residences route when the home needs to be entirely shaped around a unique brief, a particular lifestyle, a difficult site, or a money-no-object architectural ambition.'],
+    ],
+  },
+  {
+    title: 'Sites, climate and construction',
+    questions: [
+      ['Can Bauhu work on remote Caribbean sites?', 'Yes. Bauhu is especially relevant where remote access, limited labour, coastal exposure, shipping, sequencing and conventional construction risk need to be planned carefully from the beginning.'],
+      ['What does hurricane resistant mean?', 'It means the structure is designed with severe wind exposure in mind. The exact engineering response depends on the site, local code, exposure category and final building design.'],
+      ['Can Bauhu build on sloping or difficult land?', 'Often, yes. Sloping land, coastal exposure and constrained access are exactly the kinds of issues that should be reviewed early so the right structural, foundation and delivery strategy can be chosen.'],
+      ['Does Bauhu handle foundations and local works?', 'The scope depends on the project and location. Bauhu can help define what is supplied through its system and what needs to be delivered locally, including foundations, services, approvals and site works.'],
+    ],
+  },
+  {
+    title: 'Developments and larger projects',
+    questions: [
+      ['Can Bauhu be used for apartments or condominiums?', 'Yes. Bauhu can be applied to multi family buildings, condominium projects and residential clusters where repeated structural logic and architectural consistency are valuable.'],
+      ['Can Bauhu support resort or multi building developments?', 'Yes. Bauhu can help with resort accommodation, villa clusters, guest residences, private estates, staff buildings and phased multi building development strategies.'],
+      ['Do all buildings in a development need to be the same?', 'No. A development can use a consistent system and architectural language while varying unit types, orientation, scale, privacy, views and specification.'],
+    ],
+  },
+  {
+    title: 'Starting a conversation',
+    questions: [
+      ['What should I send Bauhu first?', 'Send the location, site photographs, survey or plot information if available, desired number of bedrooms, intended use, target scale, planning status and any inspiration images or architectural references.'],
+      ['Do I need a full design brief before contacting Bauhu?', 'No. A clear ambition is enough to start. The brief can be developed with you once the site, budget level, lifestyle requirements and likely route are understood.'],
+      ['Does Bauhu provide price guidance?', 'For model residences, price filtering and budget bands will sit in the model selector. Bespoke residences and developments need a project review before meaningful guidance can be given.'],
+      ['Can Bauhu work with my local architect, engineer or contractor?', 'In many cases, yes. Local professionals can be important for approvals, code compliance, site works, services and final delivery depending on the jurisdiction.'],
+    ],
+  },
 ];
 ---
-<BaseLayout title="Resources | Bauhu" description="Guides, downloads and frequently asked questions.">
+<BaseLayout title="Resources | Bauhu" description="Buyer questions, technical notes and project preparation guidance for Bauhu residences, model homes and developments.">
   <SiteHeader />
-  <main class="bg-paper pt-32">
-    <section class="section-pad">
-      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+  <main class="resources-page">
+    <section class="resources-hero">
+      <div class="resources-hero-inner">
+        <p class="resources-kicker">Resources</p>
+        <h1>Questions clients ask before building with Bauhu.</h1>
+        <p>Clear answers for serious buyers, developers and landowners considering a Bauhu residence, model home or multi building development.</p>
+      </div>
+    </section>
+
+    <section class="resources-intro">
+      <div class="resources-two-col">
         <div>
-          <p class="eyebrow text-clay">Resources</p>
-          <h1 class="mt-5 font-display text-5xl leading-tight md:text-7xl">Guides, downloads and answers.</h1>
+          <p class="resources-kicker">Before Enquiry</p>
+          <h2>Useful information should lead to a better first conversation.</h2>
         </div>
-        <p class="text-lg leading-8 text-ink/70">The resources section should help serious buyers understand the Bauhu route before they make an enquiry. It will bring together pricing guidance, technical information, frequently asked questions and useful downloads.</p>
+        <div class="resources-copy">
+          <p>This page is here to answer the practical questions that come before a serious project review. What Bauhu is, what it is not, how models differ from bespoke residences, and what needs to be understood about the site before meaningful decisions can be made.</p>
+          <p>Price guides are not included here. Budget filtering and model price bands belong in the model residence selector, while bespoke homes and developments need a project specific review.</p>
+        </div>
       </div>
     </section>
 
-    <section class="section-pad bg-mist">
-      <div class="mx-auto grid max-w-site gap-5 md:grid-cols-3">
-        {resources.map(([title, text]) => (
-          <article class="bg-paper p-7">
-            <h2 class="font-display text-3xl">{title}</h2>
-            <p class="mt-16 leading-7 text-ink/70">{text}</p>
-          </article>
-        ))}
+    <section class="resources-areas-section">
+      <div class="resources-areas-inner">
+        <p class="resources-kicker">Resource Areas</p>
+        <h2>Guidance for choosing, planning and understanding the Bauhu route.</h2>
+        <div class="resources-areas-grid">
+          {resourceAreas.map(([title, text]) => (
+            <article>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
 
-    <section class="section-pad bg-ink text-paper">
-      <div class="mx-auto max-w-site text-center">
-        <p class="eyebrow text-stone">Before enquiry</p>
-        <h2 class="mx-auto mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Useful information should lead to a better first conversation.</h2>
-        <p class="mx-auto mt-8 max-w-2xl text-lg leading-8 text-paper/70">The goal is not to replace a project review, but to help clients understand the likely route, responsibilities and questions before they send site details.</p>
-        <a href="/start-your-project" class="mt-10 inline-flex rounded-full bg-paper px-7 py-4 text-sm uppercase tracking-wide text-ink">Start your project</a>
+    <section class="resources-faq-section">
+      <div class="resources-faq-inner">
+        <p class="resources-kicker">Buyer Questions</p>
+        <h2>Frequently asked questions.</h2>
+        <div class="faq-groups">
+          {faqGroups.map((group) => (
+            <section class="faq-group">
+              <h3>{group.title}</h3>
+              <div class="faq-list">
+                {group.questions.map(([question, answer]) => (
+                  <details>
+                    <summary>{question}</summary>
+                    <p>{answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
+    </section>
+
+    <section class="resources-cta-section">
+      <h2>Ready to discuss a real site?</h2>
+      <p>Send your location, land information, broad brief and intended route. We can help decide whether a model residence, private residence or development strategy is the right starting point.</p>
+      <a class="resources-button" href="/start-your-project">Start Your Project</a>
     </section>
   </main>
   <SiteFooter />
 </BaseLayout>
+
+<style>
+  :global(html), :global(body) { overflow-x:hidden !important; }
+  .resources-page { background:#050505; color:#f8f6f0; overflow:hidden; font-family:Inter, system-ui, sans-serif; font-weight:300; font-synthesis:none; }
+  .resources-page * { box-sizing:border-box; }
+  .resources-hero { min-height:80vh; display:flex; align-items:flex-end; padding:120px 7vw 100px; background:radial-gradient(circle at 72% 18%, rgba(200,169,106,.16), transparent 34%), linear-gradient(135deg,#050505,#11100e 58%,#050505); }
+  .resources-hero-inner, .resources-two-col, .resources-areas-inner, .resources-faq-inner { max-width:1500px; margin:0 auto; width:100%; }
+  .resources-kicker { color:#c8a96a; text-transform:uppercase; letter-spacing:.22em; font-size:12px; margin:0 0 22px; font-weight:500; }
+  .resources-hero h1, .resources-intro h2, .resources-areas-section h2, .resources-faq-section h2, .resources-cta-section h2 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; color:#f8f6f0; letter-spacing:-.055em; }
+  .resources-hero h1 { max-width:1120px; font-size:clamp(46px,7.4vw,112px); line-height:.9; margin:0 0 28px; }
+  .resources-hero p { max-width:820px; font-size:clamp(19px,2vw,28px); line-height:1.35; color:rgba(248,246,240,.76); margin:0; }
+  .resources-intro { padding:110px 7vw; background:#050505; }
+  .resources-two-col { display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
+  .resources-intro h2, .resources-areas-section h2, .resources-faq-section h2, .resources-cta-section h2 { font-size:clamp(44px,7vw,104px); line-height:.92; margin:0; }
+  .resources-copy p { font-size:17px; line-height:1.75; color:rgba(248,246,240,.66); margin:0 0 22px; }
+  .resources-areas-section { padding:95px 7vw 110px; background:#0a0a0a; }
+  .resources-areas-section h2 { max-width:1050px; }
+  .resources-areas-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; margin-top:54px; }
+  .resources-areas-grid article { border:1px solid rgba(255,255,255,.16); min-height:290px; padding:38px; background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.01)); }
+  .resources-areas-grid h3, .faq-group h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:clamp(28px,2.6vw,42px); line-height:1.05; font-weight:400; letter-spacing:-.035em; margin:0 0 22px; color:#f8f6f0; }
+  .resources-areas-grid p { color:rgba(248,246,240,.62); line-height:1.65; margin:0; }
+  .resources-faq-section { padding:110px 7vw 130px; background:#050505; }
+  .resources-faq-section h2 { max-width:980px; }
+  .faq-groups { margin-top:64px; display:grid; gap:54px; }
+  .faq-group { display:grid; grid-template-columns:.42fr .58fr; gap:54px; border-top:1px solid rgba(255,255,255,.16); padding-top:34px; }
+  .faq-list { border-top:1px solid rgba(255,255,255,.12); }
+  .faq-list details { border-bottom:1px solid rgba(255,255,255,.12); padding:22px 0; }
+  .faq-list summary { cursor:pointer; list-style:none; font-family:"Cormorant Garamond", Georgia, serif; font-size:28px; line-height:1.12; letter-spacing:-.03em; color:#f8f6f0; }
+  .faq-list summary::-webkit-details-marker { display:none; }
+  .faq-list summary::after { content:'+'; float:right; color:#c8a96a; padding-left:24px; }
+  .faq-list details[open] summary::after { content:'–'; }
+  .faq-list p { color:rgba(248,246,240,.64); line-height:1.7; margin:18px 0 0; max-width:820px; }
+  .resources-cta-section { padding:135px 7vw; text-align:center; background:radial-gradient(circle at 70% 30%, rgba(200,169,106,.20), transparent 36%), linear-gradient(135deg,#050505,#15120e); }
+  .resources-cta-section h2 { max-width:1000px; margin:0 auto 26px; }
+  .resources-cta-section p { max-width:760px; margin:0 auto; color:rgba(248,246,240,.66); font-size:18px; line-height:1.65; }
+  .resources-button { display:inline-block; margin-top:34px; padding:15px 24px; border:1px solid #c8a96a; color:#f8f6f0; text-decoration:none; text-transform:uppercase; letter-spacing:.16em; font-size:12px; transition:all .3s ease; }
+  .resources-button:hover { background:#c8a96a; color:#050505; }
+  @media screen and (max-width:900px) {
+    .resources-hero { min-height:78vh; padding:96px 22px 74px; }
+    .resources-hero h1, .resources-intro h2, .resources-areas-section h2, .resources-faq-section h2, .resources-cta-section h2 { font-size:clamp(36px,10.5vw,62px); line-height:.96; letter-spacing:-.045em; }
+    .resources-hero p { max-width:100%; }
+    .resources-intro, .resources-areas-section, .resources-faq-section, .resources-cta-section { padding-left:22px; padding-right:22px; }
+    .resources-two-col, .resources-areas-grid, .faq-group { grid-template-columns:1fr; gap:34px; }
+    .resources-areas-grid article { min-height:auto; }
+    .faq-list summary { font-size:24px; }
+  }
+</style>
