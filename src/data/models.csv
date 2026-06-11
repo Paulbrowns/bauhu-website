@@ -25,13 +25,12 @@ bauhu-sailfish;Classic;562000;3;3;1;2260;Luxurious contemporary villa with cover
 bauhu-barbados-blue;Classic;339800;2;2;1;1281;Contemporary home with spacious bedroom suites
 bauhu-sunset-cove;Classic;388600;2;2;1;1800;Spacious open-plan home with expansive covered terrace
 bauhu-falcon-500;Contemporary;102000;2;1;1;500;Entry-level standalone home with hurricane-safe standards
-bauhu-falcon-500;Contemporary;111700;2;1;1;500;Entry-level standalone home with hurricane-safe standards
-bauhu-falcon-900;Contemporary;178200;2;2;1;900;Compact modern home with high-end fixtures
-bauhu-falcon-900;Contemporary;186000;3;2;1;900;Compact modern home with high-end fixtures
-bauhu-falcon-1800;Contemporary;347500;2;2;1;1800;Single-storey duplex with two self-contained apartments
-bauhu-falcon-1800;Contemporary;364000;3;2;1;1800;Single-storey duplex with two self-contained apartments
-bauhu-falcon-3500;Contemporary;694900;1;1;2;900;Two-storey building with four self-contained apartments
-bauhu-falcon-3500;Contemporary;709300;1;1;2;900;Two-storey building with four self-contained apartments
+bauhu-falcon-900f;Contemporary;178200;2;2;1;900;Compact modern home with high-end fixtures
+bauhu-falcon-900;Classic;186000;3;2;1;900;Compact modern home with high-end fixtures
+bauhu-falcon-1800f;Contemporary;347500;2;2;1;1800;Single-storey duplex with two self-contained apartments
+bauhu-falcon-1800;Classic;364000;3;2;1;1800;Single-storey duplex with two self-contained apartments
+bauhu-falcon-3500f;Contemporary;694900;1;1;2;900;Two-storey building with four self-contained apartments
+bauhu-falcon-3500;Classic;709300;1;1;2;900;Two-storey building with four self-contained apartments
 bauhu-horizon;Contemporary;465000;3;3;1;1900;Sophisticated design personalized to individual taste
 bauhu-halo;Contemporary;594000;3;3;1;2420;Well-proportioned family home with covered veranda
 bauhu-casita;Contemporary;385000;2;2;1;1800;Two-bedroom home with enclosed outdoor dining area
