@@ -99,7 +99,7 @@ const steps = [
           <h2>A curated collection, not a catalogue of kit homes.</h2>
         </div>
         <div class="models-copy">
-          <p>With more than thirty Bauhu model residences available, the important question is not which homes exist. It is which homes are right for your site, budget, bedroom requirement and way of living.</p>
+          <p>With sixty Bauhu model residences available, the important question is not which homes exist. It is which homes are right for your site, budget, bedroom requirement and way of living.</p>
           <p>Each model gives you a proven architectural starting point. From there, the residence can be adapted around the land, the climate, the view, local construction realities and the level of finish you want to achieve.</p>
         </div>
       </div>
@@ -316,16 +316,13 @@ const steps = [
 
   filterButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      const key = button.dataset.filterKey;
-      const value = button.dataset.filterValue;
-      if (!key || !value) return;
+      const { filterKey, filterValue } = button.dataset;
+      if (!filterKey || !filterValue) return;
 
-      activeFilters[key] = value;
-
+      activeFilters[filterKey] = filterValue;
       filterButtons
-        .filter((candidate) => candidate.dataset.filterKey === key)
-        .forEach((candidate) => candidate.classList.toggle('is-active', candidate === button));
-
+        .filter((item) => item.dataset.filterKey === filterKey)
+        .forEach((item) => item.classList.toggle('is-active', item === button));
       updateCards();
     });
   });
@@ -346,74 +343,136 @@ const steps = [
 </script>
 
 <style>
-  :global(html), :global(body) { overflow-x: hidden !important; }
-  .models-page { background:#050505; color:#f8f6f0; overflow:hidden; font-family:Inter, system-ui, sans-serif; font-weight:300; font-synthesis:none; }
-  .models-page * { box-sizing:border-box; }
-  .models-hero { min-height:88vh; display:flex; align-items:flex-end; padding:120px 7vw 100px; background:radial-gradient(circle at 72% 18%, rgba(200,169,106,.16), transparent 34%), linear-gradient(135deg, #050505, #11100e 58%, #050505); }
-  .models-hero-inner, .models-selector-inner, .models-results-inner, .models-process-inner, .models-two-col { max-width:1500px; margin:0 auto; width:100%; }
-  .models-kicker { color:#c8a96a; text-transform:uppercase; letter-spacing:.22em; font-size:12px; margin:0 0 22px; font-weight:500; }
-  .models-hero h1, .models-intro h2, .models-selector-heading h2, .models-results-heading h2, .models-process h2, .models-residences-link h2 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; color:#f8f6f0; letter-spacing:-.055em; }
-  .models-hero h1 { max-width:1120px; font-size:clamp(46px,7.4vw,112px); line-height:.9; margin:0 0 28px; }
-  .models-hero p { max-width:780px; font-size:clamp(19px,2vw,28px); line-height:1.35; color:rgba(248,246,240,.76); margin:0; }
-  .models-button { display:inline-block; margin-top:34px; padding:15px 24px; border:1px solid #c8a96a; color:#f8f6f0; text-decoration:none; text-transform:uppercase; letter-spacing:.16em; font-size:12px; transition:all .3s ease; }
-  .models-button:hover { background:#c8a96a; color:#050505; }
-  .models-intro { padding:110px 7vw; background:#050505; }
-  .models-two-col { display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
-  .models-intro h2, .models-selector-heading h2, .models-results-heading h2, .models-process h2, .models-residences-link h2 { font-size:clamp(44px,7vw,104px); line-height:.92; margin:0; }
-  .models-copy p { font-size:17px; line-height:1.75; color:rgba(248,246,240,.66); margin:0 0 22px; }
-  .models-selector { padding:100px 7vw; background:#0a0a0a; }
-  .models-selector-inner { display:grid; grid-template-columns:.9fr 1.1fr; gap:58px; align-items:start; }
-  .models-selector-heading p:not(.models-kicker) { max-width:680px; font-size:18px; line-height:1.65; color:rgba(248,246,240,.66); margin:26px 0 0; }
-  .models-filter-status { margin-top:28px; color:rgba(248,246,240,.72); font-size:14px; letter-spacing:.08em; text-transform:uppercase; }
-  .models-filter-status span { color:#c8a96a; }
-  .models-reset { margin-top:18px; appearance:none; border:0; border-bottom:1px solid #c8a96a; background:transparent; color:#f8f6f0; padding:0 0 7px; text-transform:uppercase; letter-spacing:.16em; font-size:12px; cursor:pointer; }
-  .models-filter-panel { border-top:1px solid rgba(255,255,255,.16); }
-  .models-filter-group { display:grid; grid-template-columns:190px 1fr; gap:24px; padding:24px 0; border-bottom:1px solid rgba(255,255,255,.16); }
-  .models-filter-group h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:28px; line-height:1.05; font-weight:400; margin:0; color:#f8f6f0; letter-spacing:-.035em; }
-  .models-filter-options { display:flex; flex-wrap:wrap; gap:10px; }
-  .models-filter-options button { appearance:none; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.035); color:rgba(248,246,240,.78); padding:11px 14px; font:inherit; font-size:13px; cursor:pointer; }
-  .models-filter-options button.is-active { border-color:#c8a96a; color:#f8f6f0; background:rgba(200,169,106,.12); }
-  .models-results { padding:100px 7vw 120px; background:#050505; }
-  .models-results-heading { max-width:1040px; margin-bottom:48px; }
-  .models-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
-  .model-card { border:1px solid rgba(255,255,255,.16); background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.01)); }
-  .model-card[hidden] { display:none; }
-  .model-card img { width:100%; height:300px; object-fit:cover; display:block; background:#111; }
-  .model-card-body { padding:30px; }
-  .model-card-topline { display:flex; justify-content:space-between; gap:20px; align-items:start; }
-  .model-card h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:42px; line-height:1; font-weight:400; letter-spacing:-.04em; margin:0; color:#f8f6f0; }
-  .model-card-topline span { color:#c8a96a; font-size:12px; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; padding-top:7px; text-align:right; }
-  .model-style { margin-top:12px; color:rgba(248,246,240,.52); text-transform:uppercase; letter-spacing:.16em; font-size:11px; }
-  .model-meta { display:flex; flex-wrap:wrap; gap:8px; margin:24px 0; }
-  .model-meta span { border:1px solid rgba(255,255,255,.14); padding:8px 10px; color:rgba(248,246,240,.66); font-size:12px; }
-  .model-card p { color:rgba(248,246,240,.64); line-height:1.65; font-size:16px; margin:0; }
-  .model-card a { display:inline-block; margin-top:28px; color:#f8f6f0; text-decoration:none; text-transform:uppercase; letter-spacing:.16em; font-size:12px; border-bottom:1px solid #c8a96a; padding-bottom:7px; }
-  .models-empty { border:1px solid rgba(255,255,255,.16); padding:42px; margin-top:22px; }
-  .models-empty h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:42px; line-height:1; font-weight:400; margin:0 0 18px; }
-  .models-empty p { color:rgba(248,246,240,.64); line-height:1.65; margin:0; }
-  .models-process { padding:110px 7vw; background:#0a0a0a; }
-  .models-process h2 { max-width:980px; }
-  .models-process-grid { display:grid; grid-template-columns:repeat(4, 1fr); border-top:1px solid rgba(255,255,255,.16); border-bottom:1px solid rgba(255,255,255,.16); margin-top:54px; }
-  .models-process-grid article { padding:34px 22px; border-right:1px solid rgba(255,255,255,.16); }
-  .models-process-grid article:last-child { border-right:0; }
-  .models-process-grid strong { color:#c8a96a; font-size:13px; letter-spacing:.16em; }
-  .models-process-grid h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:32px; line-height:1.05; font-weight:400; letter-spacing:-.035em; margin:24px 0 18px; }
-  .models-process-grid p { color:rgba(248,246,240,.62); line-height:1.6; margin:0; }
-  .models-residences-link { padding:135px 7vw; text-align:center; background:radial-gradient(circle at 70% 30%, rgba(200,169,106,.20), transparent 36%), linear-gradient(135deg,#050505,#15120e); }
-  .models-residences-link > div { max-width:1040px; margin:0 auto; }
-  .models-residences-link p:not(.models-kicker) { max-width:760px; margin:26px auto 0; color:rgba(248,246,240,.66); font-size:18px; line-height:1.65; }
-  @media screen and (max-width:900px) {
-    .models-hero { min-height:82vh; padding:96px 22px 74px; }
-    .models-hero h1, .models-intro h2, .models-selector-heading h2, .models-results-heading h2, .models-process h2, .models-residences-link h2 { font-size:clamp(36px,10.5vw,62px); line-height:.96; letter-spacing:-.045em; }
-    .models-hero p { max-width:100%; }
-    .models-intro, .models-selector, .models-results, .models-process, .models-residences-link { padding-left:22px; padding-right:22px; }
-    .models-two-col, .models-selector-inner { grid-template-columns:1fr; gap:34px; }
-    .models-filter-group { grid-template-columns:1fr; gap:14px; }
-    .models-grid, .models-process-grid { grid-template-columns:1fr; }
-    .models-process-grid article { border-right:0; border-bottom:1px solid rgba(255,255,255,.16); }
-    .models-process-grid article:last-child { border-bottom:0; }
-    .model-card img { height:280px; }
-    .model-card-topline { display:block; }
-    .model-card-topline span { display:block; text-align:left; margin-top:12px; }
+  .models-page {
+    background: #050505;
+    color: #f4efe5;
   }
-</style>
+
+  .models-hero {
+    min-height: 78vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 8rem 5vw;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.34)),
+      radial-gradient(circle at 75% 20%, rgba(189, 153, 91, 0.18), transparent 34%),
+      #050505;
+  }
+
+  .models-hero-inner {
+    width: min(920px, 100%);
+  }
+
+  .models-kicker {
+    margin: 0 0 1rem;
+    font-family: Inter, sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c5a66a;
+  }
+
+  .models-hero h1,
+  .models-intro h2,
+  .models-selector-heading h2,
+  .models-results-heading h2,
+  .models-process h2,
+  .models-residences-link h2 {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+  }
+
+  .models-hero h1 {
+    max-width: 900px;
+    font-size: clamp(4.2rem, 10vw, 9.5rem);
+  }
+
+  .models-hero p:not(.models-kicker) {
+    max-width: 640px;
+    margin: 1.8rem 0 0;
+    font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+    line-height: 1.7;
+    color: rgba(244, 239, 229, 0.72);
+  }
+
+  .models-button,
+  .model-card a,
+  .models-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+    border: 1px solid rgba(197, 166, 106, 0.62);
+    padding: 0.95rem 1.25rem;
+    background: transparent;
+    color: #f4efe5;
+    font-family: Inter, sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .models-intro,
+  .models-selector,
+  .models-results,
+  .models-process,
+  .models-residences-link {
+    padding: clamp(5rem, 9vw, 9rem) 5vw;
+  }
+
+  .models-two-col,
+  .models-selector-inner,
+  .models-results-inner,
+  .models-process-inner,
+  .models-residences-link > div {
+    width: min(1480px, 100%);
+    margin: 0 auto;
+  }
+
+  .models-two-col,
+  .models-selector-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2.5rem, 8vw, 8rem);
+  }
+
+  .models-intro h2,
+  .models-selector-heading h2,
+  .models-results-heading h2,
+  .models-process h2,
+  .models-residences-link h2 {
+    max-width: 850px;
+    font-size: clamp(3rem, 6vw, 6rem);
+  }
+
+  .models-copy,
+  .models-selector-heading > p,
+  .models-process p,
+  .models-residences-link p,
+  .model-card p {
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(244, 239, 229, 0.68);
+  }
+
+  .models-copy p {
+    margin: 0 0 1.5rem;
+    font-size: 1.02rem;
+  }
+
+  .models-selector,
+  .models-process {
+    border-top: 1px solid rgba(244, 239, 229, 0.12);
+    border-bottom: 1px solid rgba(244, 239, 229, 0.12);
+  }
+
+  .models-selector-heading > p {
+    max-width: 580px;
+    margin: 1.5rem 0 0;
+  }
