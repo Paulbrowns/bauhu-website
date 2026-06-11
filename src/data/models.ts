@@ -105,8 +105,8 @@ function parseCsv(content: string): CsvRow[] {
 }
 
 function imageForModel(slug: string, bedrooms: number | null) {
-  if (slug === 'bauhu-coconut-villa' && bedrooms !== null) {
-    return `/images/models/${slug}-${simpleNumberLabel(bedrooms)}-bedroom.webp`;
+  if (slug === 'bauhu-jimmy-hill' && bedrooms === 4) {
+    return '/images/models/bauhu-jimmy-hill-4.webp';
   }
 
   return `/images/models/${slug}.webp`;
