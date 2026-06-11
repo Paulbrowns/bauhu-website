@@ -49,7 +49,12 @@ function slugify(value: string) {
 }
 
 function displayName(value: string) {
-  return value.trim().replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').toUpperCase();
+  return value
+    .trim()
+    .replace(/^bauhu[-_\s]+/i, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .toUpperCase();
 }
 
 function parseNumber(value: string) {
@@ -71,7 +76,7 @@ function areaLabel(value: number | null) {
 
 function priceLabel(value: number | null) {
   if (value === null) return 'Price on request';
-  return `From $${value.toLocaleString('en-US')}`;
+  return `Guide price $${value.toLocaleString('en-US')}`;
 }
 
 function cleanStyle(value: string): BauhuModel['style'] {
@@ -97,6 +102,14 @@ function parseCsv(content: string): CsvRow[] {
       return row;
     }, {} as CsvRow);
   });
+}
+
+function imageForModel(slug: string, bedrooms: number | null) {
+  if (slug === 'bauhu-coconut-villa' && bedrooms !== null) {
+    return `/images/models/${slug}-${simpleNumberLabel(bedrooms)}-bedroom.webp`;
+  }
+
+  return `/images/models/${slug}.webp`;
 }
 
 function toModel(row: CsvRow): BauhuModel {
@@ -127,7 +140,7 @@ function toModel(row: CsvRow): BauhuModel {
     builtAreaSqftMax: builtArea,
     builtAreaLabel: areaLabel(builtArea),
     shortDescription: row.short_description,
-    image: `/images/models/${slug}.webp`,
+    image: imageForModel(slug, bedrooms),
   };
 }
 
