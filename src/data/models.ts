@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 export type BauhuModel = {
   slug: string;
@@ -36,8 +35,7 @@ type CsvRow = {
   short_description: string;
 };
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const csvPath = path.join(__dirname, 'models.csv');
+const csvPath = path.join(process.cwd(), 'src', 'data', 'models.csv');
 
 function slugify(value: string) {
   return value
