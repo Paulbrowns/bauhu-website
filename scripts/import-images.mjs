@@ -38,6 +38,7 @@ const collections = {
     output: path.join(publicImagesRoot, 'models'),
     width: 1600,
     quality: 80,
+    nested: true,
   },
   engineering: {
     source: path.join(sourceRoot, 'engineering'),
@@ -72,19 +73,28 @@ async function ensureDirectory(dirPath) {
   await fs.mkdir(dirPath, { recursive: true });
 }
 
-async function importCollection(name, config) {
-  if (!(await pathExists(config.source))) {
-    console.log(`Skipping ${name}: source folder not found at ${config.source}`);
-    return [];
-  }
+function isImageFile(fileName) {
+  return validExtensions.has(path.extname(fileName).toLowerCase());
+}
 
+async function convertImage(inputPath, outputPath, config) {
+  await ensureDirectory(path.dirname(outputPath));
+
+  await sharp(inputPath)
+    .rotate()
+    .resize({ width: config.width, withoutEnlargement: true })
+    .webp({ quality: config.quality })
+    .toFile(outputPath);
+}
+
+async function importFlatCollection(name, config) {
   await ensureDirectory(config.output);
 
   const entries = await fs.readdir(config.source, { withFileTypes: true });
   const files = entries
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
-    .filter((fileName) => validExtensions.has(path.extname(fileName).toLowerCase()))
+    .filter(isImageFile)
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
   const imported = [];
@@ -95,17 +105,62 @@ async function importCollection(name, config) {
     const outputName = `${baseName}.webp`;
     const outputPath = path.join(config.output, outputName);
 
-    await sharp(inputPath)
-      .rotate()
-      .resize({ width: config.width, withoutEnlargement: true })
-      .webp({ quality: config.quality })
-      .toFile(outputPath);
+    await convertImage(inputPath, outputPath, config);
 
     imported.push(`/images/${name}/${outputName}`);
     console.log(`Imported ${name}/${fileName} -> public/images/${name}/${outputName}`);
   }
 
   return imported;
+}
+
+async function importNestedModelCollection(name, config) {
+  await ensureDirectory(config.output);
+
+  const modelFolders = (await fs.readdir(config.source, { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+  const imported = [];
+
+  for (const folderName of modelFolders) {
+    const sourceFolder = path.join(config.source, folderName);
+    const outputFolder = path.join(config.output, folderName);
+    const entries = await fs.readdir(sourceFolder, { withFileTypes: true });
+    const files = entries
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+      .filter(isImageFile)
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+    for (const fileName of files) {
+      const inputPath = path.join(sourceFolder, fileName);
+      const baseName = slugify(path.basename(fileName, path.extname(fileName)));
+      const outputName = `${baseName}.webp`;
+      const outputPath = path.join(outputFolder, outputName);
+
+      await convertImage(inputPath, outputPath, config);
+
+      imported.push(`/images/${name}/${folderName}/${outputName}`);
+      console.log(`Imported ${name}/${folderName}/${fileName} -> public/images/${name}/${folderName}/${outputName}`);
+    }
+  }
+
+  return imported;
+}
+
+async function importCollection(name, config) {
+  if (!(await pathExists(config.source))) {
+    console.log(`Skipping ${name}: source folder not found at ${config.source}`);
+    return [];
+  }
+
+  if (config.nested) {
+    return importNestedModelCollection(name, config);
+  }
+
+  return importFlatCollection(name, config);
 }
 
 async function main() {
