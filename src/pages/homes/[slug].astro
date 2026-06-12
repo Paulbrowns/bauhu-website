@@ -24,15 +24,16 @@ const cleanName = titleCase(model.name);
 const slug = model.slug;
 const modelPublicSlug = slug.replace(/^bauhu-/, '');
 const modelImageBase = `/images/models/${slug}`;
-const heroImage = `${modelImageBase}/${slug}-hero.webp`;
+const heroImage = `${modelImageBase}/${slug}.webp`;
 const enquiryHref = `/start-your-project?model=${encodeURIComponent(model.name)}`;
 const galleryImages = [
   heroImage,
-  `${modelImageBase}/${slug}-01.webp`,
-  `${modelImageBase}/${slug}-02.webp`,
-  `${modelImageBase}/${slug}-03.webp`,
+  `${modelImageBase}/1.webp`,
+  `${modelImageBase}/2.webp`,
+  `${modelImageBase}/3.webp`,
+  `${modelImageBase}/4.webp`,
 ];
-const floorPlanImage = `${modelImageBase}/${slug}-floor-plan.webp`;
+const floorPlanImage = `${modelImageBase}/floorplan.webp`;
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <SiteHeader />
