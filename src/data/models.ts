@@ -104,12 +104,12 @@ function parseCsv(content: string): CsvRow[] {
   });
 }
 
-function imageForModel(slug: string, bedrooms: number | null) {
-  if (slug === 'bauhu-jimmy-hill' && bedrooms === 4) {
-    return '/images/models/bauhu-jimmy-hill-4.webp';
-  }
+function modelImageBase(slug: string) {
+  return `/images/models/${slug}`;
+}
 
-  return `/images/models/${slug}.webp`;
+function heroImageForModel(slug: string) {
+  return `${modelImageBase(slug)}/${slug}-hero.webp`;
 }
 
 function toModel(row: CsvRow): BauhuModel {
@@ -140,7 +140,7 @@ function toModel(row: CsvRow): BauhuModel {
     builtAreaSqftMax: builtArea,
     builtAreaLabel: areaLabel(builtArea),
     shortDescription: row.short_description,
-    image: imageForModel(slug, bedrooms),
+    image: heroImageForModel(slug),
   };
 }
 
