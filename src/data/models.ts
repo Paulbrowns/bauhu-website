@@ -104,12 +104,8 @@ function parseCsv(content: string): CsvRow[] {
   });
 }
 
-function modelImageBase(slug: string) {
-  return `/images/models/${slug}`;
-}
-
 function heroImageForModel(slug: string) {
-  return `${modelImageBase(slug)}/${slug}-hero.webp`;
+  return `/images/models/${slug}/${slug}.webp`;
 }
 
 function toModel(row: CsvRow): BauhuModel {
