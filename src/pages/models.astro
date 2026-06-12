@@ -4,6 +4,10 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { bauhuModels } from '../data/models';
 
+function publicSlug(modelSlug: string) {
+  return modelSlug.replace(/^bauhu-/, '');
+}
+
 const filterGroups = [
   {
     key: 'style',
@@ -12,6 +16,7 @@ const filterGroups = [
       { label: 'All', value: 'all' },
       { label: 'Classic', value: 'Classic' },
       { label: 'Contemporary', value: 'Contemporary' },
+      { label: 'Caribbean', value: 'Caribbean' },
     ],
   },
   {
@@ -20,9 +25,9 @@ const filterGroups = [
     options: [
       { label: 'All', value: 'all' },
       { label: 'Under $250k', value: '0-250000' },
-      { label: '$250k-$500k', value: '250000-500000' },
-      { label: '$500k-$750k', value: '500000-750000' },
-      { label: '$750k-$1m', value: '750000-1000000' },
+      { label: '$250k to $500k', value: '250000-500000' },
+      { label: '$500k to $750k', value: '500000-750000' },
+      { label: '$750k to $1m', value: '750000-1000000' },
       { label: '$1m+', value: '1000000-' },
     ],
   },
@@ -65,9 +70,9 @@ const filterGroups = [
     options: [
       { label: 'All', value: 'all' },
       { label: 'Under 1,000 ft²', value: '0-1000' },
-      { label: '1,000-1,500 ft²', value: '1000-1500' },
-      { label: '1,500-2,500 ft²', value: '1500-2500' },
-      { label: '2,500-4,000 ft²', value: '2500-4000' },
+      { label: '1,000 to 1,500 ft²', value: '1000-1500' },
+      { label: '1,500 to 2,500 ft²', value: '1500-2500' },
+      { label: '2,500 to 4,000 ft²', value: '2500-4000' },
       { label: '4,000+ ft²', value: '4000-' },
     ],
   },
@@ -163,7 +168,9 @@ const steps = [
               data-area-min={model.builtAreaSqftMin ?? ''}
               data-area-max={model.builtAreaSqftMax ?? ''}
             >
-              <img src={model.image} alt={`${model.name} Bauhu model residence`} loading="lazy" onerror="this.src='/images/model-placeholder.svg'" />
+              <a class="model-card-image" href={`/homes/${publicSlug(model.slug)}`} aria-label={`View ${model.name}`}>
+                <img src={model.image} alt={`${model.name} Bauhu model residence`} loading="lazy" onerror="this.src='/images/model-placeholder.svg'" />
+              </a>
               <div class="model-card-body">
                 <div class="model-card-topline">
                   <h3>{model.name}</h3>
@@ -177,7 +184,7 @@ const steps = [
                   <span>{model.builtAreaLabel} ft²</span>
                 </div>
                 <p>{model.shortDescription}</p>
-                <a href="/start-your-project">Discuss this model</a>
+                <a class="model-card-link" href={`/homes/${publicSlug(model.slug)}`}>View this model</a>
               </div>
             </article>
           ))}
@@ -277,39 +284,21 @@ const steps = [
 
   function cardMatches(card) {
     if (activeFilters.style !== 'all' && card.dataset.style !== activeFilters.style) return false;
-
-    const priceMin = parseNumber(card.dataset.priceMin);
-    const priceMax = parseNumber(card.dataset.priceMax);
-    if (!overlapsRange(priceMin, priceMax, parseRange(activeFilters.price))) return false;
-
-    const bedroomsMin = parseNumber(card.dataset.bedroomsMin);
-    const bedroomsMax = parseNumber(card.dataset.bedroomsMax);
-    if (!meetsMinimum(bedroomsMin, bedroomsMax, activeFilters.bedrooms)) return false;
-
-    const bathroomsMin = parseNumber(card.dataset.bathroomsMin);
-    const bathroomsMax = parseNumber(card.dataset.bathroomsMax);
-    if (!meetsMinimum(bathroomsMin, bathroomsMax, activeFilters.bathrooms)) return false;
-
-    const storeysMin = parseNumber(card.dataset.storeysMin);
-    const storeysMax = parseNumber(card.dataset.storeysMax);
-    if (!includesExact(storeysMin, storeysMax, activeFilters.storeys)) return false;
-
-    const areaMin = parseNumber(card.dataset.areaMin);
-    const areaMax = parseNumber(card.dataset.areaMax);
-    if (!overlapsRange(areaMin, areaMax, parseRange(activeFilters.area))) return false;
-
+    if (!overlapsRange(parseNumber(card.dataset.priceMin), parseNumber(card.dataset.priceMax), parseRange(activeFilters.price))) return false;
+    if (!meetsMinimum(parseNumber(card.dataset.bedroomsMin), parseNumber(card.dataset.bedroomsMax), activeFilters.bedrooms)) return false;
+    if (!meetsMinimum(parseNumber(card.dataset.bathroomsMin), parseNumber(card.dataset.bathroomsMax), activeFilters.bathrooms)) return false;
+    if (!includesExact(parseNumber(card.dataset.storeysMin), parseNumber(card.dataset.storeysMax), activeFilters.storeys)) return false;
+    if (!overlapsRange(parseNumber(card.dataset.areaMin), parseNumber(card.dataset.areaMax), parseRange(activeFilters.area))) return false;
     return true;
   }
 
   function updateCards() {
     let visibleCount = 0;
-
     cards.forEach((card) => {
       const isVisible = cardMatches(card);
       card.toggleAttribute('hidden', !isVisible);
       if (isVisible) visibleCount += 1;
     });
-
     if (countElement) countElement.textContent = String(visibleCount);
     if (emptyElement) emptyElement.hidden = visibleCount > 0;
   }
@@ -318,7 +307,6 @@ const steps = [
     button.addEventListener('click', () => {
       const { filterKey, filterValue } = button.dataset;
       if (!filterKey || !filterValue) return;
-
       activeFilters[filterKey] = filterValue;
       filterButtons
         .filter((item) => item.dataset.filterKey === filterKey)
@@ -331,11 +319,9 @@ const steps = [
     Object.keys(activeFilters).forEach((key) => {
       activeFilters[key] = 'all';
     });
-
     filterButtons.forEach((button) => {
       button.classList.toggle('is-active', button.dataset.filterValue === 'all');
     });
-
     updateCards();
   });
 
@@ -346,21 +332,11 @@ const steps = [
   .models-page {
     background: #050505;
     color: #f4efe5;
+    overflow-x: hidden;
   }
 
-  .models-hero {
-    min-height: 78vh;
-    display: flex;
-    align-items: flex-end;
-    padding: 8rem 5vw;
-    background:
-      linear-gradient(90deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.34)),
-      radial-gradient(circle at 75% 20%, rgba(189, 153, 91, 0.18), transparent 34%),
-      #050505;
-  }
-
-  .models-hero-inner {
-    width: min(920px, 100%);
+  .models-page * {
+    box-sizing: border-box;
   }
 
   .models-kicker {
@@ -370,6 +346,29 @@ const steps = [
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #c5a66a;
+  }
+
+  .models-hero {
+    display: flex;
+    min-height: 78vh;
+    align-items: flex-end;
+    padding: 8rem 5vw;
+    background: radial-gradient(circle at 75% 20%, rgba(189, 153, 91, 0.18), transparent 34%), #050505;
+  }
+
+  .models-hero-inner,
+  .models-two-col,
+  .models-selector-inner,
+  .models-results-inner,
+  .models-process-inner,
+  .models-residences-link > div {
+    width: min(1480px, 100%);
+    margin: 0 auto;
+  }
+
+  .models-hero-inner {
+    width: min(920px, 100%);
+    margin: 0;
   }
 
   .models-hero h1,
@@ -390,16 +389,28 @@ const steps = [
     font-size: clamp(4.2rem, 10vw, 9.5rem);
   }
 
+  .models-hero p:not(.models-kicker),
+  .models-copy,
+  .models-selector-heading > p,
+  .models-process p,
+  .models-residences-link p,
+  .model-card p,
+  .models-empty p {
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(244, 239, 229, 0.68);
+  }
+
   .models-hero p:not(.models-kicker) {
     max-width: 640px;
     margin: 1.8rem 0 0;
     font-size: clamp(1.05rem, 1.7vw, 1.45rem);
     line-height: 1.7;
-    color: rgba(244, 239, 229, 0.72);
   }
 
   .models-button,
-  .model-card a,
+  .model-card-link,
   .models-reset {
     display: inline-flex;
     align-items: center;
@@ -426,15 +437,6 @@ const steps = [
   }
 
   .models-two-col,
-  .models-selector-inner,
-  .models-results-inner,
-  .models-process-inner,
-  .models-residences-link > div {
-    width: min(1480px, 100%);
-    margin: 0 auto;
-  }
-
-  .models-two-col,
   .models-selector-inner {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -448,17 +450,6 @@ const steps = [
   .models-residences-link h2 {
     max-width: 850px;
     font-size: clamp(3rem, 6vw, 6rem);
-  }
-
-  .models-copy,
-  .models-selector-heading > p,
-  .models-process p,
-  .models-residences-link p,
-  .model-card p {
-    font-family: Inter, sans-serif;
-    font-weight: 300;
-    line-height: 1.85;
-    color: rgba(244, 239, 229, 0.68);
   }
 
   .models-copy p {
@@ -476,3 +467,236 @@ const steps = [
     max-width: 580px;
     margin: 1.5rem 0 0;
   }
+
+  .models-filter-status {
+    margin-top: 2rem;
+    font-family: Inter, sans-serif;
+    color: rgba(244, 239, 229, 0.72);
+  }
+
+  .models-filter-status span {
+    color: #c5a66a;
+  }
+
+  .models-filter-panel {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .models-filter-group {
+    border: 1px solid rgba(244, 239, 229, 0.12);
+    padding: 1.25rem;
+  }
+
+  .models-filter-group h3 {
+    margin: 0 0 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+
+  .models-filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .models-filter-options button {
+    border: 1px solid rgba(244, 239, 229, 0.18);
+    padding: 0.7rem 0.85rem;
+    background: transparent;
+    color: rgba(244, 239, 229, 0.72);
+    font-family: Inter, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .models-filter-options button.is-active {
+    border-color: rgba(197, 166, 106, 0.8);
+    color: #f4efe5;
+  }
+
+  .models-results-heading {
+    margin-bottom: 3rem;
+  }
+
+  .models-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .model-card {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    border: 1px solid rgba(244, 239, 229, 0.12);
+    background: rgba(244, 239, 229, 0.035);
+  }
+
+  .model-card[hidden] {
+    display: none;
+  }
+
+  .model-card-image {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: rgba(244, 239, 229, 0.06);
+  }
+
+  .model-card-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .model-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.4rem;
+  }
+
+  .model-card-topline {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .model-card h3 {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .model-card-topline span,
+  .model-style,
+  .model-meta,
+  .models-empty {
+    font-family: Inter, sans-serif;
+  }
+
+  .model-card-topline span,
+  .model-style {
+    color: #c5a66a;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .model-style {
+    margin-top: 1rem;
+  }
+
+  .model-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    color: rgba(244, 239, 229, 0.62);
+    font-size: 0.82rem;
+  }
+
+  .model-meta span {
+    border: 1px solid rgba(244, 239, 229, 0.13);
+    padding: 0.35rem 0.55rem;
+  }
+
+  .model-card p {
+    margin: 1rem 0 0;
+  }
+
+  .model-card-link {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+  .models-empty {
+    margin-top: 3rem;
+    border: 1px solid rgba(244, 239, 229, 0.12);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .models-empty h3,
+  .models-process h3 {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+  }
+
+  .models-process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .models-process-grid article {
+    border: 1px solid rgba(244, 239, 229, 0.12);
+    padding: 1.5rem;
+  }
+
+  .models-process-grid strong {
+    display: block;
+    margin-bottom: 4rem;
+    color: #c5a66a;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+  }
+
+  .models-residences-link {
+    border-top: 1px solid rgba(244, 239, 229, 0.12);
+  }
+
+  .models-residences-link p {
+    max-width: 760px;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 1100px) {
+    .models-grid,
+    .models-process-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .models-hero {
+      min-height: auto;
+      padding-top: 7rem;
+    }
+
+    .models-two-col,
+    .models-selector-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .models-grid,
+    .models-process-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .models-hero,
+    .models-intro,
+    .models-selector,
+    .models-results,
+    .models-process,
+    .models-residences-link {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    .models-hero h1 {
+      font-size: clamp(3.4rem, 17vw, 5rem);
+    }
+  }
+</style>
