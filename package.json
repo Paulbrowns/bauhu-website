@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "import:images": "node scripts/import-images.mjs"
+    "import:images": "node scripts/import-images.mjs",
+    "setup:model-folders": "node scripts/create-model-image-folders.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.3.0",
