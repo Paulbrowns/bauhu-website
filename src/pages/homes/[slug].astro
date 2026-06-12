@@ -23,14 +23,16 @@ const { model } = Astro.props;
 const cleanName = titleCase(model.name);
 const slug = model.slug;
 const modelPublicSlug = slug.replace(/^bauhu-/, '');
+const modelImageBase = `/images/models/${slug}`;
+const heroImage = `${modelImageBase}/${slug}-hero.webp`;
 const enquiryHref = `/start-your-project?model=${encodeURIComponent(model.name)}`;
 const galleryImages = [
-  model.image,
-  `/images/models/${slug}-2.webp`,
-  `/images/models/${slug}-3.webp`,
-  `/images/models/${slug}-4.webp`,
+  heroImage,
+  `${modelImageBase}/${slug}-01.webp`,
+  `${modelImageBase}/${slug}-02.webp`,
+  `${modelImageBase}/${slug}-03.webp`,
 ];
-const floorPlanImage = `/images/models/${slug}-floor-plan.webp`;
+const floorPlanImage = `${modelImageBase}/${slug}-floor-plan.webp`;
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <SiteHeader />
@@ -46,7 +48,7 @@ const floorPlanImage = `/images/models/${slug}-floor-plan.webp`;
         </div>
       </div>
       <div class="home-hero-image">
-        <img src={model.image} alt={`${cleanName} Bauhu model residence`} onerror="this.src='/images/model-placeholder.svg'" />
+        <img src={heroImage} alt={`${cleanName} Bauhu model residence`} onerror="this.src='/images/model-placeholder.svg'" />
       </div>
     </section>
 
