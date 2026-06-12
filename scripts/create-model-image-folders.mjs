@@ -48,17 +48,18 @@ function ensureModelFolder(baseDir, slug, includePlaceholders = false) {
 
   if (includePlaceholders) {
     [
-      `${slug}-hero.webp`,
-      `${slug}-01.webp`,
-      `${slug}-02.webp`,
-      `${slug}-03.webp`,
-      `${slug}-floor-plan.webp`,
+      `${slug}.webp`,
+      '1.webp',
+      '2.webp',
+      '3.webp',
+      '4.webp',
+      'floorplan.webp',
     ].forEach((filename) => ensureFile(path.join(modelDir, filename)));
   }
 
   ensureFile(
     path.join(modelDir, 'README.md'),
-    `# ${slug}\n\nExpected files:\n\n- ${slug}-hero.webp\n- ${slug}-01.webp\n- ${slug}-02.webp\n- ${slug}-03.webp\n- ${slug}-floor-plan.webp\n`
+    `# ${slug}\n\nExpected files:\n\n- ${slug}.webp\n- 1.webp\n- 2.webp\n- 3.webp\n- 4.webp\n- floorplan.webp\n`
   );
 }
 
