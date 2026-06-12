@@ -18,16 +18,16 @@ import SiteFooter from '../components/SiteFooter.astro';
           </div>
         </div>
         <form class="grid gap-4 rounded-none bg-paper p-6 text-ink md:p-8" name="project-enquiry">
-          <input class="border border-stone bg-white px-4 py-3" placeholder="Name" />
-          <input class="border border-stone bg-white px-4 py-3" placeholder="Email" type="email" />
-          <input class="border border-stone bg-white px-4 py-3" placeholder="Site location" />
-          <input class="border border-stone bg-white px-4 py-3" placeholder="Approximate budget range" />
-          <select class="border border-stone bg-white px-4 py-3">
+          <input class="border border-stone bg-white px-4 py-3" name="name" placeholder="Name" />
+          <input class="border border-stone bg-white px-4 py-3" name="email" placeholder="Email" type="email" />
+          <input class="border border-stone bg-white px-4 py-3" name="site_location" placeholder="Site location" />
+          <input class="border border-stone bg-white px-4 py-3" name="budget_range" placeholder="Approximate budget range" />
+          <select class="border border-stone bg-white px-4 py-3" name="project_route" id="project-route">
             <option>Private residence</option>
             <option>Model based home</option>
             <option>Not sure yet</option>
           </select>
-          <textarea class="min-h-44 border border-stone bg-white px-4 py-3" placeholder="Tell us about the plot, access, planning status, timeline and what you want to build"></textarea>
+          <textarea class="min-h-44 border border-stone bg-white px-4 py-3" name="message" id="project-message" placeholder="Tell us about the plot, access, planning status, timeline and what you want to build"></textarea>
           <button class="bg-forest px-6 py-4 text-sm uppercase tracking-wide text-paper" type="button">Submit enquiry</button>
           <p class="text-xs leading-6 text-ink/55">Form backend will be connected during the next implementation stage.</p>
         </form>
@@ -36,3 +36,37 @@ import SiteFooter from '../components/SiteFooter.astro';
   </main>
   <SiteFooter />
 </BaseLayout>
+
+<script>
+  const routeSelect = document.getElementById('project-route');
+  const messageField = document.getElementById('project-message');
+  const params = new URLSearchParams(window.location.search);
+  const selectedModel = params.get('model');
+
+  function getSavedFavourites() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('bauhuModelFavourites') || '[]');
+      return Array.isArray(saved) ? saved : [];
+    } catch {
+      return [];
+    }
+  }
+
+  const favourites = getSavedFavourites();
+  const modelNames = favourites.map((item) => item?.name).filter(Boolean);
+  const allModels = [...new Set([selectedModel, ...modelNames].filter(Boolean))];
+
+  if (allModels.length > 0 && routeSelect instanceof HTMLSelectElement) {
+    routeSelect.value = 'Model based home';
+  }
+
+  if (messageField instanceof HTMLTextAreaElement && allModels.length > 0) {
+    messageField.value = [
+      'I am interested in the following Bauhu model residence' + (allModels.length > 1 ? 's:' : ':'),
+      '',
+      ...allModels.map((name) => `- ${name}`),
+      '',
+      'Please contact me to discuss site fit, options, budget and next steps.',
+    ].join('\n');
+  }
+</script>
