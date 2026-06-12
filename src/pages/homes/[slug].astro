@@ -4,10 +4,6 @@ import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import { bauhuModels } from '../../data/models';
 
-function publicSlug(modelSlug: string) {
-  return modelSlug.replace(/^bauhu-/, '');
-}
-
 function titleCase(value: string) {
   return value
     .toLowerCase()
@@ -18,7 +14,7 @@ function titleCase(value: string) {
 
 export function getStaticPaths() {
   return bauhuModels.map((model) => ({
-    params: { slug: publicSlug(model.slug) },
+    params: { slug: model.slug.replace(/^bauhu-/, '') },
     props: { model },
   }));
 }
@@ -26,6 +22,7 @@ export function getStaticPaths() {
 const { model } = Astro.props;
 const cleanName = titleCase(model.name);
 const slug = model.slug;
+const modelPublicSlug = slug.replace(/^bauhu-/, '');
 const enquiryHref = `/start-your-project?model=${encodeURIComponent(model.name)}`;
 const galleryImages = [
   model.image,
@@ -37,7 +34,7 @@ const floorPlanImage = `/images/models/${slug}-floor-plan.webp`;
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <SiteHeader />
-  <main class="home-detail" data-model-name={model.name} data-model-slug={publicSlug(model.slug)}>
+  <main class="home-detail" data-model-name={model.name} data-model-slug={modelPublicSlug}>
     <section class="home-hero">
       <div class="home-hero-copy">
         <p class="home-kicker">Bauhu Model Residence</p>
