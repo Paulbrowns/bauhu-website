@@ -28,10 +28,7 @@ const heroImage = `${modelImageBase}/${slug}.webp`;
 const enquiryHref = `/start-your-project?model=${encodeURIComponent(model.name)}`;
 const galleryImages = [
   heroImage,
-  `${modelImageBase}/1.webp`,
-  `${modelImageBase}/2.webp`,
-  `${modelImageBase}/3.webp`,
-  `${modelImageBase}/4.webp`,
+  ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`),
 ];
 const floorPlanImage = `${modelImageBase}/floorplan.webp`;
 ---
