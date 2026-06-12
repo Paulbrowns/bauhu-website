@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..');
 const sourceRoot = process.env.BAUHU_IMAGE_SOURCE || path.resolve(repoRoot, '..', 'bauhu-media-source');
 const publicImagesRoot = path.resolve(repoRoot, 'public', 'images');
+const [, , requestedCollection, requestedItem] = process.argv;
 
 const collections = {
   home: {
@@ -95,6 +96,7 @@ async function importFlatCollection(name, config) {
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
     .filter(isImageFile)
+    .filter((fileName) => !requestedItem || slugify(path.basename(fileName, path.extname(fileName))) === requestedItem)
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
   const imported = [];
@@ -111,6 +113,10 @@ async function importFlatCollection(name, config) {
     console.log(`Imported ${name}/${fileName} -> public/images/${name}/${outputName}`);
   }
 
+  if (requestedItem && imported.length === 0) {
+    console.log(`No matching image found for ${name}/${requestedItem}`);
+  }
+
   return imported;
 }
 
@@ -120,9 +126,15 @@ async function importNestedModelCollection(name, config) {
   const modelFolders = (await fs.readdir(config.source, { withFileTypes: true }))
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
+    .filter((folderName) => !requestedItem || folderName === requestedItem)
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
   const imported = [];
+
+  if (requestedItem && modelFolders.length === 0) {
+    console.log(`No matching model folder found at ${path.join(config.source, requestedItem)}`);
+    return imported;
+  }
 
   for (const folderName of modelFolders) {
     const sourceFolder = path.join(config.source, folderName);
@@ -163,13 +175,27 @@ async function importCollection(name, config) {
   return importFlatCollection(name, config);
 }
 
+function selectedCollections() {
+  if (!requestedCollection) return Object.entries(collections);
+
+  if (!collections[requestedCollection]) {
+    throw new Error(`Unknown image collection: ${requestedCollection}. Valid collections are: ${Object.keys(collections).join(', ')}`);
+  }
+
+  return [[requestedCollection, collections[requestedCollection]]];
+}
+
 async function main() {
   console.log(`Using source image folder: ${sourceRoot}`);
   console.log('Set BAUHU_IMAGE_SOURCE to override this path.');
 
+  if (requestedCollection) {
+    console.log(`Import filter: ${requestedCollection}${requestedItem ? `/${requestedItem}` : ''}`);
+  }
+
   let total = 0;
 
-  for (const [name, config] of Object.entries(collections)) {
+  for (const [name, config] of selectedCollections()) {
     const imported = await importCollection(name, config);
     total += imported.length;
   }
