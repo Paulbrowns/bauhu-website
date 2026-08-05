@@ -5,24 +5,23 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import { bauhuModels } from '../../data/models';
 
 export function getStaticPaths() {
-  return bauhuModels.map((model) => ({
-    params: { slug: model.slug.replace(/^bauhu-/, '') },
-    props: { model },
-  }));
+  return bauhuModels.map((model) => ({ params: { slug: model.slug.replace(/^bauhu-/, '') }, props: { model } }));
 }
 
 const { model } = Astro.props;
 const publicSlug = model.slug.replace(/^bauhu-/, '');
+const storeys = model.storeysMin && model.storeysMin > 0 ? model.storeysMin : 1;
+const groundFootprintSqft = model.builtAreaSqftMin ? Math.round(model.builtAreaSqftMin / storeys) : null;
 ---
 
 <BaseLayout title={`Review your ${model.name} project | Bauhu`} description={`Review the selected site, placement and ${model.name} model before contacting Bauhu.`}>
   <SiteHeader />
-  <main class="summary-page">
+  <main class="summary-page" data-ground-footprint-sqft={groundFootprintSqft ?? ''} data-model={model.name}>
     <header class="summary-header">
       <div>
         <p class="kicker">PROJECT SUMMARY</p>
-        <h1>Review your proposed Bauhu project.</h1>
-        <p>Check the selected home, site and indicative placement before sharing the project with Bauhu.</p>
+        <h1>Review your project</h1>
+        <p>Check your selected home, site information and indicative placement before sharing the project with Bauhu.</p>
       </div>
       <div class="step-marker">05 / 06</div>
     </header>
@@ -35,10 +34,12 @@ const publicSlug = model.slug.replace(/^bauhu-/, '');
           <h2>{model.name}</h2>
           <p>{model.shortDescription}</p>
           <dl>
+            <div><dt>Guide price</dt><dd>{model.guidePriceLabel}</dd></div>
             <div><dt>Bedrooms</dt><dd>{model.bedroomsLabel}</dd></div>
             <div><dt>Bathrooms</dt><dd>{model.bathroomsLabel}</dd></div>
             <div><dt>Storeys</dt><dd>{model.storeysLabel}</dd></div>
             <div><dt>Built area</dt><dd>{model.builtAreaLabel} ft²</dd></div>
+            <div><dt>Estimated ground footprint</dt><dd>{groundFootprintSqft ? `${groundFootprintSqft.toLocaleString('en-US')} ft²` : 'TBD'}</dd></div>
           </dl>
         </div>
       </article>
@@ -52,19 +53,35 @@ const publicSlug = model.slug.replace(/^bauhu-/, '');
           <div><dt>House centre</dt><dd id="summary-coordinates">Not supplied</dd></div>
           <div><dt>Orientation</dt><dd id="summary-rotation">0°</dd></div>
           <div><dt>Survey / topo</dt><dd id="summary-documents">Not attached</dd></div>
+          <div><dt>Estimated site coverage</dt><dd id="summary-coverage">Unable to calculate</dd></div>
         </dl>
         <div class="notice">This remains an indicative placement. Boundary accuracy, planning requirements, setbacks, levels, utilities and construction suitability require professional verification.</div>
+      </article>
+
+      <article class="value-card">
+        <p class="kicker">PRELIMINARY SITE FIT</p>
+        <div class="fit-result"><span id="fit-dot"></span><strong id="fit-label">Review required</strong></div>
+        <ul id="fit-factors">
+          <li>House position has been selected.</li>
+          <li>Site coverage will be estimated when plot area is available.</li>
+          <li>Planning, access and terrain remain subject to verification.</li>
+        </ul>
+      </article>
+
+      <article class="tools-card">
+        <p class="kicker">SAVE & SHARE</p>
+        <div class="tool-actions">
+          <button id="save-project" type="button">Save project</button>
+          <button id="share-project" type="button">Share project link</button>
+          <button id="print-report" type="button">Download / print report</button>
+        </div>
+        <p id="tool-status" aria-live="polite"></p>
       </article>
 
       <article class="journey-card">
         <p class="kicker">YOUR PROJECT JOURNEY</p>
         <ol>
-          <li class="done"><b>1</b><span>Site located</span></li>
-          <li class="done"><b>2</b><span>Parcel confirmed</span></li>
-          <li class="done"><b>3</b><span>House positioned</span></li>
-          <li class="done"><b>4</b><span>House explored</span></li>
-          <li class="current"><b>5</b><span>Project reviewed</span></li>
-          <li><b>6</b><span>Send to Bauhu</span></li>
+          <li class="done"><b>1</b><span>Site located</span></li><li class="done"><b>2</b><span>Parcel confirmed</span></li><li class="done"><b>3</b><span>House positioned</span></li><li class="done"><b>4</b><span>House explored</span></li><li class="current"><b>5</b><span>Project reviewed</span></li><li><b>6</b><span>Send to Bauhu</span></li>
         </ol>
       </article>
     </section>
@@ -78,23 +95,59 @@ const publicSlug = model.slug.replace(/^bauhu-/, '');
 
   <script is:inline>
     (() => {
+      const page = document.querySelector('.summary-page');
       const params = new URLSearchParams(location.search);
       const value = (key, fallback) => params.get(key) || fallback;
-      document.getElementById('summary-parcel').textContent = value('parcel', 'Confirmed site');
-      document.getElementById('summary-area').textContent = value('area', 'Area not supplied');
-      const lat = params.get('lat');
-      const lng = params.get('lng');
-      document.getElementById('summary-coordinates').textContent = lat && lng ? `${Number(lat).toFixed(6)}, ${Number(lng).toFixed(6)}` : 'Not supplied';
-      document.getElementById('summary-rotation').textContent = `${Math.round(Number(params.get('rotation') || 0))}°`;
-      document.getElementById('summary-documents').textContent = Number(params.get('documents') || 0) > 0 ? `${params.get('documents')} file(s) attached` : 'Not attached';
-      ['back-to-viewer', 'continue-to-enquiry'].forEach((id) => {
-        const link = document.getElementById(id);
-        if (link && location.search) link.href += location.search;
+      const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+      set('summary-parcel', value('parcel', 'Confirmed site'));
+      set('summary-area', value('area', 'Area not supplied'));
+      const lat = params.get('lat'); const lng = params.get('lng');
+      set('summary-coordinates', lat && lng ? `${Number(lat).toFixed(6)}, ${Number(lng).toFixed(6)}` : 'Not supplied');
+      set('summary-rotation', `${Math.round(Number(params.get('rotation') || 0))}°`);
+      set('summary-documents', Number(params.get('documents') || 0) > 0 ? `${params.get('documents')} file(s) attached` : 'Not attached');
+
+      const areaRaw = params.get('area') || '';
+      const areaNumber = Number((areaRaw.match(/[\d,.]+/)?.[0] || '').replace(/,/g, ''));
+      const areaSqft = /m²|m2|sqm/i.test(areaRaw) ? areaNumber * 10.7639 : areaNumber;
+      const footprint = Number(page?.dataset.groundFootprintSqft || 0);
+      const coverage = areaSqft > 0 && footprint > 0 ? (footprint / areaSqft) * 100 : null;
+      set('summary-coverage', coverage ? `${coverage.toFixed(1)}%` : 'Unable to calculate');
+
+      const fitLabel = document.getElementById('fit-label');
+      const factors = document.getElementById('fit-factors');
+      if (fitLabel && factors) {
+        if (coverage !== null && coverage <= 30) {
+          fitLabel.textContent = 'Good preliminary fit';
+          factors.innerHTML = `<li>Estimated site coverage is ${coverage.toFixed(1)}%.</li><li>The selected house position is recorded.</li><li>Planning, setbacks, access and terrain still require verification.</li>`;
+          document.body.classList.add('fit-good');
+        } else if (coverage !== null && coverage <= 50) {
+          fitLabel.textContent = 'Potential fit — review recommended';
+          factors.innerHTML = `<li>Estimated site coverage is ${coverage.toFixed(1)}%.</li><li>Available external space may be constrained.</li><li>Setbacks, access and local planning rules require detailed review.</li>`;
+          document.body.classList.add('fit-caution');
+        } else if (coverage !== null) {
+          fitLabel.textContent = 'Detailed site review required';
+          factors.innerHTML = `<li>Estimated site coverage is ${coverage.toFixed(1)}%.</li><li>The model may occupy a substantial part of the supplied plot area.</li><li>Boundary and planning checks are essential before relying on this placement.</li>`;
+          document.body.classList.add('fit-review');
+        }
+      }
+
+      ['back-to-viewer', 'continue-to-enquiry'].forEach((id) => { const link = document.getElementById(id); if (link && location.search) link.href += location.search; });
+      const status = document.getElementById('tool-status');
+      document.getElementById('save-project')?.addEventListener('click', () => {
+        localStorage.setItem(`bauhu-project-${page?.dataset.model || 'project'}`, JSON.stringify({ url: location.href, savedAt: new Date().toISOString() }));
+        status.textContent = 'Project saved in this browser.';
       });
+      document.getElementById('share-project')?.addEventListener('click', async () => {
+        try {
+          if (navigator.share) await navigator.share({ title: `Bauhu project — ${page?.dataset.model}`, url: location.href });
+          else { await navigator.clipboard.writeText(location.href); status.textContent = 'Project link copied.'; }
+        } catch (_) {}
+      });
+      document.getElementById('print-report')?.addEventListener('click', () => window.print());
     })();
   </script>
 </BaseLayout>
 
 <style>
-.summary-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.summary-header{display:flex;justify-content:space-between;gap:2rem;padding:3rem 4vw 2rem;border-bottom:1px solid rgba(23,57,76,.16)}.kicker{margin:0 0 .65rem;font:700 .65rem/1 Inter,sans-serif;letter-spacing:.2em;color:#9b7b49}.summary-header h1{max-width:900px;margin:0;font:400 clamp(2.8rem,5vw,5.4rem)/.94 'Cormorant Garamond',serif}.summary-header p:last-child{max-width:700px;font:400 .86rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.step-marker{font:700 .68rem Inter,sans-serif;letter-spacing:.14em}.summary-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,.8fr);gap:1.2rem;padding:2rem 4vw}.model-card,.project-card,.journey-card{background:#f7f5ef;border:1px solid rgba(23,57,76,.14)}.model-card{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(300px,1fr);grid-row:span 2}.model-card img{width:100%;height:100%;min-height:530px;object-fit:cover}.model-card>div,.project-card,.journey-card{padding:1.5rem}.model-card h2,.project-card h2{margin:.1rem 0 .8rem;font:400 2.4rem 'Cormorant Garamond',serif}.model-card p:not(.kicker){font:400 .75rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}dl{margin:1rem 0 0}dl div{display:flex;justify-content:space-between;gap:1rem;padding:.72rem 0;border-top:1px solid rgba(23,57,76,.12);font:400 .68rem Inter,sans-serif}dd{margin:0;text-align:right;font-weight:700}.notice{margin-top:1rem;padding:1rem;background:#eee4cf;font:400 .65rem/1.6 Inter,sans-serif}.journey-card ol{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0 0;padding:0;list-style:none}.journey-card li{display:flex;align-items:center;gap:.55rem;font:600 .62rem Inter,sans-serif}.journey-card b{display:grid;place-items:center;width:26px;height:26px;border:1px solid rgba(23,57,76,.2);border-radius:50%}.journey-card .done b{background:#17394c;color:#fff}.journey-card .current b{border-color:#9b7b49;color:#9b7b49}.summary-actions{display:flex;justify-content:flex-end;gap:.7rem;padding:0 4vw 3rem}.summary-actions a{padding:.9rem 1.1rem;text-decoration:none;font:700 .7rem Inter,sans-serif}.secondary{border:1px solid rgba(23,57,76,.24);color:#17394c}.primary{background:#17394c;color:#fff}@media(max-width:900px){.summary-grid{grid-template-columns:1fr}.model-card{grid-row:auto}.journey-card ol{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.summary-header{flex-direction:column}.model-card{grid-template-columns:1fr}.model-card img{min-height:340px}.summary-actions{align-items:stretch;flex-direction:column}.summary-actions a{text-align:center}}
+.summary-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.summary-header{display:flex;justify-content:space-between;gap:2rem;padding:3rem 4vw 2rem;border-bottom:1px solid rgba(23,57,76,.16)}.kicker{margin:0 0 .65rem;font:700 .65rem/1 Inter,sans-serif;letter-spacing:.2em;color:#9b7b49}.summary-header h1{margin:0;font:400 clamp(2.8rem,5vw,5.4rem)/.94 'Cormorant Garamond',serif}.summary-header p:last-child{max-width:700px;font:400 .86rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.step-marker{font:700 .68rem Inter,sans-serif;letter-spacing:.14em}.summary-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,.8fr);gap:1.2rem;padding:2rem 4vw}.model-card,.project-card,.journey-card,.value-card,.tools-card{background:#f7f5ef;border:1px solid rgba(23,57,76,.14)}.model-card{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(300px,1fr);grid-row:span 3}.model-card img{width:100%;height:100%;min-height:640px;object-fit:cover}.model-card>div,.project-card,.journey-card,.value-card,.tools-card{padding:1.5rem}.model-card h2,.project-card h2{margin:.1rem 0 .8rem;font:400 2.4rem 'Cormorant Garamond',serif}.model-card p:not(.kicker){font:400 .75rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}dl{margin:1rem 0 0}dl div{display:flex;justify-content:space-between;gap:1rem;padding:.72rem 0;border-top:1px solid rgba(23,57,76,.12);font:400 .68rem Inter,sans-serif}dd{margin:0;text-align:right;font-weight:700}.notice{margin-top:1rem;padding:1rem;background:#eee4cf;font:400 .65rem/1.6 Inter,sans-serif}.fit-result{display:flex;align-items:center;gap:.7rem;font:400 1.65rem 'Cormorant Garamond',serif}.fit-result span{width:12px;height:12px;border-radius:50%;background:#9b7b49}.fit-good .fit-result span{background:#47765b}.fit-caution .fit-result span{background:#b98735}.fit-review .fit-result span{background:#9a4f43}.value-card ul{padding-left:1.1rem;font:400 .68rem/1.65 Inter,sans-serif;color:rgba(23,57,76,.72)}.tool-actions{display:flex;flex-wrap:wrap;gap:.5rem}.tool-actions button{padding:.7rem .8rem;border:1px solid rgba(23,57,76,.22);background:#fff;color:#17394c;font:700 .65rem Inter,sans-serif;cursor:pointer}.tools-card>p:last-child{min-height:1em;margin:.7rem 0 0;font:600 .62rem Inter,sans-serif}.journey-card ol{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0 0;padding:0;list-style:none}.journey-card li{display:flex;align-items:center;gap:.55rem;font:600 .62rem Inter,sans-serif}.journey-card b{display:grid;place-items:center;width:26px;height:26px;border:1px solid rgba(23,57,76,.2);border-radius:50%}.journey-card .done b{background:#17394c;color:#fff}.journey-card .current b{border-color:#9b7b49;color:#9b7b49}.summary-actions{display:flex;justify-content:flex-end;gap:.7rem;padding:0 4vw 3rem}.summary-actions a{padding:.9rem 1.1rem;text-decoration:none;font:700 .7rem Inter,sans-serif}.secondary{border:1px solid rgba(23,57,76,.24);color:#17394c}.primary{background:#17394c;color:#fff}@media(max-width:900px){.summary-grid{grid-template-columns:1fr}.model-card{grid-row:auto}.journey-card ol{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.summary-header{flex-direction:column}.model-card{grid-template-columns:1fr}.model-card img{min-height:340px}.summary-actions{align-items:stretch;flex-direction:column}.summary-actions a{text-align:center}}@media print{header,footer,.summary-actions,.tools-card,.journey-card{display:none!important}.summary-page{padding:0;background:#fff}.summary-grid{display:block;padding:0}.model-card,.project-card,.value-card{break-inside:avoid;margin:0 0 1rem;border-color:#bbb}.model-card{grid-template-columns:240px 1fr}.model-card img{min-height:360px}}
 </style>
