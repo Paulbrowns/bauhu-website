@@ -10,9 +10,9 @@
   if (!page || !shell || !aside) return;
 
   const modelFolder = `bauhu-${slug}`;
-  const base = `/images/models/${modelFolder}/${modelFolder}`;
-  const heroSrc = `${base}.webp`;
-  const galleryCandidates = [2, 3, 4, 5, 6].map((index) => `${base}-${index}.webp`);
+  const folder = `/images/models/${modelFolder}`;
+  const heroSrc = `${folder}/${modelFolder}.webp`;
+  const galleryCandidates = Array.from({ length: 9 }, (_, index) => `${folder}/${index + 1}.webp`);
 
   const style = document.createElement('style');
   style.textContent = `
@@ -59,23 +59,21 @@
     `;
 
     const row = section.querySelector('.viewer-gallery-row');
-    let loaded = 0;
 
     galleryCandidates.forEach((src, index) => {
       const figure = document.createElement('figure');
       figure.className = 'viewer-gallery-item';
       const image = document.createElement('img');
       image.src = src;
-      image.alt = `${heading?.textContent?.trim() || 'Bauhu home'} view ${index + 2}`;
+      image.alt = `${heading?.textContent?.trim() || 'Bauhu home'} view ${index + 1}`;
       image.loading = 'lazy';
       image.decoding = 'async';
       image.addEventListener('load', () => {
-        loaded += 1;
         section.hidden = false;
       }, { once: true });
       image.addEventListener('error', () => {
         figure.remove();
-        if (!loaded && !row?.children.length) section.remove();
+        if (!row?.children.length) section.remove();
       }, { once: true });
       figure.appendChild(image);
       row?.appendChild(figure);
