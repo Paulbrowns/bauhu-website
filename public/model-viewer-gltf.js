@@ -4,14 +4,14 @@
   const slug = location.pathname.split('/').filter(Boolean).pop();
   if (!slug) return;
 
-  const pairedGltfModels = new Set(['bahama-beach']);
-  if (!pairedGltfModels.has(slug)) return;
+  const nestedGlbModels = new Set(['bahama-beach']);
+  if (!nestedGlbModels.has(slug)) return;
 
   function configureViewer() {
     const viewer = document.getElementById('house-model-viewer');
     if (!viewer) return;
 
-    const modelPath = `/models/3d/${slug}/${slug}.gltf`;
+    const modelPath = `/models/3d/${slug}/${slug}.glb`;
     viewer.setAttribute('src', modelPath);
 
     const page = document.querySelector('.viewer-page');
@@ -22,7 +22,7 @@
 
     const errorText = document.querySelector('#viewer-error p');
     if (errorText) {
-      errorText.innerHTML = `Upload <code>${slug}.gltf</code> and <code>${slug}.bin</code> together in <code>public/models/3d/${slug}/</code>.`;
+      errorText.innerHTML = `The 3D model could not be loaded from <code>${modelPath}</code>.`;
     }
   }
 
