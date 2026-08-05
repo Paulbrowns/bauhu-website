@@ -1,0 +1,60 @@
+(() => {
+  function init() {
+    const siteFitPage = document.querySelector('.site-fit-page');
+    const toolbar = document.querySelector('.map-toolbar');
+    if (!siteFitPage || !toolbar || document.getElementById('site-fit-reset')) return;
+
+    const button = document.createElement('button');
+    button.id = 'site-fit-reset';
+    button.type = 'button';
+    button.className = 'site-fit-reset';
+    button.textContent = 'Start again';
+    button.setAttribute('aria-label', 'Clear this site and start again');
+
+    button.addEventListener('click', () => {
+      try {
+        Object.keys(localStorage).forEach((key) => {
+          if (key.startsWith('bauhu-site-fit:') || key.startsWith('bauhu-survey:')) {
+            localStorage.removeItem(key);
+          }
+        });
+        Object.keys(sessionStorage).forEach((key) => {
+          if (key.startsWith('bauhu-site-fit:') || key.startsWith('bauhu-survey:')) {
+            sessionStorage.removeItem(key);
+          }
+        });
+      } catch {
+        // Storage may be unavailable; reloading still clears all in-memory map state.
+      }
+
+      const cleanUrl = `${window.location.pathname}${window.location.hash || ''}`;
+      window.location.replace(cleanUrl);
+    });
+
+    const firstGroup = toolbar.firstElementChild;
+    if (firstGroup) firstGroup.appendChild(button);
+    else toolbar.prepend(button);
+
+    const style = document.createElement('style');
+    style.textContent = `
+      .site-fit-reset {
+        margin-left: .45rem;
+        border-color: rgba(124, 64, 55, .32) !important;
+        color: #7c4037 !important;
+        background: transparent !important;
+      }
+      .site-fit-reset:hover,
+      .site-fit-reset:focus-visible {
+        border-color: #7c4037 !important;
+        background: rgba(124, 64, 55, .08) !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();
