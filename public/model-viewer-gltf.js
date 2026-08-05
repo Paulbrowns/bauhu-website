@@ -4,6 +4,9 @@
   if (slug !== 'bahama-beach') return;
 
   const modelPath = `/models/3d/${slug}/${slug}.glb`;
+  const defaultOrbit = '35deg 68deg 110%';
+  const defaultTarget = 'auto auto auto';
+  const defaultFov = '35deg';
 
   function statusBox(stage) {
     const box = document.createElement('div');
@@ -26,6 +29,34 @@
     ]);
   }
 
+  function bindControls(viewer) {
+    const reset = document.getElementById('reset-view');
+    const rotate = document.getElementById('toggle-autorotate');
+    const fullscreen = document.getElementById('fullscreen-view');
+
+    reset?.addEventListener('click', () => {
+      viewer.autoRotate = false;
+      viewer.cameraTarget = defaultTarget;
+      viewer.cameraOrbit = defaultOrbit;
+      viewer.fieldOfView = defaultFov;
+      viewer.jumpCameraToGoal?.();
+      if (rotate) {
+        rotate.setAttribute('aria-pressed', 'false');
+        rotate.textContent = 'Auto rotate';
+      }
+    });
+
+    rotate?.addEventListener('click', () => {
+      viewer.autoRotate = !viewer.autoRotate;
+      rotate.setAttribute('aria-pressed', String(viewer.autoRotate));
+      rotate.textContent = viewer.autoRotate ? 'Stop rotation' : 'Auto rotate';
+    });
+
+    fullscreen?.addEventListener('click', () => {
+      document.querySelector('.viewer-stage')?.requestFullscreen?.();
+    });
+  }
+
   async function start() {
     const stage = document.querySelector('.viewer-stage');
     if (!stage) return;
@@ -33,7 +64,6 @@
     const legacyViewer = document.getElementById('house-model-viewer');
     const legacyError = document.getElementById('viewer-error');
 
-    // Remove both legacy elements before their old error handler can cover the live viewer.
     legacyError?.remove();
     legacyViewer?.remove();
 
@@ -63,13 +93,16 @@
       viewer.setAttribute('environment-image', 'neutral');
       viewer.setAttribute('loading', 'eager');
       viewer.setAttribute('reveal', 'auto');
-      viewer.setAttribute('field-of-view', '35deg');
+      viewer.setAttribute('field-of-view', defaultFov);
       viewer.style.cssText = 'display:block;width:100%;height:100%;min-height:720px;background:transparent';
+
+      bindControls(viewer);
 
       viewer.addEventListener('load', async () => {
         await viewer.updateComplete;
-        viewer.cameraTarget = 'auto auto auto';
-        viewer.cameraOrbit = '35deg 68deg 110%';
+        viewer.cameraTarget = defaultTarget;
+        viewer.cameraOrbit = defaultOrbit;
+        viewer.fieldOfView = defaultFov;
         viewer.jumpCameraToGoal?.();
         const dimensions = viewer.getDimensions?.();
         status.textContent = dimensions
