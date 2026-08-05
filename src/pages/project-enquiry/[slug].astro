@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { bauhuModels } from '../../data/models';
+
+export function getStaticPaths() {
+  return bauhuModels.map((model) => ({
+    params: { slug: model.slug.replace(/^bauhu-/, '') },
+    props: { model },
+  }));
+}
+
+const { model } = Astro.props;
+const publicSlug = model.slug.replace(/^bauhu-/, '');
+---
+
+<BaseLayout title={`Send your ${model.name} project to Bauhu`} description={`Share your selected ${model.name} project and site information with Bauhu.`}>
+  <SiteHeader />
+  <main class="enquiry-page">
+    <header class="enquiry-header">
+      <div>
+        <p class="kicker">SEND TO BAUHU</p>
+        <h1>Tell us how to contact you.</h1>
+        <p>Your selected home, site and placement details are already attached to this project enquiry.</p>
+      </div>
+      <div class="step-marker">06 / 06</div>
+    </header>
+
+    <section class="enquiry-shell">
+      <form id="project-enquiry-form" class="enquiry-form">
+        <div class="field-grid">
+          <label><span>Full name</span><input name="name" autocomplete="name" required /></label>
+          <label><span>Email</span><input name="email" type="email" autocomplete="email" required /></label>
+          <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel" /></label>
+          <label><span>Preferred contact</span><select name="contactPreference"><option>Email</option><option>Phone</option><option>WhatsApp</option></select></label>
+        </div>
+        <label><span>What would you like to discuss?</span><textarea name="message" rows="6" placeholder="Tell us about your timeline, priorities or any questions about the project."></textarea></label>
+        <label class="consent"><input name="consent" type="checkbox" required /><span>I agree that Bauhu may contact me about this project.</span></label>
+
+        <input type="hidden" name="model" value={model.name} />
+        <input id="project-data" type="hidden" name="projectData" />
+
+        <div class="form-actions">
+          <a id="back-to-summary" href={`/project-summary/${publicSlug}`}>Back to project summary</a>
+          <button type="submit">Prepare project enquiry</button>
+        </div>
+        <p id="submission-note" class="submission-note">Online submission is not yet connected. This screen currently prepares the complete enquiry payload for the final email/CRM integration.</p>
+      </form>
+
+      <aside class="project-recap">
+        <p class="kicker">PROJECT ATTACHED</p>
+        <h2>{model.name}</h2>
+        <dl>
+          <div><dt>Parcel</dt><dd id="recap-parcel">Confirmed site</dd></div>
+          <div><dt>Plot area</dt><dd id="recap-area">Area not supplied</dd></div>
+          <div><dt>House centre</dt><dd id="recap-coordinates">Not supplied</dd></div>
+          <div><dt>Orientation</dt><dd id="recap-rotation">0°</dd></div>
+        </dl>
+        <div class="attached-list">
+          <div><b>✓</b><span>Selected model</span></div>
+          <div><b>✓</b><span>Confirmed location</span></div>
+          <div><b>✓</b><span>Indicative house placement</span></div>
+          <div id="document-row"><b>—</b><span>No survey/topo documents attached</span></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <SiteFooter />
+
+  <script is:inline>
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const lat = params.get('lat');
+      const lng = params.get('lng');
+      const project = {
+        model: {model.name},
+        slug: {JSON.stringify(publicSlug)},
+        parcel: params.get('parcel') || 'Confirmed site',
+        area: params.get('area') || 'Area not supplied',
+        latitude: lat || '',
+        longitude: lng || '',
+        rotation: Number(params.get('rotation') || 0),
+        documents: Number(params.get('documents') || 0),
+        sourceUrl: location.href
+      };
+
+      document.getElementById('recap-parcel').textContent = project.parcel;
+      document.getElementById('recap-area').textContent = project.area;
+      document.getElementById('recap-coordinates').textContent = lat && lng ? `${Number(lat).toFixed(6)}, ${Number(lng).toFixed(6)}` : 'Not supplied';
+      document.getElementById('recap-rotation').textContent = `${Math.round(project.rotation)}°`;
+      document.getElementById('project-data').value = JSON.stringify(project);
+      if (project.documents > 0) {
+        const row = document.getElementById('document-row');
+        row.querySelector('b').textContent = '✓';
+        row.querySelector('span').textContent = `${project.documents} survey/topo file(s) attached`;
+      }
+      const back = document.getElementById('back-to-summary');
+      if (back && location.search) back.href += location.search;
+
+      document.getElementById('project-enquiry-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!form.reportValidity()) return;
+        const payload = Object.fromEntries(new FormData(form).entries());
+        sessionStorage.setItem('bauhuProjectEnquiryDraft', JSON.stringify(payload));
+        const note = document.getElementById('submission-note');
+        note.textContent = 'Project enquiry prepared and saved in this browser. The final email/CRM submission connection is still required before this can be sent to Bauhu.';
+        note.classList.add('ready');
+        form.querySelector('button[type="submit"]').textContent = 'Enquiry prepared';
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+.enquiry-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.enquiry-header{display:flex;justify-content:space-between;gap:2rem;padding:3rem 4vw 2rem;border-bottom:1px solid rgba(23,57,76,.16)}.kicker{margin:0 0 .65rem;font:700 .65rem/1 Inter,sans-serif;letter-spacing:.2em;color:#9b7b49}.enquiry-header h1{max-width:860px;margin:0;font:400 clamp(2.8rem,5vw,5.3rem)/.94 'Cormorant Garamond',serif}.enquiry-header p:last-child{max-width:680px;font:400 .86rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.step-marker{font:700 .68rem Inter,sans-serif;letter-spacing:.14em}.enquiry-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:1.2rem;padding:2rem 4vw 4rem}.enquiry-form,.project-recap{padding:1.5rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.14)}.field-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.enquiry-form label{display:block;margin-bottom:1rem}.enquiry-form label>span{display:block;margin-bottom:.45rem;font:700 .66rem Inter,sans-serif}.enquiry-form input,.enquiry-form select,.enquiry-form textarea{width:100%;box-sizing:border-box;padding:.85rem;border:1px solid rgba(23,57,76,.2);background:#fff;color:#17394c;font:400 .78rem Inter,sans-serif}.enquiry-form textarea{resize:vertical}.consent{display:flex!important;align-items:flex-start;gap:.65rem}.consent input{width:auto;margin-top:.18rem}.consent span{font-weight:400!important;line-height:1.5}.form-actions{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1rem}.form-actions a{color:#17394c;font:700 .68rem Inter,sans-serif}.form-actions button{padding:.9rem 1.1rem;border:0;background:#17394c;color:#fff;font:700 .7rem Inter,sans-serif}.submission-note{margin:1rem 0 0;padding:1rem;background:#eee4cf;font:400 .64rem/1.6 Inter,sans-serif}.submission-note.ready{background:#dde8df}.project-recap h2{margin:.1rem 0 1rem;font:400 2.3rem 'Cormorant Garamond',serif}.project-recap dl{margin:0}.project-recap dl div{display:flex;justify-content:space-between;gap:1rem;padding:.72rem 0;border-top:1px solid rgba(23,57,76,.12);font:400 .67rem Inter,sans-serif}.project-recap dd{margin:0;text-align:right;font-weight:700}.attached-list{margin-top:1.2rem}.attached-list div{display:flex;align-items:center;gap:.7rem;padding:.6rem 0;font:600 .65rem Inter,sans-serif}.attached-list b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#17394c;color:#fff;font-size:.62rem}@media(max-width:850px){.enquiry-shell{grid-template-columns:1fr}.project-recap{grid-row:1}}@media(max-width:600px){.enquiry-header{flex-direction:column}.field-grid{grid-template-columns:1fr}.form-actions{align-items:stretch;flex-direction:column-reverse}.form-actions button{width:100%}}
+</style>
