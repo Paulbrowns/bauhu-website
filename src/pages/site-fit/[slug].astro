@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { bauhuModels } from '../../data/models';
+
+export function getStaticPaths() {
+  return bauhuModels.map((model) => ({
+    params: { slug: model.slug.replace(/^bauhu-/, '') },
+    props: { model },
+  }));
+}
+
+const { model } = Astro.props;
+const publicSlug = model.slug.replace(/^bauhu-/, '');
+const modelPageHref = `/homes/${publicSlug}`;
+---
+
+<BaseLayout
+  title={`Test ${model.name} on your site | Bauhu`}
+  description={`Use Bauhu's preliminary site-fit tool to test ${model.name} against your property.`}
+>
+  <SiteHeader />
+  <main class="site-fit-page" data-model-slug={publicSlug}>
+    <header class="site-fit-header">
+      <div>
+        <p>BAUHU SITE FIT</p>
+        <h1>Test {model.name} on your property.</h1>
+        <span>
+          Add a property, upload a survey and explore preliminary placement, access,
+          orientation and site constraints.
+        </span>
+      </div>
+      <div class="site-fit-model-summary">
+        <strong>{model.name}</strong>
+        <span>{model.guidePriceLabel}</span>
+        <span>{model.bedroomsLabel} bedrooms · {model.bathroomsLabel} bathrooms</span>
+        <span>{model.builtAreaLabel} ft² · {model.storeysLabel} storeys</span>
+        <a href={modelPageHref}>Return to model page</a>
+      </div>
+    </header>
+
+    <section class="site-fit-shell" aria-label={`${model.name} preliminary site-fit tool`}>
+      <aside class="site-fit-steps">
+        <p>YOUR PROPERTY</p>
+        <h2>Add a site to begin</h2>
+        <label>
+          <span>Address or property name</span>
+          <input type="text" placeholder="Enter an address or location" />
+        </label>
+        <label>
+          <span>Parcel reference</span>
+          <input type="text" placeholder="Optional" />
+        </label>
+        <label>
+          <span>Country or jurisdiction</span>
+          <input type="text" placeholder="Country, island or territory" />
+        </label>
+        <button type="button">Locate property</button>
+        <div class="site-fit-upload">
+          <strong>Upload survey or site plan</strong>
+          <span>PDF, image or supported drawing file</span>
+          <input type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" />
+        </div>
+      </aside>
+
+      <div class="site-fit-workspace">
+        <div class="site-fit-toolbar">
+          <div>
+            <button type="button" class="is-active">Site fit</button>
+            <button type="button">Placement options</button>
+            <button type="button">Sun, views & access</button>
+            <button type="button">3D site</button>
+            <button type="button">Summary</button>
+          </div>
+          <span>Preliminary assessment</span>
+        </div>
+        <div class="site-fit-empty">
+          <div class="site-fit-marker">+</div>
+          <h2>Locate your property</h2>
+          <p>
+            Once a site is selected, this workspace will show the parcel, survey,
+            preliminary setbacks and the {model.name} footprint at the correct scale.
+          </p>
+        </div>
+      </div>
+
+      <aside class="site-fit-summary">
+        <p>SELECTED HOME</p>
+        <img src={model.image} alt={`${model.name} Bauhu model residence`} />
+        <h2>{model.name}</h2>
+        <dl>
+          <div><dt>Guide price</dt><dd>{model.guidePriceLabel}</dd></div>
+          <div><dt>Bedrooms</dt><dd>{model.bedroomsLabel}</dd></div>
+          <div><dt>Bathrooms</dt><dd>{model.bathroomsLabel}</dd></div>
+          <div><dt>Built area</dt><dd>{model.builtAreaLabel} ft²</dd></div>
+        </dl>
+        <div class="site-fit-status">
+          <strong>Awaiting property</strong>
+          <span>Site-fit results activate after a property is added.</span>
+        </div>
+      </aside>
+    </section>
+
+    <p class="site-fit-disclaimer">
+      Preliminary guidance only. Boundaries, planning requirements, hazards, structural
+      design and construction suitability require verification by appropriately qualified professionals.
+    </p>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .site-fit-page{min-height:100vh;background:#ece9e1;color:#17394c;padding-top:5.5rem}.site-fit-header{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:3rem;padding:3.5rem 4vw 2.5rem;border-bottom:1px solid rgba(23,57,76,.18)}.site-fit-header p,.site-fit-steps>p,.site-fit-summary>p{margin:0 0 .75rem;font:700 .7rem/1 Inter,sans-serif;letter-spacing:.18em;color:#9a7a48}.site-fit-header h1{max-width:850px;margin:0 0 1rem;font:400 clamp(2.8rem,6vw,6rem)/.95 'Cormorant Garamond',serif}.site-fit-header>div>span{display:block;max-width:760px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.site-fit-model-summary{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;border-left:1px solid rgba(23,57,76,.18);padding-left:2rem;font:400 .86rem/1.5 Inter,sans-serif}.site-fit-model-summary strong{font:400 1.8rem/1.1 'Cormorant Garamond',serif}.site-fit-model-summary a{margin-top:.5rem;color:#17394c;font-weight:700}.site-fit-shell{display:grid;grid-template-columns:270px minmax(0,1fr) 280px;min-height:680px;border-bottom:1px solid rgba(23,57,76,.18)}.site-fit-steps,.site-fit-summary{padding:1.5rem;background:#f7f4ed}.site-fit-steps{border-right:1px solid rgba(23,57,76,.16)}.site-fit-summary{border-left:1px solid rgba(23,57,76,.16)}.site-fit-steps h2,.site-fit-summary h2{margin:.25rem 0 1.4rem;font:400 1.8rem/1.05 'Cormorant Garamond',serif}.site-fit-steps label{display:block;margin-bottom:1rem}.site-fit-steps label span{display:block;margin-bottom:.4rem;font:700 .7rem/1 Inter,sans-serif}.site-fit-steps input[type=text]{width:100%;box-sizing:border-box;border:1px solid rgba(23,57,76,.22);background:#fff;padding:.8rem;font:400 .8rem Inter,sans-serif}.site-fit-steps button{width:100%;border:0;background:#17394c;color:#fff;padding:.9rem;font:700 .78rem Inter,sans-serif}.site-fit-upload{display:grid;gap:.45rem;margin-top:1.5rem;padding:1rem;border:1px dashed rgba(23,57,76,.3);font:400 .72rem/1.4 Inter,sans-serif}.site-fit-workspace{display:grid;grid-template-rows:auto 1fr;min-width:0}.site-fit-toolbar{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 1rem;border-bottom:1px solid rgba(23,57,76,.16);background:#f7f4ed}.site-fit-toolbar div{display:flex;gap:.35rem;flex-wrap:wrap}.site-fit-toolbar button{border:1px solid rgba(23,57,76,.18);background:#fff;padding:.55rem .75rem;color:#17394c;font:700 .7rem Inter,sans-serif}.site-fit-toolbar button.is-active{background:#17394c;color:#fff}.site-fit-toolbar>span{align-self:center;font:700 .65rem Inter,sans-serif;color:#9a7a48}.site-fit-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem;background:linear-gradient(rgba(23,57,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(23,57,76,.05) 1px,transparent 1px),#dde4df;background-size:24px 24px}.site-fit-marker{display:grid;place-items:center;width:64px;height:64px;border:1px solid rgba(23,57,76,.28);border-radius:50%;font:300 2rem Inter,sans-serif}.site-fit-empty h2{margin:1.2rem 0 .5rem;font:400 2.4rem 'Cormorant Garamond',serif}.site-fit-empty p{max-width:520px;margin:0;font:300 .9rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.site-fit-summary img{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1rem}.site-fit-summary dl{margin:0}.site-fit-summary dl div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1px solid rgba(23,57,76,.13);font:400 .75rem Inter,sans-serif}.site-fit-summary dd{margin:0;text-align:right;font-weight:700}.site-fit-status{display:grid;gap:.35rem;margin-top:1.5rem;padding:1rem;background:#ece9e1;font:400 .72rem/1.4 Inter,sans-serif}.site-fit-disclaimer{margin:0;padding:1.2rem 4vw;font:400 .68rem/1.5 Inter,sans-serif;color:rgba(23,57,76,.62)}@media(max-width:1050px){.site-fit-shell{grid-template-columns:240px minmax(0,1fr)}.site-fit-summary{display:none}}@media(max-width:760px){.site-fit-header{grid-template-columns:1fr}.site-fit-model-summary{border-left:0;border-top:1px solid rgba(23,57,76,.18);padding:1.5rem 0 0}.site-fit-shell{grid-template-columns:1fr}.site-fit-steps{border-right:0;border-bottom:1px solid rgba(23,57,76,.16)}.site-fit-toolbar{overflow:auto}.site-fit-empty{min-height:500px}}
+</style>
