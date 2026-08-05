@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { bauhuModels } from '../../data/models';
+
+export function getStaticPaths() {
+  return bauhuModels.map((model) => ({
+    params: { slug: model.slug.replace(/^bauhu-/, '') },
+    props: { model },
+  }));
+}
+
+const { model } = Astro.props;
+const publicSlug = model.slug.replace(/^bauhu-/, '');
+const lat = Astro.url.searchParams.get('lat') ?? '';
+const lng = Astro.url.searchParams.get('lng') ?? '';
+const parcel = Astro.url.searchParams.get('parcel') ?? 'Confirmed site';
+const area = Astro.url.searchParams.get('area') ?? 'Area not supplied';
+---
+
+<BaseLayout title={`Place ${model.name} on your site | Bauhu`} description={`Test the ${model.name} Bauhu home against the confirmed site.`}>
+  <SiteHeader />
+  <main class="placement-page">
+    <header>
+      <div>
+        <p class="kicker">BAUHU HOUSE PLACEMENT</p>
+        <h1>Place {model.name} on the confirmed site.</h1>
+        <p>This is the separate model-placement stage. Site location, parcel geometry, surveys and intelligence are gathered before entering this workspace.</p>
+      </div>
+      <aside>
+        <span>Confirmed site</span>
+        <strong>{parcel}</strong>
+        <small>{area}</small>
+        {lat && lng && <small>{lat}, {lng}</small>}
+        <a href={`/site-fit/${publicSlug}`}>Return to site information</a>
+      </aside>
+    </header>
+
+    <section class="stage-shell">
+      <div class="stage-card">
+        <p class="kicker">NEXT DEVELOPMENT STAGE</p>
+        <h2>House placement workspace</h2>
+        <p>The model footprint, rotation, setbacks, clearances, site coverage and placement options will live here—not in the property-location screen.</p>
+      </div>
+      <aside>
+        <span>Selected Bauhu home</span>
+        <strong>{model.name}</strong>
+        <small>{model.bedroomsLabel} bedrooms · {model.bathroomsLabel} bathrooms</small>
+        <small>{model.builtAreaLabel} ft² · {model.storeysLabel} storeys</small>
+      </aside>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .placement-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.placement-page>header{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:4rem;padding:3.4rem 4vw 2.4rem;border-bottom:1px solid rgba(23,57,76,.18)}.kicker,.placement-page header aside>span{margin:0 0 .8rem;font:700 .68rem/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#9b7b49}.placement-page h1{max-width:940px;margin:0 0 1rem;font:400 clamp(2.8rem,5.6vw,5.8rem)/.94 'Cormorant Garamond',serif}.placement-page header p:last-child{max-width:760px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.placement-page header aside{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;padding-left:2rem;border-left:1px solid rgba(23,57,76,.18);font-family:Inter,sans-serif}.placement-page header aside strong{font:400 1.8rem 'Cormorant Garamond',serif}.placement-page header aside a{margin-top:.55rem;color:#17394c;font-weight:700}.stage-shell{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:2rem;padding:3rem 4vw 5rem}.stage-card,.stage-shell>aside{padding:2rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.14)}.stage-card h2{margin:.3rem 0 1rem;font:400 2.5rem 'Cormorant Garamond',serif}.stage-card p:last-child{max-width:720px;font:400 .9rem/1.7 Inter,sans-serif}.stage-shell>aside{display:flex;flex-direction:column;gap:.5rem;font-family:Inter,sans-serif}.stage-shell>aside>span{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#9b7b49}.stage-shell>aside strong{font:400 1.8rem 'Cormorant Garamond',serif}.stage-shell>aside small{color:rgba(23,57,76,.65)}@media(max-width:760px){.placement-page>header,.stage-shell{grid-template-columns:1fr}.placement-page header aside{padding:1.5rem 0 0;border-left:0;border-top:1px solid rgba(23,57,76,.18)}}
+</style>
