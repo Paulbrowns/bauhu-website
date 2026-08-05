@@ -7,48 +7,80 @@
     const rotation = document.getElementById('rotation');
     if (!page || !map || !rotation || document.getElementById('bauhu-footprint-overlay')) return;
 
-    const width = Number(page.dataset.width);
-    const depth = Number(page.dataset.depth);
-    const ratio = Number.isFinite(width) && Number.isFinite(depth) && depth > 0 ? width / depth : 1.25;
-    const longSide = 132;
-    const footprintWidth = ratio >= 1 ? longSide : longSide * ratio;
-    const footprintHeight = ratio >= 1 ? longSide / ratio : longSide;
+    const totalWidth = Number(page.dataset.width);
+    const totalDepth = Number(page.dataset.depth);
+
+    const storeysRow = Array.from(document.querySelectorAll('.placement-controls dl div')).find((row) =>
+      row.querySelector('dt')?.textContent?.trim().toLowerCase() === 'storeys'
+    );
+    const parsedStoreys = Number.parseFloat(storeysRow?.querySelector('dd')?.textContent || '1');
+    const storeys = Number.isFinite(parsedStoreys) && parsedStoreys > 0 ? parsedStoreys : 1;
+
+    // Existing page dimensions were derived from total built area. Reduce both axes
+    // by sqrt(storeys) so their product represents the ground-floor footprint area.
+    const scaleForStoreys = Math.sqrt(storeys);
+    const widthM = Number.isFinite(totalWidth) && totalWidth > 0 ? totalWidth / scaleForStoreys : 10;
+    const depthM = Number.isFinite(totalDepth) && totalDepth > 0 ? totalDepth / scaleForStoreys : 8;
+    const isWide = widthM >= depthM;
 
     const footprint = document.createElement('div');
     footprint.id = 'bauhu-footprint-overlay';
-    footprint.setAttribute('aria-label', 'Indicative house footprint');
-    footprint.innerHTML = '<span>Indicative house footprint</span>';
-    footprint.style.width = `${Math.max(72, footprintWidth)}px`;
-    footprint.style.height = `${Math.max(58, footprintHeight)}px`;
+    footprint.setAttribute('aria-label', 'House roof footprint');
+    footprint.innerHTML = isWide
+      ? `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <rect class="roof-plane" x="2" y="2" width="96" height="96" rx="2" />
+          <line class="roof-ridge" x1="27" y1="50" x2="73" y2="50" />
+          <line class="roof-slope" x1="2" y1="2" x2="27" y2="50" />
+          <line class="roof-slope" x1="2" y1="98" x2="27" y2="50" />
+          <line class="roof-slope" x1="98" y1="2" x2="73" y2="50" />
+          <line class="roof-slope" x1="98" y1="98" x2="73" y2="50" />
+        </svg>`
+      : `<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <rect class="roof-plane" x="2" y="2" width="96" height="96" rx="2" />
+          <line class="roof-ridge" x1="50" y1="27" x2="50" y2="73" />
+          <line class="roof-slope" x1="2" y1="2" x2="50" y2="27" />
+          <line class="roof-slope" x1="98" y1="2" x2="50" y2="27" />
+          <line class="roof-slope" x1="2" y1="98" x2="50" y2="73" />
+          <line class="roof-slope" x1="98" y1="98" x2="50" y2="73" />
+        </svg>`;
     map.appendChild(footprint);
 
     const style = document.createElement('style');
     style.textContent = `
       #placement-map { position: relative; }
+      .placement-page .leaflet-overlay-pane path,
+      .placement-page .leaflet-tooltip-pane .placement-label { display: none !important; }
       #bauhu-footprint-overlay {
         position: absolute;
         z-index: 850;
         box-sizing: border-box;
-        border: 4px solid #c5a66a;
-        background: rgba(23,57,76,.58);
-        box-shadow: 0 8px 22px rgba(23,57,76,.24);
         pointer-events: none;
         transform-origin: center;
-        display: grid;
-        place-items: center;
+        filter: drop-shadow(5px 7px 5px rgba(23,57,76,.34));
       }
-      #bauhu-footprint-overlay span {
-        max-width: 90%;
-        padding: .35rem .45rem;
-        background: rgba(23,57,76,.92);
-        color: #fff;
-        text-align: center;
-        font: 700 9px/1.25 Inter,sans-serif;
-        letter-spacing: .06em;
-        text-transform: uppercase;
+      #bauhu-footprint-overlay svg { display: block; width: 100%; height: 100%; overflow: visible; }
+      #bauhu-footprint-overlay .roof-plane {
+        fill: rgba(52,79,91,.62);
+        stroke: #c5a66a;
+        stroke-width: 3;
+        vector-effect: non-scaling-stroke;
+      }
+      #bauhu-footprint-overlay .roof-ridge {
+        stroke: rgba(247,245,239,.95);
+        stroke-width: 2.2;
+        vector-effect: non-scaling-stroke;
+      }
+      #bauhu-footprint-overlay .roof-slope {
+        stroke: rgba(247,245,239,.72);
+        stroke-width: 1.25;
+        vector-effect: non-scaling-stroke;
       }
     `;
     document.head.appendChild(style);
+
+    const params = new URLSearchParams(window.location.search);
+    const latitude = Number(params.get('lat'));
+    const siteLatitude = Number.isFinite(latitude) ? latitude : 18.3419;
 
     function markerCentre() {
       const candidates = Array.from(map.querySelectorAll('.leaflet-marker-icon'));
@@ -62,10 +94,30 @@
       };
     }
 
+    function currentZoom() {
+      const tile = Array.from(map.querySelectorAll('img.leaflet-tile')).find((img) => img.src);
+      const match = tile?.src.match(/\/(?:tile\/)?(\d+)\/\d+\/\d+(?:\.[a-z]+)?(?:\?.*)?$/i);
+      if (match) return Number(match[1]);
+
+      const zoomText = map.querySelector('.leaflet-control-zoom-in')?.getAttribute('aria-label');
+      return Number(page.dataset.mapZoom || 19) || 19;
+    }
+
+    function metresPerPixel(zoom) {
+      return Math.cos(siteLatitude * Math.PI / 180) * 2 * Math.PI * 6378137 / (256 * Math.pow(2, zoom));
+    }
+
     function render() {
       const centre = markerCentre();
       if (centre) {
+        const zoom = currentZoom();
+        const mpp = metresPerPixel(zoom);
+        const widthPx = widthM / mpp;
+        const heightPx = depthM / mpp;
         const angle = Number(rotation.value || 0);
+
+        footprint.style.width = `${Math.max(1, widthPx)}px`;
+        footprint.style.height = `${Math.max(1, heightPx)}px`;
         footprint.style.left = `${centre.x}px`;
         footprint.style.top = `${centre.y}px`;
         footprint.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
