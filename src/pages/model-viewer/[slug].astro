@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { bauhuModels } from '../../data/models';
+
+export function getStaticPaths() {
+  return bauhuModels.map((model) => ({
+    params: { slug: model.slug.replace(/^bauhu-/, '') },
+    props: { model },
+  }));
+}
+
+const { model } = Astro.props;
+const publicSlug = model.slug.replace(/^bauhu-/, '');
+const modelSrc = `/models/3d/${publicSlug}.glb`;
+---
+
+<BaseLayout title={`Explore ${model.name} in 3D | Bauhu`} description={`Explore the ${model.name} Bauhu home in an interactive 3D viewer.`}>
+  <SiteHeader />
+
+  <main class="viewer-page" data-model-src={modelSrc}>
+    <header class="viewer-header">
+      <div>
+        <p class="kicker">EXPLORE YOUR BAUHU HOME</p>
+        <h1>{model.name}</h1>
+        <p>Drag to rotate. Scroll or pinch to zoom.</p>
+      </div>
+      <div class="model-meta">
+        <span>{model.bedroomsLabel} bedrooms</span>
+        <span>{model.bathroomsLabel} bathrooms</span>
+        <span>{model.builtAreaLabel} ft²</span>
+      </div>
+    </header>
+
+    <section class="viewer-shell">
+      <div class="viewer-stage">
+        <model-viewer
+          id="house-model-viewer"
+          src={modelSrc}
+          alt={`Interactive 3D model of ${model.name}`}
+          camera-controls
+          touch-action="pan-y"
+          shadow-intensity="1"
+          shadow-softness=".8"
+          exposure="1"
+          environment-image="neutral"
+          camera-orbit="35deg 68deg auto"
+          min-camera-orbit="auto 20deg auto"
+          max-camera-orbit="auto 88deg auto"
+          interaction-prompt="auto"
+          loading="eager"
+          reveal="auto"
+        >
+          <div slot="poster" class="viewer-poster">
+            <div class="poster-mark">3D</div>
+            <strong>3D model ready for upload</strong>
+            <p>Place the GLB file at <code>{modelSrc}</code>.</p>
+          </div>
+          <div slot="progress-bar" class="progress-track"><div class="progress-bar"></div></div>
+        </model-viewer>
+
+        <div id="viewer-error" class="viewer-error" hidden>
+          <div class="poster-mark">3D</div>
+          <strong>No 3D model has been added yet</strong>
+          <p>Upload a GLB file named <code>{publicSlug}.glb</code> to <code>public/models/3d/</code>.</p>
+        </div>
+
+        <div class="viewer-controls" aria-label="3D viewer controls">
+          <button id="reset-view" type="button">Reset view</button>
+          <button id="toggle-autorotate" type="button" aria-pressed="false">Auto rotate</button>
+          <button id="fullscreen-view" type="button">Full screen</button>
+        </div>
+      </div>
+
+      <aside class="viewer-actions">
+        <p class="kicker">YOUR SELECTED HOME</p>
+        <h2>{model.name}</h2>
+        <p>{model.shortDescription}</p>
+        <dl>
+          <div><dt>Bedrooms</dt><dd>{model.bedroomsLabel}</dd></div>
+          <div><dt>Bathrooms</dt><dd>{model.bathroomsLabel}</dd></div>
+          <div><dt>Storeys</dt><dd>{model.storeysLabel}</dd></div>
+          <div><dt>Built area</dt><dd>{model.builtAreaLabel} ft²</dd></div>
+        </dl>
+        <a id="back-to-placement" class="secondary" href={`/site-placement/${publicSlug}`}>Back to placement</a>
+        <a id="continue-to-summary" class="primary" href={`/project-summary/${publicSlug}`}>Continue to project summary</a>
+      </aside>
+    </section>
+  </main>
+
+  <SiteFooter />
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <script is:inline>
+    (() => {
+      const viewer = document.getElementById('house-model-viewer');
+      const error = document.getElementById('viewer-error');
+      const reset = document.getElementById('reset-view');
+      const rotate = document.getElementById('toggle-autorotate');
+      const fullscreen = document.getElementById('fullscreen-view');
+      const query = window.location.search;
+
+      ['back-to-placement', 'continue-to-summary'].forEach((id) => {
+        const link = document.getElementById(id);
+        if (link && query) link.href += query;
+      });
+
+      viewer?.addEventListener('error', () => {
+        viewer.hidden = true;
+        error.hidden = false;
+      });
+
+      reset?.addEventListener('click', () => {
+        if (!viewer) return;
+        viewer.cameraOrbit = '35deg 68deg auto';
+        viewer.fieldOfView = '30deg';
+        viewer.jumpCameraToGoal?.();
+      });
+
+      rotate?.addEventListener('click', () => {
+        if (!viewer) return;
+        viewer.autoRotate = !viewer.autoRotate;
+        rotate.setAttribute('aria-pressed', String(viewer.autoRotate));
+        rotate.textContent = viewer.autoRotate ? 'Stop rotation' : 'Auto rotate';
+      });
+
+      fullscreen?.addEventListener('click', () => {
+        document.querySelector('.viewer-stage')?.requestFullscreen?.();
+      });
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .viewer-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.viewer-header{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding:2.7rem 4vw 1.7rem;border-bottom:1px solid rgba(23,57,76,.16)}.kicker{margin:0 0 .65rem;font:700 .66rem/1 Inter,sans-serif;letter-spacing:.2em;color:#9b7b49}.viewer-header h1{margin:0;font:400 clamp(2.8rem,5vw,5.2rem)/.9 'Cormorant Garamond',serif}.viewer-header p:last-child{margin:.85rem 0 0;font:400 .82rem Inter,sans-serif;color:rgba(23,57,76,.65)}.model-meta{display:flex;gap:.55rem;flex-wrap:wrap;justify-content:flex-end}.model-meta span{padding:.52rem .7rem;border:1px solid rgba(23,57,76,.18);background:#f7f5ef;font:700 .62rem Inter,sans-serif}.viewer-shell{display:grid;grid-template-columns:minmax(0,1fr) 310px;min-height:720px}.viewer-stage{position:relative;min-width:0;background:radial-gradient(circle at 50% 45%,#f8f6ef 0,#d9ddd6 58%,#bac5be 100%);overflow:hidden}model-viewer{width:100%;height:100%;min-height:720px;background:transparent}.viewer-poster,.viewer-error{display:grid;place-content:center;justify-items:center;gap:.65rem;width:100%;height:100%;padding:2rem;text-align:center;background:radial-gradient(circle at 50% 40%,#f8f6ef,#d6ddd8)}.viewer-poster strong,.viewer-error strong{font:400 2rem 'Cormorant Garamond',serif}.viewer-poster p,.viewer-error p{margin:0;font:400 .72rem/1.6 Inter,sans-serif;color:rgba(23,57,76,.65)}.poster-mark{display:grid;place-items:center;width:56px;height:56px;border:1px solid rgba(23,57,76,.25);border-radius:50%;font:700 .75rem Inter,sans-serif;letter-spacing:.12em}.viewer-error{position:absolute;inset:0}.viewer-controls{position:absolute;left:1rem;bottom:1rem;z-index:5;display:flex;gap:.45rem}.viewer-controls button{padding:.62rem .78rem;border:1px solid rgba(23,57,76,.2);background:rgba(247,245,239,.94);color:#17394c;font:700 .62rem Inter,sans-serif}.progress-track{display:block;width:40%;height:3px;background:rgba(23,57,76,.15)}.progress-bar{height:100%;background:#9b7b49;transform-origin:left center}.viewer-actions{display:flex;flex-direction:column;padding:1.6rem;background:#f7f5ef;border-left:1px solid rgba(23,57,76,.16)}.viewer-actions h2{margin:.1rem 0 .8rem;font:400 2.2rem 'Cormorant Garamond',serif}.viewer-actions>p:not(.kicker){margin:0 0 1.3rem;font:400 .72rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.viewer-actions dl{margin:0 0 auto}.viewer-actions dl div{display:flex;justify-content:space-between;gap:1rem;padding:.72rem 0;border-top:1px solid rgba(23,57,76,.12);font:400 .66rem Inter,sans-serif}.viewer-actions dd{margin:0;font-weight:700;text-align:right}.viewer-actions a{display:block;margin-top:.55rem;padding:.85rem;text-align:center;text-decoration:none;font:700 .68rem Inter,sans-serif}.viewer-actions .secondary{border:1px solid rgba(23,57,76,.22);color:#17394c}.viewer-actions .primary{background:#17394c;color:#fff}@media(max-width:820px){.viewer-header{align-items:flex-start;flex-direction:column}.model-meta{justify-content:flex-start}.viewer-shell{grid-template-columns:1fr}.viewer-stage,model-viewer{min-height:560px}.viewer-actions{border-left:0;border-top:1px solid rgba(23,57,76,.16)}.viewer-actions dl{margin-bottom:1rem}}@media(max-width:520px){.viewer-header{padding:2rem 1rem 1.4rem}.viewer-stage,model-viewer{min-height:480px}.viewer-controls{right:1rem;flex-wrap:wrap}.viewer-actions{padding:1.2rem}}
+</style>
