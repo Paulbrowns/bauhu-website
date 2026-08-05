@@ -2,7 +2,12 @@
   function init() {
     const siteFitPage = document.querySelector('.site-fit-page');
     const toolbar = document.querySelector('.map-toolbar');
-    if (!siteFitPage || !toolbar || document.getElementById('site-fit-reset')) return;
+    if (!siteFitPage || !toolbar) return;
+
+    const heading = document.querySelector('.site-fit-header h1');
+    if (heading) heading.textContent = 'Locate your site';
+
+    if (document.getElementById('site-fit-reset')) return;
 
     const button = document.createElement('button');
     button.id = 'site-fit-reset';
