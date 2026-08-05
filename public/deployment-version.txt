@@ -1,0 +1,4 @@
+Bauhu website deployment marker
+Commit purpose: trigger Cloudflare Pages rebuild after site-fit route integration.
+Generated: 2026-08-05
+Expected route: /site-fit/bahama-beach
