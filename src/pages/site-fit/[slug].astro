@@ -20,24 +20,17 @@ const footprintWidthM = Math.sqrt(areaM2 * 1.18);
 const footprintDepthM = areaM2 / footprintWidthM;
 ---
 
-<BaseLayout
-  title={`Test ${model.name} on your site | Bauhu`}
-  description={`Locate your property and test ${model.name} against the site.`}
->
+<BaseLayout title={`Test ${model.name} on your site | Bauhu`} description={`Locate a property, identify its parcel and test ${model.name} against the site.`}>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
   <SiteHeader />
 
-  <main
-    class="site-fit-page"
-    data-model-name={model.name}
-    data-footprint-width={footprintWidthM.toFixed(3)}
-    data-footprint-depth={footprintDepthM.toFixed(3)}
-  >
+  <main class="site-fit-page" data-model-name={model.name} data-footprint-width={footprintWidthM.toFixed(3)} data-footprint-depth={footprintDepthM.toFixed(3)}>
     <header class="site-fit-header">
       <div>
         <p class="kicker">BAUHU SITE FIT</p>
-        <h1>Find your property. Test {model.name} on the site.</h1>
-        <p>Search for the property, refine the pin, then confirm the latitude and longitude before beginning the placement study.</p>
+        <h1>Locate the property. Confirm the parcel.</h1>
+        <p>Search for the site, refine the pin, then retrieve an available cadastral boundary or draw an approximate parcel manually.</p>
       </div>
       <aside>
         <span>Selected Bauhu home</span>
@@ -49,74 +42,59 @@ const footprintDepthM = areaM2 / footprintWidthM;
     </header>
 
     <section class="tool-shell">
-      <aside class="location-panel">
-        <div class="step"><b>01</b><div><strong>Locate the property</strong><small>Search, enter coordinates or use your device.</small></div></div>
-
+      <aside class="control-panel">
+        <div class="step"><b>01</b><div><strong>Locate property</strong><small>Search, coordinates or device location.</small></div></div>
         <form id="location-search-form">
           <label for="location-search">Address or place</label>
-          <div class="search-row">
-            <input id="location-search" type="search" placeholder="Coral Bay, St John, USVI" />
-            <button type="submit">Search</button>
-          </div>
+          <div class="search-row"><input id="location-search" type="search" placeholder="Coral Bay, St John, USVI" /><button type="submit">Search</button></div>
           <p id="search-feedback" class="feedback">Search is sent only when you press Search.</p>
           <div id="search-results" class="search-results" hidden></div>
         </form>
-
         <button id="use-current-location" class="secondary" type="button">◎ Use my current location</button>
-
         <div class="coordinate-grid">
           <label><span>Latitude</span><input id="latitude" type="number" step="0.000001" value="18.341900" /></label>
           <label><span>Longitude</span><input id="longitude" type="number" step="0.000001" value="-64.930700" /></label>
         </div>
         <button id="apply-coordinates" class="secondary" type="button">Go to coordinates</button>
-
-        <div class="instruction">Click the map or drag the marker to refine the location.</div>
+        <div class="instruction">Click the map or drag the marker to refine the exact location.</div>
         <button id="confirm-location" class="primary" type="button">Use this location</button>
 
-        <div id="confirmed-location" class="confirmed" hidden>
-          <span>Location confirmed</span>
-          <strong id="confirmed-place">Selected map point</strong>
-          <small id="confirmed-coordinates"></small>
-        </div>
+        <section id="parcel-controls" class="parcel-controls" hidden>
+          <div class="step compact"><b>02</b><div><strong>Confirm parcel</strong><small>Use cadastral data or draw the boundary.</small></div></div>
+          <div id="parcel-search-state" class="parcel-state">Ready to search parcel records.</div>
+          <button id="find-parcel" class="primary" type="button">Search parcel records</button>
+          <div class="or"><span>or</span></div>
+          <button id="draw-boundary" class="secondary" type="button">Draw approximate boundary</button>
+          <button id="edit-boundary" class="secondary" type="button" hidden>Edit boundary vertices</button>
+          <button id="clear-boundary" class="text-button" type="button" hidden>Clear boundary</button>
 
-        <div id="placement-controls" class="placement-controls" hidden>
-          <div class="step compact"><b>02</b><div><strong>Initial placement</strong><small>Rotate the indicative footprint.</small></div></div>
-          <label class="rotation"><span>Model rotation <strong id="rotation-value">0°</strong></span><input id="model-rotation" type="range" min="-180" max="180" step="5" value="0" /></label>
-          <button id="centre-model" class="secondary" type="button">Centre model on pin</button>
-        </div>
+          <div id="parcel-result" class="parcel-result" hidden>
+            <span id="parcel-source-label">PARCEL BOUNDARY</span>
+            <strong id="parcel-reference">Selected parcel</strong>
+            <dl>
+              <div><dt>Source</dt><dd id="parcel-source">—</dd></div>
+              <div><dt>Approx. area</dt><dd id="parcel-area">—</dd></div>
+            </dl>
+            <button id="confirm-parcel" class="primary" type="button">Confirm this parcel</button>
+          </div>
+        </section>
       </aside>
 
       <section class="map-workspace">
         <div class="map-toolbar">
-          <div class="base-switch">
-            <button id="map-view" class="active" type="button">Map</button>
-            <button id="satellite-view" type="button">Satellite</button>
-          </div>
-          <div class="statuses">
-            <span id="location-status">Location not confirmed</span>
-            <span id="model-status" class="muted">Model hidden</span>
-          </div>
+          <div class="base-switch"><button id="map-view" class="active" type="button">Map</button><button id="satellite-view" type="button">Satellite</button></div>
+          <div class="statuses"><span id="location-status">Location not confirmed</span><span id="parcel-status" class="muted">Parcel not selected</span></div>
         </div>
-
         <div class="map-stage">
           <div id="map-loading" class="map-loading">Loading map…</div>
-          <div id="property-map" aria-label="Interactive property map"></div>
-          <div class="map-card">
-            <span>SELECTED MAP POINT</span>
-            <strong id="map-place-name">St John, US Virgin Islands</strong>
-            <p><span id="map-latitude">18.341900</span>, <span id="map-longitude">-64.930700</span></p>
-          </div>
-          <div id="model-card" class="model-card" hidden>
-            <span>INDICATIVE FOOTPRINT</span>
-            <strong>{model.name}</strong>
-            <p>{footprintWidthM.toFixed(1)} × {footprintDepthM.toFixed(1)} m</p>
-          </div>
+          <div id="property-map" aria-label="Interactive property and parcel map"></div>
+          <div class="map-card"><span>SELECTED POINT</span><strong id="map-place-name">St John, US Virgin Islands</strong><p><span id="map-latitude">18.341900</span>, <span id="map-longitude">-64.930700</span></p></div>
+          <div id="model-card" class="model-card" hidden><span>INDICATIVE FOOTPRINT</span><strong>{model.name}</strong><p>{footprintWidthM.toFixed(1)} × {footprintDepthM.toFixed(1)} m</p></div>
         </div>
-
         <footer>
           <div><span>Location source</span><strong id="location-source">Manual map point</strong></div>
-          <div><span>Latitude</span><strong id="footer-latitude">18.341900</strong></div>
-          <div><span>Longitude</span><strong id="footer-longitude">-64.930700</strong></div>
+          <div><span>Boundary source</span><strong id="boundary-source">Not selected</strong></div>
+          <div><span>Parcel area</span><strong id="footer-area">—</strong></div>
           <div><span>Next step</span><strong id="next-step">Confirm location</strong></div>
         </footer>
       </section>
@@ -132,221 +110,125 @@ const footprintDepthM = areaM2 / footprintWidthM;
           <div><dt>Built area</dt><dd>{model.builtAreaLabel} ft²</dd></div>
           <div><dt>Indicative footprint</dt><dd>{footprintWidthM.toFixed(1)} × {footprintDepthM.toFixed(1)} m</dd></div>
         </dl>
-        <p class="note">Coordinates identify a location, not a legal parcel. Boundary and buildability checks require cadastral data or a verified survey.</p>
+        <div class="process">
+          <div class="done"><b>1</b><span>Locate property</span></div>
+          <div class="current"><b>2</b><span>Confirm parcel</span></div>
+          <div><b>3</b><span>Test placement</span></div>
+          <div><b>4</b><span>Send to Bauhu</span></div>
+        </div>
+        <p class="note">Official GIS boundaries remain subject to cadastral verification. A manually drawn boundary is approximate and is not a legal survey.</p>
       </aside>
     </section>
-
     <p class="disclaimer">Preliminary guidance only. Map positions, boundaries, planning requirements, hazards and construction suitability require professional verification.</p>
   </main>
 
   <SiteFooter />
-
   <script is:inline src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
   <script is:inline>
     (() => {
       const page = document.querySelector('.site-fit-page');
       const mapElement = document.getElementById('property-map');
       const loading = document.getElementById('map-loading');
-      if (!page || !mapElement) return;
+      if (!page || !mapElement || !window.L) return;
 
-      function showMapError(message) {
-        if (loading) {
-          loading.textContent = message;
-          loading.classList.add('error');
-        }
-      }
-
-      if (!window.L) {
-        showMapError('The map library could not load. Please refresh the page.');
-        return;
-      }
-
+      const $ = (id) => document.getElementById(id);
       const modelName = page.dataset.modelName || 'Selected Bauhu model';
       const footprintWidth = Number(page.dataset.footprintWidth || 10);
       const footprintDepth = Number(page.dataset.footprintDepth || 10);
-      const latInput = document.getElementById('latitude');
-      const lngInput = document.getElementById('longitude');
-      const searchForm = document.getElementById('location-search-form');
-      const searchInput = document.getElementById('location-search');
-      const feedback = document.getElementById('search-feedback');
-      const resultsBox = document.getElementById('search-results');
-      const confirmButton = document.getElementById('confirm-location');
-      const confirmedBox = document.getElementById('confirmed-location');
-      const placementControls = document.getElementById('placement-controls');
-      const rotationInput = document.getElementById('model-rotation');
-      const rotationValue = document.getElementById('rotation-value');
-      const modelCard = document.getElementById('model-card');
+      const latInput = $('latitude');
+      const lngInput = $('longitude');
+      const feedback = $('search-feedback');
+      const resultsBox = $('search-results');
       let selectedName = 'St John, US Virgin Islands';
       let selectedSource = 'Manual map point';
+      let activeBase = null;
+      let boundaryLayer = null;
       let footprintLayer = null;
-      let activeLayer = null;
+      let boundaryKind = null;
+      let parcelAttributes = {};
 
-      const initial = [18.3419, -64.9307];
-      const map = L.map(mapElement, { zoomControl: false, preferCanvas: true }).setView(initial, 13);
-      L.control.zoom({ position: 'bottomright' }).addTo(map);
+      const map = L.map(mapElement, { zoomControl:false, preferCanvas:true }).setView([18.3419,-64.9307],13);
+      L.control.zoom({ position:'bottomright' }).addTo(map);
+      const street = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,crossOrigin:true,attribution:'&copy; OpenStreetMap contributors'});
+      const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,crossOrigin:true,attribution:'Tiles &copy; Esri'});
+      function base(layer, mode){if(activeBase)map.removeLayer(activeBase);activeBase=layer.addTo(map);$('map-view').classList.toggle('active',mode==='map');$('satellite-view').classList.toggle('active',mode==='satellite');setTimeout(()=>map.invalidateSize(),50)}
+      street.once('load',()=>{loading.hidden=true});
+      street.on('tileerror',()=>{loading.textContent='Some map tiles could not load. Try Satellite.';loading.classList.add('error')});
+      base(street,'map');
+      $('map-view').onclick=()=>base(street,'map');
+      $('satellite-view').onclick=()=>base(satellite,'satellite');
 
-      const streetLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        crossOrigin: true,
-        attribution: '&copy; OpenStreetMap contributors'
+      const marker = L.marker([18.3419,-64.9307],{draggable:true}).addTo(map);
+      const drawnItems = new L.FeatureGroup().addTo(map);
+      const format=(v)=>Number(v).toFixed(6);
+      function setPoint(lat,lng,{pan=true,zoom=16}={}){
+        lat=Number(lat);lng=Number(lng);if(!Number.isFinite(lat)||!Number.isFinite(lng))return;
+        marker.setLatLng([lat,lng]);if(pan)map.setView([lat,lng],Math.max(map.getZoom(),zoom));
+        latInput.value=format(lat);lngInput.value=format(lng);$('map-latitude').textContent=format(lat);$('map-longitude').textContent=format(lng);$('map-place-name').textContent=selectedName;$('location-source').textContent=selectedSource;
+      }
+      marker.on('dragend',()=>{selectedName='Adjusted map point';selectedSource='Dragged marker';const p=marker.getLatLng();setPoint(p.lat,p.lng,{pan:false})});
+      map.on('click',(e)=>{if(map._bauhuDrawing)return;selectedName='Selected map point';selectedSource='Map click';setPoint(e.latlng.lat,e.latlng.lng,{pan:false})});
+      $('apply-coordinates').onclick=()=>{selectedName='Entered coordinates';selectedSource='Latitude / longitude';setPoint(latInput.value,lngInput.value,{zoom:17})};
+      $('use-current-location').onclick=()=>navigator.geolocation?navigator.geolocation.getCurrentPosition((p)=>{selectedName='Current device location';selectedSource='Browser geolocation';setPoint(p.coords.latitude,p.coords.longitude,{zoom:17});feedback.textContent=`Location accuracy approximately ${Math.round(p.coords.accuracy)} m.`},()=>feedback.textContent='Location permission was unavailable.'):(feedback.textContent='Geolocation is unavailable.');
+
+      $('location-search-form').addEventListener('submit',async(e)=>{
+        e.preventDefault();const q=$('location-search').value.trim();if(q.length<3){feedback.textContent='Enter at least three characters.';return}feedback.textContent='Searching…';resultsBox.hidden=true;resultsBox.innerHTML='';
+        try{const r=await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q=${encodeURIComponent(q)}`,{headers:{'Accept-Language':navigator.language||'en'}});if(!r.ok)throw 0;const rows=await r.json();if(!rows.length){feedback.textContent='No matching locations found.';return}rows.forEach((row)=>{const b=document.createElement('button');b.type='button';const s=document.createElement('strong');s.textContent=row.display_name.split(',')[0];const t=document.createElement('span');t.textContent=row.display_name;b.append(s,t);b.onclick=()=>{selectedName=row.display_name;selectedSource='OpenStreetMap search';setPoint(row.lat,row.lon,{zoom:17});resultsBox.hidden=true;feedback.textContent='Location selected. Refine the pin, then confirm.'};resultsBox.appendChild(b)});resultsBox.hidden=false;feedback.textContent=`${rows.length} locations found.`}catch{feedback.textContent='Search is temporarily unavailable. Enter coordinates or use the map.'}
       });
-      const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 19,
-        crossOrigin: true,
-        attribution: 'Tiles &copy; Esri'
-      });
 
-      function useBaseLayer(layer, mode) {
-        if (activeLayer) map.removeLayer(activeLayer);
-        activeLayer = layer.addTo(map);
-        document.getElementById('map-view').classList.toggle('active', mode === 'map');
-        document.getElementById('satellite-view').classList.toggle('active', mode === 'satellite');
-        setTimeout(() => map.invalidateSize(), 50);
+      function inUsvi(lat,lng){return lat>=17.62&&lat<=18.48&&lng>=-65.15&&lng<=-64.45}
+      function polygonAreaM2(latlngs){
+        const pts=latlngs.map(p=>Array.isArray(p)?{lat:p[0],lng:p[1]}:p);if(pts.length<3)return 0;const lat0=pts.reduce((a,p)=>a+p.lat,0)/pts.length*Math.PI/180;let sum=0;for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length];const ax=a.lng*111320*Math.cos(lat0),ay=a.lat*111320,bx=b.lng*111320*Math.cos(lat0),by=b.lat*111320;sum+=ax*by-bx*ay}return Math.abs(sum)/2
+      }
+      function displayArea(m2){return m2>=4046.856?`${(m2/4046.856).toFixed(2)} acres`:`${Math.round(m2).toLocaleString()} m²`}
+      function setBoundary(layer,kind,attrs={}){
+        if(boundaryLayer){map.removeLayer(boundaryLayer);drawnItems.clearLayers()}
+        boundaryLayer=layer;boundaryKind=kind;parcelAttributes=attrs;
+        if(kind==='manual')drawnItems.addLayer(layer);else layer.addTo(map);
+        const raw=layer.getLatLngs();const ring=Array.isArray(raw[0])&&Array.isArray(raw[0][0])?raw[0][0]:raw[0];const area=polygonAreaM2(ring);
+        $('parcel-result').hidden=false;$('edit-boundary').hidden=kind!=='manual';$('clear-boundary').hidden=false;
+        $('parcel-source-label').textContent=kind==='official'?'AVAILABLE CADASTRAL PARCEL':'USER-DRAWN BOUNDARY';
+        $('parcel-reference').textContent=attrs.PARCEL_ID||attrs.PARCELID||attrs.PARCEL_NO||attrs.PIN||attrs.OBJECTID?`Parcel ${attrs.PARCEL_ID||attrs.PARCELID||attrs.PARCEL_NO||attrs.PIN||attrs.OBJECTID}`:'Approximate parcel';
+        $('parcel-source').textContent=kind==='official'?'USVI GIS cadastral service':'Drawn by user';$('parcel-area').textContent=displayArea(area);$('footer-area').textContent=displayArea(area);$('boundary-source').textContent=kind==='official'?'USVI GIS':'User drawn';$('parcel-status').textContent='Boundary selected';$('parcel-status').className='confirmed-status';$('next-step').textContent='Confirm parcel';
+        map.fitBounds(layer.getBounds().pad(.25),{maxZoom:19});updateFootprint();
+      }
+      function clearBoundary(){if(boundaryLayer){map.removeLayer(boundaryLayer);drawnItems.clearLayers()}boundaryLayer=null;boundaryKind=null;$('parcel-result').hidden=true;$('edit-boundary').hidden=true;$('clear-boundary').hidden=true;$('parcel-status').textContent='Parcel not selected';$('parcel-status').className='muted';$('boundary-source').textContent='Not selected';$('footer-area').textContent='—'}
+
+      async function findParcel(){
+        const p=marker.getLatLng();$('parcel-search-state').textContent='Searching available parcel records…';$('find-parcel').disabled=true;
+        if(!inUsvi(p.lat,p.lng)){$('parcel-search-state').textContent='No connected cadastral provider is available for this location yet. Draw the boundary manually or upload a survey in the next phase.';$('find-parcel').disabled=false;return}
+        const geometry=JSON.stringify({x:p.lng,y:p.lat,spatialReference:{wkid:4326}});
+        const url='https://services3.arcgis.com/UfiM23HwAqZRk1vw/arcgis/rest/services/Parcels_of_the_US_Virgin_Islands/FeatureServer/0/query?'+new URLSearchParams({geometry,geometryType:'esriGeometryPoint',inSR:'4326',spatialRel:'esriSpatialRelIntersects',outFields:'*',returnGeometry:'true',outSR:'4326',f:'json'});
+        try{const r=await fetch(url);if(!r.ok)throw 0;const data=await r.json();if(data.error)throw 0;if(!data.features?.length){$('parcel-search-state').textContent='No parcel intersected the selected point. Move the pin inside the property or draw the boundary manually.';return}const f=data.features[0];const rings=f.geometry?.rings;if(!rings?.length)throw 0;const latlngs=rings.map(r=>r.map(([lng,lat])=>[lat,lng]));const layer=L.polygon(latlngs,{color:'#c5a66a',weight:3,fillColor:'#d9b66f',fillOpacity:.22});setBoundary(layer,'official',f.attributes||{});$('parcel-search-state').textContent='A cadastral parcel was found. Check the highlighted boundary before confirming.'}catch{$('parcel-search-state').textContent='The parcel service did not respond. Draw an approximate boundary or try again.'}finally{$('find-parcel').disabled=false}
       }
 
-      streetLayer.once('load', () => { if (loading) loading.hidden = true; });
-      streetLayer.on('tileerror', () => showMapError('Some map tiles could not load. Try Satellite or refresh the page.'));
-      satelliteLayer.on('tileerror', () => showMapError('Some satellite tiles could not load. Try Map or refresh the page.'));
-      useBaseLayer(streetLayer, 'map');
+      const drawHandler=window.L.Draw?new L.Draw.Polygon(map,{allowIntersection:false,showArea:true,shapeOptions:{color:'#c5a66a',weight:3,fillColor:'#d9b66f',fillOpacity:.2}}):null;
+      $('draw-boundary').onclick=()=>{clearBoundary();if(!drawHandler){$('parcel-search-state').textContent='Drawing tools could not load. Refresh the page.';return}map._bauhuDrawing=true;drawHandler.enable();$('parcel-search-state').textContent='Click around the parcel perimeter. Click the first point to close the boundary.'};
+      map.on(L.Draw.Event.CREATED,(e)=>{map._bauhuDrawing=false;setBoundary(e.layer,'manual');$('parcel-search-state').textContent='Approximate boundary drawn. Edit the vertices or confirm the parcel.'});
+      map.on('draw:drawstop',()=>{map._bauhuDrawing=false});
+      $('edit-boundary').onclick=()=>{if(!boundaryLayer||boundaryKind!=='manual')return;boundaryLayer.editing.enable();$('parcel-search-state').textContent='Drag boundary vertices, then press Finish editing.';$('edit-boundary').textContent='Finish editing';$('edit-boundary').onclick=()=>{boundaryLayer.editing.disable();$('edit-boundary').textContent='Edit boundary vertices';setBoundary(boundaryLayer,'manual');}};
+      $('clear-boundary').onclick=clearBoundary;
+      $('find-parcel').onclick=findParcel;
 
-      document.getElementById('map-view').addEventListener('click', () => useBaseLayer(streetLayer, 'map'));
-      document.getElementById('satellite-view').addEventListener('click', () => useBaseLayer(satelliteLayer, 'satellite'));
+      function offset(lat,lng,east,north){const r=lat*Math.PI/180;return[lat+north/111320,lng+east/(111320*Math.cos(r))]}
+      function footprintPoints(){const p=marker.getLatLng(),hw=footprintWidth/2,hd=footprintDepth/2;return[[-hw,-hd],[hw,-hd],[hw,hd],[-hw,hd]].map(([e,n])=>offset(p.lat,p.lng,e,n))}
+      function updateFootprint(){if(!$('parcel-controls').hidden){const pts=footprintPoints();if(!footprintLayer){footprintLayer=L.polygon(pts,{color:'#17394c',weight:3,fillColor:'#17394c',fillOpacity:.48}).addTo(map);footprintLayer.bindTooltip(modelName,{permanent:true,direction:'center',className:'model-map-label'})}else footprintLayer.setLatLngs(pts)}}
 
-      const marker = L.marker(initial, { draggable: true }).addTo(map);
+      $('confirm-location').onclick=()=>{$('parcel-controls').hidden=false;$('model-card').hidden=false;$('location-status').textContent='Location confirmed';$('location-status').className='confirmed-status';$('next-step').textContent='Search parcel records';$('confirm-location').textContent='Update confirmed location';updateFootprint();findParcel()};
+      $('confirm-parcel').onclick=()=>{if(!boundaryLayer)return;$('parcel-status').textContent='Parcel confirmed';$('parcel-status').className='confirmed-status';$('next-step').textContent='Test model placement';$('confirm-parcel').textContent='Parcel confirmed';$('confirm-parcel').disabled=true};
 
-      const format = (value) => Number(value).toFixed(6);
-      function setPoint(lat, lng, options = {}) {
-        lat = Number(lat); lng = Number(lng);
-        if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
-        lat = Math.max(-90, Math.min(90, lat));
-        lng = Math.max(-180, Math.min(180, lng));
-        marker.setLatLng([lat, lng]);
-        if (options.pan !== false) map.setView([lat, lng], options.zoom || Math.max(map.getZoom(), 16));
-        latInput.value = format(lat); lngInput.value = format(lng);
-        document.getElementById('map-latitude').textContent = format(lat);
-        document.getElementById('map-longitude').textContent = format(lng);
-        document.getElementById('footer-latitude').textContent = format(lat);
-        document.getElementById('footer-longitude').textContent = format(lng);
-        document.getElementById('map-place-name').textContent = selectedName;
-        document.getElementById('location-source').textContent = selectedSource;
-        updateFootprint();
-      }
-
-      function offsetPoint(lat, lng, eastM, northM) {
-        const radians = lat * Math.PI / 180;
-        return [lat + northM / 111320, lng + eastM / (111320 * Math.cos(radians))];
-      }
-      function rotate(east, north, degrees) {
-        const a = degrees * Math.PI / 180;
-        return [east * Math.cos(a) - north * Math.sin(a), east * Math.sin(a) + north * Math.cos(a)];
-      }
-      function footprintPoints() {
-        const { lat, lng } = marker.getLatLng();
-        const hw = footprintWidth / 2, hd = footprintDepth / 2;
-        const angle = Number(rotationInput.value || 0);
-        return [[-hw,-hd],[hw,-hd],[hw,hd],[-hw,hd]].map(([e,n]) => {
-          const [re,rn] = rotate(e,n,angle);
-          return offsetPoint(lat,lng,re,rn);
-        });
-      }
-      function updateFootprint() {
-        if (placementControls.hidden) return;
-        const points = footprintPoints();
-        if (!footprintLayer) {
-          footprintLayer = L.polygon(points, { color:'#c5a66a', weight:3, fillColor:'#17394c', fillOpacity:.5 }).addTo(map);
-          footprintLayer.bindTooltip(modelName, { permanent:true, direction:'center', className:'model-map-label' });
-        } else footprintLayer.setLatLngs(points);
-      }
-
-      marker.on('dragend', () => {
-        selectedName = 'Adjusted map point'; selectedSource = 'Dragged map marker';
-        const point = marker.getLatLng(); setPoint(point.lat, point.lng, { pan:false });
-      });
-      map.on('click', (event) => {
-        selectedName = 'Selected map point'; selectedSource = 'Map click';
-        setPoint(event.latlng.lat, event.latlng.lng, { pan:false });
-      });
-
-      document.getElementById('apply-coordinates').addEventListener('click', () => {
-        selectedName = 'Entered coordinates'; selectedSource = 'Latitude / longitude';
-        setPoint(latInput.value, lngInput.value, { zoom:17 });
-      });
-      document.getElementById('use-current-location').addEventListener('click', () => {
-        if (!navigator.geolocation) { feedback.textContent = 'Geolocation is unavailable in this browser.'; return; }
-        feedback.textContent = 'Requesting your location…';
-        navigator.geolocation.getCurrentPosition((position) => {
-          selectedName = 'Current device location'; selectedSource = 'Browser geolocation';
-          setPoint(position.coords.latitude, position.coords.longitude, { zoom:17 });
-          feedback.textContent = `Location accuracy approximately ${Math.round(position.coords.accuracy)} m.`;
-        }, () => { feedback.textContent = 'Location permission was unavailable.'; }, { enableHighAccuracy:true, timeout:10000 });
-      });
-
-      searchForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const query = searchInput.value.trim();
-        if (query.length < 3) { feedback.textContent = 'Enter at least three characters.'; return; }
-        feedback.textContent = 'Searching…'; resultsBox.hidden = true; resultsBox.innerHTML = '';
-        try {
-          const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q=${encodeURIComponent(query)}`, { headers:{ 'Accept-Language': navigator.language || 'en' } });
-          if (!response.ok) throw new Error('search failed');
-          const results = await response.json();
-          if (!results.length) { feedback.textContent = 'No matching locations found.'; return; }
-          results.forEach((result) => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            const strong = document.createElement('strong');
-            strong.textContent = result.display_name.split(',')[0];
-            const span = document.createElement('span');
-            span.textContent = result.display_name;
-            button.append(strong, span);
-            button.addEventListener('click', () => {
-              selectedName = result.display_name; selectedSource = 'OpenStreetMap search';
-              setPoint(result.lat, result.lon, { zoom:17 });
-              resultsBox.hidden = true; feedback.textContent = 'Location selected. Refine the pin, then confirm.';
-            });
-            resultsBox.appendChild(button);
-          });
-          resultsBox.hidden = false; feedback.textContent = `${results.length} locations found.`;
-        } catch { feedback.textContent = 'Search is temporarily unavailable. Enter coordinates or use the map.'; }
-      });
-
-      confirmButton.addEventListener('click', () => {
-        const point = marker.getLatLng();
-        confirmedBox.hidden = false; placementControls.hidden = false; modelCard.hidden = false;
-        document.getElementById('confirmed-place').textContent = selectedName;
-        document.getElementById('confirmed-coordinates').textContent = `${format(point.lat)}, ${format(point.lng)}`;
-        document.getElementById('location-status').textContent = 'Location confirmed';
-        document.getElementById('location-status').classList.add('confirmed-status');
-        document.getElementById('model-status').textContent = 'Indicative footprint shown';
-        document.getElementById('model-status').className = 'confirmed-status';
-        document.getElementById('next-step').textContent = 'Find parcel or upload survey';
-        confirmButton.textContent = 'Update confirmed location';
-        updateFootprint();
-        map.fitBounds(L.latLngBounds(footprintPoints()).pad(1.8), { maxZoom:18 });
-      });
-      rotationInput.addEventListener('input', () => { rotationValue.textContent = `${rotationInput.value}°`; updateFootprint(); });
-      document.getElementById('centre-model').addEventListener('click', () => map.fitBounds(L.latLngBounds(footprintPoints()).pad(1.8), { maxZoom:18 }));
-
-      setPoint(initial[0], initial[1], { pan:false });
-      requestAnimationFrame(() => map.invalidateSize());
-      setTimeout(() => map.invalidateSize(), 300);
+      setPoint(18.3419,-64.9307,{pan:false});requestAnimationFrame(()=>map.invalidateSize());setTimeout(()=>map.invalidateSize(),300);
     })();
   </script>
 </BaseLayout>
 
 <style>
-  /* Leaflet layout fallback: prevents loose square tiles if the CDN stylesheet is delayed. */
-  :global(.leaflet-container){position:relative;overflow:hidden;outline:0;background:#d9dfdc;font-family:Inter,sans-serif}
-  :global(.leaflet-pane),:global(.leaflet-tile),:global(.leaflet-marker-icon),:global(.leaflet-marker-shadow),:global(.leaflet-tile-container),:global(.leaflet-pane>svg),:global(.leaflet-pane>canvas),:global(.leaflet-zoom-box){position:absolute;left:0;top:0}
-  :global(.leaflet-map-pane),:global(.leaflet-tile-pane){z-index:200}:global(.leaflet-overlay-pane){z-index:400}:global(.leaflet-shadow-pane){z-index:500}:global(.leaflet-marker-pane){z-index:600}:global(.leaflet-tooltip-pane){z-index:650}:global(.leaflet-popup-pane){z-index:700}
-  :global(.leaflet-control){position:relative;z-index:800;pointer-events:auto}:global(.leaflet-top),:global(.leaflet-bottom){position:absolute;z-index:1000;pointer-events:none}:global(.leaflet-top){top:0}:global(.leaflet-right){right:0}:global(.leaflet-bottom){bottom:0}:global(.leaflet-left){left:0}
-  :global(.leaflet-tile){visibility:hidden}:global(.leaflet-tile-loaded){visibility:inherit}:global(.leaflet-zoom-animated){transform-origin:0 0}:global(.leaflet-container img.leaflet-image-layer),:global(.leaflet-container .leaflet-tile){max-width:none!important;max-height:none!important;width:256px;height:256px;padding:0}
-  :global(.leaflet-control-attribution){font-size:10px}:global(.model-map-label){border:0;background:rgba(23,57,76,.92);color:#fff;box-shadow:none;font:700 10px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase}:global(.model-map-label:before){display:none}
-
-  .site-fit-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.site-fit-header{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:4rem;padding:3.4rem 4vw 2.4rem;border-bottom:1px solid rgba(23,57,76,.18)}.kicker,.site-fit-header aside>span{margin:0 0 .8rem;font:700 .68rem/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#9b7b49}.site-fit-header h1{max-width:980px;margin:0 0 1rem;font:400 clamp(2.8rem,5.6vw,5.8rem)/.94 'Cormorant Garamond',serif;letter-spacing:-.035em}.site-fit-header>div>p:last-child{max-width:780px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.site-fit-header aside{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;padding-left:2rem;border-left:1px solid rgba(23,57,76,.18);font-family:Inter,sans-serif}.site-fit-header aside strong{font:400 1.9rem/1.05 'Cormorant Garamond',serif}.site-fit-header aside a{margin-top:.55rem;color:#17394c;font-weight:700}
-  .tool-shell{display:grid;grid-template-columns:300px minmax(0,1fr) 290px;min-height:720px;border-bottom:1px solid rgba(23,57,76,.18)}.location-panel,.model-panel{padding:1.4rem;background:#f7f5ef}.location-panel{border-right:1px solid rgba(23,57,76,.16)}.model-panel{border-left:1px solid rgba(23,57,76,.16)}.step{display:flex;gap:.8rem;align-items:flex-start;margin-bottom:1.35rem}.step b{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:#17394c;color:#fff;font:700 .68rem Inter,sans-serif}.step strong,.step small{display:block;font-family:Inter,sans-serif}.step strong{font-size:.82rem}.step small{margin-top:.22rem;color:rgba(23,57,76,.58)}.step.compact{margin-top:1.2rem}.step.compact b{background:#c5a66a;color:#17394c}
-  form label,.coordinate-grid span,.rotation>span{display:block;margin-bottom:.45rem;font:700 .68rem Inter,sans-serif}.search-row{display:grid;grid-template-columns:1fr auto}.search-row input,.coordinate-grid input{width:100%;min-width:0;box-sizing:border-box;border:1px solid rgba(23,57,76,.22);background:#fff;padding:.82rem;color:#17394c}.search-row button,.primary{border:0;background:#17394c;color:#fff;padding:0 1rem;font-weight:700}.feedback{min-height:2.2em;margin:.55rem 0 .8rem;font:400 .64rem/1.45 Inter,sans-serif;color:rgba(23,57,76,.58)}.search-results{display:grid;gap:.35rem;margin-bottom:.8rem}.search-results button{display:grid;gap:.2rem;width:100%;padding:.7rem;border:1px solid rgba(23,57,76,.15);background:#fff;color:#17394c;text-align:left}.search-results strong{font-size:.72rem}.search-results span{font-size:.6rem;color:rgba(23,57,76,.58)}.secondary{width:100%;margin-bottom:1rem;padding:.72rem;border:1px solid rgba(23,57,76,.24);background:transparent;color:#17394c;font-weight:700}.coordinate-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}.instruction{margin:.2rem 0 1rem;padding:.8rem;background:#ece9df;font:400 .64rem/1.45 Inter,sans-serif}.primary{width:100%;padding:.9rem}.confirmed{display:grid;gap:.25rem;margin-top:1rem;padding:.9rem;background:#dfe9df;font-family:Inter,sans-serif}.confirmed span{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#497150}.confirmed small{font-size:.62rem}.placement-controls{padding-top:.2rem}.rotation input{width:100%}
-  .map-workspace{display:grid;grid-template-rows:auto 1fr auto;min-width:0}.map-toolbar{display:flex;justify-content:space-between;gap:1rem;padding:.7rem .9rem;border-bottom:1px solid rgba(23,57,76,.16);background:#f7f5ef}.base-switch,.statuses{display:flex;gap:.35rem;align-items:center}.map-toolbar button{padding:.5rem .8rem;border:1px solid rgba(23,57,76,.18);background:#fff;color:#17394c;font:700 .66rem Inter,sans-serif;cursor:pointer}.map-toolbar button.active{background:#17394c;color:#fff}.statuses span{padding:.45rem .65rem;border-radius:999px;background:#ece9df;font:700 .6rem Inter,sans-serif}.statuses .muted{opacity:.55}.confirmed-status{background:#dfe9df!important;color:#497150}.map-stage{position:relative;min-height:620px;background:#d9dfdc}.map-loading{position:absolute;inset:0;z-index:1200;display:grid;place-items:center;background:#d9dfdc;font:700 .75rem Inter,sans-serif}.map-loading[hidden]{display:none}.map-loading.error{padding:2rem;text-align:center;color:#7a392e}.map-stage #property-map{position:absolute;inset:0;width:100%;height:100%;z-index:1}.map-card,.model-card{position:absolute;z-index:900;left:1rem;bottom:1rem;max-width:290px;padding:.9rem;background:rgba(247,245,239,.94);box-shadow:0 10px 30px rgba(23,57,76,.15);font-family:Inter,sans-serif}.map-card span,.model-card span{font-size:.58rem;letter-spacing:.14em;color:#9b7b49}.map-card strong,.model-card strong{display:block;margin:.25rem 0;font-size:.76rem}.map-card p,.model-card p{margin:0;font-size:.64rem}.model-card{left:auto;right:1rem}.map-workspace footer{display:grid;grid-template-columns:repeat(4,1fr);background:#f7f5ef;border-top:1px solid rgba(23,57,76,.16)}.map-workspace footer div{padding:.8rem 1rem;border-right:1px solid rgba(23,57,76,.12)}.map-workspace footer span,.map-workspace footer strong{display:block;font-family:Inter,sans-serif}.map-workspace footer span{font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(23,57,76,.5)}.map-workspace footer strong{margin-top:.25rem;font-size:.68rem}
-  .model-panel img{width:100%;aspect-ratio:4/3;object-fit:cover}.model-panel h2{margin:1rem 0;font:400 2rem 'Cormorant Garamond',serif}.model-panel dl{margin:0}.model-panel dl div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1px solid rgba(23,57,76,.13);font:400 .7rem Inter,sans-serif}.model-panel dd{margin:0;text-align:right;font-weight:700}.note{margin-top:1.2rem;padding:1rem;background:#ece9df;font:400 .64rem/1.55 Inter,sans-serif}.disclaimer{margin:0;padding:1rem 4vw;font:400 .65rem/1.5 Inter,sans-serif;color:rgba(23,57,76,.58)}
-  @media(max-width:1100px){.tool-shell{grid-template-columns:280px minmax(0,1fr)}.model-panel{display:none}}@media(max-width:760px){.site-fit-header{grid-template-columns:1fr}.site-fit-header aside{padding:1.5rem 0 0;border-left:0;border-top:1px solid rgba(23,57,76,.18)}.tool-shell{grid-template-columns:1fr}.location-panel{border-right:0}.map-stage{min-height:520px}.map-toolbar{align-items:flex-start;flex-direction:column}.map-workspace footer{grid-template-columns:1fr 1fr}.map-card{right:1rem}.model-card{display:none}}
+  :global(.leaflet-container){position:relative;overflow:hidden;outline:0;background:#d9dfdc;font-family:Inter,sans-serif}:global(.leaflet-pane),:global(.leaflet-tile),:global(.leaflet-marker-icon),:global(.leaflet-marker-shadow),:global(.leaflet-tile-container),:global(.leaflet-pane>svg),:global(.leaflet-pane>canvas){position:absolute;left:0;top:0}:global(.leaflet-tile){visibility:hidden}:global(.leaflet-tile-loaded){visibility:inherit}:global(.leaflet-container .leaflet-tile){max-width:none!important;width:256px;height:256px;padding:0}:global(.model-map-label){border:0;background:rgba(23,57,76,.92);color:#fff;box-shadow:none;font:700 10px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase}:global(.model-map-label:before){display:none}
+  .site-fit-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.site-fit-header{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:4rem;padding:3.4rem 4vw 2.4rem;border-bottom:1px solid rgba(23,57,76,.18)}.kicker,.site-fit-header aside>span{margin:0 0 .8rem;font:700 .68rem/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#9b7b49}.site-fit-header h1{max-width:980px;margin:0 0 1rem;font:400 clamp(2.8rem,5.6vw,5.8rem)/.94 'Cormorant Garamond',serif}.site-fit-header>div>p:last-child{max-width:760px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.site-fit-header aside{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;padding-left:2rem;border-left:1px solid rgba(23,57,76,.18);font-family:Inter,sans-serif}.site-fit-header aside strong{font:400 1.9rem 'Cormorant Garamond',serif}.site-fit-header aside a{margin-top:.55rem;color:#17394c;font-weight:700}
+  .tool-shell{display:grid;grid-template-columns:310px minmax(0,1fr) 290px;min-height:760px}.control-panel,.model-panel{padding:1.4rem;background:#f7f5ef}.control-panel{border-right:1px solid rgba(23,57,76,.16)}.model-panel{border-left:1px solid rgba(23,57,76,.16)}.step{display:flex;gap:.8rem;margin-bottom:1.3rem}.step b{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:50%;background:#17394c;color:#fff;font:700 .68rem Inter,sans-serif}.step strong,.step small{display:block;font-family:Inter,sans-serif}.step strong{font-size:.82rem}.step small{margin-top:.2rem;color:rgba(23,57,76,.58)}.step.compact{margin-top:1.4rem;padding-top:1.3rem;border-top:1px solid rgba(23,57,76,.15)}.step.compact b{background:#c5a66a;color:#17394c}
+  form label,.coordinate-grid span{display:block;margin-bottom:.45rem;font:700 .68rem Inter,sans-serif}.search-row{display:grid;grid-template-columns:1fr auto}.search-row input,.coordinate-grid input{width:100%;min-width:0;box-sizing:border-box;border:1px solid rgba(23,57,76,.22);background:#fff;padding:.8rem}.search-row button,.primary{border:0;background:#17394c;color:#fff;padding:0 1rem;font-weight:700;cursor:pointer}.feedback{min-height:2.2em;margin:.5rem 0 .8rem;font:400 .64rem/1.45 Inter,sans-serif;color:rgba(23,57,76,.58)}.search-results{display:grid;gap:.35rem;margin-bottom:.8rem}.search-results button{display:grid;gap:.2rem;padding:.7rem;border:1px solid rgba(23,57,76,.15);background:#fff;text-align:left}.search-results span{font-size:.6rem;color:rgba(23,57,76,.58)}.secondary{width:100%;margin-bottom:.8rem;padding:.72rem;border:1px solid rgba(23,57,76,.24);background:transparent;color:#17394c;font-weight:700;cursor:pointer}.coordinate-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}.instruction,.parcel-state{margin:.2rem 0 .8rem;padding:.8rem;background:#ece9df;font:400 .64rem/1.45 Inter,sans-serif}.primary{width:100%;padding:.9rem}.or{display:flex;align-items:center;gap:.5rem;margin:.8rem 0;color:rgba(23,57,76,.45);font:700 .6rem Inter,sans-serif}.or:before,.or:after{content:'';height:1px;flex:1;background:rgba(23,57,76,.15)}.text-button{width:100%;border:0;background:none;color:#7c4037;text-decoration:underline;cursor:pointer}.parcel-result{margin-top:1rem;padding:1rem;background:#e9e1cf}.parcel-result>span{font:700 .58rem Inter,sans-serif;letter-spacing:.13em;color:#9b7b49}.parcel-result>strong{display:block;margin:.3rem 0 .8rem;font:400 1.35rem 'Cormorant Garamond',serif}.parcel-result dl{margin:0 0 .8rem}.parcel-result dl div{display:flex;justify-content:space-between;padding:.5rem 0;border-top:1px solid rgba(23,57,76,.12);font:400 .66rem Inter,sans-serif}.parcel-result dd{margin:0;font-weight:700}
+  .map-workspace{display:grid;grid-template-rows:auto 1fr auto;min-width:0}.map-toolbar{display:flex;justify-content:space-between;gap:1rem;padding:.7rem .9rem;background:#f7f5ef;border-bottom:1px solid rgba(23,57,76,.16)}.base-switch,.statuses{display:flex;gap:.35rem;align-items:center}.map-toolbar button{padding:.5rem .8rem;border:1px solid rgba(23,57,76,.18);background:#fff;color:#17394c;font:700 .66rem Inter,sans-serif}.map-toolbar button.active{background:#17394c;color:#fff}.statuses span{padding:.45rem .65rem;border-radius:999px;background:#ece9df;font:700 .6rem Inter,sans-serif}.statuses .muted{opacity:.55}.confirmed-status{background:#dfe9df!important;color:#497150}.map-stage{position:relative;min-height:660px}.map-loading{position:absolute;inset:0;z-index:1200;display:grid;place-items:center;background:#d9dfdc;font:700 .75rem Inter,sans-serif}.map-loading[hidden]{display:none}.map-loading.error{color:#7a392e}.map-stage #property-map{position:absolute;inset:0;width:100%;height:100%;z-index:1}.map-card,.model-card{position:absolute;z-index:900;left:1rem;bottom:1rem;max-width:290px;padding:.9rem;background:rgba(247,245,239,.94);box-shadow:0 10px 30px rgba(23,57,76,.15);font-family:Inter,sans-serif}.map-card span,.model-card span{font-size:.58rem;letter-spacing:.14em;color:#9b7b49}.map-card strong,.model-card strong{display:block;margin:.25rem 0;font-size:.76rem}.map-card p,.model-card p{margin:0;font-size:.64rem}.model-card{left:auto;right:1rem}.map-workspace footer{display:grid;grid-template-columns:repeat(4,1fr);background:#f7f5ef}.map-workspace footer div{padding:.8rem 1rem;border-right:1px solid rgba(23,57,76,.12)}.map-workspace footer span,.map-workspace footer strong{display:block;font-family:Inter,sans-serif}.map-workspace footer span{font-size:.56rem;text-transform:uppercase;color:rgba(23,57,76,.5)}.map-workspace footer strong{margin-top:.25rem;font-size:.68rem}
+  .model-panel img{width:100%;aspect-ratio:4/3;object-fit:cover}.model-panel h2{margin:1rem 0;font:400 2rem 'Cormorant Garamond',serif}.model-panel dl{margin:0}.model-panel dl div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1px solid rgba(23,57,76,.13);font:400 .7rem Inter,sans-serif}.model-panel dd{margin:0;text-align:right;font-weight:700}.process{margin-top:1.3rem}.process div{display:flex;align-items:center;gap:.6rem;padding:.45rem 0;font:700 .67rem Inter,sans-serif;color:rgba(23,57,76,.45)}.process b{display:grid;place-items:center;width:22px;height:22px;border:1px solid currentColor;border-radius:50%}.process .done{color:#497150}.process .current{color:#9b7b49}.note{margin-top:1.2rem;padding:1rem;background:#ece9df;font:400 .64rem/1.55 Inter,sans-serif}.disclaimer{margin:0;padding:1rem 4vw;font:400 .65rem/1.5 Inter,sans-serif;color:rgba(23,57,76,.58)}
+  @media(max-width:1100px){.tool-shell{grid-template-columns:290px minmax(0,1fr)}.model-panel{display:none}}@media(max-width:760px){.site-fit-header{grid-template-columns:1fr}.site-fit-header aside{padding:1.5rem 0 0;border-left:0;border-top:1px solid rgba(23,57,76,.18)}.tool-shell{grid-template-columns:1fr}.map-stage{min-height:520px}.map-toolbar{flex-direction:column;align-items:flex-start}.map-workspace footer{grid-template-columns:1fr 1fr}.model-card{display:none}}
 </style>
