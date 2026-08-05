@@ -16,9 +16,11 @@
       .survey-step{margin-top:1.4rem;padding-top:1.3rem;border-top:1px solid rgba(23,57,76,.15)}
       .survey-heading{display:flex;gap:.8rem;margin-bottom:1rem}.survey-heading>b{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:50%;background:#c5a66a;color:#17394c;font:700 .68rem Inter,sans-serif}.survey-heading strong,.survey-heading small{display:block;font-family:Inter,sans-serif}.survey-heading strong{font-size:.82rem}.survey-heading small{margin-top:.2rem;color:rgba(23,57,76,.58);line-height:1.4}
       .survey-drop{display:grid;gap:.45rem;padding:1rem;border:1px dashed rgba(23,57,76,.32);background:#fff;text-align:center;cursor:pointer}.survey-drop strong{font:700 .72rem Inter,sans-serif}.survey-drop span{font:400 .62rem/1.45 Inter,sans-serif;color:rgba(23,57,76,.58)}.survey-drop input{position:absolute;opacity:0;pointer-events:none}
-      .survey-status{display:grid;gap:.25rem;margin-top:.75rem;padding:.8rem;background:#ece9df;font-family:Inter,sans-serif}.survey-status strong{font-size:.68rem}.survey-status span{font-size:.6rem;color:rgba(23,57,76,.6)}
-      .survey-actions{display:grid;gap:.55rem;margin-top:.75rem}.survey-actions button{width:100%;padding:.72rem;font:700 .66rem Inter,sans-serif;cursor:pointer}.survey-preview-button{border:0;background:#17394c;color:#fff}.survey-skip{border:1px solid rgba(23,57,76,.24);background:transparent;color:#17394c}.survey-remove{border:0;background:none;color:#7c4037;text-decoration:underline}
-      .survey-overlay{position:absolute;inset:1rem;z-index:1050;display:grid;grid-template-rows:auto 1fr;background:#f7f5ef;box-shadow:0 18px 50px rgba(23,57,76,.28)}.survey-overlay[hidden]{display:none}.survey-overlay-header{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.75rem 1rem;border-bottom:1px solid rgba(23,57,76,.15);font-family:Inter,sans-serif}.survey-overlay-header strong{font-size:.72rem}.survey-overlay-header button{border:1px solid rgba(23,57,76,.2);background:#fff;padding:.5rem .7rem;color:#17394c;font-weight:700}.survey-overlay iframe{width:100%;height:100%;border:0;background:#fff}
+      .survey-status{display:grid;gap:.55rem;margin-top:.75rem}.survey-file{display:grid;grid-template-columns:1fr auto;gap:.25rem .6rem;align-items:center;padding:.8rem;background:#ece9df;font-family:Inter,sans-serif}.survey-file strong{font-size:.68rem}.survey-file span{font-size:.6rem;color:rgba(23,57,76,.6)}.survey-file button{grid-row:1/3;grid-column:2;border:0;background:none;color:#7c4037;text-decoration:underline;cursor:pointer}
+      .survey-checks{display:grid;gap:.45rem;margin-top:.75rem;padding:.8rem;background:#f3f0e8;font:400 .62rem/1.4 Inter,sans-serif}.survey-checks strong{font-size:.66rem}.survey-checks label{display:flex;gap:.5rem;align-items:flex-start}.survey-checks input{margin-top:.1rem}
+      .survey-actions{display:grid;gap:.55rem;margin-top:.75rem}.survey-actions button{width:100%;padding:.72rem;font:700 .66rem Inter,sans-serif;cursor:pointer}.survey-preview-button{border:0;background:#17394c;color:#fff}.survey-skip{border:1px solid rgba(23,57,76,.24);background:transparent;color:#17394c}
+      .survey-overlay{position:absolute;inset:1rem;z-index:1050;display:grid;grid-template-rows:auto 1fr;background:#f7f5ef;box-shadow:0 18px 50px rgba(23,57,76,.28)}.survey-overlay[hidden]{display:none}.survey-overlay-header{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.75rem 1rem;border-bottom:1px solid rgba(23,57,76,.15);font-family:Inter,sans-serif}.survey-overlay-header strong{font-size:.72rem}.survey-overlay-header select,.survey-overlay-header button{border:1px solid rgba(23,57,76,.2);background:#fff;padding:.5rem .7rem;color:#17394c;font-weight:700}.survey-overlay iframe{width:100%;height:100%;border:0;background:#fff}
+      .model-panel,.model-card,.model-map-label{display:none!important}.leaflet-overlay-pane path[fill="#17394c"]{display:none!important}
       @media(max-width:760px){.survey-overlay{inset:.5rem}.survey-overlay-header{align-items:flex-start;flex-direction:column}}
     `;
     document.head.appendChild(style);
@@ -29,21 +31,24 @@
     section.innerHTML = `
       <div class="survey-heading">
         <b>02</b>
-        <div><strong>Do you have a site survey?</strong><small>If you have a site survey, upload it. If not, continue to the next step.</small></div>
+        <div><strong>Upload a site survey or topographic plan</strong><small>Your survey may already include contours, elevations, access and other topographic information. Upload one PDF, or add another only when the information is split across separate documents.</small></div>
       </div>
       <label class="survey-drop" for="survey-pdf">
-        <strong>Upload site survey PDF</strong>
-        <span>PDF only · used locally in this browser for the prototype</span>
-        <input id="survey-pdf" type="file" accept="application/pdf,.pdf" />
+        <strong>Upload optional site documents</strong>
+        <span>One or more PDFs · maximum 30 MB each · kept locally in this browser</span>
+        <input id="survey-pdf" type="file" accept="application/pdf,.pdf" multiple />
       </label>
-      <div id="survey-status" class="survey-status" hidden>
-        <strong id="survey-name"></strong>
-        <span id="survey-meta"></span>
+      <div id="survey-status" class="survey-status" hidden></div>
+      <div id="survey-checks" class="survey-checks" hidden>
+        <strong>What information is included?</strong>
+        <label><input type="checkbox" value="boundary" /> Parcel boundary and dimensions</label>
+        <label><input type="checkbox" value="topography" /> Contours, elevations or site grade</label>
+        <label><input type="checkbox" value="access" /> Road, driveway or access information</label>
+        <label><input type="checkbox" value="constraints" /> Easements, banks or other constraints</label>
       </div>
       <div class="survey-actions">
-        <button id="preview-survey" class="survey-preview-button" type="button" hidden>Preview survey</button>
-        <button id="skip-survey" class="survey-skip" type="button">Skip — continue without a survey</button>
-        <button id="remove-survey" class="survey-remove" type="button" hidden>Remove survey</button>
+        <button id="preview-survey" class="survey-preview-button" type="button" hidden>Preview uploaded PDF</button>
+        <button id="skip-survey" class="survey-skip" type="button">Skip — continue without documents</button>
       </div>
     `;
 
@@ -59,74 +64,96 @@
     overlay.className = 'survey-overlay';
     overlay.hidden = true;
     overlay.innerHTML = `
-      <div class="survey-overlay-header"><strong id="survey-preview-title">Site survey preview</strong><button id="close-survey-preview" type="button">Close preview</button></div>
-      <iframe id="survey-frame" title="Site survey PDF preview"></iframe>
+      <div class="survey-overlay-header"><strong>Site document preview</strong><select id="survey-preview-select" aria-label="Choose PDF to preview"></select><button id="close-survey-preview" type="button">Close preview</button></div>
+      <iframe id="survey-frame" title="Site document PDF preview"></iframe>
     `;
     mapStage.appendChild(overlay);
 
     const input = document.getElementById('survey-pdf');
     const status = document.getElementById('survey-status');
-    const name = document.getElementById('survey-name');
-    const meta = document.getElementById('survey-meta');
+    const checks = document.getElementById('survey-checks');
     const preview = document.getElementById('preview-survey');
-    const remove = document.getElementById('remove-survey');
     const skip = document.getElementById('skip-survey');
     const frame = document.getElementById('survey-frame');
-    const title = document.getElementById('survey-preview-title');
-    let objectUrl = '';
+    const select = document.getElementById('survey-preview-select');
+    const files = [];
 
-    function clearSurvey() {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-      objectUrl = '';
-      input.value = '';
-      status.hidden = true;
-      preview.hidden = true;
-      remove.hidden = true;
-      overlay.hidden = true;
-      frame.removeAttribute('src');
-      delete document.documentElement.dataset.siteSurvey;
+    function syncDataset() {
+      if (!files.length) {
+        delete document.documentElement.dataset.siteSurvey;
+        delete document.documentElement.dataset.siteDocuments;
+      } else {
+        document.documentElement.dataset.siteSurvey = files[0].file.name;
+        document.documentElement.dataset.siteDocuments = String(files.length);
+      }
+    }
+
+    function renderFiles() {
+      status.innerHTML = '';
+      select.innerHTML = '';
+      files.forEach((entry, index) => {
+        const row = document.createElement('div');
+        row.className = 'survey-file';
+        row.innerHTML = `<strong></strong><span></span><button type="button">Remove</button>`;
+        row.querySelector('strong').textContent = entry.file.name;
+        row.querySelector('span').textContent = `${(entry.file.size / 1024 / 1024).toFixed(2)} MB`;
+        row.querySelector('button').addEventListener('click', () => {
+          URL.revokeObjectURL(entry.url);
+          files.splice(index, 1);
+          renderFiles();
+        });
+        status.appendChild(row);
+        const option = document.createElement('option');
+        option.value = String(index);
+        option.textContent = entry.file.name;
+        select.appendChild(option);
+      });
+      status.hidden = files.length === 0;
+      checks.hidden = files.length === 0;
+      preview.hidden = files.length === 0;
+      syncDataset();
+      if (files.length && nextStep) nextStep.textContent = 'Review documents or confirm parcel';
     }
 
     input.addEventListener('change', () => {
-      const file = input.files && input.files[0];
-      if (!file) return;
-      const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-      if (!isPdf) {
-        clearSurvey();
-        alert('Please select a PDF site survey.');
-        return;
+      const selected = Array.from(input.files || []);
+      for (const file of selected) {
+        const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+        if (!isPdf) {
+          alert(`${file.name} is not a PDF and was not added.`);
+          continue;
+        }
+        if (file.size > 30 * 1024 * 1024) {
+          alert(`${file.name} is larger than 30 MB and was not added.`);
+          continue;
+        }
+        if (files.some((entry) => entry.file.name === file.name && entry.file.size === file.size)) continue;
+        files.push({ file, url: URL.createObjectURL(file) });
       }
-      if (file.size > 30 * 1024 * 1024) {
-        clearSurvey();
-        alert('Please select a PDF smaller than 30 MB for this prototype.');
-        return;
-      }
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-      objectUrl = URL.createObjectURL(file);
-      name.textContent = file.name;
-      meta.textContent = `${(file.size / 1024 / 1024).toFixed(2)} MB · Ready to preview`;
-      status.hidden = false;
-      preview.hidden = false;
-      remove.hidden = false;
-      document.documentElement.dataset.siteSurvey = file.name;
-      if (nextStep) nextStep.textContent = 'Review survey or confirm parcel';
+      input.value = '';
+      renderFiles();
     });
 
-    preview.addEventListener('click', () => {
-      if (!objectUrl) return;
-      frame.src = objectUrl;
-      title.textContent = name.textContent || 'Site survey preview';
+    function showSelectedPreview() {
+      const entry = files[Number(select.value || 0)];
+      if (!entry) return;
+      frame.src = entry.url;
       overlay.hidden = false;
-    });
+    }
+
+    preview.addEventListener('click', showSelectedPreview);
+    select.addEventListener('change', showSelectedPreview);
     document.getElementById('close-survey-preview').addEventListener('click', () => { overlay.hidden = true; });
-    remove.addEventListener('click', clearSurvey);
     skip.addEventListener('click', () => {
       section.dataset.skipped = 'true';
-      skip.textContent = 'Continuing without a survey';
+      skip.textContent = 'Continuing without site documents';
       skip.disabled = true;
       if (nextStep) nextStep.textContent = 'Confirm parcel boundary';
       const target = parcelControls.querySelector('.step.compact');
       target?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+
+    const process = document.querySelector('.process');
+    if (process) process.innerHTML = '<div class="done"><b>1</b><span>Locate property</span></div><div class="current"><b>2</b><span>Confirm site information</span></div><div><b>3</b><span>House placement</span></div><div><b>4</b><span>Send to Bauhu</span></div>';
   });
 })();
