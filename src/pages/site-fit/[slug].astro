@@ -14,22 +14,28 @@ export function getStaticPaths() {
 const { model } = Astro.props;
 const publicSlug = model.slug.replace(/^bauhu-/, '');
 const modelPageHref = `/homes/${publicSlug}`;
+const modelAreaSqft = model.builtAreaSqftMax ?? model.builtAreaSqftMin ?? 1200;
+const modelAreaM2 = Math.round(modelAreaSqft * 0.092903);
+const assumedRatio = 1.18;
+const modelDepthM = Math.sqrt(modelAreaM2 / assumedRatio);
+const modelWidthM = modelDepthM * assumedRatio;
 ---
 
-<BaseLayout
-  title={`Test ${model.name} on your site | Bauhu`}
-  description={`Use Bauhu's preliminary site-fit tool to test ${model.name} against your property.`}
->
+<BaseLayout title={`Test ${model.name} on your site | Bauhu`} description={`Use Bauhu's preliminary site-fit tool to test ${model.name} against your property.`}>
   <SiteHeader />
-  <main class="site-fit-page" data-model-slug={publicSlug}>
+  <main
+    class="site-fit-page"
+    data-model-slug={publicSlug}
+    data-model-name={model.name}
+    data-model-width={modelWidthM.toFixed(2)}
+    data-model-depth={modelDepthM.toFixed(2)}
+    data-model-area={modelAreaM2}
+  >
     <header class="site-fit-header">
       <div>
         <p>BAUHU SITE FIT</p>
         <h1>Test {model.name} on your property.</h1>
-        <span>
-          Add a property, upload a survey and explore preliminary placement, access,
-          orientation and site constraints.
-        </span>
+        <span>Add your property, set a working site envelope and explore preliminary placement, access, orientation and site constraints.</span>
       </div>
       <div class="site-fit-model-summary">
         <strong>{model.name}</strong>
@@ -44,50 +50,89 @@ const modelPageHref = `/homes/${publicSlug}`;
       <aside class="site-fit-steps">
         <p>YOUR PROPERTY</p>
         <h2>Add a site to begin</h2>
-        <label>
-          <span>Address or property name</span>
-          <input type="text" placeholder="Enter an address or location" />
-        </label>
-        <label>
-          <span>Parcel reference</span>
-          <input type="text" placeholder="Optional" />
-        </label>
-        <label>
-          <span>Country or jurisdiction</span>
-          <input type="text" placeholder="Country, island or territory" />
-        </label>
-        <button type="button">Locate property</button>
+        <form id="property-form">
+          <label><span>Address or property name</span><input id="property-name" type="text" placeholder="Enter an address or location" required /></label>
+          <label><span>Parcel reference</span><input id="parcel-reference" type="text" placeholder="Optional" /></label>
+          <label><span>Country or jurisdiction</span><input id="jurisdiction" type="text" placeholder="Country, island or territory" required /></label>
+          <div class="site-dimensions">
+            <label><span>Working width</span><input id="plot-width" type="number" min="15" max="150" value="42" /><em>m</em></label>
+            <label><span>Working depth</span><input id="plot-depth" type="number" min="15" max="150" value="32" /><em>m</em></label>
+          </div>
+          <button type="submit">Start site-fit study</button>
+        </form>
         <div class="site-fit-upload">
           <strong>Upload survey or site plan</strong>
-          <span>PDF, image or supported drawing file</span>
-          <input type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" />
+          <span id="upload-status">PDF or image. The file remains in this browser prototype.</span>
+          <input id="survey-upload" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" />
+        </div>
+        <div class="placement-controls" id="placement-controls" hidden>
+          <p>MODEL PLACEMENT</p>
+          <label><span>Horizontal position <strong id="x-value">50%</strong></span><input id="position-x" type="range" min="8" max="92" value="50" /></label>
+          <label><span>Vertical position <strong id="y-value">50%</strong></span><input id="position-y" type="range" min="8" max="92" value="50" /></label>
+          <label><span>Rotation <strong id="rotation-value">0°</strong></span><input id="rotation" type="range" min="-90" max="90" step="5" value="0" /></label>
+          <button id="reset-placement" type="button" class="secondary-control">Reset placement</button>
         </div>
       </aside>
 
       <div class="site-fit-workspace">
         <div class="site-fit-toolbar">
-          <div>
-            <button type="button" class="is-active">Site fit</button>
-            <button type="button">Placement options</button>
-            <button type="button">Sun, views & access</button>
-            <button type="button">3D site</button>
-            <button type="button">Summary</button>
+          <div role="tablist" aria-label="Site-fit views">
+            <button type="button" class="is-active" data-view="site">Site fit</button>
+            <button type="button" data-view="placement">Placement options</button>
+            <button type="button" data-view="climate">Sun, views & access</button>
+            <button type="button" data-view="three-d">3D site</button>
+            <button type="button" data-view="summary">Summary</button>
           </div>
           <span>Preliminary assessment</span>
         </div>
-        <div class="site-fit-empty">
+
+        <div class="site-fit-empty" id="empty-state">
           <div class="site-fit-marker">+</div>
           <h2>Locate your property</h2>
-          <p>
-            Once a site is selected, this workspace will show the parcel, survey,
-            preliminary setbacks and the {model.name} footprint at the correct scale.
-          </p>
+          <p>Enter a property and a working site envelope. The tool will place the {model.name} footprint at an indicative scale for an early fit review.</p>
+        </div>
+
+        <div class="active-workspace" id="active-workspace" hidden>
+          <section class="workspace-view is-active" data-panel="site">
+            <div class="site-canvas" id="site-canvas">
+              <div class="north-arrow"><b>N</b><i></i></div>
+              <div class="road-edge">INDICATIVE ACCESS EDGE</div>
+              <div class="setback-envelope"></div>
+              <div class="model-footprint" id="model-footprint">
+                <span>{model.name}</span>
+                <small>Indicative footprint</small>
+              </div>
+              <div class="view-arrow">PRIMARY VIEW →</div>
+            </div>
+            <div class="workspace-readout">
+              <div><span>Working site</span><strong id="site-size-readout">42 × 32 m</strong></div>
+              <div><span>Model footprint</span><strong>{modelWidthM.toFixed(1)} × {modelDepthM.toFixed(1)} m</strong></div>
+              <div><span>Indicative coverage</span><strong id="coverage-readout">—</strong></div>
+              <div><span>Boundary review</span><strong id="boundary-readout">Awaiting calculation</strong></div>
+            </div>
+          </section>
+
+          <section class="workspace-view" data-panel="placement">
+            <div class="analysis-panel"><p>PLACEMENT OPTIONS</p><h2>Compare site strategies without changing the Bauhu model.</h2><div class="option-grid"><button type="button" data-placement="baseline"><strong>Baseline</strong><span>Centred working placement</span></button><button type="button" data-placement="view"><strong>Best view</strong><span>Move toward the selected outlook</span></button><button type="button" data-placement="access"><strong>Best access</strong><span>Reduce distance to access edge</span></button><button type="button" data-placement="grading"><strong>Lower grading impact</strong><span>Hold a more central site position</span></button></div><p class="analysis-note">These options are interface studies only until survey contours, access geometry and view bearings are processed.</p></div>
+          </section>
+
+          <section class="workspace-view" data-panel="climate">
+            <div class="analysis-panel"><p>SUN, VIEWS & ACCESS</p><h2>Record the priorities that should influence placement.</h2><div class="priority-grid"><label><span>Primary view direction</span><select id="view-direction"><option>West</option><option>North</option><option>East</option><option>South</option></select></label><label><span>Access side</span><select id="access-side"><option>South</option><option>North</option><option>East</option><option>West</option></select></label><label><span>Morning sun priority</span><select><option>Balanced</option><option>Bedrooms</option><option>Living spaces</option><option>Low priority</option></select></label><label><span>Afternoon shading</span><select><option>High priority</option><option>Balanced</option><option>Low priority</option></select></label></div><div class="climate-message">Site-specific solar, wind and shading conclusions require coordinates, terrain and verified orientation.</div></div>
+          </section>
+
+          <section class="workspace-view" data-panel="three-d">
+            <div class="three-d-placeholder"><div class="massing"><i></i><b></b><span></span></div><h2>3D site view</h2><p>The next geometry stage will place the catalogue model on terrain generated from the user’s survey. This placeholder shows the intended integrated view rather than a standalone model viewer.</p></div>
+          </section>
+
+          <section class="workspace-view" data-panel="summary">
+            <div class="analysis-panel"><p>PRELIMINARY SUMMARY</p><h2 id="summary-title">Site-fit study</h2><div class="summary-list"><div><span>Property</span><strong id="summary-property">—</strong></div><div><span>Jurisdiction</span><strong id="summary-jurisdiction">—</strong></div><div><span>Parcel</span><strong id="summary-parcel">Not supplied</strong></div><div><span>Selected model</span><strong>{model.name}</strong></div><div><span>Working site coverage</span><strong id="summary-coverage">—</strong></div><div><span>Survey</span><strong id="summary-survey">Not uploaded</strong></div></div><a class="summary-action" href={`/start-your-project?model=${encodeURIComponent(model.name)}`}>Send this project to Bauhu</a></div>
+          </section>
         </div>
       </div>
 
       <aside class="site-fit-summary">
         <p>SELECTED HOME</p>
-        <img src={model.image} alt={`${model.name} Bauhu model residence`} />
+        <img src={model.image} alt={`${model.name} Bauhu model residence`} onerror="this.src='/images/model-placeholder.svg'" />
         <h2>{model.name}</h2>
         <dl>
           <div><dt>Guide price</dt><dd>{model.guidePriceLabel}</dd></div>
@@ -95,21 +140,101 @@ const modelPageHref = `/homes/${publicSlug}`;
           <div><dt>Bathrooms</dt><dd>{model.bathroomsLabel}</dd></div>
           <div><dt>Built area</dt><dd>{model.builtAreaLabel} ft²</dd></div>
         </dl>
-        <div class="site-fit-status">
-          <strong>Awaiting property</strong>
-          <span>Site-fit results activate after a property is added.</span>
-        </div>
+        <div class="site-fit-status" id="fit-status"><strong>Awaiting property</strong><span>Site-fit results activate after a property is added.</span></div>
       </aside>
     </section>
 
-    <p class="site-fit-disclaimer">
-      Preliminary guidance only. Boundaries, planning requirements, hazards, structural
-      design and construction suitability require verification by appropriately qualified professionals.
-    </p>
+    <p class="site-fit-disclaimer">Preliminary guidance only. The working envelope is not a legal boundary. Boundaries, setbacks, planning requirements, hazards, structural design and construction suitability require verification by appropriately qualified professionals.</p>
   </main>
   <SiteFooter />
 </BaseLayout>
 
+<script>
+  const page = document.querySelector('.site-fit-page');
+  const form = document.getElementById('property-form');
+  const emptyState = document.getElementById('empty-state');
+  const activeWorkspace = document.getElementById('active-workspace');
+  const controls = document.getElementById('placement-controls');
+  const footprint = document.getElementById('model-footprint');
+  const upload = document.getElementById('survey-upload');
+  const modelWidth = Number(page?.getAttribute('data-model-width') || 10);
+  const modelDepth = Number(page?.getAttribute('data-model-depth') || 10);
+  let siteActive = false;
+
+  function value(id) { return document.getElementById(id)?.value || ''; }
+  function numberValue(id) { return Number(value(id) || 0); }
+
+  function updateStudy() {
+    if (!siteActive || !footprint) return;
+    const plotWidth = Math.max(1, numberValue('plot-width'));
+    const plotDepth = Math.max(1, numberValue('plot-depth'));
+    const x = numberValue('position-x');
+    const y = numberValue('position-y');
+    const rotation = numberValue('rotation');
+    const widthPercent = Math.min(80, (modelWidth / plotWidth) * 100);
+    const depthPercent = Math.min(80, (modelDepth / plotDepth) * 100);
+    footprint.style.width = `${widthPercent}%`;
+    footprint.style.height = `${depthPercent}%`;
+    footprint.style.left = `${x}%`;
+    footprint.style.top = `${y}%`;
+    footprint.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+    document.getElementById('x-value').textContent = `${x}%`;
+    document.getElementById('y-value').textContent = `${y}%`;
+    document.getElementById('rotation-value').textContent = `${rotation}°`;
+    document.getElementById('site-size-readout').textContent = `${plotWidth} × ${plotDepth} m`;
+    const coverage = Math.round(((modelWidth * modelDepth) / (plotWidth * plotDepth)) * 100);
+    document.getElementById('coverage-readout').textContent = `${coverage}%`;
+    document.getElementById('summary-coverage').textContent = `${coverage}% of working envelope`;
+    const edgeRisk = x - widthPercent / 2 < 5 || x + widthPercent / 2 > 95 || y - depthPercent / 2 < 5 || y + depthPercent / 2 > 95;
+    document.getElementById('boundary-readout').textContent = edgeRisk ? 'Near working boundary' : 'Within working envelope';
+    const status = document.getElementById('fit-status');
+    status.className = `site-fit-status ${edgeRisk ? 'warning' : 'active'}`;
+    status.innerHTML = `<strong>${edgeRisk ? 'Placement needs review' : 'Working placement established'}</strong><span>${coverage}% indicative site coverage. Verify against the legal survey and local rules.</span>`;
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    siteActive = true;
+    emptyState.hidden = true;
+    activeWorkspace.hidden = false;
+    controls.hidden = false;
+    document.getElementById('summary-property').textContent = value('property-name');
+    document.getElementById('summary-jurisdiction').textContent = value('jurisdiction');
+    document.getElementById('summary-parcel').textContent = value('parcel-reference') || 'Not supplied';
+    document.getElementById('summary-title').textContent = `${value('property-name')} · preliminary site fit`;
+    updateStudy();
+  });
+
+  ['plot-width','plot-depth','position-x','position-y','rotation'].forEach((id) => document.getElementById(id)?.addEventListener('input', updateStudy));
+  document.getElementById('reset-placement')?.addEventListener('click', () => {
+    document.getElementById('position-x').value = '50';
+    document.getElementById('position-y').value = '50';
+    document.getElementById('rotation').value = '0';
+    updateStudy();
+  });
+
+  upload?.addEventListener('change', () => {
+    const file = upload.files?.[0];
+    document.getElementById('upload-status').textContent = file ? `${file.name} selected · processing not connected yet` : 'PDF or image. The file remains in this browser prototype.';
+    document.getElementById('summary-survey').textContent = file ? file.name : 'Not uploaded';
+  });
+
+  document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', () => {
+    document.querySelectorAll('[data-view]').forEach((item) => item.classList.toggle('is-active', item === button));
+    document.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('is-active', panel.getAttribute('data-panel') === button.getAttribute('data-view')));
+  }));
+
+  document.querySelectorAll('[data-placement]').forEach((button) => button.addEventListener('click', () => {
+    const mode = button.getAttribute('data-placement');
+    const presets = { baseline:[50,50,0], view:[28,48,-10], access:[50,72,0], grading:[52,50,5] };
+    const preset = presets[mode] || presets.baseline;
+    document.getElementById('position-x').value = String(preset[0]);
+    document.getElementById('position-y').value = String(preset[1]);
+    document.getElementById('rotation').value = String(preset[2]);
+    updateStudy();
+  }));
+</script>
+
 <style>
-  .site-fit-page{min-height:100vh;background:#ece9e1;color:#17394c;padding-top:5.5rem}.site-fit-header{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:3rem;padding:3.5rem 4vw 2.5rem;border-bottom:1px solid rgba(23,57,76,.18)}.site-fit-header p,.site-fit-steps>p,.site-fit-summary>p{margin:0 0 .75rem;font:700 .7rem/1 Inter,sans-serif;letter-spacing:.18em;color:#9a7a48}.site-fit-header h1{max-width:850px;margin:0 0 1rem;font:400 clamp(2.8rem,6vw,6rem)/.95 'Cormorant Garamond',serif}.site-fit-header>div>span{display:block;max-width:760px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.site-fit-model-summary{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;border-left:1px solid rgba(23,57,76,.18);padding-left:2rem;font:400 .86rem/1.5 Inter,sans-serif}.site-fit-model-summary strong{font:400 1.8rem/1.1 'Cormorant Garamond',serif}.site-fit-model-summary a{margin-top:.5rem;color:#17394c;font-weight:700}.site-fit-shell{display:grid;grid-template-columns:270px minmax(0,1fr) 280px;min-height:680px;border-bottom:1px solid rgba(23,57,76,.18)}.site-fit-steps,.site-fit-summary{padding:1.5rem;background:#f7f4ed}.site-fit-steps{border-right:1px solid rgba(23,57,76,.16)}.site-fit-summary{border-left:1px solid rgba(23,57,76,.16)}.site-fit-steps h2,.site-fit-summary h2{margin:.25rem 0 1.4rem;font:400 1.8rem/1.05 'Cormorant Garamond',serif}.site-fit-steps label{display:block;margin-bottom:1rem}.site-fit-steps label span{display:block;margin-bottom:.4rem;font:700 .7rem/1 Inter,sans-serif}.site-fit-steps input[type=text]{width:100%;box-sizing:border-box;border:1px solid rgba(23,57,76,.22);background:#fff;padding:.8rem;font:400 .8rem Inter,sans-serif}.site-fit-steps button{width:100%;border:0;background:#17394c;color:#fff;padding:.9rem;font:700 .78rem Inter,sans-serif}.site-fit-upload{display:grid;gap:.45rem;margin-top:1.5rem;padding:1rem;border:1px dashed rgba(23,57,76,.3);font:400 .72rem/1.4 Inter,sans-serif}.site-fit-workspace{display:grid;grid-template-rows:auto 1fr;min-width:0}.site-fit-toolbar{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 1rem;border-bottom:1px solid rgba(23,57,76,.16);background:#f7f4ed}.site-fit-toolbar div{display:flex;gap:.35rem;flex-wrap:wrap}.site-fit-toolbar button{border:1px solid rgba(23,57,76,.18);background:#fff;padding:.55rem .75rem;color:#17394c;font:700 .7rem Inter,sans-serif}.site-fit-toolbar button.is-active{background:#17394c;color:#fff}.site-fit-toolbar>span{align-self:center;font:700 .65rem Inter,sans-serif;color:#9a7a48}.site-fit-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem;background:linear-gradient(rgba(23,57,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(23,57,76,.05) 1px,transparent 1px),#dde4df;background-size:24px 24px}.site-fit-marker{display:grid;place-items:center;width:64px;height:64px;border:1px solid rgba(23,57,76,.28);border-radius:50%;font:300 2rem Inter,sans-serif}.site-fit-empty h2{margin:1.2rem 0 .5rem;font:400 2.4rem 'Cormorant Garamond',serif}.site-fit-empty p{max-width:520px;margin:0;font:300 .9rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.site-fit-summary img{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1rem}.site-fit-summary dl{margin:0}.site-fit-summary dl div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1px solid rgba(23,57,76,.13);font:400 .75rem Inter,sans-serif}.site-fit-summary dd{margin:0;text-align:right;font-weight:700}.site-fit-status{display:grid;gap:.35rem;margin-top:1.5rem;padding:1rem;background:#ece9e1;font:400 .72rem/1.4 Inter,sans-serif}.site-fit-disclaimer{margin:0;padding:1.2rem 4vw;font:400 .68rem/1.5 Inter,sans-serif;color:rgba(23,57,76,.62)}@media(max-width:1050px){.site-fit-shell{grid-template-columns:240px minmax(0,1fr)}.site-fit-summary{display:none}}@media(max-width:760px){.site-fit-header{grid-template-columns:1fr}.site-fit-model-summary{border-left:0;border-top:1px solid rgba(23,57,76,.18);padding:1.5rem 0 0}.site-fit-shell{grid-template-columns:1fr}.site-fit-steps{border-right:0;border-bottom:1px solid rgba(23,57,76,.16)}.site-fit-toolbar{overflow:auto}.site-fit-empty{min-height:500px}}
+  .site-fit-page{min-height:100vh;background:#ece9e1;color:#17394c;padding-top:5.5rem}.site-fit-header{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:3rem;padding:3.5rem 4vw 2.5rem;border-bottom:1px solid rgba(23,57,76,.18)}.site-fit-header p,.site-fit-steps>p,.site-fit-summary>p,.placement-controls>p,.analysis-panel>p{margin:0 0 .75rem;font:700 .7rem/1 Inter,sans-serif;letter-spacing:.18em;color:#9a7a48}.site-fit-header h1{max-width:850px;margin:0 0 1rem;font:400 clamp(2.8rem,6vw,6rem)/.95 'Cormorant Garamond',serif}.site-fit-header>div>span{display:block;max-width:760px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.site-fit-model-summary{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;border-left:1px solid rgba(23,57,76,.18);padding-left:2rem;font:400 .86rem/1.5 Inter,sans-serif}.site-fit-model-summary strong{font:400 1.8rem/1.1 'Cormorant Garamond',serif}.site-fit-model-summary a{margin-top:.5rem;color:#17394c;font-weight:700}.site-fit-shell{display:grid;grid-template-columns:285px minmax(0,1fr) 280px;min-height:720px;border-bottom:1px solid rgba(23,57,76,.18)}.site-fit-steps,.site-fit-summary{padding:1.5rem;background:#f7f4ed}.site-fit-steps{border-right:1px solid rgba(23,57,76,.16)}.site-fit-summary{border-left:1px solid rgba(23,57,76,.16)}.site-fit-steps h2,.site-fit-summary h2{margin:.25rem 0 1.4rem;font:400 1.8rem/1.05 'Cormorant Garamond',serif}.site-fit-steps label{position:relative;display:block;margin-bottom:1rem}.site-fit-steps label span{display:block;margin-bottom:.4rem;font:700 .7rem/1 Inter,sans-serif}.site-fit-steps input[type=text],.site-fit-steps input[type=number],.priority-grid select{width:100%;box-sizing:border-box;border:1px solid rgba(23,57,76,.22);background:#fff;padding:.8rem;font:400 .8rem Inter,sans-serif}.site-fit-steps label em{position:absolute;right:.7rem;bottom:.8rem;font:400 .7rem Inter,sans-serif;color:#7b898f}.site-dimensions{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.site-fit-steps form>button,.secondary-control{width:100%;border:0;background:#17394c;color:#fff;padding:.9rem;font:700 .75rem Inter,sans-serif}.secondary-control{background:transparent!important;color:#17394c!important;border:1px solid rgba(23,57,76,.24)!important}.site-fit-upload{display:grid;gap:.45rem;margin-top:1.5rem;padding:1rem;border:1px dashed rgba(23,57,76,.3);font:400 .72rem/1.4 Inter,sans-serif}.placement-controls{margin-top:1.5rem;padding-top:1.3rem;border-top:1px solid rgba(23,57,76,.15)}.placement-controls input[type=range]{width:100%;accent-color:#17394c}.site-fit-workspace{display:grid;grid-template-rows:auto 1fr;min-width:0}.site-fit-toolbar{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 1rem;border-bottom:1px solid rgba(23,57,76,.16);background:#f7f4ed}.site-fit-toolbar div{display:flex;gap:.35rem;flex-wrap:wrap}.site-fit-toolbar button{border:1px solid rgba(23,57,76,.18);background:#fff;padding:.55rem .75rem;color:#17394c;font:700 .7rem Inter,sans-serif}.site-fit-toolbar button.is-active{background:#17394c;color:#fff}.site-fit-toolbar>span{align-self:center;font:700 .65rem Inter,sans-serif;color:#9a7a48}.site-fit-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem;background:linear-gradient(rgba(23,57,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(23,57,76,.05) 1px,transparent 1px),#dde4df;background-size:24px 24px}.site-fit-marker{display:grid;place-items:center;width:64px;height:64px;border:1px solid rgba(23,57,76,.28);border-radius:50%;font:300 2rem Inter,sans-serif}.site-fit-empty h2{margin:1.2rem 0 .5rem;font:400 2.4rem 'Cormorant Garamond',serif}.site-fit-empty p{max-width:520px;margin:0;font:300 .9rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.active-workspace{height:100%}.workspace-view{display:none;height:100%}.workspace-view.is-active{display:block}.site-canvas{position:relative;height:calc(100% - 92px);min-height:560px;overflow:hidden;background:linear-gradient(rgba(23,57,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(23,57,76,.05) 1px,transparent 1px),#dbe5df;background-size:28px 28px}.site-canvas:before{content:'';position:absolute;inset:8% 9%;border:3px solid #17394c;background:rgba(255,255,255,.16)}.setback-envelope{position:absolute;inset:15% 16%;border:2px dashed #b6843e;background:rgba(182,132,62,.04)}.model-footprint{position:absolute;z-index:3;display:grid;place-items:center;align-content:center;border:6px solid #17394c;background:rgba(247,244,237,.94);box-shadow:10px 12px 0 rgba(23,57,76,.12);transform-origin:center;text-align:center}.model-footprint span{font:700 .72rem Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase}.model-footprint small{margin-top:.35rem;font:400 .62rem Inter,sans-serif;color:#738087}.road-edge{position:absolute;left:9%;right:9%;bottom:3%;padding:.45rem;text-align:center;background:#68767b;color:#fff;font:700 .62rem Inter,sans-serif;letter-spacing:.15em}.north-arrow{position:absolute;right:4%;top:5%;z-index:4;text-align:center}.north-arrow b{display:block;font:800 .8rem Inter,sans-serif}.north-arrow i{display:block;width:2px;height:42px;margin:.3rem auto;background:#b6843e;position:relative}.north-arrow i:before{content:'';position:absolute;top:-1px;left:-5px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #b6843e}.view-arrow{position:absolute;left:3%;top:46%;color:#9a6b2d;font:800 .64rem Inter,sans-serif;letter-spacing:.09em}.workspace-readout{display:grid;grid-template-columns:repeat(4,1fr);height:92px;background:#f7f4ed;border-top:1px solid rgba(23,57,76,.14)}.workspace-readout div{padding:1rem;border-right:1px solid rgba(23,57,76,.12)}.workspace-readout span,.workspace-readout strong{display:block;font-family:Inter,sans-serif}.workspace-readout span{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#7b898f}.workspace-readout strong{margin-top:.45rem;font-size:.78rem}.analysis-panel{padding:clamp(2rem,5vw,5rem);height:100%;box-sizing:border-box;background:#e2e8e3}.analysis-panel h2,.three-d-placeholder h2{max-width:720px;margin:0 0 2rem;font:400 clamp(2rem,4vw,4rem)/1 'Cormorant Garamond',serif}.option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:900px}.option-grid button{display:grid;gap:.5rem;min-height:140px;padding:1.4rem;text-align:left;border:1px solid rgba(23,57,76,.2);background:#f7f4ed;color:#17394c}.option-grid strong{font:400 1.5rem 'Cormorant Garamond',serif}.option-grid span,.analysis-note,.climate-message{font:400 .78rem/1.6 Inter,sans-serif;color:#69777d}.analysis-note{max-width:760px;margin-top:1.5rem}.priority-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:850px}.priority-grid label span{display:block;margin-bottom:.45rem;font:700 .7rem Inter,sans-serif}.climate-message{max-width:760px;margin-top:2rem;padding:1rem;border-left:3px solid #b6843e;background:#f7f4ed}.three-d-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:3rem;text-align:center;background:linear-gradient(#dce5df,#aebcb2)}.three-d-placeholder p{max-width:650px;font:400 .85rem/1.7 Inter,sans-serif}.massing{position:relative;width:260px;height:170px;margin-bottom:2rem;transform:skewY(-7deg);background:#f4efe5;box-shadow:25px 22px 0 rgba(23,57,76,.15)}.massing:before{content:'';position:absolute;left:-18px;right:-18px;top:-60px;height:70px;background:#e8e5dc;clip-path:polygon(50% 0,100% 78%,88% 100%,12% 100%,0 78%)}.massing i,.massing b,.massing span{position:absolute;bottom:0;width:9px;height:115px;background:#f4efe5;border:1px solid #c7c2b8}.massing i{left:-25px}.massing b{left:50%}.massing span{right:-25px}.summary-list{max-width:850px}.summary-list div{display:flex;justify-content:space-between;gap:2rem;padding:1rem 0;border-top:1px solid rgba(23,57,76,.15);font:400 .8rem Inter,sans-serif}.summary-list strong{text-align:right}.summary-action{display:inline-flex;margin-top:2rem;padding:1rem 1.3rem;background:#17394c;color:#fff;text-decoration:none;font:700 .72rem Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase}.site-fit-summary img{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1rem}.site-fit-summary dl{margin:0}.site-fit-summary dl div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1px solid rgba(23,57,76,.13);font:400 .75rem Inter,sans-serif}.site-fit-summary dd{margin:0;text-align:right;font-weight:700}.site-fit-status{display:grid;gap:.35rem;margin-top:1.5rem;padding:1rem;background:#ece9e1;font:400 .72rem/1.4 Inter,sans-serif}.site-fit-status.active{border-left:3px solid #547660}.site-fit-status.warning{border-left:3px solid #b6843e}.site-fit-disclaimer{margin:0;padding:1.2rem 4vw;font:400 .68rem/1.5 Inter,sans-serif;color:rgba(23,57,76,.62)}[hidden]{display:none!important}@media(max-width:1100px){.site-fit-shell{grid-template-columns:260px minmax(0,1fr)}.site-fit-summary{display:none}}@media(max-width:780px){.site-fit-header{grid-template-columns:1fr}.site-fit-model-summary{border-left:0;border-top:1px solid rgba(23,57,76,.18);padding:1.5rem 0 0}.site-fit-shell{grid-template-columns:1fr}.site-fit-steps{border-right:0;border-bottom:1px solid rgba(23,57,76,.16)}.site-fit-toolbar{overflow:auto}.site-fit-empty{min-height:500px}.workspace-readout{grid-template-columns:repeat(2,1fr);height:auto}.option-grid,.priority-grid{grid-template-columns:1fr}.site-canvas{min-height:480px}}
 </style>
