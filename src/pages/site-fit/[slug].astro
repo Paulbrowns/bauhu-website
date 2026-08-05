@@ -14,124 +14,160 @@ export function getStaticPaths() {
 const { model } = Astro.props;
 const publicSlug = model.slug.replace(/^bauhu-/, '');
 const modelPageHref = `/homes/${publicSlug}`;
-const modelAreaSqft = model.builtAreaSqftMax ?? model.builtAreaSqftMin ?? 1200;
-const modelAreaM2 = Math.round(modelAreaSqft * 0.092903);
-const assumedRatio = 1.18;
-const modelDepthM = Math.sqrt(modelAreaM2 / assumedRatio);
-const modelWidthM = modelDepthM * assumedRatio;
+const areaSqft = model.builtAreaSqftMin ?? 1200;
+const areaM2 = areaSqft * 0.092903;
+const footprintWidthM = Math.sqrt(areaM2 * 1.18);
+const footprintDepthM = areaM2 / footprintWidthM;
 ---
 
-<BaseLayout title={`Test ${model.name} on your site | Bauhu`} description={`Use Bauhu's preliminary site-fit tool to test ${model.name} against your property.`}>
+<BaseLayout
+  title={`Test ${model.name} on your site | Bauhu`}
+  description={`Locate your property and use Bauhu's preliminary site-fit tool to test ${model.name} against the site.`}
+>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ3ynhSVOmHqkPDLUGJTDy8hJ2jW+7k="
+    crossorigin=""
+  />
   <SiteHeader />
+
   <main
     class="site-fit-page"
     data-model-slug={publicSlug}
     data-model-name={model.name}
-    data-model-width={modelWidthM.toFixed(2)}
-    data-model-depth={modelDepthM.toFixed(2)}
-    data-model-area={modelAreaM2}
+    data-footprint-width={footprintWidthM.toFixed(3)}
+    data-footprint-depth={footprintDepthM.toFixed(3)}
   >
     <header class="site-fit-header">
       <div>
-        <p>BAUHU SITE FIT</p>
-        <h1>Test {model.name} on your property.</h1>
-        <span>Add your property, set a working site envelope and explore preliminary placement, access, orientation and site constraints.</span>
+        <p class="site-fit-kicker">BAUHU SITE FIT</p>
+        <h1>Find your property. Test {model.name} on the site.</h1>
+        <span>
+          Search for the property, correct the pin if necessary, then confirm the latitude and longitude before beginning the placement study.
+        </span>
       </div>
       <div class="site-fit-model-summary">
+        <span class="site-fit-label">Selected Bauhu home</span>
         <strong>{model.name}</strong>
-        <span>{model.guidePriceLabel}</span>
         <span>{model.bedroomsLabel} bedrooms · {model.bathroomsLabel} bathrooms</span>
         <span>{model.builtAreaLabel} ft² · {model.storeysLabel} storeys</span>
         <a href={modelPageHref}>Return to model page</a>
       </div>
     </header>
 
-    <section class="site-fit-shell" aria-label={`${model.name} preliminary site-fit tool`}>
-      <aside class="site-fit-steps">
-        <p>YOUR PROPERTY</p>
-        <h2>Add a site to begin</h2>
-        <form id="property-form">
-          <label><span>Address or property name</span><input id="property-name" type="text" placeholder="Enter an address or location" required /></label>
-          <label><span>Parcel reference</span><input id="parcel-reference" type="text" placeholder="Optional" /></label>
-          <label><span>Country or jurisdiction</span><input id="jurisdiction" type="text" placeholder="Country, island or territory" required /></label>
-          <div class="site-dimensions">
-            <label><span>Working width</span><input id="plot-width" type="number" min="15" max="150" value="42" /><em>m</em></label>
-            <label><span>Working depth</span><input id="plot-depth" type="number" min="15" max="150" value="32" /><em>m</em></label>
+    <section class="site-fit-shell" aria-label={`${model.name} property location tool`}>
+      <aside class="location-panel">
+        <div class="panel-step">
+          <span>01</span>
+          <div>
+            <strong>Locate the property</strong>
+            <small>Search, use your location or enter coordinates.</small>
           </div>
-          <button type="submit">Start site-fit study</button>
-        </form>
-        <div class="site-fit-upload">
-          <strong>Upload survey or site plan</strong>
-          <span id="upload-status">PDF or image. The file remains in this browser prototype.</span>
-          <input id="survey-upload" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" />
         </div>
-        <div class="placement-controls" id="placement-controls" hidden>
-          <p>MODEL PLACEMENT</p>
-          <label><span>Horizontal position <strong id="x-value">50%</strong></span><input id="position-x" type="range" min="8" max="92" value="50" /></label>
-          <label><span>Vertical position <strong id="y-value">50%</strong></span><input id="position-y" type="range" min="8" max="92" value="50" /></label>
-          <label><span>Rotation <strong id="rotation-value">0°</strong></span><input id="rotation" type="range" min="-90" max="90" step="5" value="0" /></label>
-          <button id="reset-placement" type="button" class="secondary-control">Reset placement</button>
+
+        <form id="location-search-form" class="location-search">
+          <label for="location-search">Address, place or parcel area</label>
+          <div class="search-row">
+            <input id="location-search" type="search" placeholder="e.g. Coral Bay, St John, USVI" autocomplete="street-address" />
+            <button type="submit">Search</button>
+          </div>
+          <p id="search-feedback" class="search-feedback" aria-live="polite">Search is user-triggered; no autocomplete requests are sent.</p>
+          <div id="search-results" class="search-results" hidden></div>
+        </form>
+
+        <button id="use-current-location" class="location-secondary" type="button">
+          <span class="target-icon">◎</span>
+          Use my current location
+        </button>
+
+        <div class="coordinate-grid">
+          <label>
+            <span>Latitude</span>
+            <input id="latitude" type="number" step="0.000001" min="-90" max="90" value="18.341900" />
+          </label>
+          <label>
+            <span>Longitude</span>
+            <input id="longitude" type="number" step="0.000001" min="-180" max="180" value="-64.930700" />
+          </label>
+        </div>
+        <button id="apply-coordinates" class="location-secondary compact" type="button">Go to coordinates</button>
+
+        <div class="location-instruction">
+          <span>+</span>
+          <p>Click anywhere on the map or drag the marker to refine the exact site location.</p>
+        </div>
+
+        <button id="confirm-location" class="location-primary" type="button">Use this location</button>
+
+        <div id="confirmed-location" class="confirmed-location" hidden>
+          <span>Location confirmed</span>
+          <strong id="confirmed-place">Selected map point</strong>
+          <small id="confirmed-coordinates"></small>
+        </div>
+
+        <div id="placement-controls" class="placement-controls" hidden>
+          <div class="panel-step small-step">
+            <span>02</span>
+            <div>
+              <strong>Initial placement</strong>
+              <small>Rotate the indicative model footprint.</small>
+            </div>
+          </div>
+          <label class="rotation-control">
+            <span>Model rotation <strong id="rotation-value">0°</strong></span>
+            <input id="model-rotation" type="range" min="-180" max="180" step="5" value="0" />
+          </label>
+          <button id="centre-model" class="location-secondary compact" type="button">Centre model on pin</button>
+        </div>
+
+        <div class="provider-note">
+          <strong>Prototype map service</strong>
+          <p>OpenStreetMap provides the map context. Production address search can be switched to Mapbox, Google or another managed geocoder.</p>
         </div>
       </aside>
 
-      <div class="site-fit-workspace">
-        <div class="site-fit-toolbar">
-          <div role="tablist" aria-label="Site-fit views">
-            <button type="button" class="is-active" data-view="site">Site fit</button>
-            <button type="button" data-view="placement">Placement options</button>
-            <button type="button" data-view="climate">Sun, views & access</button>
-            <button type="button" data-view="three-d">3D site</button>
-            <button type="button" data-view="summary">Summary</button>
+      <section class="map-workspace">
+        <div class="map-toolbar">
+          <div>
+            <button class="is-active" type="button">Map</button>
+            <button class="is-disabled" type="button" title="Satellite provider to be connected">Satellite</button>
           </div>
-          <span>Preliminary assessment</span>
+          <div class="map-statuses">
+            <span id="location-status" class="status-pending">Location not confirmed</span>
+            <span id="model-status" class="status-muted">Model hidden</span>
+          </div>
         </div>
 
-        <div class="site-fit-empty" id="empty-state">
-          <div class="site-fit-marker">+</div>
-          <h2>Locate your property</h2>
-          <p>Enter a property and a working site envelope. The tool will place the {model.name} footprint at an indicative scale for an early fit review.</p>
+        <div class="map-stage">
+          <div id="property-map" aria-label="Interactive property location map"></div>
+          <div class="map-crosshair" aria-hidden="true"><i></i><i></i></div>
+          <div class="map-tip">
+            <strong>Set the property location</strong>
+            <span>Search, click or drag the pin</span>
+          </div>
+          <div id="map-location-card" class="map-location-card">
+            <span>SELECTED MAP POINT</span>
+            <strong id="map-place-name">St John, US Virgin Islands</strong>
+            <p><span id="map-latitude">18.341900</span>, <span id="map-longitude">-64.930700</span></p>
+          </div>
+          <div id="model-card" class="model-map-card" hidden>
+            <span>INDICATIVE FOOTPRINT</span>
+            <strong>{model.name}</strong>
+            <p>{footprintWidthM.toFixed(1)} × {footprintDepthM.toFixed(1)} m estimated from published built area</p>
+          </div>
         </div>
 
-        <div class="active-workspace" id="active-workspace" hidden>
-          <section class="workspace-view is-active" data-panel="site">
-            <div class="site-canvas" id="site-canvas">
-              <div class="north-arrow"><b>N</b><i></i></div>
-              <div class="road-edge">INDICATIVE ACCESS EDGE</div>
-              <div class="setback-envelope"></div>
-              <div class="model-footprint" id="model-footprint">
-                <span>{model.name}</span>
-                <small>Indicative footprint</small>
-              </div>
-              <div class="view-arrow">PRIMARY VIEW →</div>
-            </div>
-            <div class="workspace-readout">
-              <div><span>Working site</span><strong id="site-size-readout">42 × 32 m</strong></div>
-              <div><span>Model footprint</span><strong>{modelWidthM.toFixed(1)} × {modelDepthM.toFixed(1)} m</strong></div>
-              <div><span>Indicative coverage</span><strong id="coverage-readout">—</strong></div>
-              <div><span>Boundary review</span><strong id="boundary-readout">Awaiting calculation</strong></div>
-            </div>
-          </section>
+        <footer class="workspace-footer">
+          <div><span>Location source</span><strong id="location-source">Manual map point</strong></div>
+          <div><span>Latitude</span><strong id="footer-latitude">18.341900</strong></div>
+          <div><span>Longitude</span><strong id="footer-longitude">-64.930700</strong></div>
+          <div><span>Next step</span><strong id="next-step">Confirm location</strong></div>
+        </footer>
+      </section>
 
-          <section class="workspace-view" data-panel="placement">
-            <div class="analysis-panel"><p>PLACEMENT OPTIONS</p><h2>Compare site strategies without changing the Bauhu model.</h2><div class="option-grid"><button type="button" data-placement="baseline"><strong>Baseline</strong><span>Centred working placement</span></button><button type="button" data-placement="view"><strong>Best view</strong><span>Move toward the selected outlook</span></button><button type="button" data-placement="access"><strong>Best access</strong><span>Reduce distance to access edge</span></button><button type="button" data-placement="grading"><strong>Lower grading impact</strong><span>Hold a more central site position</span></button></div><p class="analysis-note">These options are interface studies only until survey contours, access geometry and view bearings are processed.</p></div>
-          </section>
-
-          <section class="workspace-view" data-panel="climate">
-            <div class="analysis-panel"><p>SUN, VIEWS & ACCESS</p><h2>Record the priorities that should influence placement.</h2><div class="priority-grid"><label><span>Primary view direction</span><select id="view-direction"><option>West</option><option>North</option><option>East</option><option>South</option></select></label><label><span>Access side</span><select id="access-side"><option>South</option><option>North</option><option>East</option><option>West</option></select></label><label><span>Morning sun priority</span><select><option>Balanced</option><option>Bedrooms</option><option>Living spaces</option><option>Low priority</option></select></label><label><span>Afternoon shading</span><select><option>High priority</option><option>Balanced</option><option>Low priority</option></select></label></div><div class="climate-message">Site-specific solar, wind and shading conclusions require coordinates, terrain and verified orientation.</div></div>
-          </section>
-
-          <section class="workspace-view" data-panel="three-d">
-            <div class="three-d-placeholder"><div class="massing"><i></i><b></b><span></span></div><h2>3D site view</h2><p>The next geometry stage will place the catalogue model on terrain generated from the user’s survey. This placeholder shows the intended integrated view rather than a standalone model viewer.</p></div>
-          </section>
-
-          <section class="workspace-view" data-panel="summary">
-            <div class="analysis-panel"><p>PRELIMINARY SUMMARY</p><h2 id="summary-title">Site-fit study</h2><div class="summary-list"><div><span>Property</span><strong id="summary-property">—</strong></div><div><span>Jurisdiction</span><strong id="summary-jurisdiction">—</strong></div><div><span>Parcel</span><strong id="summary-parcel">Not supplied</strong></div><div><span>Selected model</span><strong>{model.name}</strong></div><div><span>Working site coverage</span><strong id="summary-coverage">—</strong></div><div><span>Survey</span><strong id="summary-survey">Not uploaded</strong></div></div><a class="summary-action" href={`/start-your-project?model=${encodeURIComponent(model.name)}`}>Send this project to Bauhu</a></div>
-          </section>
-        </div>
-      </div>
-
-      <aside class="site-fit-summary">
-        <p>SELECTED HOME</p>
+      <aside class="model-panel">
+        <p class="site-fit-kicker">SELECTED HOME</p>
         <img src={model.image} alt={`${model.name} Bauhu model residence`} onerror="this.src='/images/model-placeholder.svg'" />
         <h2>{model.name}</h2>
         <dl>
@@ -139,102 +175,386 @@ const modelWidthM = modelDepthM * assumedRatio;
           <div><dt>Bedrooms</dt><dd>{model.bedroomsLabel}</dd></div>
           <div><dt>Bathrooms</dt><dd>{model.bathroomsLabel}</dd></div>
           <div><dt>Built area</dt><dd>{model.builtAreaLabel} ft²</dd></div>
+          <div><dt>Indicative footprint</dt><dd>{footprintWidthM.toFixed(1)} × {footprintDepthM.toFixed(1)} m</dd></div>
         </dl>
-        <div class="site-fit-status" id="fit-status"><strong>Awaiting property</strong><span>Site-fit results activate after a property is added.</span></div>
+        <div class="fit-process">
+          <div class="is-current"><span>1</span><p><strong>Locate property</strong><small>Map point and coordinates</small></p></div>
+          <div><span>2</span><p><strong>Find parcel</strong><small>GIS or survey boundary</small></p></div>
+          <div><span>3</span><p><strong>Test placement</strong><small>Fit, access and orientation</small></p></div>
+          <div><span>4</span><p><strong>Send to Bauhu</strong><small>Qualified site enquiry</small></p></div>
+        </div>
+        <div class="model-panel-note">
+          Coordinates identify the location, not the legal parcel. Boundary, setback and buildability checks require cadastral data or a verified survey.
+        </div>
       </aside>
     </section>
 
-    <p class="site-fit-disclaimer">Preliminary guidance only. The working envelope is not a legal boundary. Boundaries, setbacks, planning requirements, hazards, structural design and construction suitability require verification by appropriately qualified professionals.</p>
+    <p class="site-fit-disclaimer">
+      Preliminary guidance only. Map positions, property boundaries, planning requirements, hazards, structural design and construction suitability require verification by appropriately qualified professionals.
+    </p>
   </main>
+
   <SiteFooter />
+
+  <script
+    is:inline
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script is:inline>
+    (() => {
+      const page = document.querySelector('.site-fit-page');
+      const mapElement = document.getElementById('property-map');
+      if (!page || !mapElement || !window.L) return;
+
+      const modelName = page.dataset.modelName || 'Selected Bauhu model';
+      const footprintWidth = Number(page.dataset.footprintWidth || 10);
+      const footprintDepth = Number(page.dataset.footprintDepth || 10);
+      const latitudeInput = document.getElementById('latitude');
+      const longitudeInput = document.getElementById('longitude');
+      const searchForm = document.getElementById('location-search-form');
+      const searchInput = document.getElementById('location-search');
+      const searchFeedback = document.getElementById('search-feedback');
+      const searchResults = document.getElementById('search-results');
+      const confirmButton = document.getElementById('confirm-location');
+      const placementControls = document.getElementById('placement-controls');
+      const confirmedLocation = document.getElementById('confirmed-location');
+      const confirmedPlace = document.getElementById('confirmed-place');
+      const confirmedCoordinates = document.getElementById('confirmed-coordinates');
+      const locationStatus = document.getElementById('location-status');
+      const modelStatus = document.getElementById('model-status');
+      const nextStep = document.getElementById('next-step');
+      const modelCard = document.getElementById('model-card');
+      const rotationInput = document.getElementById('model-rotation');
+      const rotationValue = document.getElementById('rotation-value');
+      const locationSource = document.getElementById('location-source');
+
+      let selectedName = 'St John, US Virgin Islands';
+      let selectedSource = 'Manual map point';
+      let footprintLayer = null;
+      let lastSearchAt = 0;
+
+      const initial = [18.3419, -64.9307];
+      const map = L.map(mapElement, { zoomControl: false }).setView(initial, 12);
+      L.control.zoom({ position: 'bottomright' }).addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors',
+      }).addTo(map);
+
+      const marker = L.marker(initial, { draggable: true }).addTo(map);
+
+      function formatCoordinate(value) {
+        return Number(value).toFixed(6);
+      }
+
+      function setPoint(lat, lng, options = {}) {
+        const safeLat = Math.max(-90, Math.min(90, Number(lat)));
+        const safeLng = Math.max(-180, Math.min(180, Number(lng)));
+        if (!Number.isFinite(safeLat) || !Number.isFinite(safeLng)) return;
+
+        marker.setLatLng([safeLat, safeLng]);
+        if (options.pan !== false) map.setView([safeLat, safeLng], options.zoom || Math.max(map.getZoom(), 16));
+        latitudeInput.value = formatCoordinate(safeLat);
+        longitudeInput.value = formatCoordinate(safeLng);
+        document.getElementById('map-latitude').textContent = formatCoordinate(safeLat);
+        document.getElementById('map-longitude').textContent = formatCoordinate(safeLng);
+        document.getElementById('footer-latitude').textContent = formatCoordinate(safeLat);
+        document.getElementById('footer-longitude').textContent = formatCoordinate(safeLng);
+        document.getElementById('map-place-name').textContent = selectedName;
+        locationSource.textContent = selectedSource;
+        updateFootprint();
+      }
+
+      function offsetPoint(lat, lng, eastM, northM) {
+        const latRadians = lat * Math.PI / 180;
+        return [
+          lat + northM / 111320,
+          lng + eastM / (111320 * Math.cos(latRadians)),
+        ];
+      }
+
+      function rotatePoint(east, north, angleDegrees) {
+        const angle = angleDegrees * Math.PI / 180;
+        return [
+          east * Math.cos(angle) - north * Math.sin(angle),
+          east * Math.sin(angle) + north * Math.cos(angle),
+        ];
+      }
+
+      function footprintPoints() {
+        const { lat, lng } = marker.getLatLng();
+        const halfW = footprintWidth / 2;
+        const halfD = footprintDepth / 2;
+        const rotation = Number(rotationInput.value || 0);
+        return [
+          [-halfW, -halfD],
+          [halfW, -halfD],
+          [halfW, halfD],
+          [-halfW, halfD],
+        ].map(([east, north]) => {
+          const [rotatedEast, rotatedNorth] = rotatePoint(east, north, rotation);
+          return offsetPoint(lat, lng, rotatedEast, rotatedNorth);
+        });
+      }
+
+      function updateFootprint() {
+        if (!placementControls || placementControls.hidden) return;
+        const points = footprintPoints();
+        if (!footprintLayer) {
+          footprintLayer = L.polygon(points, {
+            color: '#c5a66a',
+            weight: 3,
+            fillColor: '#17394c',
+            fillOpacity: 0.48,
+          }).addTo(map);
+          footprintLayer.bindTooltip(modelName, { permanent: true, direction: 'center', className: 'model-map-label' });
+        } else {
+          footprintLayer.setLatLngs(points);
+        }
+      }
+
+      function confirmCurrentLocation() {
+        const { lat, lng } = marker.getLatLng();
+        confirmedLocation.hidden = false;
+        placementControls.hidden = false;
+        modelCard.hidden = false;
+        confirmedPlace.textContent = selectedName;
+        confirmedCoordinates.textContent = `${formatCoordinate(lat)}, ${formatCoordinate(lng)}`;
+        locationStatus.textContent = 'Location confirmed';
+        locationStatus.className = 'status-confirmed';
+        modelStatus.textContent = 'Indicative footprint shown';
+        modelStatus.className = 'status-confirmed';
+        nextStep.textContent = 'Find parcel or upload survey';
+        confirmButton.textContent = 'Update confirmed location';
+        updateFootprint();
+        map.fitBounds(L.latLngBounds(footprintPoints()).pad(1.8), { maxZoom: 18 });
+      }
+
+      marker.on('dragend', () => {
+        selectedName = 'Adjusted map point';
+        selectedSource = 'Dragged map marker';
+        const { lat, lng } = marker.getLatLng();
+        setPoint(lat, lng, { pan: false });
+      });
+
+      map.on('click', (event) => {
+        selectedName = 'Selected map point';
+        selectedSource = 'Map click';
+        setPoint(event.latlng.lat, event.latlng.lng, { pan: false });
+      });
+
+      document.getElementById('apply-coordinates').addEventListener('click', () => {
+        selectedName = 'Entered coordinates';
+        selectedSource = 'Latitude / longitude';
+        setPoint(latitudeInput.value, longitudeInput.value, { zoom: 17 });
+      });
+
+      document.getElementById('use-current-location').addEventListener('click', () => {
+        if (!navigator.geolocation) {
+          searchFeedback.textContent = 'Your browser does not provide geolocation.';
+          return;
+        }
+        searchFeedback.textContent = 'Requesting your current location…';
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            selectedName = 'Current device location';
+            selectedSource = 'Browser geolocation';
+            setPoint(position.coords.latitude, position.coords.longitude, { zoom: 17 });
+            searchFeedback.textContent = `Location accuracy approximately ${Math.round(position.coords.accuracy)} m.`;
+          },
+          () => {
+            searchFeedback.textContent = 'Location permission was unavailable. Search or enter coordinates instead.';
+          },
+          { enableHighAccuracy: true, timeout: 10000 }
+        );
+      });
+
+      searchForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const query = searchInput.value.trim();
+        if (query.length < 3) {
+          searchFeedback.textContent = 'Enter at least three characters.';
+          return;
+        }
+
+        const now = Date.now();
+        if (now - lastSearchAt < 1100) {
+          searchFeedback.textContent = 'Please wait a moment before searching again.';
+          return;
+        }
+        lastSearchAt = now;
+        searchFeedback.textContent = 'Searching OpenStreetMap…';
+        searchResults.hidden = true;
+        searchResults.innerHTML = '';
+
+        try {
+          const cacheKey = `bauhu-geocode:${query.toLowerCase()}`;
+          let results = null;
+          try { results = JSON.parse(localStorage.getItem(cacheKey) || 'null'); } catch {}
+          if (!Array.isArray(results)) {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&addressdetails=1&q=${encodeURIComponent(query)}`, {
+              headers: { 'Accept-Language': navigator.language || 'en' },
+            });
+            if (!response.ok) throw new Error('Search request failed');
+            results = await response.json();
+            try { localStorage.setItem(cacheKey, JSON.stringify(results)); } catch {}
+          }
+
+          if (!results.length) {
+            searchFeedback.textContent = 'No matching locations found. Try a broader place name or enter coordinates.';
+            return;
+          }
+
+          results.forEach((result) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.innerHTML = `<strong>${result.display_name.split(',')[0]}</strong><span>${result.display_name}</span>`;
+            button.addEventListener('click', () => {
+              selectedName = result.display_name;
+              selectedSource = 'OpenStreetMap search';
+              setPoint(Number(result.lat), Number(result.lon), { zoom: 17 });
+              searchResults.hidden = true;
+              searchFeedback.textContent = 'Location selected. Drag the pin to refine it, then confirm.';
+            });
+            searchResults.appendChild(button);
+          });
+          searchResults.hidden = false;
+          searchFeedback.textContent = `${results.length} location${results.length === 1 ? '' : 's'} found.`;
+        } catch (error) {
+          searchFeedback.textContent = 'Address search is temporarily unavailable. Enter latitude and longitude or use the map directly.';
+        }
+      });
+
+      confirmButton.addEventListener('click', confirmCurrentLocation);
+      rotationInput.addEventListener('input', () => {
+        rotationValue.textContent = `${rotationInput.value}°`;
+        updateFootprint();
+      });
+      document.getElementById('centre-model').addEventListener('click', () => {
+        updateFootprint();
+        map.fitBounds(L.latLngBounds(footprintPoints()).pad(1.8), { maxZoom: 18 });
+      });
+
+      setPoint(initial[0], initial[1], { pan: false });
+      setTimeout(() => map.invalidateSize(), 150);
+    })();
+  </script>
 </BaseLayout>
 
-<script>
-  const page = document.querySelector('.site-fit-page');
-  const form = document.getElementById('property-form');
-  const emptyState = document.getElementById('empty-state');
-  const activeWorkspace = document.getElementById('active-workspace');
-  const controls = document.getElementById('placement-controls');
-  const footprint = document.getElementById('model-footprint');
-  const upload = document.getElementById('survey-upload');
-  const modelWidth = Number(page?.getAttribute('data-model-width') || 10);
-  const modelDepth = Number(page?.getAttribute('data-model-depth') || 10);
-  let siteActive = false;
-
-  function value(id) { return document.getElementById(id)?.value || ''; }
-  function numberValue(id) { return Number(value(id) || 0); }
-
-  function updateStudy() {
-    if (!siteActive || !footprint) return;
-    const plotWidth = Math.max(1, numberValue('plot-width'));
-    const plotDepth = Math.max(1, numberValue('plot-depth'));
-    const x = numberValue('position-x');
-    const y = numberValue('position-y');
-    const rotation = numberValue('rotation');
-    const widthPercent = Math.min(80, (modelWidth / plotWidth) * 100);
-    const depthPercent = Math.min(80, (modelDepth / plotDepth) * 100);
-    footprint.style.width = `${widthPercent}%`;
-    footprint.style.height = `${depthPercent}%`;
-    footprint.style.left = `${x}%`;
-    footprint.style.top = `${y}%`;
-    footprint.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-    document.getElementById('x-value').textContent = `${x}%`;
-    document.getElementById('y-value').textContent = `${y}%`;
-    document.getElementById('rotation-value').textContent = `${rotation}°`;
-    document.getElementById('site-size-readout').textContent = `${plotWidth} × ${plotDepth} m`;
-    const coverage = Math.round(((modelWidth * modelDepth) / (plotWidth * plotDepth)) * 100);
-    document.getElementById('coverage-readout').textContent = `${coverage}%`;
-    document.getElementById('summary-coverage').textContent = `${coverage}% of working envelope`;
-    const edgeRisk = x - widthPercent / 2 < 5 || x + widthPercent / 2 > 95 || y - depthPercent / 2 < 5 || y + depthPercent / 2 > 95;
-    document.getElementById('boundary-readout').textContent = edgeRisk ? 'Near working boundary' : 'Within working envelope';
-    const status = document.getElementById('fit-status');
-    status.className = `site-fit-status ${edgeRisk ? 'warning' : 'active'}`;
-    status.innerHTML = `<strong>${edgeRisk ? 'Placement needs review' : 'Working placement established'}</strong><span>${coverage}% indicative site coverage. Verify against the legal survey and local rules.</span>`;
-  }
-
-  form?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    siteActive = true;
-    emptyState.hidden = true;
-    activeWorkspace.hidden = false;
-    controls.hidden = false;
-    document.getElementById('summary-property').textContent = value('property-name');
-    document.getElementById('summary-jurisdiction').textContent = value('jurisdiction');
-    document.getElementById('summary-parcel').textContent = value('parcel-reference') || 'Not supplied';
-    document.getElementById('summary-title').textContent = `${value('property-name')} · preliminary site fit`;
-    updateStudy();
-  });
-
-  ['plot-width','plot-depth','position-x','position-y','rotation'].forEach((id) => document.getElementById(id)?.addEventListener('input', updateStudy));
-  document.getElementById('reset-placement')?.addEventListener('click', () => {
-    document.getElementById('position-x').value = '50';
-    document.getElementById('position-y').value = '50';
-    document.getElementById('rotation').value = '0';
-    updateStudy();
-  });
-
-  upload?.addEventListener('change', () => {
-    const file = upload.files?.[0];
-    document.getElementById('upload-status').textContent = file ? `${file.name} selected · processing not connected yet` : 'PDF or image. The file remains in this browser prototype.';
-    document.getElementById('summary-survey').textContent = file ? file.name : 'Not uploaded';
-  });
-
-  document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', () => {
-    document.querySelectorAll('[data-view]').forEach((item) => item.classList.toggle('is-active', item === button));
-    document.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('is-active', panel.getAttribute('data-panel') === button.getAttribute('data-view')));
-  }));
-
-  document.querySelectorAll('[data-placement]').forEach((button) => button.addEventListener('click', () => {
-    const mode = button.getAttribute('data-placement');
-    const presets = { baseline:[50,50,0], view:[28,48,-10], access:[50,72,0], grading:[52,50,5] };
-    const preset = presets[mode] || presets.baseline;
-    document.getElementById('position-x').value = String(preset[0]);
-    document.getElementById('position-y').value = String(preset[1]);
-    document.getElementById('rotation').value = String(preset[2]);
-    updateStudy();
-  }));
-</script>
-
 <style>
-  .site-fit-page{min-height:100vh;background:#ece9e1;color:#17394c;padding-top:5.5rem}.site-fit-header{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:3rem;padding:3.5rem 4vw 2.5rem;border-bottom:1px solid rgba(23,57,76,.18)}.site-fit-header p,.site-fit-steps>p,.site-fit-summary>p,.placement-controls>p,.analysis-panel>p{margin:0 0 .75rem;font:700 .7rem/1 Inter,sans-serif;letter-spacing:.18em;color:#9a7a48}.site-fit-header h1{max-width:850px;margin:0 0 1rem;font:400 clamp(2.8rem,6vw,6rem)/.95 'Cormorant Garamond',serif}.site-fit-header>div>span{display:block;max-width:760px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.site-fit-model-summary{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;border-left:1px solid rgba(23,57,76,.18);padding-left:2rem;font:400 .86rem/1.5 Inter,sans-serif}.site-fit-model-summary strong{font:400 1.8rem/1.1 'Cormorant Garamond',serif}.site-fit-model-summary a{margin-top:.5rem;color:#17394c;font-weight:700}.site-fit-shell{display:grid;grid-template-columns:285px minmax(0,1fr) 280px;min-height:720px;border-bottom:1px solid rgba(23,57,76,.18)}.site-fit-steps,.site-fit-summary{padding:1.5rem;background:#f7f4ed}.site-fit-steps{border-right:1px solid rgba(23,57,76,.16)}.site-fit-summary{border-left:1px solid rgba(23,57,76,.16)}.site-fit-steps h2,.site-fit-summary h2{margin:.25rem 0 1.4rem;font:400 1.8rem/1.05 'Cormorant Garamond',serif}.site-fit-steps label{position:relative;display:block;margin-bottom:1rem}.site-fit-steps label span{display:block;margin-bottom:.4rem;font:700 .7rem/1 Inter,sans-serif}.site-fit-steps input[type=text],.site-fit-steps input[type=number],.priority-grid select{width:100%;box-sizing:border-box;border:1px solid rgba(23,57,76,.22);background:#fff;padding:.8rem;font:400 .8rem Inter,sans-serif}.site-fit-steps label em{position:absolute;right:.7rem;bottom:.8rem;font:400 .7rem Inter,sans-serif;color:#7b898f}.site-dimensions{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.site-fit-steps form>button,.secondary-control{width:100%;border:0;background:#17394c;color:#fff;padding:.9rem;font:700 .75rem Inter,sans-serif}.secondary-control{background:transparent!important;color:#17394c!important;border:1px solid rgba(23,57,76,.24)!important}.site-fit-upload{display:grid;gap:.45rem;margin-top:1.5rem;padding:1rem;border:1px dashed rgba(23,57,76,.3);font:400 .72rem/1.4 Inter,sans-serif}.placement-controls{margin-top:1.5rem;padding-top:1.3rem;border-top:1px solid rgba(23,57,76,.15)}.placement-controls input[type=range]{width:100%;accent-color:#17394c}.site-fit-workspace{display:grid;grid-template-rows:auto 1fr;min-width:0}.site-fit-toolbar{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 1rem;border-bottom:1px solid rgba(23,57,76,.16);background:#f7f4ed}.site-fit-toolbar div{display:flex;gap:.35rem;flex-wrap:wrap}.site-fit-toolbar button{border:1px solid rgba(23,57,76,.18);background:#fff;padding:.55rem .75rem;color:#17394c;font:700 .7rem Inter,sans-serif}.site-fit-toolbar button.is-active{background:#17394c;color:#fff}.site-fit-toolbar>span{align-self:center;font:700 .65rem Inter,sans-serif;color:#9a7a48}.site-fit-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem;background:linear-gradient(rgba(23,57,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(23,57,76,.05) 1px,transparent 1px),#dde4df;background-size:24px 24px}.site-fit-marker{display:grid;place-items:center;width:64px;height:64px;border:1px solid rgba(23,57,76,.28);border-radius:50%;font:300 2rem Inter,sans-serif}.site-fit-empty h2{margin:1.2rem 0 .5rem;font:400 2.4rem 'Cormorant Garamond',serif}.site-fit-empty p{max-width:520px;margin:0;font:300 .9rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.active-workspace{height:100%}.workspace-view{display:none;height:100%}.workspace-view.is-active{display:block}.site-canvas{position:relative;height:calc(100% - 92px);min-height:560px;overflow:hidden;background:linear-gradient(rgba(23,57,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(23,57,76,.05) 1px,transparent 1px),#dbe5df;background-size:28px 28px}.site-canvas:before{content:'';position:absolute;inset:8% 9%;border:3px solid #17394c;background:rgba(255,255,255,.16)}.setback-envelope{position:absolute;inset:15% 16%;border:2px dashed #b6843e;background:rgba(182,132,62,.04)}.model-footprint{position:absolute;z-index:3;display:grid;place-items:center;align-content:center;border:6px solid #17394c;background:rgba(247,244,237,.94);box-shadow:10px 12px 0 rgba(23,57,76,.12);transform-origin:center;text-align:center}.model-footprint span{font:700 .72rem Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase}.model-footprint small{margin-top:.35rem;font:400 .62rem Inter,sans-serif;color:#738087}.road-edge{position:absolute;left:9%;right:9%;bottom:3%;padding:.45rem;text-align:center;background:#68767b;color:#fff;font:700 .62rem Inter,sans-serif;letter-spacing:.15em}.north-arrow{position:absolute;right:4%;top:5%;z-index:4;text-align:center}.north-arrow b{display:block;font:800 .8rem Inter,sans-serif}.north-arrow i{display:block;width:2px;height:42px;margin:.3rem auto;background:#b6843e;position:relative}.north-arrow i:before{content:'';position:absolute;top:-1px;left:-5px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #b6843e}.view-arrow{position:absolute;left:3%;top:46%;color:#9a6b2d;font:800 .64rem Inter,sans-serif;letter-spacing:.09em}.workspace-readout{display:grid;grid-template-columns:repeat(4,1fr);height:92px;background:#f7f4ed;border-top:1px solid rgba(23,57,76,.14)}.workspace-readout div{padding:1rem;border-right:1px solid rgba(23,57,76,.12)}.workspace-readout span,.workspace-readout strong{display:block;font-family:Inter,sans-serif}.workspace-readout span{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#7b898f}.workspace-readout strong{margin-top:.45rem;font-size:.78rem}.analysis-panel{padding:clamp(2rem,5vw,5rem);height:100%;box-sizing:border-box;background:#e2e8e3}.analysis-panel h2,.three-d-placeholder h2{max-width:720px;margin:0 0 2rem;font:400 clamp(2rem,4vw,4rem)/1 'Cormorant Garamond',serif}.option-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:900px}.option-grid button{display:grid;gap:.5rem;min-height:140px;padding:1.4rem;text-align:left;border:1px solid rgba(23,57,76,.2);background:#f7f4ed;color:#17394c}.option-grid strong{font:400 1.5rem 'Cormorant Garamond',serif}.option-grid span,.analysis-note,.climate-message{font:400 .78rem/1.6 Inter,sans-serif;color:#69777d}.analysis-note{max-width:760px;margin-top:1.5rem}.priority-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:850px}.priority-grid label span{display:block;margin-bottom:.45rem;font:700 .7rem Inter,sans-serif}.climate-message{max-width:760px;margin-top:2rem;padding:1rem;border-left:3px solid #b6843e;background:#f7f4ed}.three-d-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:3rem;text-align:center;background:linear-gradient(#dce5df,#aebcb2)}.three-d-placeholder p{max-width:650px;font:400 .85rem/1.7 Inter,sans-serif}.massing{position:relative;width:260px;height:170px;margin-bottom:2rem;transform:skewY(-7deg);background:#f4efe5;box-shadow:25px 22px 0 rgba(23,57,76,.15)}.massing:before{content:'';position:absolute;left:-18px;right:-18px;top:-60px;height:70px;background:#e8e5dc;clip-path:polygon(50% 0,100% 78%,88% 100%,12% 100%,0 78%)}.massing i,.massing b,.massing span{position:absolute;bottom:0;width:9px;height:115px;background:#f4efe5;border:1px solid #c7c2b8}.massing i{left:-25px}.massing b{left:50%}.massing span{right:-25px}.summary-list{max-width:850px}.summary-list div{display:flex;justify-content:space-between;gap:2rem;padding:1rem 0;border-top:1px solid rgba(23,57,76,.15);font:400 .8rem Inter,sans-serif}.summary-list strong{text-align:right}.summary-action{display:inline-flex;margin-top:2rem;padding:1rem 1.3rem;background:#17394c;color:#fff;text-decoration:none;font:700 .72rem Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase}.site-fit-summary img{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1rem}.site-fit-summary dl{margin:0}.site-fit-summary dl div{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1px solid rgba(23,57,76,.13);font:400 .75rem Inter,sans-serif}.site-fit-summary dd{margin:0;text-align:right;font-weight:700}.site-fit-status{display:grid;gap:.35rem;margin-top:1.5rem;padding:1rem;background:#ece9e1;font:400 .72rem/1.4 Inter,sans-serif}.site-fit-status.active{border-left:3px solid #547660}.site-fit-status.warning{border-left:3px solid #b6843e}.site-fit-disclaimer{margin:0;padding:1.2rem 4vw;font:400 .68rem/1.5 Inter,sans-serif;color:rgba(23,57,76,.62)}[hidden]{display:none!important}@media(max-width:1100px){.site-fit-shell{grid-template-columns:260px minmax(0,1fr)}.site-fit-summary{display:none}}@media(max-width:780px){.site-fit-header{grid-template-columns:1fr}.site-fit-model-summary{border-left:0;border-top:1px solid rgba(23,57,76,.18);padding:1.5rem 0 0}.site-fit-shell{grid-template-columns:1fr}.site-fit-steps{border-right:0;border-bottom:1px solid rgba(23,57,76,.16)}.site-fit-toolbar{overflow:auto}.site-fit-empty{min-height:500px}.workspace-readout{grid-template-columns:repeat(2,1fr);height:auto}.option-grid,.priority-grid{grid-template-columns:1fr}.site-canvas{min-height:480px}}
+  :global(.leaflet-control-attribution) { font-family: Inter, sans-serif; font-size: 10px; }
+  :global(.model-map-label) { border: 0; background: rgba(23,57,76,.9); color: #fff; box-shadow: none; font: 700 10px/1 Inter,sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+  :global(.model-map-label:before) { display: none; }
+  .site-fit-page { min-height: 100vh; padding-top: 5.5rem; background: #ebe9e2; color: #17394c; }
+  .site-fit-header { display: grid; grid-template-columns: minmax(0,1fr) 320px; gap: 4rem; padding: 3.4rem 4vw 2.4rem; border-bottom: 1px solid rgba(23,57,76,.18); }
+  .site-fit-kicker, .site-fit-label { margin: 0 0 .8rem; font: 700 .68rem/1 Inter,sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #9b7b49; }
+  .site-fit-header h1 { max-width: 980px; margin: 0 0 1rem; font: 400 clamp(2.8rem,5.6vw,5.8rem)/.94 'Cormorant Garamond',serif; letter-spacing: -.035em; }
+  .site-fit-header > div > span:not(.site-fit-label) { display: block; max-width: 780px; font: 300 1rem/1.7 Inter,sans-serif; color: rgba(23,57,76,.7); }
+  .site-fit-model-summary { display: flex; flex-direction: column; justify-content: flex-end; gap: .45rem; padding-left: 2rem; border-left: 1px solid rgba(23,57,76,.18); font: 400 .82rem/1.45 Inter,sans-serif; }
+  .site-fit-model-summary strong { font: 400 1.9rem/1.05 'Cormorant Garamond',serif; }
+  .site-fit-model-summary a { margin-top: .55rem; color: #17394c; font-weight: 700; }
+  .site-fit-shell { display: grid; grid-template-columns: 300px minmax(0,1fr) 290px; min-height: 720px; border-bottom: 1px solid rgba(23,57,76,.18); }
+  .location-panel, .model-panel { padding: 1.4rem; background: #f7f5ef; }
+  .location-panel { border-right: 1px solid rgba(23,57,76,.16); }
+  .model-panel { border-left: 1px solid rgba(23,57,76,.16); }
+  .panel-step { display: flex; gap: .8rem; align-items: flex-start; margin-bottom: 1.4rem; }
+  .panel-step > span { display: grid; place-items: center; flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; background: #17394c; color: #fff; font: 700 .68rem Inter,sans-serif; }
+  .panel-step strong, .panel-step small { display: block; font-family: Inter,sans-serif; }
+  .panel-step strong { margin: .05rem 0 .25rem; font-size: .82rem; }
+  .panel-step small { color: rgba(23,57,76,.58); line-height: 1.45; }
+  .location-search label, .coordinate-grid label > span, .rotation-control > span { display: block; margin-bottom: .45rem; font: 700 .68rem/1 Inter,sans-serif; }
+  .search-row { display: grid; grid-template-columns: 1fr auto; }
+  .search-row input, .coordinate-grid input { width: 100%; min-width: 0; box-sizing: border-box; border: 1px solid rgba(23,57,76,.22); background: #fff; color: #17394c; padding: .82rem; font: 400 .76rem Inter,sans-serif; }
+  .search-row button, .location-primary { border: 0; background: #17394c; color: #fff; padding: 0 1rem; font: 700 .7rem Inter,sans-serif; cursor: pointer; }
+  .search-feedback { min-height: 2.2em; margin: .55rem 0 .8rem; font: 400 .64rem/1.45 Inter,sans-serif; color: rgba(23,57,76,.58); }
+  .search-results { display: grid; gap: .35rem; margin: -.2rem 0 .9rem; }
+  .search-results button { display: grid; gap: .2rem; width: 100%; padding: .7rem; border: 1px solid rgba(23,57,76,.15); background: #fff; color: #17394c; text-align: left; cursor: pointer; }
+  .search-results strong, .search-results span { font-family: Inter,sans-serif; }
+  .search-results strong { font-size: .72rem; }
+  .search-results span { overflow: hidden; font-size: .6rem; line-height: 1.35; color: rgba(23,57,76,.58); text-overflow: ellipsis; }
+  .location-secondary { display: flex; align-items: center; justify-content: center; gap: .5rem; width: 100%; margin-bottom: 1rem; padding: .78rem; border: 1px solid rgba(23,57,76,.24); background: transparent; color: #17394c; font: 700 .68rem Inter,sans-serif; cursor: pointer; }
+  .location-secondary.compact { margin: .55rem 0 1rem; padding: .65rem; }
+  .target-icon { font-size: 1rem; }
+  .coordinate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
+  .location-instruction { display: flex; gap: .7rem; align-items: center; padding: .8rem; margin: .25rem 0 1rem; background: #ece9df; }
+  .location-instruction > span { font: 300 1.4rem Inter,sans-serif; }
+  .location-instruction p { margin: 0; font: 400 .64rem/1.45 Inter,sans-serif; color: rgba(23,57,76,.66); }
+  .location-primary { width: 100%; padding: .9rem; }
+  .confirmed-location { display: grid; gap: .25rem; margin-top: 1rem; padding: .9rem; background: #dfe9df; font-family: Inter,sans-serif; }
+  .confirmed-location span { font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: #497150; }
+  .confirmed-location strong { font-size: .72rem; line-height: 1.35; }
+  .confirmed-location small { font-size: .62rem; color: rgba(23,57,76,.62); }
+  .placement-controls { margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid rgba(23,57,76,.15); }
+  .small-step { margin-bottom: 1rem; }
+  .small-step > span { width: 28px; height: 28px; flex-basis: 28px; background: #c5a66a; color: #17394c; }
+  .rotation-control input { width: 100%; accent-color: #17394c; }
+  .rotation-control > span { display: flex; justify-content: space-between; }
+  .provider-note { margin-top: 1.3rem; padding-top: 1rem; border-top: 1px solid rgba(23,57,76,.13); }
+  .provider-note strong, .provider-note p { font-family: Inter,sans-serif; }
+  .provider-note strong { font-size: .66rem; }
+  .provider-note p { margin: .35rem 0 0; font-size: .6rem; line-height: 1.5; color: rgba(23,57,76,.55); }
+  .map-workspace { display: grid; grid-template-rows: auto 1fr auto; min-width: 0; }
+  .map-toolbar { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem .9rem; border-bottom: 1px solid rgba(23,57,76,.16); background: #f7f5ef; }
+  .map-toolbar > div { display: flex; gap: .35rem; align-items: center; }
+  .map-toolbar button { padding: .5rem .8rem; border: 1px solid rgba(23,57,76,.18); background: #fff; color: #17394c; font: 700 .66rem Inter,sans-serif; }
+  .map-toolbar button.is-active { background: #17394c; color: #fff; }
+  .map-toolbar button.is-disabled { opacity: .42; cursor: not-allowed; }
+  .map-statuses span { padding: .45rem .6rem; border-radius: 999px; font: 700 .58rem Inter,sans-serif; }
+  .status-pending { background: #f3e5c8; color: #7b5a21; }
+  .status-muted { background: #e4e5e1; color: #71746f; }
+  .status-confirmed { background: #dce9dd; color: #426c48; }
+  .map-stage { position: relative; min-height: 590px; overflow: hidden; }
+  #property-map { position: absolute; inset: 0; z-index: 1; background: #d8dfda; }
+  .map-crosshair { position: absolute; z-index: 500; left: 50%; top: 50%; width: 28px; height: 28px; transform: translate(-50%,-50%); pointer-events: none; opacity: .42; }
+  .map-crosshair i { position: absolute; background: #17394c; }
+  .map-crosshair i:first-child { left: 13px; top: 0; width: 2px; height: 28px; }
+  .map-crosshair i:last-child { left: 0; top: 13px; width: 28px; height: 2px; }
+  .map-tip, .map-location-card, .model-map-card { position: absolute; z-index: 600; background: rgba(247,245,239,.95); backdrop-filter: blur(8px); box-shadow: 0 12px 32px rgba(23,57,76,.12); }
+  .map-tip { left: 1rem; top: 1rem; display: grid; gap: .25rem; padding: .8rem 1rem; }
+  .map-tip strong, .map-tip span { font-family: Inter,sans-serif; }
+  .map-tip strong { font-size: .72rem; }
+  .map-tip span { font-size: .61rem; color: rgba(23,57,76,.58); }
+  .map-location-card { left: 1rem; bottom: 1rem; max-width: 360px; padding: 1rem; }
+  .model-map-card { right: 1rem; top: 1rem; max-width: 260px; padding: 1rem; }
+  .map-location-card > span, .model-map-card > span { display: block; margin-bottom: .35rem; font: 700 .56rem Inter,sans-serif; letter-spacing: .16em; color: #9b7b49; }
+  .map-location-card strong, .model-map-card strong { display: block; font: 400 1.05rem/1.15 'Cormorant Garamond',serif; }
+  .map-location-card p, .model-map-card p { margin: .35rem 0 0; font: 400 .62rem/1.4 Inter,sans-serif; color: rgba(23,57,76,.63); }
+  .workspace-footer { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-top: 1px solid rgba(23,57,76,.16); background: #f7f5ef; }
+  .workspace-footer div { padding: .8rem 1rem; border-right: 1px solid rgba(23,57,76,.13); }
+  .workspace-footer span, .workspace-footer strong { display: block; font-family: Inter,sans-serif; }
+  .workspace-footer span { margin-bottom: .3rem; font-size: .55rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(23,57,76,.5); }
+  .workspace-footer strong { overflow: hidden; font-size: .68rem; white-space: nowrap; text-overflow: ellipsis; }
+  .model-panel img { width: 100%; aspect-ratio: 4/3; object-fit: cover; margin-bottom: 1rem; }
+  .model-panel h2 { margin: 0 0 1.2rem; font: 400 2rem/1 'Cormorant Garamond',serif; }
+  .model-panel dl { margin: 0; }
+  .model-panel dl div { display: flex; justify-content: space-between; gap: 1rem; padding: .67rem 0; border-top: 1px solid rgba(23,57,76,.13); font: 400 .67rem/1.35 Inter,sans-serif; }
+  .model-panel dd { margin: 0; text-align: right; font-weight: 700; }
+  .fit-process { margin-top: 1.4rem; border-top: 1px solid rgba(23,57,76,.13); }
+  .fit-process > div { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid rgba(23,57,76,.1); opacity: .48; }
+  .fit-process > div.is-current { opacity: 1; }
+  .fit-process > div > span { display: grid; place-items: center; width: 24px; height: 24px; flex: 0 0 24px; border: 1px solid rgba(23,57,76,.3); border-radius: 50%; font: 700 .58rem Inter,sans-serif; }
+  .fit-process p { margin: 0; }
+  .fit-process strong, .fit-process small { display: block; font-family: Inter,sans-serif; }
+  .fit-process strong { font-size: .68rem; }
+  .fit-process small { margin-top: .2rem; font-size: .58rem; color: rgba(23,57,76,.55); }
+  .model-panel-note { margin-top: 1.2rem; padding: .9rem; background: #ece9df; font: 400 .62rem/1.5 Inter,sans-serif; color: rgba(23,57,76,.65); }
+  .site-fit-disclaimer { margin: 0; padding: 1.15rem 4vw; font: 400 .65rem/1.5 Inter,sans-serif; color: rgba(23,57,76,.6); }
+  @media (max-width: 1120px) {
+    .site-fit-shell { grid-template-columns: 280px minmax(0,1fr); }
+    .model-panel { display: none; }
+  }
+  @media (max-width: 760px) {
+    .site-fit-header { grid-template-columns: 1fr; gap: 2rem; }
+    .site-fit-model-summary { padding: 1.4rem 0 0; border-left: 0; border-top: 1px solid rgba(23,57,76,.18); }
+    .site-fit-shell { grid-template-columns: 1fr; }
+    .location-panel { border-right: 0; border-bottom: 1px solid rgba(23,57,76,.16); }
+    .map-stage { min-height: 520px; }
+    .map-statuses { display: none !important; }
+    .workspace-footer { grid-template-columns: 1fr 1fr; }
+    .workspace-footer div:nth-child(2) { border-right: 0; }
+    .map-location-card { right: 1rem; max-width: none; }
+  }
 </style>
