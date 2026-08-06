@@ -93,6 +93,8 @@
       viewer.setAttribute('loading', 'eager');
       viewer.setAttribute('reveal', 'auto');
       viewer.setAttribute('field-of-view', defaultFov);
+      viewer.setAttribute('min-camera-orbit', 'auto auto 15%');
+      viewer.setAttribute('max-camera-orbit', 'auto auto 300%');
       viewer.style.cssText = 'display:block;width:100%;height:100%;min-height:720px;background:transparent';
 
       bindControls(viewer);
