@@ -1,9 +1,11 @@
 (() => {
   if (!location.pathname.startsWith('/model-viewer/')) return;
   const slug = location.pathname.split('/').filter(Boolean).pop();
-  if (slug !== 'bahama-beach') return;
+  const supportedModels = new Set(['bahama-beach', 'coconut-villa-2']);
+  if (!slug || !supportedModels.has(slug)) return;
 
   const modelPath = `/models/3d/${slug}/${slug}.glb`;
+  const modelName = slug.split('-').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
   const defaultOrbit = '35deg 68deg 110%';
   const defaultTarget = 'auto auto auto';
   const defaultFov = '35deg';
@@ -61,11 +63,8 @@
     const stage = document.querySelector('.viewer-stage');
     if (!stage) return;
 
-    const legacyViewer = document.getElementById('house-model-viewer');
-    const legacyError = document.getElementById('viewer-error');
-
-    legacyError?.remove();
-    legacyViewer?.remove();
+    document.getElementById('viewer-error')?.remove();
+    document.getElementById('house-model-viewer')?.remove();
 
     const status = statusBox(stage);
 
@@ -84,7 +83,7 @@
       const viewer = document.createElement('model-viewer');
       viewer.id = 'house-model-viewer-live';
       viewer.src = modelPath;
-      viewer.alt = 'Interactive 3D model of Bahama Beach';
+      viewer.alt = `Interactive 3D model of ${modelName}`;
       viewer.setAttribute('camera-controls', '');
       viewer.setAttribute('touch-action', 'pan-y');
       viewer.setAttribute('shadow-intensity', '1');
@@ -118,7 +117,7 @@
       });
 
       stage.prepend(viewer);
-      status.textContent = 'Loading 17 MB 3D model…';
+      status.textContent = `Loading ${(buffer.byteLength / 1048576).toFixed(1)} MB 3D model…`;
     } catch (error) {
       status.textContent = `3D viewer error: ${error.message}`;
       status.style.background = '#fff1ee';
