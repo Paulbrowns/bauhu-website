@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout title="Locate Your Site | Bauhu" description="Locate your project site and create a preliminary site summary for Bauhu.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <SiteHeader />
+  <main class="site-fit-page">
+    <header class="site-fit-header">
+      <div>
+        <p class="kicker">START YOUR PROJECT · STEP 1</p>
+        <h1>Locate your site.</h1>
+        <p>Search for the site, refine the pin and add the parcel information you already know. You can review everything before sending it to Bauhu.</p>
+      </div>
+      <aside>
+        <span>PROJECT ROUTE</span>
+        <strong>Site first</strong>
+        <small>1. Locate site</small>
+        <small>2. Review summary</small>
+        <small>3. Send project details</small>
+      </aside>
+    </header>
+
+    <section class="tool-shell">
+      <aside class="control-panel">
+        <div class="step"><b>01</b><div><strong>Locate property</strong><small>Search, coordinates or device location.</small></div></div>
+        <form id="location-search-form">
+          <label for="location-search">Address or place</label>
+          <div class="search-row"><input id="location-search" type="search" placeholder="Coral Bay, St John, USVI" /><button type="submit">Search</button></div>
+          <p id="search-feedback" class="feedback">Search is sent only when you press Search.</p>
+          <div id="search-results" class="search-results" hidden></div>
+        </form>
+        <button id="use-current-location" class="secondary" type="button">◎ Use my current location</button>
+        <div class="coordinate-grid">
+          <label><span>Latitude</span><input id="latitude" type="number" step="0.000001" value="18.341900" /></label>
+          <label><span>Longitude</span><input id="longitude" type="number" step="0.000001" value="-64.930700" /></label>
+        </div>
+        <button id="apply-coordinates" class="secondary" type="button">Go to coordinates</button>
+        <div class="instruction">Click the map or drag the marker to refine the exact location.</div>
+
+        <div class="step compact"><b>02</b><div><strong>Site information</strong><small>Add what you know. Everything is optional except the location.</small></div></div>
+        <label><span>Property / parcel name</span><input id="parcel-reference" type="text" placeholder="Optional" /></label>
+        <label><span>Approximate site area</span><input id="parcel-area" type="text" placeholder="e.g. 1.4 acres or 5,700 m²" /></label>
+        <label><span>Country / island / jurisdiction</span><input id="jurisdiction" type="text" placeholder="Optional" /></label>
+        <label><span>Access notes</span><textarea id="access-notes" rows="3" placeholder="Road, boat, landing craft, difficult access, etc."></textarea></label>
+        <button id="continue-summary" class="primary" type="button">Create site summary</button>
+      </aside>
+
+      <section class="map-workspace">
+        <div class="map-toolbar">
+          <div class="base-switch"><button id="map-view" class="active" type="button">Map</button><button id="satellite-view" type="button">Satellite</button></div>
+          <div class="statuses"><span id="location-status">Location ready to refine</span></div>
+        </div>
+        <div class="map-stage">
+          <div id="property-map" aria-label="Interactive property location map"></div>
+          <div class="map-card"><span>SELECTED POINT</span><strong id="map-place-name">St John, US Virgin Islands</strong><p><span id="map-latitude">18.341900</span>, <span id="map-longitude">-64.930700</span></p></div>
+        </div>
+        <footer>
+          <div><span>Location source</span><strong id="location-source">Manual map point</strong></div>
+          <div><span>Coordinates</span><strong id="footer-coordinates">18.341900, -64.930700</strong></div>
+          <div><span>Next step</span><strong>Site summary</strong></div>
+        </footer>
+      </section>
+    </section>
+    <p class="disclaimer">Preliminary guidance only. Map positions, boundaries, planning requirements, hazards and construction suitability require professional verification.</p>
+  </main>
+  <SiteFooter />
+
+  <script is:inline src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script is:inline>
+    (() => {
+      const $ = (id) => document.getElementById(id);
+      if (!window.L || !$('property-map')) return;
+      let selectedName = 'St John, US Virgin Islands';
+      let selectedSource = 'Manual map point';
+      let activeBase;
+      const map = L.map('property-map', { zoomControl:false }).setView([18.3419,-64.9307],13);
+      L.control.zoom({ position:'bottomright' }).addTo(map);
+      const street = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'});
+      const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Tiles &copy; Esri'});
+      function setBase(layer,mode){ if(activeBase) map.removeLayer(activeBase); activeBase=layer.addTo(map); $('map-view').classList.toggle('active',mode==='map'); $('satellite-view').classList.toggle('active',mode==='satellite'); }
+      setBase(street,'map'); $('map-view').onclick=()=>setBase(street,'map'); $('satellite-view').onclick=()=>setBase(satellite,'satellite');
+      const marker=L.marker([18.3419,-64.9307],{draggable:true}).addTo(map);
+      const fmt=(v)=>Number(v).toFixed(6);
+      function setPoint(lat,lng,{pan=true,zoom=16}={}){ lat=Number(lat); lng=Number(lng); if(!Number.isFinite(lat)||!Number.isFinite(lng)) return; marker.setLatLng([lat,lng]); if(pan) map.setView([lat,lng],Math.max(map.getZoom(),zoom)); $('latitude').value=fmt(lat); $('longitude').value=fmt(lng); $('map-latitude').textContent=fmt(lat); $('map-longitude').textContent=fmt(lng); $('map-place-name').textContent=selectedName; $('location-source').textContent=selectedSource; $('footer-coordinates').textContent=`${fmt(lat)}, ${fmt(lng)}`; }
+      marker.on('dragend',()=>{ selectedName='Adjusted map point'; selectedSource='Dragged marker'; const p=marker.getLatLng(); setPoint(p.lat,p.lng,{pan:false}); });
+      map.on('click',(e)=>{ selectedName='Selected map point'; selectedSource='Map click'; setPoint(e.latlng.lat,e.latlng.lng,{pan:false}); });
+      $('apply-coordinates').onclick=()=>{ selectedName='Entered coordinates'; selectedSource='Latitude / longitude'; setPoint($('latitude').value,$('longitude').value,{zoom:17}); };
+      $('use-current-location').onclick=()=>navigator.geolocation?.getCurrentPosition((p)=>{ selectedName='Current device location'; selectedSource='Browser geolocation'; setPoint(p.coords.latitude,p.coords.longitude,{zoom:17}); $('search-feedback').textContent=`Location accuracy approximately ${Math.round(p.coords.accuracy)} m.`; },()=>{$('search-feedback').textContent='Location permission was unavailable.';});
+      $('location-search-form').addEventListener('submit',async(e)=>{ e.preventDefault(); const q=$('location-search').value.trim(); if(q.length<3){$('search-feedback').textContent='Enter at least three characters.';return;} $('search-feedback').textContent='Searching…'; $('search-results').hidden=true; $('search-results').innerHTML=''; try { const r=await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q=${encodeURIComponent(q)}`,{headers:{'Accept-Language':navigator.language||'en'}}); const rows=await r.json(); if(!rows.length){$('search-feedback').textContent='No matching locations found.';return;} rows.forEach((row)=>{ const b=document.createElement('button'); b.type='button'; b.innerHTML=`<strong></strong><span></span>`; b.querySelector('strong').textContent=row.display_name.split(',')[0]; b.querySelector('span').textContent=row.display_name; b.onclick=()=>{ selectedName=row.display_name; selectedSource='OpenStreetMap search'; setPoint(row.lat,row.lon,{zoom:17}); $('search-results').hidden=true; $('search-feedback').textContent='Location selected. Refine the pin if needed.'; }; $('search-results').appendChild(b); }); $('search-results').hidden=false; $('search-feedback').textContent=`${rows.length} locations found.`; } catch { $('search-feedback').textContent='Search is temporarily unavailable. Enter coordinates or use the map.'; } });
+      $('continue-summary').onclick=()=>{ const p=marker.getLatLng(); const data={place:selectedName,source:selectedSource,lat:Number(p.lat.toFixed(6)),lng:Number(p.lng.toFixed(6)),parcel:$('parcel-reference').value.trim(),area:$('parcel-area').value.trim(),jurisdiction:$('jurisdiction').value.trim(),access:$('access-notes').value.trim(),savedAt:new Date().toISOString()}; localStorage.setItem('bauhuSiteProject',JSON.stringify(data)); window.location.href='/site-summary'; };
+      requestAnimationFrame(()=>map.invalidateSize());
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  :global(.leaflet-container){font-family:Inter,sans-serif}.site-fit-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.site-fit-header{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:4rem;padding:3.4rem 4vw 2.4rem;border-bottom:1px solid rgba(23,57,76,.18)}.kicker,.site-fit-header aside>span{margin:0 0 .8rem;font:700 .68rem/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#9b7b49}.site-fit-header h1{margin:0 0 1rem;font:400 clamp(2.8rem,5.6vw,5.8rem)/.94 'Cormorant Garamond',serif}.site-fit-header>div>p:last-child{max-width:760px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.site-fit-header aside{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;padding-left:2rem;border-left:1px solid rgba(23,57,76,.18);font-family:Inter,sans-serif}.site-fit-header aside strong{font:400 1.8rem 'Cormorant Garamond',serif}.tool-shell{display:grid;grid-template-columns:330px minmax(0,1fr);min-height:760px}.control-panel{padding:1.4rem;background:#f7f5ef;border-right:1px solid rgba(23,57,76,.16)}.step{display:flex;gap:.8rem;margin-bottom:1.1rem}.step.compact{margin-top:1.8rem;padding-top:1.3rem;border-top:1px solid rgba(23,57,76,.14)}.step b{color:#9b7b49}.step strong,.step small{display:block}.step small{margin-top:.25rem;color:rgba(23,57,76,.58)}.control-panel label{display:block;margin-bottom:.8rem;font:700 .68rem Inter,sans-serif}.control-panel label span{display:block;margin-bottom:.4rem}.control-panel input,.control-panel textarea{width:100%;box-sizing:border-box;border:1px solid rgba(23,57,76,.22);background:#fff;padding:.78rem;color:#17394c}.search-row{display:grid;grid-template-columns:1fr auto}.search-row button,.primary,.secondary{border:0;padding:.8rem .9rem;font-weight:700}.search-row button,.primary{background:#17394c;color:#fff}.secondary{width:100%;margin:.4rem 0;background:#fff;border:1px solid rgba(23,57,76,.2);color:#17394c}.coordinate-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.instruction{margin:.7rem 0 1rem;padding:.8rem;background:#ece9df;font-size:.7rem;line-height:1.5}.feedback{font-size:.65rem;line-height:1.4;color:rgba(23,57,76,.6)}.search-results{display:grid;gap:.4rem;margin:.5rem 0}.search-results button{padding:.65rem;text-align:left;border:1px solid rgba(23,57,76,.15);background:white;color:#17394c}.search-results strong,.search-results span{display:block}.search-results span{font-size:.62rem;margin-top:.2rem}.map-workspace{display:grid;grid-template-rows:auto 1fr auto;min-width:0}.map-toolbar{display:flex;justify-content:space-between;padding:.7rem 1rem;background:#f7f5ef;border-bottom:1px solid rgba(23,57,76,.16)}.base-switch{display:flex;gap:.35rem}.base-switch button{padding:.55rem .75rem;border:1px solid rgba(23,57,76,.18);background:#fff;color:#17394c;font-weight:700}.base-switch button.active{background:#17394c;color:#fff}.statuses{font-size:.68rem;align-self:center}.map-stage{position:relative;min-height:620px}.map-stage #property-map{position:absolute;inset:0}.map-card{position:absolute;left:1rem;bottom:1rem;z-index:500;max-width:360px;padding:.9rem 1rem;background:rgba(247,245,239,.95);box-shadow:0 10px 30px rgba(0,0,0,.12)}.map-card span{font-size:.58rem;letter-spacing:.12em}.map-card strong{display:block;margin:.3rem 0;font:400 1.35rem 'Cormorant Garamond',serif}.map-card p{margin:0;font-size:.68rem}.map-workspace footer{display:grid;grid-template-columns:repeat(3,1fr);background:#f7f5ef;border-top:1px solid rgba(23,57,76,.16)}.map-workspace footer div{padding:.8rem 1rem;border-right:1px solid rgba(23,57,76,.12)}.map-workspace footer span,.map-workspace footer strong{display:block;font-size:.62rem}.map-workspace footer strong{margin-top:.25rem}.disclaimer{margin:0;padding:1.2rem 4vw;font-size:.68rem;color:rgba(23,57,76,.62)}@media(max-width:820px){.site-fit-header{grid-template-columns:1fr;gap:2rem}.site-fit-header aside{padding:1.3rem 0 0;border-left:0;border-top:1px solid rgba(23,57,76,.18)}.tool-shell{grid-template-columns:1fr}.control-panel{border-right:0;border-bottom:1px solid rgba(23,57,76,.16)}.map-stage{min-height:520px}.map-workspace footer{grid-template-columns:1fr}}
+</style>
