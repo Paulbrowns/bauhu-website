@@ -7,6 +7,16 @@
     const heading = document.querySelector('.site-fit-header h1');
     if (heading) heading.textContent = 'Locate your site';
 
+    const headerCopy = document.querySelector('.site-fit-header > div');
+    if (headerCopy && !document.getElementById('site-fit-skip')) {
+      const skipLink = document.createElement('a');
+      skipLink.id = 'site-fit-skip';
+      skipLink.className = 'site-fit-skip';
+      skipLink.href = '/start-your-project?skipSite=1';
+      skipLink.textContent = 'Not found a site yet? Skip this step';
+      headerCopy.appendChild(skipLink);
+    }
+
     if (document.getElementById('site-fit-reset')) return;
 
     const button = document.createElement('button');
@@ -42,6 +52,22 @@
 
     const style = document.createElement('style');
     style.textContent = `
+      .site-fit-skip {
+        display: inline-block;
+        margin-top: 1.15rem;
+        padding: .78rem 1rem;
+        border: 1px solid rgba(23, 57, 76, .24);
+        color: #17394c;
+        background: rgba(247, 245, 239, .72);
+        text-decoration: none;
+        font: 700 .72rem/1 Inter, sans-serif;
+        letter-spacing: .04em;
+      }
+      .site-fit-skip:hover,
+      .site-fit-skip:focus-visible {
+        background: #17394c;
+        color: #fff;
+      }
       .site-fit-reset {
         margin-left: .45rem;
         border-color: rgba(124, 64, 55, .32) !important;
