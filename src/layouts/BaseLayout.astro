@@ -31,6 +31,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://bauhu.com')
   </head>
   <body>
     <slot />
+    <script src="/project-start-route.js" defer></script>
     <script src="/site-fit-survey.js" defer></script>
     <script src="/site-intelligence.js" defer></script>
     <script src="/site-fit-reset.js" defer></script>
