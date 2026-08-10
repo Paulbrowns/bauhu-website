@@ -1,3 +1,7 @@
 /models/3d/bahama-beach.glb /models/3d/bahama-beach/bahama-beach.glb 200
 /developments /remote-locations 301
 /developments/ /remote-locations 301
+/start-your-project /site-fit 302
+/start-your-project/ /site-fit 302
+/site-fit/* /site-fit 302
+/site-placement/* /site-summary 302
