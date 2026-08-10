@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const pathways = [
+  {
+    title: 'Private residences',
+    text: 'One-off architect-designed homes for private islands, remote coastlines and difficult-access sites where conventional construction becomes unusually complex.',
+  },
+  {
+    title: 'Resorts & retreats',
+    text: 'Boutique resorts, eco-retreats, wellness destinations and hospitality projects that need premium architecture with far less dependence on local construction infrastructure.',
+  },
+  {
+    title: 'Remote developments',
+    text: 'Villa communities, private clubs, branded residences and multi-building projects delivered through a repeatable architectural, structural and logistics strategy.',
+  },
+];
+
+const challenges = [
+  ['01', 'Limited local labour', 'Bauhu reduces reliance on scarce specialist trades through rationalised components, repeatable connections and clearly defined assembly sequences.'],
+  ['02', 'Difficult logistics', 'Buildings are designed around containerisation, shipping, handling and remote-site delivery from the beginning rather than treating logistics as an afterthought.'],
+  ['03', 'Extreme climate', 'Structure, roof systems, openings and envelope can be engineered together for hurricane exposure, uplift, salt, humidity and long-term marine durability.'],
+  ['04', 'Sensitive sites', 'Factory manufacture reduces waste, repeated deliveries, construction traffic and prolonged site activity in environmentally sensitive locations.'],
+];
+
+const process = [
+  ['Design', 'Architecture developed specifically around the site, climate, views, brief and required level of customisation.'],
+  ['Engineer', 'Structure, connections and building envelope coordinated as one resilient system.'],
+  ['Manufacture', 'Precision components produced in a controlled environment with repeatable quality and tolerances.'],
+  ['Consolidate', 'Building components organised into planned shipping packages for efficient transport and handling.'],
+  ['Deliver', 'Containerised logistics planned around the realities of sea freight and difficult-access locations.'],
+  ['Assemble', 'A rationalised kit-of-parts designed to reduce dependence on specialist local trades under appropriate supervision.'],
+];
+---
+<BaseLayout title="Remote Locations | Bauhu" description="Architect-designed Bauhu residences for private islands, remote coastal sites, boutique resorts and difficult-access developments where conventional construction is difficult.">
+  <SiteHeader />
+  <main class="remote-page">
+    <section class="remote-hero">
+      <div class="remote-hero-inner">
+        <p class="remote-kicker">BAUHU Remote Locations</p>
+        <h1>Extraordinary homes. Remote locations.</h1>
+        <p>Architect-designed residences engineered, manufactured and delivered for places where conventional construction is difficult, expensive or impractical.</p>
+        <a class="remote-button" href="/start-your-project">Discuss your site</a>
+      </div>
+    </section>
+
+    <section class="remote-intro">
+      <div class="remote-two-col">
+        <div>
+          <p class="remote-kicker">Build Where Building Is Difficult</p>
+          <h2>Some of the world's most desirable places are also the hardest places to build.</h2>
+        </div>
+        <div class="remote-copy">
+          <p>Private islands, remote coastlines and isolated resort sites rarely have the construction infrastructure of established towns and cities. Skilled labour can be scarce, materials expensive to import, weather unforgiving and every additional site delivery costly.</p>
+          <p>Bauhu approaches the problem differently. The residence is designed as an integrated building system from the start — architecture, structure, envelope, manufacture, shipping and assembly considered together.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="remote-statement">
+      <div class="remote-statement-inner">
+        <p>Conventional construction brings the construction industry to the island. <em>Bauhu brings the building.</em></p>
+      </div>
+    </section>
+
+    <section class="remote-process-section">
+      <div class="remote-process-inner">
+        <p class="remote-kicker">The Bauhu Route</p>
+        <h2>Designed → engineered → manufactured → shipped → assembled.</h2>
+        <div class="remote-process-grid">
+          {process.map(([title, text], index) => (
+            <article>
+              <strong>{String(index + 1).padStart(2, '0')}</strong>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="remote-pathways-section">
+      <div class="remote-pathways-inner">
+        <p class="remote-kicker">Who We Work With</p>
+        <h2>One delivery system. Three very different project types.</h2>
+        <div class="remote-pathways-grid">
+          {pathways.map((item) => (
+            <article>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="remote-challenges-section">
+      <div class="remote-challenges-inner">
+        <p class="remote-kicker">Why Bauhu</p>
+        <div class="remote-challenges-grid">
+          {challenges.map(([number, title, text]) => (
+            <article>
+              <strong>{number}</strong>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="remote-parallel-section">
+      <div class="remote-two-col">
+        <div>
+          <p class="remote-kicker">Less Site Dependency</p>
+          <h2>Build elsewhere. Assemble on site.</h2>
+        </div>
+        <div class="remote-copy">
+          <p>While foundations and enabling works progress on site, the superstructure can be manufactured in parallel. This reduces exposure to labour shortages, weather delays and repeated emergency material shipments.</p>
+          <p>The result is a premium architectural product with greater control over quality, programme and remote-location logistics — without reducing the residence to an off-the-shelf modular unit.</p>
+          <a class="remote-text-link" href="/engineering">Explore Bauhu engineering →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="remote-cta-section">
+      <p class="remote-kicker">Already Have a Site?</p>
+      <h2>Show us where you want to build.</h2>
+      <p>Whether it is a private island, remote coastal plot, boutique resort or multi-building development, we can assess how Bauhu could make the project more deliverable.</p>
+      <div class="remote-cta-actions">
+        <a class="remote-button" href="/start-your-project">Start your project</a>
+        <a class="remote-button remote-button-secondary" href="/models">Explore residences</a>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  :global(html), :global(body) { overflow-x:hidden !important; }
+  .remote-page { background:#050505; color:#f8f6f0; overflow:hidden; font-family:Inter, system-ui, sans-serif; font-weight:300; font-synthesis:none; }
+  .remote-page * { box-sizing:border-box; }
+  .remote-hero { position:relative; min-height:90vh; display:flex; align-items:flex-end; padding:120px 7vw 100px; background:linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.9)), url('/images/developments/bauhu-resort-developments-hero.webp') center/cover no-repeat; overflow:hidden; }
+  .remote-hero-inner, .remote-two-col, .remote-statement-inner, .remote-process-inner, .remote-pathways-inner, .remote-challenges-inner { max-width:1500px; margin:0 auto; width:100%; }
+  .remote-hero-inner { position:relative; z-index:2; }
+  .remote-kicker { color:#c8a96a; text-transform:uppercase; letter-spacing:.22em; font-size:12px; margin:0 0 22px; font-weight:500; }
+  .remote-hero h1, .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-statement p, .remote-parallel-section h2, .remote-cta-section h2 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; color:#f8f6f0; letter-spacing:-.055em; }
+  .remote-hero h1 { max-width:1180px; font-size:clamp(52px,8vw,122px); line-height:.88; margin:0 0 28px; }
+  .remote-hero > .remote-hero-inner > p:not(.remote-kicker) { max-width:860px; font-size:clamp(19px,2vw,28px); line-height:1.35; color:rgba(248,246,240,.76); margin:0; }
+  .remote-button { display:inline-block; margin-top:34px; padding:15px 24px; border:1px solid #c8a96a; color:#f8f6f0; text-decoration:none; text-transform:uppercase; letter-spacing:.16em; font-size:12px; transition:all .3s ease; }
+  .remote-button:hover { background:#c8a96a; color:#050505; }
+  .remote-button-secondary { border-color:rgba(255,255,255,.35); }
+  .remote-intro, .remote-parallel-section { padding:110px 7vw; background:#050505; }
+  .remote-two-col { display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
+  .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-parallel-section h2, .remote-cta-section h2 { font-size:clamp(44px,7vw,104px); line-height:.92; margin:0; }
+  .remote-copy p { font-size:17px; line-height:1.75; color:rgba(248,246,240,.66); margin:0 0 22px; }
+  .remote-text-link { color:#c8a96a; text-decoration:none; font-size:13px; text-transform:uppercase; letter-spacing:.12em; }
+  .remote-statement { padding:120px 7vw; background:#0a0a0a; }
+  .remote-statement p { font-size:clamp(40px,6.2vw,92px); line-height:.98; max-width:1250px; margin:0; }
+  .remote-statement em { color:#c8a96a; font-style:normal; }
+  .remote-process-section { padding:110px 7vw 120px; background:#050505; }
+  .remote-process-section h2 { max-width:1150px; }
+  .remote-process-grid { display:grid; grid-template-columns:repeat(3, 1fr); margin-top:60px; border-top:1px solid rgba(255,255,255,.16); border-left:1px solid rgba(255,255,255,.16); }
+  .remote-process-grid article { min-height:280px; padding:34px; border-right:1px solid rgba(255,255,255,.16); border-bottom:1px solid rgba(255,255,255,.16); }
+  .remote-process-grid strong, .remote-challenges-grid strong { color:#c8a96a; font-size:12px; letter-spacing:.16em; }
+  .remote-process-grid h3, .remote-pathways-grid h3, .remote-challenges-grid h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:clamp(28px,2.8vw,42px); line-height:1.05; font-weight:400; letter-spacing:-.035em; margin:24px 0 18px; color:#f8f6f0; }
+  .remote-process-grid p, .remote-pathways-grid p, .remote-challenges-grid p { color:rgba(248,246,240,.62); line-height:1.65; margin:0; }
+  .remote-pathways-section { padding:110px 7vw 120px; background:#0a0a0a; }
+  .remote-pathways-section h2 { max-width:1050px; }
+  .remote-pathways-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:54px; }
+  .remote-pathways-grid article { min-height:310px; padding:38px; border:1px solid rgba(255,255,255,.16); background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.01)); }
+  .remote-pathways-grid h3 { margin-top:0; font-size:clamp(32px,3vw,48px); }
+  .remote-challenges-section { padding:100px 7vw 120px; background:#050505; }
+  .remote-challenges-grid { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid rgba(255,255,255,.16); border-bottom:1px solid rgba(255,255,255,.16); }
+  .remote-challenges-grid article { padding:34px 22px; border-right:1px solid rgba(255,255,255,.16); }
+  .remote-challenges-grid article:last-child { border-right:0; }
+  .remote-challenges-grid h3 { font-size:32px; }
+  .remote-parallel-section { background:#0a0a0a; }
+  .remote-cta-section { padding:135px 7vw; text-align:center; background:radial-gradient(circle at 70% 30%, rgba(200,169,106,.20), transparent 36%), linear-gradient(135deg,#050505,#15120e); }
+  .remote-cta-section h2 { max-width:1000px; margin:0 auto 26px; }
+  .remote-cta-section > p:not(.remote-kicker) { max-width:780px; margin:0 auto; color:rgba(248,246,240,.66); font-size:18px; line-height:1.65; }
+  .remote-cta-actions { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+  @media screen and (max-width:900px) {
+    .remote-hero { min-height:84vh; padding:96px 22px 74px; }
+    .remote-hero h1, .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-parallel-section h2, .remote-cta-section h2 { font-size:clamp(36px,10.5vw,62px); line-height:.96; letter-spacing:-.045em; }
+    .remote-intro, .remote-statement, .remote-process-section, .remote-pathways-section, .remote-challenges-section, .remote-parallel-section, .remote-cta-section { padding-left:22px; padding-right:22px; }
+    .remote-two-col { grid-template-columns:1fr; gap:34px; }
+    .remote-process-grid, .remote-pathways-grid, .remote-challenges-grid { grid-template-columns:1fr; }
+    .remote-process-grid { border-left:0; }
+    .remote-process-grid article, .remote-challenges-grid article { border-right:0; }
+    .remote-statement p { font-size:clamp(34px,10.5vw,62px); line-height:1.02; letter-spacing:-.045em; }
+  }
+</style>
