@@ -97,25 +97,12 @@ const steps = [
       </div>
     </section>
 
-    <section class="models-intro">
-      <div class="models-two-col">
-        <div>
-          <p class="models-kicker">Model Route</p>
-          <h2>A curated collection, not a catalogue of kit homes.</h2>
-        </div>
-        <div class="models-copy">
-          <p>With sixty Bauhu model residences available, the important question is not which homes exist. It is which homes are right for your site, budget, bedroom requirement and way of living.</p>
-          <p>Each model gives you a proven architectural starting point. From there, the residence can be adapted around the land, the climate, the view, local construction realities and the level of finish you want to achieve.</p>
-        </div>
-      </div>
-    </section>
-
     <section class="models-selector" id="choose-my-home">
       <div class="models-selector-inner">
         <div class="models-selector-heading">
-          <p class="models-kicker">Choose My Home</p>
+          <p class="models-kicker">Model Route · Choose My Home</p>
           <h2>Find the Bauhu models that suit your brief.</h2>
-          <p>Filter the collection by style, guide price, bedroom count, bathrooms, storeys and built area. The result is a shortlist of model residences that can be refined around your site.</p>
+          <p>Our models are architect-designed starting points, not catalogue kit homes. Filter the collection by style, guide price, bedrooms, bathrooms, storeys and built area, then refine the right starting point around your site.</p>
           <div class="models-filter-status">
             <span id="model-result-count">{bauhuModels.length}</span> model residences shown
           </div>
@@ -353,7 +340,7 @@ const steps = [
     min-height: 72vh;
     align-items: flex-end;
     padding: 7rem 5vw;
-    background: radial-gradient(circle at 75% 20%, rgba(189, 153, 91, 0.18), transparent 34%), #050505;
+    background: linear-gradient(90deg, rgba(5,5,5,.94) 0%, rgba(5,5,5,.72) 48%, rgba(5,5,5,.20) 100%), url('/images/home/bauhu-model-home.webp') center/cover no-repeat;
   }
 
   .models-hero-inner,
@@ -372,7 +359,6 @@ const steps = [
   }
 
   .models-hero h1,
-  .models-intro h2,
   .models-selector-heading h2,
   .models-results-heading h2,
   .models-process h2,
@@ -428,7 +414,6 @@ const steps = [
     cursor: pointer;
   }
 
-  .models-intro,
   .models-selector,
   .models-results,
   .models-process,
@@ -436,7 +421,6 @@ const steps = [
     padding: clamp(5rem, 9vw, 9rem) 5vw;
   }
 
-  .models-two-col,
   .models-selector-inner {
     display: grid;
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -464,9 +448,10 @@ const steps = [
   }
 
   .models-selector-heading > p {
-    max-width: 580px;
-    margin: 1.5rem 0 0;
+    max-width: 650px;
+    margin: 1.2rem 0 0;
   }
+  .models-selector{padding-top:clamp(3rem,5vw,5rem);}
 
   .models-filter-status {
     margin-top: 2rem;
@@ -673,7 +658,6 @@ const steps = [
       padding-top: 6rem;
     }
 
-    .models-two-col,
     .models-selector-inner {
       grid-template-columns: 1fr;
     }
@@ -686,7 +670,6 @@ const steps = [
 
   @media (max-width: 640px) {
     .models-hero,
-    .models-intro,
     .models-selector,
     .models-results,
     .models-process,
