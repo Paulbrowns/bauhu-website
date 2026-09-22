@@ -4,7 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import EditorialHero from '../components/EditorialHero.astro';
 ---
-<BaseLayout title="Bauhu | Architect-designed engineered homes" description="Bauhu creates architectural residences and modular building systems for remote, coastal and hurricane exposed sites.">
+<BaseLayout title="Bauhu | Architect-designed engineered homes" description="Architect-designed, precision-engineered homes with controlled manufacture and delivery for remote, coastal and hurricane-exposed sites.">
   <SiteHeader />
   <main>
     <EditorialHero
@@ -24,7 +24,36 @@ import EditorialHero from '../components/EditorialHero.astro';
         <div>
           <p class="eyebrow text-clay">The Bauhu approach</p>
           <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Architecture, engineering and delivery considered as one.</h2>
-          <p class="mt-8 text-lg leading-8 text-ink/70">The site, climate, structure, shipping route and local build conditions are reviewed together from the beginning. This creates a calmer route to a serious island residence.</p>
+          <p class="mt-8 text-lg leading-8 text-ink/70">The site, climate, structure, procurement, shipping route and local build conditions are reviewed together from the beginning. The result is a home designed not only to look right, but to be engineered, manufactured, shipped and assembled with far greater control.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-ink text-paper">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-stone">Why Bauhu</p>
+        <h2 class="mt-5 max-w-5xl font-display text-4xl leading-tight md:text-6xl">Architect designed. Precision engineered. Controlled from design through delivery.</h2>
+        <div class="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <article class="border border-paper/15 p-7">
+            <p class="eyebrow text-stone">01 · Architecture</p>
+            <h3 class="mt-10 font-display text-3xl">Homes worth building.</h3>
+            <p class="mt-5 leading-7 text-paper/65">Custom residences and predesigned models begin with architecture, not with a catalogue of generic modules.</p>
+          </article>
+          <article class="border border-paper/15 p-7">
+            <p class="eyebrow text-stone">02 · Engineering</p>
+            <h3 class="mt-10 font-display text-3xl">Designed for exposure.</h3>
+            <p class="mt-5 leading-7 text-paper/65">Structure, uplift, connections, openings and envelope are considered for demanding coastal and hurricane-exposed environments.</p>
+          </article>
+          <article class="border border-paper/15 p-7">
+            <p class="eyebrow text-stone">03 · Control</p>
+            <h3 class="mt-10 font-display text-3xl">Decisions moved upstream.</h3>
+            <p class="mt-5 leading-7 text-paper/65">Design, specification, procurement and manufacture are coordinated before avoidable problems become expensive site problems.</p>
+          </article>
+          <article class="border border-paper/15 p-7">
+            <p class="eyebrow text-stone">04 · Delivery</p>
+            <h3 class="mt-10 font-display text-3xl">Built for difficult places.</h3>
+            <p class="mt-5 leading-7 text-paper/65">Packing, shipping, handling and assembly are considered as part of the building strategy from the start.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -57,12 +86,29 @@ import EditorialHero from '../components/EditorialHero.astro';
       </div>
     </section>
 
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div>
+          <p class="eyebrow text-clay">What Bauhu delivers</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">A coordinated building package, not just a drawing set or a frame.</h2>
+          <p class="mt-8 text-lg leading-8 text-ink/70">Bauhu coordinates the architecture, structural system, project information, manufactured components and delivery strategy as one project. Local foundations, approvals, services and completion works are defined clearly for each location and project scope.</p>
+          <p class="mt-6 text-lg leading-8 text-ink/70"><strong>Bauhu is not a catalogue-home supplier.</strong> It is a design and engineered delivery system for serious residential and hospitality projects.</p>
+        </div>
+        <div class="flex min-h-[30rem] items-center justify-center border border-ink/15 bg-mist p-8 text-center">
+          <div>
+            <p class="eyebrow text-clay">IMAGE PLACEHOLDER</p>
+            <p class="mt-4 max-w-md text-sm leading-6 text-ink/55">Real project imagery: manufactured components / packing / site assembly / completed Bauhu home.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section-pad bg-ink text-paper">
       <div class="mx-auto max-w-site">
         <p class="eyebrow text-stone">Guided buyer journey</p>
         <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">From site review to manufactured building system.</h2>
         <div class="mt-14 grid gap-5 md:grid-cols-3">
-          {['Send your site details', 'Review feasibility', 'Design, manufacture and deliver'].map((item, index) => (
+          {['Start your project', 'Review site and feasibility', 'Design, engineer and deliver'].map((item, index) => (
             <div class="border border-paper/12 p-7">
               <p class="text-sm text-stone">0{index + 1}</p>
               <h3 class="mt-10 font-display text-3xl">{item}</h3>
