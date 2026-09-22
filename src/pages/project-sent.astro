@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout title="Project Enquiry Sent | Bauhu" description="Your Bauhu project enquiry has been received.">
+  <SiteHeader />
+  <main class="sent-page">
+    <section class="sent-card">
+      <p class="kicker">ENQUIRY RECEIVED</p>
+      <h1>Thank you. We have your project details.</h1>
+      <p>Your enquiry has been recorded and the Bauhu team can now review the site, project requirements and any supporting documents you supplied.</p>
+      <div class="reference"><span>Your reference</span><strong id="reference">—</strong></div>
+      <div class="actions"><a href="/">Return to Bauhu</a><a href="/models">Explore models</a></div>
+    </section>
+  </main>
+  <SiteFooter />
+  <script is:inline>
+    (() => {
+      const ref = new URLSearchParams(location.search).get('ref');
+      if (ref) document.getElementById('reference').textContent = ref;
+    })();
+  </script>
+</BaseLayout>
+<style>
+.sent-page{min-height:78vh;padding:9rem 4vw 5rem;background:#ebe9e2;color:#17394c}.sent-card{max-width:760px;margin:0 auto;padding:2rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.14)}.kicker{margin:0 0 .8rem;font:700 .68rem/1 Inter,sans-serif;letter-spacing:.2em;color:#9b7b49}.sent-card h1{margin:0 0 1rem;font:400 clamp(2.8rem,6vw,5.4rem)/.95 'Cormorant Garamond',serif}.sent-card>p:not(.kicker){max-width:650px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.68)}.reference{margin:1.5rem 0;padding:1rem;background:#e9e1cf}.reference span,.reference strong{display:block}.reference span{font:700 .58rem Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:rgba(23,57,76,.55)}.reference strong{margin-top:.35rem;font:600 1.25rem Inter,sans-serif}.actions{display:flex;gap:.6rem;flex-wrap:wrap}.actions a{padding:.85rem 1rem;background:#17394c;color:#fff;text-decoration:none;font:700 .68rem Inter,sans-serif}.actions a+ a{background:transparent;color:#17394c;border:1px solid rgba(23,57,76,.25)}
+</style>
