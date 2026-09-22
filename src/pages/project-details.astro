@@ -2,12 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { bauhuModels } from '../data/models';
 ---
 <BaseLayout title="Your Project | Bauhu" description="Tell Bauhu the essentials about your project, budget, timing and planning position.">
   <SiteHeader />
   <main class="journey-page">
     <header class="journey-header">
-      <div><p class="kicker">START YOUR PROJECT</p><h1>Tell us about the project.</h1><p>A few practical details help us understand whether a model residence, private residence or development route is the right fit.</p></div>
+      <div><p class="kicker">START YOUR PROJECT</p><h1>Tell us about the project.</h1><p>A few practical details help us understand whether a predesigned Bauhu model, a custom residence or a development route is the right fit.</p></div>
       <aside><span>PROJECT JOURNEY</span><strong>2 of 4 · Project</strong><small>Next: choose or confirm the home.</small></aside>
     </header>
 
@@ -16,7 +17,10 @@ import SiteFooter from '../components/SiteFooter.astro';
         <div class="field-grid">
           <label><span>Where do you want to build?</span><input name="buildLocation" required placeholder="Island, country or location" /></label>
           <label><span>Project route</span><select name="route" required>
-            <option value="">Choose one</option><option value="model">Model residence</option><option value="private">Private residence</option><option value="development">Development / multiple buildings</option><option value="unsure">Not sure yet</option>
+            <option value="">Choose one</option><option value="model">Predesigned model</option><option value="custom">Custom design</option><option value="development">Development / multiple buildings</option><option value="unsure">Not sure yet</option>
+          </select></label>
+          <label id="project-model-field" hidden><span>Starting model</span><select name="modelSlug">
+            <option value="">Choose a model</option>{bauhuModels.map((model) => <option value={model.slug.replace(/^bauhu-/, '')}>{model.name} · {model.bedroomsLabel} bed · {model.guidePriceLabel}</option>)}
           </select></label>
           <label><span>Intended use</span><select name="intendedUse" required>
             <option value="">Choose one</option><option>Primary home</option><option>Second / holiday home</option><option>Rental / investment</option><option>Hospitality</option><option>Development</option><option>Other</option>
@@ -138,14 +142,26 @@ import SiteFooter from '../components/SiteFooter.astro';
       if (window.BauhuEnquiryFiles) loadStoredFiles();
       else window.addEventListener('DOMContentLoaded', loadStoredFiles, { once: true });
 
+      if (previous.route === 'private') previous.route = 'custom';
       Object.entries(previous || {}).forEach(([key, value]) => {
         if (form.elements[key] && value) form.elements[key].value = value;
       });
+
+      const modelField = document.getElementById('project-model-field');
+      const refreshRoute = () => {
+        const isModel = form.elements.route.value === 'model';
+        modelField.hidden = !isModel;
+        form.elements.modelSlug.required = isModel;
+        if (!isModel) form.elements.modelSlug.value = '';
+      };
+      form.elements.route.addEventListener('change', refreshRoute);
+      refreshRoute();
 
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         if (!form.reportValidity()) return;
         const details = Object.fromEntries(new FormData(form).entries());
+        if (details.route !== 'model') details.modelSlug = '';
         try { localStorage.setItem('bauhuProjectDetails', JSON.stringify(details)); } catch {}
         location.assign('/project-home');
       });
