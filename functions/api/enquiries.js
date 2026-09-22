@@ -83,6 +83,10 @@ export async function onRequestPost({ request, env }) {
   const home = payload.home || {};
   const placement = payload.placement || {};
   const attribution = payload.attribution || {};
+  const projectRoute = clean(project.route) === 'private' ? 'custom' : clean(project.route);
+  const homeChoiceRaw = clean(home.homeChoice) === 'private' ? 'custom' : clean(home.homeChoice);
+  const effectiveHomeChoice = projectRoute || homeChoiceRaw;
+  const isModelRoute = effectiveHomeChoice === 'model';
 
   const contactName = clean(contact.name);
   const contactEmail = clean(contact.email);
@@ -111,7 +115,7 @@ export async function onRequestPost({ request, env }) {
     site_lat: num(site.lat),
     site_lng: num(site.lng),
     site_source: clean(site.source),
-    project_route: clean(project.route),
+    project_route: projectRoute,
     intended_use: clean(project.intendedUse),
     bedrooms_scale: clean(project.bedrooms),
     land_status: clean(project.landStatus),
@@ -120,9 +124,9 @@ export async function onRequestPost({ request, env }) {
     target_start: clean(project.targetStart),
     decision_role: clean(project.decisionRole),
     project_notes: clean(project.notes),
-    home_choice: clean(home.homeChoice),
-    model_slug: clean(home.modelSlug),
-    model_name: clean(home.modelName),
+    home_choice: effectiveHomeChoice,
+    model_slug: isModelRoute ? clean(home.modelSlug || project.modelSlug) : '',
+    model_name: isModelRoute ? clean(home.modelName) : '',
     placement_confirmed: placement.confirmed ? 1 : 0,
     placement_lat: num(placement.lat),
     placement_lng: num(placement.lng),
