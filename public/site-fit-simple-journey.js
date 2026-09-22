@@ -16,7 +16,7 @@
     const aside = header.querySelector('aside');
     if (h1) h1.textContent = 'Where do you want to build?';
     if (intro) intro.textContent = 'Pin the location of the site you have in mind. If you have not chosen land yet, you can skip this step and continue.';
-    if (aside) aside.innerHTML = '<span>START YOUR PROJECT</span><strong>1 of 4 · Site</strong><small>Next: tell us about the project.</small>';
+    if (aside) aside.innerHTML = '<span>START YOUR PROJECT</span><strong>1 of 3 · Site</strong><small>Next: tell us about the project.</small>';
 
     const firstStep = panel.querySelector('.step');
     if (firstStep) {
