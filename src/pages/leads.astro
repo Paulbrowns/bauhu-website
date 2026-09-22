@@ -42,8 +42,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p id="empty" class="empty" hidden>No enquiries found.</p>
     </section>
 
+    <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
     <aside id="lead-drawer" class="drawer" hidden>
-      <div class="drawer-head"><div><span id="drawer-ref">Lead</span><h2 id="drawer-name">Enquiry</h2></div><button id="close-drawer" type="button">×</button></div>
+      <div class="drawer-head"><div><span id="drawer-ref">Lead</span><h2 id="drawer-name">Enquiry</h2></div><button id="close-drawer" type="button" aria-label="Close enquiry">×</button></div>
       <div id="drawer-body"></div>
     </aside>
   </main>
@@ -60,6 +61,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const search = document.getElementById('search');
       const statusFilter = document.getElementById('status-filter');
       const drawer = document.getElementById('lead-drawer');
+      const backdrop = document.getElementById('drawer-backdrop');
       const body = document.getElementById('drawer-body');
       let leads = [];
 
@@ -125,41 +127,72 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         const e = data.enquiry;
         document.getElementById('drawer-ref').textContent = e.reference;
         document.getElementById('drawer-name').textContent = e.contact_name;
+        const hasPlot = Number.isFinite(Number(e.site_lat)) && Number.isFinite(Number(e.site_lng));
+        const lat = hasPlot ? Number(e.site_lat) : null;
+        const lng = hasPlot ? Number(e.site_lng) : null;
+        const mapHref = hasPlot ? `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=18/${lat}/${lng}` : '';
+        const mapEmbed = hasPlot ? `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.004}%2C${lat-0.003}%2C${lng+0.004}%2C${lat+0.003}&layer=mapnik&marker=${lat}%2C${lng}` : '';
+        const files = data.files || [];
+
         body.innerHTML = `
+          <div class="lead-topline">
+            <span class="classification">${esc(e.classification || 'Unreviewed')}</span>
+            <span class="created">Received ${esc(new Date(e.created_at).toLocaleString())}</span>
+          </div>
+
           <div class="drawer-actions">
             <label>Status<select id="drawer-status">${['New','Reviewed','Qualified','Contacted','Meeting','Proposal','Won','Lost','Nurture'].map(s => `<option ${s===e.status?'selected':''}>${s}</option>`).join('')}</select></label>
             <label>Owner<input id="drawer-owner" value="${esc(e.owner || '')}" placeholder="Team member" /></label>
           </div>
-          <section><h3>Contact</h3><dl>
+
+          <section class="lead-card"><h3>Contact</h3><dl>
             <div><dt>Email</dt><dd><a href="mailto:${esc(e.contact_email)}">${esc(e.contact_email)}</a></dd></div>
             <div><dt>Phone</dt><dd>${esc(e.contact_phone || '—')}</dd></div>
-            <div><dt>Preferred</dt><dd>${esc(e.preferred_contact || '—')}</dd></div>
-            <div><dt>Classification</dt><dd>${esc(e.classification)}</dd></div>
+            <div><dt>Preferred contact</dt><dd>${esc(e.preferred_contact || '—')}</dd></div>
           </dl></section>
-          <section><h3>Project</h3><dl>
-            <div><dt>Location</dt><dd>${esc(e.site_location || '—')}</dd></div>
+
+          <section class="lead-card"><h3>Site</h3>
+            <div class="plot-summary">
+              <div><span>Location</span><strong>${esc(e.site_location || 'Not supplied')}</strong></div>
+              <div><span>Coordinates</span><strong>${hasPlot ? `${lat.toFixed(6)}, ${lng.toFixed(6)}` : 'Not supplied'}</strong></div>
+            </div>
+            ${hasPlot ? `<div class="plot-map"><iframe title="Plot location" src="${mapEmbed}" loading="lazy"></iframe></div><a class="plot-link" href="${mapHref}" target="_blank" rel="noopener">View plot on map ↗</a>` : '<p class="muted-note">No map coordinates were supplied with this enquiry.</p>'}
+          </section>
+
+          <section class="lead-card"><h3>Project</h3><dl>
             <div><dt>Route</dt><dd>${esc(e.project_route || '—')}</dd></div>
-            <div><dt>Use</dt><dd>${esc(e.intended_use || '—')}</dd></div>
-            <div><dt>Scale</dt><dd>${esc(e.bedrooms_scale || '—')}</dd></div>
-            <div><dt>Land</dt><dd>${esc(e.land_status || '—')}</dd></div>
+            <div><dt>Intended use</dt><dd>${esc(e.intended_use || '—')}</dd></div>
+            <div><dt>Bedrooms / scale</dt><dd>${esc(e.bedrooms_scale || '—')}</dd></div>
+            <div><dt>Land status</dt><dd>${esc(e.land_status || '—')}</dd></div>
             <div><dt>Planning</dt><dd>${esc(e.planning_status || '—')}</dd></div>
             <div><dt>Budget</dt><dd>${esc(e.budget || '—')}</dd></div>
-            <div><dt>Start</dt><dd>${esc(e.target_start || '—')}</dd></div>
+            <div><dt>Target start</dt><dd>${esc(e.target_start || '—')}</dd></div>
             <div><dt>Role</dt><dd>${esc(e.decision_role || '—')}</dd></div>
             <div><dt>Home</dt><dd>${esc(e.model_name || e.home_choice || '—')}</dd></div>
           </dl></section>
-          <section><h3>Source</h3><dl>
+
+          <section class="lead-card"><div class="section-heading"><h3>Supporting documents</h3><span>${files.length} file${files.length === 1 ? '' : 's'}</span></div>
+            <div id="drawer-files" class="file-list">${files.length ? files.map(f => `
+              <div class="file-row">
+                <div><strong>${esc(f.filename)}</strong><small>${esc(f.content_type || 'Document')} · ${Math.max(1, Math.round(Number(f.size || 0)/1024))} KB</small></div>
+                <button class="file-button" data-file-id="${esc(f.id)}" type="button">View</button>
+              </div>`).join('') : '<p class="muted-note">No supporting documents were supplied.</p>'}</div>
+          </section>
+
+          <section class="lead-card"><h3>Marketing source</h3><dl>
             <div><dt>Source</dt><dd>${esc(e.attribution_source || 'Direct / unknown')}</dd></div>
             <div><dt>Medium</dt><dd>${esc(e.attribution_medium || '—')}</dd></div>
             <div><dt>Campaign</dt><dd>${esc(e.attribution_campaign || '—')}</dd></div>
-            <div><dt>Landing page</dt><dd>${esc(e.landing_page || '—')}</dd></div>
+            <div><dt>Landing page</dt><dd class="wrap">${esc(e.landing_page || '—')}</dd></div>
           </dl></section>
-          <section><h3>Supporting files</h3><div id="drawer-files">${(data.files || []).length ? data.files.map(f => `<button class="file-button" data-file-id="${esc(f.id)}" type="button">${esc(f.filename)}</button>`).join('') : '<p>No files supplied.</p>'}</div></section>
-          <section><h3>Customer notes</h3><p>${esc(e.project_notes || e.message || 'No notes supplied.')}</p></section>
-          <section><h3>Internal notes</h3><textarea id="drawer-notes" rows="5">${esc(e.internal_notes || '')}</textarea></section>
+
+          <section class="lead-card"><h3>Customer notes</h3><p>${esc(e.project_notes || e.message || 'No notes supplied.')}</p></section>
+          <section class="lead-card"><h3>Internal notes</h3><textarea id="drawer-notes" rows="5" placeholder="Add sales notes, follow-up details or next actions…">${esc(e.internal_notes || '')}</textarea></section>
           <button id="save-lead" class="save-lead" type="button">Save lead</button>
         `;
+        backdrop.hidden = false;
         drawer.hidden = false;
+        document.body.classList.add('drawer-open');
 
         document.getElementById('save-lead').onclick = async () => {
           await api(`/api/enquiries/${encodeURIComponent(id)}`, {
@@ -199,7 +232,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       search.addEventListener('input', render);
       statusFilter.addEventListener('change', render);
       document.getElementById('refresh').onclick = () => load().catch(() => {});
-      document.getElementById('close-drawer').onclick = () => { drawer.hidden = true; };
+      const closeDrawer = () => {
+        drawer.hidden = true;
+        backdrop.hidden = true;
+        document.body.classList.remove('drawer-open');
+      };
+      document.getElementById('close-drawer').onclick = closeDrawer;
+      backdrop.onclick = closeDrawer;
       document.getElementById('logout').onclick = () => { sessionStorage.removeItem(tokenKey); location.reload(); };
 
       if (token()) load().catch(() => sessionStorage.removeItem(tokenKey));
@@ -208,5 +247,5 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
-.leads-page{min-height:100vh;background:#ebe9e2;color:#17394c;font-family:Inter,sans-serif}.leads-header{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding:2rem 3vw;background:#101b21;color:#f5f1e8}.leads-header p{margin:0 0 .35rem;font-size:.62rem;letter-spacing:.22em;color:#c5a66a}.leads-header h1{margin:0;font:400 3rem/1 'Cormorant Garamond',serif}.leads-header span{display:block;margin-top:.4rem;font-size:.68rem;color:rgba(245,241,232,.62)}.header-actions{display:flex;gap:.5rem}.header-actions button{padding:.65rem .8rem;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff}.login-panel{display:grid;place-items:center;min-height:70vh}.login-panel form{width:min(420px,90vw);padding:2rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.15)}.login-panel h2{margin:0 0 .5rem;font:400 2rem 'Cormorant Garamond',serif}.login-panel p{font-size:.72rem;line-height:1.6;color:rgba(23,57,76,.65)}.login-panel input,.login-panel button{width:100%;box-sizing:border-box;padding:.9rem;margin-top:.7rem}.login-panel input{border:1px solid rgba(23,57,76,.2)}.login-panel button{border:0;background:#17394c;color:#fff;font-weight:700}.login-panel small{display:block;margin-top:.6rem;color:#8a3d33}.dashboard{padding:1.5rem 3vw 4rem}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem}.metrics article{padding:1rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.12)}.metrics span{display:block;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(23,57,76,.55)}.metrics strong{display:block;margin-top:.3rem;font:400 2rem 'Cormorant Garamond',serif}.filters{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:.7rem;margin:1rem 0}.filters input,.filters select{padding:.8rem;border:1px solid rgba(23,57,76,.16);background:#fff;color:#17394c}.table-shell{overflow:auto;background:#f7f5ef;border:1px solid rgba(23,57,76,.12)}table{width:100%;border-collapse:collapse;min-width:1050px}th,td{padding:.75rem;text-align:left;border-bottom:1px solid rgba(23,57,76,.1);font-size:.65rem}th{font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(23,57,76,.52)}td strong,td small{display:block}td small{margin-top:.18rem;color:rgba(23,57,76,.5)}.ref-button{border:0;background:none;padding:0;color:#17394c;text-decoration:underline;font-weight:700;cursor:pointer}.status{display:inline-block;padding:.35rem .5rem;background:#ece9df;font-weight:700}.status-qualified,.status-won{background:#dfe9df}.status-lost{background:#eadbd7}.empty{padding:2rem;text-align:center}.drawer{position:fixed;z-index:100;top:0;right:0;width:min(560px,100vw);height:100vh;overflow:auto;background:#f7f5ef;box-shadow:-18px 0 45px rgba(23,57,76,.2)}.drawer-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;padding:1.2rem 1.4rem;background:#17394c;color:#fff}.drawer-head span{font-size:.58rem;letter-spacing:.1em;color:#c5a66a}.drawer-head h2{margin:.3rem 0 0;font:400 2rem 'Cormorant Garamond',serif}.drawer-head button{border:0;background:none;color:#fff;font-size:1.8rem}.drawer-body{padding:1.2rem 1.4rem}.drawer-actions{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.drawer-actions label{font-size:.6rem;font-weight:700}.drawer-actions select,.drawer-actions input,.drawer textarea{width:100%;box-sizing:border-box;margin-top:.35rem;padding:.7rem;border:1px solid rgba(23,57,76,.18);background:#fff}.drawer section{margin-top:1.3rem}.drawer h3{margin:0 0 .55rem;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em}.drawer dl{margin:0}.drawer dl div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid rgba(23,57,76,.1);font-size:.64rem}.drawer dd{margin:0;text-align:right;font-weight:700}.drawer section>p{font-size:.68rem;line-height:1.6;color:rgba(23,57,76,.7)}.file-button{display:block;width:100%;margin:.35rem 0;padding:.7rem;border:1px solid rgba(23,57,76,.15);background:#fff;text-align:left;color:#17394c}.save-lead{width:100%;margin-top:1rem;padding:.9rem;border:0;background:#17394c;color:#fff;font-weight:700}@media(max-width:760px){.metrics{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.leads-header{align-items:flex-start;flex-direction:column}.drawer-actions{grid-template-columns:1fr}}
+.leads-page{min-height:100vh;background:#ebe9e2;color:#17394c;font-family:Inter,sans-serif}.leads-header{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding:2rem 3vw;background:#101b21;color:#f5f1e8}.leads-header p{margin:0 0 .35rem;font-size:.62rem;letter-spacing:.22em;color:#c5a66a}.leads-header h1{margin:0;font:400 3rem/1 'Cormorant Garamond',serif}.leads-header span{display:block;margin-top:.4rem;font-size:.68rem;color:rgba(245,241,232,.62)}.header-actions{display:flex;gap:.5rem}.header-actions button{padding:.65rem .8rem;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff}.login-panel{display:grid;place-items:center;min-height:70vh}.login-panel form{width:min(420px,90vw);padding:2rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.15)}.login-panel h2{margin:0 0 .5rem;font:400 2rem 'Cormorant Garamond',serif}.login-panel p{font-size:.72rem;line-height:1.6;color:rgba(23,57,76,.65)}.login-panel input,.login-panel button{width:100%;box-sizing:border-box;padding:.9rem;margin-top:.7rem}.login-panel input{border:1px solid rgba(23,57,76,.2)}.login-panel button{border:0;background:#17394c;color:#fff;font-weight:700}.login-panel small{display:block;margin-top:.6rem;color:#8a3d33}.dashboard{padding:1.5rem 3vw 4rem}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem}.metrics article{padding:1rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.12)}.metrics span{display:block;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(23,57,76,.55)}.metrics strong{display:block;margin-top:.3rem;font:400 2rem 'Cormorant Garamond',serif}.filters{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:.7rem;margin:1rem 0}.filters input,.filters select{padding:.8rem;border:1px solid rgba(23,57,76,.16);background:#fff;color:#17394c}.table-shell{overflow:auto;background:#f7f5ef;border:1px solid rgba(23,57,76,.12)}table{width:100%;border-collapse:collapse;min-width:1050px}th,td{padding:.75rem;text-align:left;border-bottom:1px solid rgba(23,57,76,.1);font-size:.65rem}th{font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(23,57,76,.52)}td strong,td small{display:block}td small{margin-top:.18rem;color:rgba(23,57,76,.5)}.ref-button{border:0;background:none;padding:0;color:#17394c;text-decoration:underline;font-weight:700;cursor:pointer}.status{display:inline-block;padding:.35rem .5rem;background:#ece9df;font-weight:700}.status-qualified,.status-won{background:#dfe9df}.status-lost{background:#eadbd7}.empty{padding:2rem;text-align:center}.drawer-backdrop{position:fixed;z-index:90;inset:0;background:rgba(9,18,23,.48);backdrop-filter:blur(2px)}body.drawer-open{overflow:hidden}.drawer{position:fixed;z-index:100;top:0;right:0;width:min(720px,100vw);height:100vh;overflow:auto;background:#ebe9e2;box-shadow:-24px 0 60px rgba(23,57,76,.28)}.drawer-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;padding:1.35rem 1.6rem;background:#101b21;color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}.drawer-head span{font-size:.58rem;letter-spacing:.14em;color:#c5a66a}.drawer-head h2{margin:.3rem 0 0;font:400 2.4rem 'Cormorant Garamond',serif}.drawer-head button{display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:transparent;color:#fff;font-size:1.5rem;cursor:pointer}.drawer-body{padding:1.3rem 1.6rem 2rem}.lead-topline{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:1rem}.classification{padding:.38rem .58rem;background:#e9e1cf;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.created{font-size:.6rem;color:rgba(23,57,76,.52)}.drawer-actions{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem}.drawer-actions label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}.drawer-actions select,.drawer-actions input,.drawer textarea{width:100%;box-sizing:border-box;margin-top:.35rem;padding:.8rem;border:1px solid rgba(23,57,76,.18);background:#fff;color:#17394c}.lead-card{margin-top:.8rem!important;padding:1rem 1.1rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.12)}.drawer h3{margin:0 0 .7rem;font-size:.64rem;text-transform:uppercase;letter-spacing:.12em;color:#9b7b49}.drawer dl{margin:0}.drawer dl div{display:grid;grid-template-columns:145px minmax(0,1fr);gap:1rem;padding:.6rem 0;border-top:1px solid rgba(23,57,76,.09);font-size:.66rem}.drawer dt{color:rgba(23,57,76,.55)}.drawer dd{margin:0;text-align:right;font-weight:700;overflow-wrap:anywhere}.drawer dd.wrap{font-weight:500}.drawer section>p{font-size:.68rem;line-height:1.6;color:rgba(23,57,76,.7)}.plot-summary{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.75rem}.plot-summary>div{padding:.75rem;background:#ece9df}.plot-summary span,.plot-summary strong{display:block}.plot-summary span{font-size:.55rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(23,57,76,.5)}.plot-summary strong{margin-top:.28rem;font-size:.67rem}.plot-map{overflow:hidden;height:220px;border:1px solid rgba(23,57,76,.12);background:#d9dfdc}.plot-map iframe{width:100%;height:100%;border:0}.plot-link{display:inline-block;margin-top:.7rem;color:#17394c;font-size:.64rem;font-weight:700}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:1rem}.section-heading span{font-size:.58rem;color:rgba(23,57,76,.52)}.file-list{display:grid;gap:.5rem}.file-row{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.75rem;background:#ece9df}.file-row strong,.file-row small{display:block}.file-row strong{font-size:.65rem}.file-row small{margin-top:.18rem;font-size:.56rem;color:rgba(23,57,76,.5)}.file-button{flex:0 0 auto;padding:.55rem .8rem;border:1px solid #17394c;background:#fff;color:#17394c;font-size:.6rem;font-weight:700;cursor:pointer}.muted-note{margin:.2rem 0!important;font-size:.64rem!important;color:rgba(23,57,76,.52)!important}.save-lead{width:100%;margin-top:1rem;padding:1rem;border:0;background:#17394c;color:#fff;font-weight:700;cursor:pointer}@media(max-width:760px){.metrics{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.leads-header{align-items:flex-start;flex-direction:column}.drawer-actions,.plot-summary{grid-template-columns:1fr}.drawer-body{padding:1rem}.drawer dl div{grid-template-columns:1fr;gap:.2rem}.drawer dd{text-align:left}.plot-map{height:190px}}
 </style>
