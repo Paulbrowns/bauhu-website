@@ -68,6 +68,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const token = () => sessionStorage.getItem(tokenKey) || '';
       const auth = () => ({ authorization: `Bearer ${token()}` });
       const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+      const normaliseRoute = (value) => value === 'private' ? 'custom' : (value || '');
+      const routeLabel = (value) => ({ model:'Predesigned model', custom:'Custom design', development:'Development / multiple buildings', unsure:'Not sure yet' }[normaliseRoute(value)] || value || '—');
+      const leadHomeLabel = (lead) => {
+        const route = normaliseRoute(lead.project_route || lead.home_choice);
+        return route === 'model' ? (lead.model_name || 'Predesigned model') : routeLabel(route);
+      };
 
       async function api(url, options = {}) {
         const headers = { ...(options.headers || {}), ...auth() };
@@ -103,7 +109,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <td>${esc(new Date(lead.created_at).toLocaleDateString())}</td>
             <td><strong>${esc(lead.contact_name)}</strong><small>${esc(lead.contact_email)}</small></td>
             <td>${esc(lead.site_location || '—')}</td>
-            <td>${esc(lead.model_name || lead.project_route || lead.home_choice || '—')}</td>
+            <td>${esc(leadHomeLabel(lead))}</td>
             <td>${esc(lead.budget || '—')}</td>
             <td>${esc(lead.target_start || '—')}</td>
             <td>${esc(lead.attribution_source || 'Direct / unknown')}</td>
@@ -133,6 +139,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         const mapHref = hasPlot ? `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=18/${lat}/${lng}` : '';
         const mapEmbed = hasPlot ? `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.004}%2C${lat-0.003}%2C${lng+0.004}%2C${lat+0.003}&layer=mapnik&marker=${lat}%2C${lng}` : '';
         const files = data.files || [];
+        const projectRoute = normaliseRoute(e.project_route || e.home_choice);
+        const projectHeading = projectRoute === 'model' ? (e.model_name || 'Predesigned model') : routeLabel(projectRoute);
 
         body.innerHTML = `
           <div class="lead-topbar">
@@ -159,9 +167,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </section>
 
               <section class="panel project-panel">
-                <div class="panel-heading"><div><span class="panel-kicker">PROJECT</span><h3>${esc(e.model_name || e.home_choice || e.project_route || 'Project details')}</h3></div></div>
+                <div class="panel-heading"><div><span class="panel-kicker">PROJECT</span><h3>${esc(projectHeading || 'Project details')}</h3></div></div>
                 <div class="detail-table project-details">
-                  <div class="detail-row"><span>Route</span><strong>${esc(e.project_route || '—')}</strong></div>
+                  <div class="detail-row"><span>Route</span><strong>${esc(routeLabel(projectRoute))}</strong></div>
                   <div class="detail-row"><span>Intended use</span><strong>${esc(e.intended_use || '—')}</strong></div>
                   <div class="detail-row"><span>Bedrooms / scale</span><strong>${esc(e.bedrooms_scale || '—')}</strong></div>
                   <div class="detail-row"><span>Budget</span><strong>${esc(e.budget || '—')}</strong></div>
