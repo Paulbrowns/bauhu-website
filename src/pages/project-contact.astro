@@ -35,7 +35,7 @@ import SiteFooter from '../components/SiteFooter.astro';
           <div><dt>Planning</dt><dd id="recap-planning">—</dd></div>
           <div><dt>Budget</dt><dd id="recap-budget">—</dd></div>
           <div><dt>Target start</dt><dd id="recap-timing">—</dd></div>
-          <div><dt>Placement</dt><dd id="recap-placement">Optional / not used</dd></div><div><dt>Documents</dt><dd id="recap-documents">None supplied</dd></div>
+          <div><dt>Documents</dt><dd id="recap-documents">None supplied</dd></div>
         </dl>
       </aside>
     </section>
@@ -48,18 +48,8 @@ import SiteFooter from '../components/SiteFooter.astro';
       const site = read('bauhuProjectSite');
       const details = read('bauhuProjectDetails');
       const home = read('bauhuProjectHome');
-      const params = new URLSearchParams(location.search);
       const attribution = read('bauhuAttribution');
       const documents = (() => { try { return JSON.parse(localStorage.getItem('bauhuProjectDocuments') || '[]'); } catch { return []; } })();
-      const placement = params.get('placement') === 'confirmed' ? {
-        confirmed: true,
-        lat: params.get('lat') || '',
-        lng: params.get('lng') || '',
-        rotation: Number(params.get('rotation') || 0),
-        parcel: params.get('parcel') || site.parcel || '',
-        area: params.get('area') || site.area || ''
-      } : { confirmed: false };
-
       const routeLabels = { private:'Private residence', development:'Development / multiple buildings', unsure:'Not sure yet', model:'Model residence' };
       document.getElementById('recap-home').textContent = home.homeChoice === 'model' ? (home.modelName || 'Model residence') : (routeLabels[home.homeChoice] || routeLabels[details.route] || 'Route not selected');
       document.getElementById('recap-location').textContent = site.place || details.buildLocation || 'Not supplied';
@@ -67,10 +57,9 @@ import SiteFooter from '../components/SiteFooter.astro';
       document.getElementById('recap-planning').textContent = details.planningStatus || '—';
       document.getElementById('recap-budget').textContent = details.budget || '—';
       document.getElementById('recap-timing').textContent = details.targetStart || '—';
-      document.getElementById('recap-placement').textContent = placement.confirmed ? `Confirmed · ${placement.rotation}°` : 'Optional / not used';
       document.getElementById('recap-documents').textContent = documents.length ? `${documents.length} file${documents.length === 1 ? '' : 's'} selected` : 'None supplied';
 
-      const payload = { site, project: details, home, placement, documents, attribution, sourceUrl: location.href };
+      const payload = { site, project: details, home, documents, attribution, sourceUrl: location.href };
       document.getElementById('project-payload').value = JSON.stringify(payload);
 
       document.getElementById('contact-form').addEventListener('submit', async (event) => {
