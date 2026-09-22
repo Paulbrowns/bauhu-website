@@ -8,9 +8,9 @@ const steps = [
   ['01', 'Send your site details', 'The first step is practical. Share the location, access, planning status, preferred size, budget range, timeline and any drawings, survey material or site photographs.'],
   ['02', 'Feasibility review', 'Bauhu reviews the site conditions, likely route to delivery, model suitability, custom residence potential and any early constraints that may affect scope or cost.'],
   ['03', 'Define the right route', 'Some clients are best served by adapting a Bauhu model. Others require a custom residence shaped more closely around the land, outlook and brief.'],
-  ['04', 'Design and specification', 'The home is refined around climate, view, shade, structure, logistics, supply scope and the practicalities of local completion.'],
-  ['05', 'Manufacture and delivery', 'Once agreed, the building system is manufactured, packed and prepared for shipping, installation and local works.'],
-  ['06', 'Local completion', 'Bauhu works around a clear division between the supplied system and the local works required for foundations, services, finishing and site specific completion.'],
+  ['04', 'Design and engineering', 'Architecture, structure, openings, envelope, foundations strategy, specification and logistics are coordinated against the approved project information.'],
+  ['05', 'Controlled procurement and manufacture', 'Approved project information drives the component and procurement package so supplier orders, manufactured elements and project requirements stay aligned before shipment.'],
+  ['06', 'Pack, deliver and assemble', 'Components are consolidated for transport and the assembly sequence is planned around the realities of the site. Local foundations, services, approvals and finishing works are defined clearly for the project.'],
 ];
 ---
 <BaseLayout title="How It Works | Bauhu" description="The guided Bauhu buyer journey from site review to design, manufacture and delivery.">
@@ -20,8 +20,8 @@ const steps = [
       eyebrow="Guided buyer journey"
       title="A clear route from land to residence."
       text="Bauhu helps clients understand what is possible before committing to a full design and manufacturing process. The journey begins with the realities of the site."
-      primaryHref="/start-your-project"
-      primaryLabel="Start with your site"
+      primaryHref="/site-fit"
+      primaryLabel="Start your project"
     />
     <section class="section-pad bg-paper">
       <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.85fr_1.15fr]">
@@ -39,6 +39,38 @@ const steps = [
             <p class="mt-5 leading-7 text-ink/70">{text}</p>
           </article>
         ))}
+      </div>
+    </section>
+
+    <section class="section-pad bg-ink text-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="eyebrow text-stone">Controlled delivery</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Designed to be built, shipped and assembled — not simply designed to be drawn.</h2>
+        </div>
+        <div class="space-y-6 text-lg leading-8 text-paper/70">
+          <p>Remote construction becomes expensive when design changes, procurement mistakes, labour shortages and repeat shipments are discovered on site. Bauhu moves more decisions upstream, where they can be coordinated before the building reaches the site.</p>
+          <p>That means one controlled flow of approved design information into engineering, procurement, manufacture, packing and delivery — with a clear record of what belongs in the Bauhu package and what remains a local responsibility.</p>
+        </div>
+      </div>
+      <div class="mx-auto mt-12 grid max-w-site gap-5 md:grid-cols-3">
+        {['Approved project information','Manufacture / quality control','Packing / assembly sequence'].map((label) => (
+          <div class="flex min-h-64 items-center justify-center border border-paper/15 p-6 text-center">
+            <div><p class="eyebrow text-stone">IMAGE PLACEHOLDER</p><p class="mt-4 text-sm text-paper/55">{label}</p></div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-pad bg-paper">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">After you enquire</p>
+        <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">A serious first review, not a generic sales callback.</h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-3">
+          <article class="bg-mist p-7"><h3 class="font-display text-3xl">We review the site</h3><p class="mt-4 leading-7 text-ink/70">Location, access, exposure, planning position and any survey or drawings you already have.</p></article>
+          <article class="bg-mist p-7"><h3 class="font-display text-3xl">We identify the route</h3><p class="mt-4 leading-7 text-ink/70">Predesigned model, custom design or larger development — and the main constraints that should be resolved first.</p></article>
+          <article class="bg-mist p-7"><h3 class="font-display text-3xl">We define the next decision</h3><p class="mt-4 leading-7 text-ink/70">The objective is clarity on feasibility, scope and what information is needed before meaningful design or pricing work proceeds.</p></article>
+        </div>
       </div>
     </section>
   </main>
