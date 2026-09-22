@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Bauhu Leads" description="Internal Bauhu enquiry dashboard." noindex={true}>
+  <main class="leads-page">
+    <header class="leads-header">
+      <div><p>BAUHU</p><h1>Leads</h1><span>Website enquiries and qualification</span></div>
+      <div class="header-actions"><button id="refresh" type="button">Refresh</button><button id="logout" type="button">Lock</button></div>
+    </header>
+
+    <section id="login-panel" class="login-panel">
+      <form id="login-form">
+        <h2>Open leads dashboard</h2>
+        <p>Enter the private dashboard token configured in Cloudflare.</p>
+        <input id="token" type="password" autocomplete="current-password" placeholder="Dashboard token" required />
+        <button type="submit">Open dashboard</button>
+        <small id="login-error"></small>
+      </form>
+    </section>
+
+    <section id="dashboard" class="dashboard" hidden>
+      <div class="metrics">
+        <article><span>New</span><strong id="metric-new">0</strong></article>
+        <article><span>Qualified</span><strong id="metric-qualified">0</strong></article>
+        <article><span>Proposal</span><strong id="metric-proposal">0</strong></article>
+        <article><span>Won</span><strong id="metric-won">0</strong></article>
+      </div>
+
+      <div class="filters">
+        <input id="search" type="search" placeholder="Search reference, name, email, location or model" />
+        <select id="status-filter">
+          <option>All</option><option>New</option><option>Reviewed</option><option>Qualified</option><option>Contacted</option><option>Meeting</option><option>Proposal</option><option>Won</option><option>Lost</option><option>Nurture</option>
+        </select>
+      </div>
+
+      <div class="table-shell">
+        <table>
+          <thead><tr><th>Ref</th><th>Date</th><th>Name</th><th>Location</th><th>Route</th><th>Budget</th><th>Timing</th><th>Source</th><th>Status</th></tr></thead>
+          <tbody id="lead-rows"></tbody>
+        </table>
+      </div>
+      <p id="empty" class="empty" hidden>No enquiries found.</p>
+    </section>
+
+    <aside id="lead-drawer" class="drawer" hidden>
+      <div class="drawer-head"><div><span id="drawer-ref">Lead</span><h2 id="drawer-name">Enquiry</h2></div><button id="close-drawer" type="button">×</button></div>
+      <div id="drawer-body"></div>
+    </aside>
+  </main>
+
+  <script is:inline>
+    (() => {
+      const tokenKey = 'bauhuLeadsToken';
+      const loginPanel = document.getElementById('login-panel');
+      const dashboard = document.getElementById('dashboard');
+      const loginForm = document.getElementById('login-form');
+      const tokenInput = document.getElementById('token');
+      const rows = document.getElementById('lead-rows');
+      const empty = document.getElementById('empty');
+      const search = document.getElementById('search');
+      const statusFilter = document.getElementById('status-filter');
+      const drawer = document.getElementById('lead-drawer');
+      const body = document.getElementById('drawer-body');
+      let leads = [];
+
+      const token = () => sessionStorage.getItem(tokenKey) || '';
+      const auth = () => ({ authorization: `Bearer ${token()}` });
+      const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+
+      async function api(url, options = {}) {
+        const headers = { ...(options.headers || {}), ...auth() };
+        const response = await fetch(url, { ...options, headers });
+        if (response.status === 401) throw new Error('Unauthorised');
+        if (!response.ok) throw new Error('Request failed');
+        return response.json();
+      }
+
+      function metrics() {
+        document.getElementById('metric-new').textContent = leads.filter(x => x.status === 'New').length;
+        document.getElementById('metric-qualified').textContent = leads.filter(x => x.status === 'Qualified').length;
+        document.getElementById('metric-proposal').textContent = leads.filter(x => x.status === 'Proposal').length;
+        document.getElementById('metric-won').textContent = leads.filter(x => x.status === 'Won').length;
+      }
+
+      function filtered() {
+        const q = search.value.trim().toLowerCase();
+        const status = statusFilter.value;
+        return leads.filter((lead) => {
+          if (status !== 'All' && lead.status !== status) return false;
+          if (!q) return true;
+          return [lead.reference, lead.contact_name, lead.contact_email, lead.site_location, lead.model_name, lead.project_route]
+            .some(v => String(v || '').toLowerCase().includes(q));
+        });
+      }
+
+      function render() {
+        const data = filtered();
+        rows.innerHTML = data.map((lead) => `
+          <tr data-id="${esc(lead.id)}">
+            <td><button class="ref-button" type="button">${esc(lead.reference)}</button></td>
+            <td>${esc(new Date(lead.created_at).toLocaleDateString())}</td>
+            <td><strong>${esc(lead.contact_name)}</strong><small>${esc(lead.contact_email)}</small></td>
+            <td>${esc(lead.site_location || '—')}</td>
+            <td>${esc(lead.model_name || lead.project_route || lead.home_choice || '—')}</td>
+            <td>${esc(lead.budget || '—')}</td>
+            <td>${esc(lead.target_start || '—')}</td>
+            <td>${esc(lead.attribution_source || 'Direct / unknown')}</td>
+            <td><span class="status status-${esc((lead.status || '').toLowerCase())}">${esc(lead.status)}</span></td>
+          </tr>
+        `).join('');
+        empty.hidden = data.length > 0;
+        metrics();
+      }
+
+      async function load() {
+        const data = await api('/api/enquiries?limit=250');
+        leads = data.enquiries || [];
+        loginPanel.hidden = true;
+        dashboard.hidden = false;
+        render();
+      }
+
+      async function openLead(id) {
+        const data = await api(`/api/enquiries/${encodeURIComponent(id)}`);
+        const e = data.enquiry;
+        document.getElementById('drawer-ref').textContent = e.reference;
+        document.getElementById('drawer-name').textContent = e.contact_name;
+        body.innerHTML = `
+          <div class="drawer-actions">
+            <label>Status<select id="drawer-status">${['New','Reviewed','Qualified','Contacted','Meeting','Proposal','Won','Lost','Nurture'].map(s => `<option ${s===e.status?'selected':''}>${s}</option>`).join('')}</select></label>
+            <label>Owner<input id="drawer-owner" value="${esc(e.owner || '')}" placeholder="Team member" /></label>
+          </div>
+          <section><h3>Contact</h3><dl>
+            <div><dt>Email</dt><dd><a href="mailto:${esc(e.contact_email)}">${esc(e.contact_email)}</a></dd></div>
+            <div><dt>Phone</dt><dd>${esc(e.contact_phone || '—')}</dd></div>
+            <div><dt>Preferred</dt><dd>${esc(e.preferred_contact || '—')}</dd></div>
+            <div><dt>Classification</dt><dd>${esc(e.classification)}</dd></div>
+          </dl></section>
+          <section><h3>Project</h3><dl>
+            <div><dt>Location</dt><dd>${esc(e.site_location || '—')}</dd></div>
+            <div><dt>Route</dt><dd>${esc(e.project_route || '—')}</dd></div>
+            <div><dt>Use</dt><dd>${esc(e.intended_use || '—')}</dd></div>
+            <div><dt>Scale</dt><dd>${esc(e.bedrooms_scale || '—')}</dd></div>
+            <div><dt>Land</dt><dd>${esc(e.land_status || '—')}</dd></div>
+            <div><dt>Planning</dt><dd>${esc(e.planning_status || '—')}</dd></div>
+            <div><dt>Budget</dt><dd>${esc(e.budget || '—')}</dd></div>
+            <div><dt>Start</dt><dd>${esc(e.target_start || '—')}</dd></div>
+            <div><dt>Role</dt><dd>${esc(e.decision_role || '—')}</dd></div>
+            <div><dt>Home</dt><dd>${esc(e.model_name || e.home_choice || '—')}</dd></div>
+          </dl></section>
+          <section><h3>Source</h3><dl>
+            <div><dt>Source</dt><dd>${esc(e.attribution_source || 'Direct / unknown')}</dd></div>
+            <div><dt>Medium</dt><dd>${esc(e.attribution_medium || '—')}</dd></div>
+            <div><dt>Campaign</dt><dd>${esc(e.attribution_campaign || '—')}</dd></div>
+            <div><dt>Landing page</dt><dd>${esc(e.landing_page || '—')}</dd></div>
+          </dl></section>
+          <section><h3>Supporting files</h3><div id="drawer-files">${(data.files || []).length ? data.files.map(f => `<button class="file-button" data-file-id="${esc(f.id)}" type="button">${esc(f.filename)}</button>`).join('') : '<p>No files supplied.</p>'}</div></section>
+          <section><h3>Customer notes</h3><p>${esc(e.project_notes || e.message || 'No notes supplied.')}</p></section>
+          <section><h3>Internal notes</h3><textarea id="drawer-notes" rows="5">${esc(e.internal_notes || '')}</textarea></section>
+          <button id="save-lead" class="save-lead" type="button">Save lead</button>
+        `;
+        drawer.hidden = false;
+
+        document.getElementById('save-lead').onclick = async () => {
+          await api(`/api/enquiries/${encodeURIComponent(id)}`, {
+            method: 'PATCH',
+            headers: { 'content-type':'application/json' },
+            body: JSON.stringify({
+              status: document.getElementById('drawer-status').value,
+              owner: document.getElementById('drawer-owner').value,
+              internal_notes: document.getElementById('drawer-notes').value
+            })
+          });
+          await load();
+          await openLead(id);
+        };
+
+        body.querySelectorAll('.file-button').forEach((button) => {
+          button.onclick = async () => {
+            const response = await fetch(`/api/enquiries/${encodeURIComponent(id)}/files/${encodeURIComponent(button.dataset.fileId)}`, { headers: auth() });
+            if (!response.ok) return;
+            const blob = await response.blob();
+            window.open(URL.createObjectURL(blob), '_blank', 'noopener');
+          };
+        });
+      }
+
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        sessionStorage.setItem(tokenKey, tokenInput.value);
+        try { await load(); document.getElementById('login-error').textContent = ''; }
+        catch { sessionStorage.removeItem(tokenKey); document.getElementById('login-error').textContent = 'That token was not accepted.'; }
+      });
+
+      rows.addEventListener('click', (event) => {
+        const row = event.target.closest('tr[data-id]');
+        if (row) openLead(row.dataset.id);
+      });
+      search.addEventListener('input', render);
+      statusFilter.addEventListener('change', render);
+      document.getElementById('refresh').onclick = () => load().catch(() => {});
+      document.getElementById('close-drawer').onclick = () => { drawer.hidden = true; };
+      document.getElementById('logout').onclick = () => { sessionStorage.removeItem(tokenKey); location.reload(); };
+
+      if (token()) load().catch(() => sessionStorage.removeItem(tokenKey));
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+.leads-page{min-height:100vh;background:#ebe9e2;color:#17394c;font-family:Inter,sans-serif}.leads-header{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding:2rem 3vw;background:#101b21;color:#f5f1e8}.leads-header p{margin:0 0 .35rem;font-size:.62rem;letter-spacing:.22em;color:#c5a66a}.leads-header h1{margin:0;font:400 3rem/1 'Cormorant Garamond',serif}.leads-header span{display:block;margin-top:.4rem;font-size:.68rem;color:rgba(245,241,232,.62)}.header-actions{display:flex;gap:.5rem}.header-actions button{padding:.65rem .8rem;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff}.login-panel{display:grid;place-items:center;min-height:70vh}.login-panel form{width:min(420px,90vw);padding:2rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.15)}.login-panel h2{margin:0 0 .5rem;font:400 2rem 'Cormorant Garamond',serif}.login-panel p{font-size:.72rem;line-height:1.6;color:rgba(23,57,76,.65)}.login-panel input,.login-panel button{width:100%;box-sizing:border-box;padding:.9rem;margin-top:.7rem}.login-panel input{border:1px solid rgba(23,57,76,.2)}.login-panel button{border:0;background:#17394c;color:#fff;font-weight:700}.login-panel small{display:block;margin-top:.6rem;color:#8a3d33}.dashboard{padding:1.5rem 3vw 4rem}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem}.metrics article{padding:1rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.12)}.metrics span{display:block;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(23,57,76,.55)}.metrics strong{display:block;margin-top:.3rem;font:400 2rem 'Cormorant Garamond',serif}.filters{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:.7rem;margin:1rem 0}.filters input,.filters select{padding:.8rem;border:1px solid rgba(23,57,76,.16);background:#fff;color:#17394c}.table-shell{overflow:auto;background:#f7f5ef;border:1px solid rgba(23,57,76,.12)}table{width:100%;border-collapse:collapse;min-width:1050px}th,td{padding:.75rem;text-align:left;border-bottom:1px solid rgba(23,57,76,.1);font-size:.65rem}th{font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(23,57,76,.52)}td strong,td small{display:block}td small{margin-top:.18rem;color:rgba(23,57,76,.5)}.ref-button{border:0;background:none;padding:0;color:#17394c;text-decoration:underline;font-weight:700;cursor:pointer}.status{display:inline-block;padding:.35rem .5rem;background:#ece9df;font-weight:700}.status-qualified,.status-won{background:#dfe9df}.status-lost{background:#eadbd7}.empty{padding:2rem;text-align:center}.drawer{position:fixed;z-index:100;top:0;right:0;width:min(560px,100vw);height:100vh;overflow:auto;background:#f7f5ef;box-shadow:-18px 0 45px rgba(23,57,76,.2)}.drawer-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;padding:1.2rem 1.4rem;background:#17394c;color:#fff}.drawer-head span{font-size:.58rem;letter-spacing:.1em;color:#c5a66a}.drawer-head h2{margin:.3rem 0 0;font:400 2rem 'Cormorant Garamond',serif}.drawer-head button{border:0;background:none;color:#fff;font-size:1.8rem}.drawer-body{padding:1.2rem 1.4rem}.drawer-actions{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.drawer-actions label{font-size:.6rem;font-weight:700}.drawer-actions select,.drawer-actions input,.drawer textarea{width:100%;box-sizing:border-box;margin-top:.35rem;padding:.7rem;border:1px solid rgba(23,57,76,.18);background:#fff}.drawer section{margin-top:1.3rem}.drawer h3{margin:0 0 .55rem;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em}.drawer dl{margin:0}.drawer dl div{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid rgba(23,57,76,.1);font-size:.64rem}.drawer dd{margin:0;text-align:right;font-weight:700}.drawer section>p{font-size:.68rem;line-height:1.6;color:rgba(23,57,76,.7)}.file-button{display:block;width:100%;margin:.35rem 0;padding:.7rem;border:1px solid rgba(23,57,76,.15);background:#fff;text-align:left;color:#17394c}.save-lead{width:100%;margin-top:1rem;padding:.9rem;border:0;background:#17394c;color:#fff;font-weight:700}@media(max-width:760px){.metrics{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr}.leads-header{align-items:flex-start;flex-direction:column}.drawer-actions{grid-template-columns:1fr}}
+</style>
