@@ -14,7 +14,7 @@
   host.innerHTML = `
     <header class="si-header">
       <div>
-        <p class="si-kicker">SITE INTELLIGENCE</p>
+        <p class="si-kicker">YOUR SITE INTELLIGENCE</p>
         <h2>Sun, climate and preliminary hazard screening</h2>
         <p>Calculated from the confirmed coordinates and supplemented with public screening datasets. Results are preliminary and do not replace professional site investigations.</p>
       </div>
