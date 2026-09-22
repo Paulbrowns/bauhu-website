@@ -2,6 +2,15 @@
   if (window.location.pathname.replace(/\/$/, '') !== '/site-fit') return;
 
   function init() {
+    const params = new URLSearchParams(window.location.search);
+    const selectedModel = params.get('model');
+    if (selectedModel) {
+      try {
+        const existing = JSON.parse(localStorage.getItem('bauhuProjectDetails') || '{}');
+        localStorage.setItem('bauhuProjectDetails', JSON.stringify({ ...existing, route: 'model', modelSlug: selectedModel }));
+      } catch {}
+    }
+
     const panel = document.querySelector('.control-panel');
     const header = document.querySelector('.site-fit-header');
     const confirmLocation = document.getElementById('confirm-location');
