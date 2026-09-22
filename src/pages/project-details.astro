@@ -16,10 +16,10 @@ import { bauhuModels } from '../data/models';
       <form id="project-details-form" class="journey-form">
         <div class="field-grid">
           <label><span>Where do you want to build?</span><input name="buildLocation" required placeholder="Island, country or location" /></label>
-          <label><span>Project route</span><select name="route" required>
+          <label><span>Project type</span><select name="route" required>
             <option value="">Choose one</option><option value="model">Predesigned model</option><option value="custom">Custom design</option><option value="development">Development / multiple buildings</option><option value="unsure">Not sure yet</option>
           </select></label>
-          <label id="project-model-field" hidden><span>Starting model</span><select name="modelSlug">
+          <label id="project-model-field" style="display:none"><span>Starting model</span><select name="modelSlug">
             <option value="">Choose a model</option>{bauhuModels.map((model) => <option value={model.slug.replace(/^bauhu-/, '')}>{model.name} · {model.bedroomsLabel} bed · {model.guidePriceLabel}</option>)}
           </select></label>
           <label><span>Intended use</span><select name="intendedUse" required>
@@ -150,7 +150,7 @@ import { bauhuModels } from '../data/models';
       const modelField = document.getElementById('project-model-field');
       const refreshRoute = () => {
         const isModel = form.elements.route.value === 'model';
-        modelField.hidden = !isModel;
+        modelField.style.display = isModel ? 'block' : 'none';
         form.elements.modelSlug.required = isModel;
         if (!isModel) form.elements.modelSlug.value = '';
       };
