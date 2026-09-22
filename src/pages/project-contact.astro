@@ -35,7 +35,7 @@ import SiteFooter from '../components/SiteFooter.astro';
           <div><dt>Planning</dt><dd id="recap-planning">—</dd></div>
           <div><dt>Budget</dt><dd id="recap-budget">—</dd></div>
           <div><dt>Target start</dt><dd id="recap-timing">—</dd></div>
-          <div><dt>Placement</dt><dd id="recap-placement">Optional / not used</dd></div>
+          <div><dt>Placement</dt><dd id="recap-placement">Optional / not used</dd></div><div><dt>Documents</dt><dd id="recap-documents">None supplied</dd></div>
         </dl>
       </aside>
     </section>
@@ -50,6 +50,7 @@ import SiteFooter from '../components/SiteFooter.astro';
       const home = read('bauhuProjectHome');
       const params = new URLSearchParams(location.search);
       const attribution = read('bauhuAttribution');
+      const documents = (() => { try { return JSON.parse(localStorage.getItem('bauhuProjectDocuments') || '[]'); } catch { return []; } })();
       const placement = params.get('placement') === 'confirmed' ? {
         confirmed: true,
         lat: params.get('lat') || '',
@@ -67,8 +68,9 @@ import SiteFooter from '../components/SiteFooter.astro';
       document.getElementById('recap-budget').textContent = details.budget || '—';
       document.getElementById('recap-timing').textContent = details.targetStart || '—';
       document.getElementById('recap-placement').textContent = placement.confirmed ? `Confirmed · ${placement.rotation}°` : 'Optional / not used';
+      document.getElementById('recap-documents').textContent = documents.length ? `${documents.length} file${documents.length === 1 ? '' : 's'} selected` : 'None supplied';
 
-      const payload = { site, project: details, home, placement, attribution, sourceUrl: location.href };
+      const payload = { site, project: details, home, placement, documents, attribution, sourceUrl: location.href };
       document.getElementById('project-payload').value = JSON.stringify(payload);
 
       document.getElementById('contact-form').addEventListener('submit', (event) => {
