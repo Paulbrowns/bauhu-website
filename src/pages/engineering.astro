@@ -39,6 +39,34 @@ import SiteFooter from '../components/SiteFooter.astro';
       </div>
     </section>
 
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="eyebrow text-clay">Hurricane-exposed environments</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Resilience is an engineering problem, not a marketing label.</h2>
+        </div>
+        <div class="space-y-6 text-lg leading-8 text-ink/70">
+          <p>Bauhu projects in high-wind regions are engineered around the actual site, applicable code, exposure and final building geometry. Wind loads, uplift, load paths, connections, openings and envelope strategy have to work together.</p>
+          <p>We avoid treating “hurricane proof” as an absolute promise. The correct engineering response is project-specific, documented and coordinated with the rest of the building system.</p>
+        </div>
+      </div>
+      <div class="mx-auto mt-12 grid max-w-site gap-5 md:grid-cols-3">
+        {['Structural frame / connection detail','Roof, uplift and load-path detail','Completed home in hurricane-exposed location'].map((label) => (
+          <div class="flex min-h-64 items-center justify-center border border-ink/15 bg-mist p-6 text-center">
+            <div><p class="eyebrow text-clay">IMAGE PLACEHOLDER</p><p class="mt-4 text-sm leading-6 text-ink/55">{label}</p></div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-pad bg-mist">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">From engineering to manufacture</p>
+        <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">The detail only matters if it reaches the thing that gets built.</h2>
+        <p class="mt-8 max-w-3xl text-lg leading-8 text-ink/70">Bauhu coordinates approved design information with the bill of materials, procurement and fabrication information. The purpose is straightforward: reduce the chance that the drawing, the order and the manufactured component become three different versions of the project.</p>
+      </div>
+    </section>
+
     <section class="section-pad bg-ink text-paper">
       <div class="mx-auto max-w-site">
         <p class="eyebrow text-stone">Why it matters</p>
