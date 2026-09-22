@@ -7,8 +7,8 @@ import SiteFooter from '../components/SiteFooter.astro';
   <SiteHeader />
   <main class="journey-page">
     <header class="journey-header">
-      <div><p class="kicker">START YOUR PROJECT</p><h1>Tell us how to contact you.</h1><p>Your site, project and home choices are attached automatically. Add your contact details and any final note.</p></div>
-      <aside><span>PROJECT JOURNEY</span><strong>4 of 4 · Contact</strong><small>Final review before sending to Bauhu.</small></aside>
+      <div><p class="kicker">START YOUR PROJECT</p><h1>Tell us how to contact you.</h1><p>Your site and project choices are attached automatically. Add your contact details and any final note.</p></div>
+      <aside><span>PROJECT JOURNEY</span><strong>3 of 3 · Contact</strong><small>Final review before sending to Bauhu.</small></aside>
     </header>
 
     <section class="contact-shell">
@@ -22,7 +22,7 @@ import SiteFooter from '../components/SiteFooter.astro';
         <label><span>Final note <em>Optional</em></span><textarea name="message" rows="5" placeholder="Anything else you want us to know?"></textarea></label>
         <label class="consent"><input name="consent" type="checkbox" required /><span>I agree that Bauhu may contact me about this project.</span></label>
         <input id="project-payload" type="hidden" name="projectPayload" />
-        <div class="form-actions"><a href="/project-home">← Back to home choice</a><button type="submit">Send enquiry</button></div>
+        <div class="form-actions"><a href="/project-details">← Back to project details</a><button type="submit">Send enquiry</button></div>
         <p id="submission-note" class="submission-note">Your project details and any supporting documents will be sent securely to Bauhu.</p>
       </form>
 
@@ -47,12 +47,11 @@ import SiteFooter from '../components/SiteFooter.astro';
       const read = (key) => { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; } };
       const site = read('bauhuProjectSite');
       const details = read('bauhuProjectDetails');
-      const home = read('bauhuProjectHome');
       const attribution = read('bauhuAttribution');
       const documents = (() => { try { return JSON.parse(localStorage.getItem('bauhuProjectDocuments') || '[]'); } catch { return []; } })();
       const routeLabels = { private:'Custom design', custom:'Custom design', development:'Development / multiple buildings', unsure:'Not sure yet', model:'Predesigned model' };
-      const effectiveRoute = details.route === 'private' ? 'custom' : (details.route || home.homeChoice);
-      document.getElementById('recap-home').textContent = effectiveRoute === 'model' ? (home.modelName || 'Predesigned model') : (routeLabels[effectiveRoute] || 'Route not selected');
+      const effectiveRoute = details.route === 'private' ? 'custom' : details.route;
+      document.getElementById('recap-home').textContent = effectiveRoute === 'model' ? (details.modelName || 'Predesigned model') : (routeLabels[effectiveRoute] || 'Route not selected');
       document.getElementById('recap-location').textContent = site.place || details.buildLocation || 'Not supplied';
       document.getElementById('recap-land').textContent = details.landStatus || '—';
       document.getElementById('recap-planning').textContent = details.planningStatus || '—';
@@ -61,12 +60,11 @@ import SiteFooter from '../components/SiteFooter.astro';
       document.getElementById('recap-documents').textContent = documents.length ? `${documents.length} file${documents.length === 1 ? '' : 's'} selected` : 'None supplied';
 
       if (details.route === 'private') details.route = 'custom';
-      if (home.homeChoice === 'private') home.homeChoice = 'custom';
-      if (details.route && details.route !== 'model') {
-        home.homeChoice = details.route;
-        home.modelSlug = '';
-        home.modelName = '';
-      }
+      const home = {
+        homeChoice: details.route || 'unsure',
+        modelSlug: details.route === 'model' ? (details.modelSlug || '') : '',
+        modelName: details.route === 'model' ? (details.modelName || '') : ''
+      };
       const payload = { site, project: details, home, documents, attribution, sourceUrl: location.href };
       document.getElementById('project-payload').value = JSON.stringify(payload);
 
