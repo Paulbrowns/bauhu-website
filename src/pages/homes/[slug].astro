@@ -25,7 +25,7 @@ const slug = model.slug;
 const modelPublicSlug = slug.replace(/^bauhu-/, '');
 const modelImageBase = `/images/models/${slug}`;
 const heroImage = `${modelImageBase}/${slug}.webp`;
-const enquiryHref = `/start-your-project?model=${encodeURIComponent(model.name)}`;
+const enquiryHref = `/site-fit?model=${encodeURIComponent(modelPublicSlug)}`;
 const galleryImages = [
   heroImage,
   ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`),
@@ -42,7 +42,7 @@ const floorPlanImage = `${modelImageBase}/floorplan.webp`;
         <p>{model.shortDescription}</p>
         <div class="home-actions">
           <button class="home-button" type="button" id="add-favourite">Add to favourites</button>
-          <a class="home-button home-button-secondary" href={enquiryHref}>Discuss this model</a>
+          <a class="home-button home-button-secondary" href={enquiryHref}>Start with this model</a>
         </div>
       </div>
       <div class="home-hero-image">
@@ -90,11 +90,11 @@ const floorPlanImage = `${modelImageBase}/floorplan.webp`;
     <section class="home-enquiry-block">
       <div>
         <p class="home-kicker">Next Step</p>
-        <h2>Discuss this model with Bauhu.</h2>
-        <p>Save the model to your favourites or send Bauhu your project details for a more informed review.</p>
+        <h2>Start your project with this model.</h2>
+        <p>Use this model as your starting point and continue into the Bauhu project journey.</p>
         <div class="home-actions">
           <button class="home-button" type="button" id="add-favourite-bottom">Add to favourites</button>
-          <a class="home-button home-button-secondary" href={enquiryHref}>Start an enquiry</a>
+          <a class="home-button home-button-secondary" href={enquiryHref}>Start with this model</a>
         </div>
       </div>
     </section>
