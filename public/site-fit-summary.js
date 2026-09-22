@@ -39,8 +39,8 @@
         </dl>
         <div class="site-summary-section"><strong>Available site information</strong><div id="summary-flags" class="summary-flags"><span class="summary-empty">No document information selected.</span></div></div>
         <div class="site-summary-section"><strong>Site intelligence</strong><div class="summary-intel"><div><span>Sun study</span><strong id="summary-sun">Pending location</strong></div><div><span>Climate</span><strong id="summary-climate">Pending location</strong></div><div><span>Hazards</span><strong id="summary-hazards">Pending location</strong></div></div></div>
-        <button id="continue-placement" class="site-summary-action" type="button" disabled>Continue to house placement</button>
-        <p id="summary-help" class="site-summary-help">Confirm the parcel to continue.</p>
+        <button id="continue-placement" class="site-summary-action" type="button" disabled>Continue to project details</button>
+        <p id="summary-help" class="site-summary-help">Confirm the site information to continue.</p>
       </section>
     `;
 
@@ -80,7 +80,7 @@
       }
       const button = document.getElementById('continue-placement');
       if (button) button.disabled = !parcelConfirmed;
-      set('summary-help', parcelConfirmed ? 'Continue to the separate house-placement stage.' : 'Confirm the parcel to continue.');
+      set('summary-help', parcelConfirmed ? 'Continue to your project details.' : 'Confirm the site information to continue.');
     }
 
     document.addEventListener('click', (event) => {
@@ -96,9 +96,7 @@
 
     document.getElementById('continue-placement')?.addEventListener('click', () => {
       if (!/confirmed/i.test(text('parcel-status'))) return;
-      const slug = location.pathname.split('/').filter(Boolean).pop();
-      const params = new URLSearchParams({ lat: text('map-latitude'), lng: text('map-longitude'), parcel: text('parcel-reference'), area: text('parcel-area') });
-      location.href = `/site-placement/${slug}?${params.toString()}`;
+      location.href = '/project-details';
     });
 
     refresh();
