@@ -50,8 +50,9 @@ import SiteFooter from '../components/SiteFooter.astro';
       const home = read('bauhuProjectHome');
       const attribution = read('bauhuAttribution');
       const documents = (() => { try { return JSON.parse(localStorage.getItem('bauhuProjectDocuments') || '[]'); } catch { return []; } })();
-      const routeLabels = { private:'Private residence', development:'Development / multiple buildings', unsure:'Not sure yet', model:'Model residence' };
-      document.getElementById('recap-home').textContent = home.homeChoice === 'model' ? (home.modelName || 'Model residence') : (routeLabels[home.homeChoice] || routeLabels[details.route] || 'Route not selected');
+      const routeLabels = { private:'Custom design', custom:'Custom design', development:'Development / multiple buildings', unsure:'Not sure yet', model:'Predesigned model' };
+      const effectiveRoute = details.route === 'private' ? 'custom' : (details.route || home.homeChoice);
+      document.getElementById('recap-home').textContent = effectiveRoute === 'model' ? (home.modelName || 'Predesigned model') : (routeLabels[effectiveRoute] || 'Route not selected');
       document.getElementById('recap-location').textContent = site.place || details.buildLocation || 'Not supplied';
       document.getElementById('recap-land').textContent = details.landStatus || '—';
       document.getElementById('recap-planning').textContent = details.planningStatus || '—';
@@ -59,6 +60,13 @@ import SiteFooter from '../components/SiteFooter.astro';
       document.getElementById('recap-timing').textContent = details.targetStart || '—';
       document.getElementById('recap-documents').textContent = documents.length ? `${documents.length} file${documents.length === 1 ? '' : 's'} selected` : 'None supplied';
 
+      if (details.route === 'private') details.route = 'custom';
+      if (home.homeChoice === 'private') home.homeChoice = 'custom';
+      if (details.route && details.route !== 'model') {
+        home.homeChoice = details.route;
+        home.modelSlug = '';
+        home.modelName = '';
+      }
       const payload = { site, project: details, home, documents, attribution, sourceUrl: location.href };
       document.getElementById('project-payload').value = JSON.stringify(payload);
 
