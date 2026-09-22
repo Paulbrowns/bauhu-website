@@ -22,8 +22,8 @@ import SiteFooter from '../components/SiteFooter.astro';
         <label><span>Final note <em>Optional</em></span><textarea name="message" rows="5" placeholder="Anything else you want us to know?"></textarea></label>
         <label class="consent"><input name="consent" type="checkbox" required /><span>I agree that Bauhu may contact me about this project.</span></label>
         <input id="project-payload" type="hidden" name="projectPayload" />
-        <div class="form-actions"><a href="/project-home">← Back to home choice</a><button type="submit">Prepare enquiry</button></div>
-        <p id="submission-note" class="submission-note">The journey is complete. The final server-side delivery connection will be added before launch so this button sends the enquiry directly to Bauhu.</p>
+        <div class="form-actions"><a href="/project-home">← Back to home choice</a><button type="submit">Send enquiry</button></div>
+        <p id="submission-note" class="submission-note">Your project details and any supporting documents will be sent securely to Bauhu.</p>
       </form>
 
       <aside class="recap">
@@ -73,17 +73,46 @@ import SiteFooter from '../components/SiteFooter.astro';
       const payload = { site, project: details, home, placement, documents, attribution, sourceUrl: location.href };
       document.getElementById('project-payload').value = JSON.stringify(payload);
 
-      document.getElementById('contact-form').addEventListener('submit', (event) => {
+      document.getElementById('contact-form').addEventListener('submit', async (event) => {
         event.preventDefault();
         const form = event.currentTarget;
         if (!form.reportValidity()) return;
-        const contact = Object.fromEntries(new FormData(form).entries());
-        const complete = { ...payload, contact, preparedAt: new Date().toISOString() };
-        try { sessionStorage.setItem('bauhuProjectEnquiryDraft', JSON.stringify(complete)); } catch {}
+
+        const button = form.querySelector('button[type="submit"]');
         const note = document.getElementById('submission-note');
-        note.textContent = 'Enquiry prepared successfully. Server-side delivery is the remaining launch connection; no information has been sent yet.';
-        note.classList.add('ready');
-        form.querySelector('button[type="submit"]').textContent = 'Enquiry prepared';
+        button.disabled = true;
+        button.textContent = 'Sending…';
+        note.textContent = 'Sending your project information securely to Bauhu.';
+        note.classList.remove('ready');
+
+        const contact = Object.fromEntries(new FormData(form).entries());
+        const complete = { ...payload, contact, submittedAt: new Date().toISOString() };
+        const body = new FormData();
+        body.append('payload', JSON.stringify(complete));
+
+        try {
+          if (window.BauhuEnquiryFiles) {
+            const files = await window.BauhuEnquiryFiles.list();
+            files.forEach((record) => {
+              if (record.blob) body.append('files', record.blob, record.name || 'document');
+            });
+          }
+
+          const response = await fetch('/api/enquiries', { method: 'POST', body });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(result.error || 'The enquiry could not be sent.');
+
+          try {
+            ['bauhuProjectSite','bauhuProjectDetails','bauhuProjectHome','bauhuProjectDocuments'].forEach((key) => localStorage.removeItem(key));
+            if (window.BauhuEnquiryFiles) await window.BauhuEnquiryFiles.clear();
+          } catch {}
+
+          location.assign(`/project-sent?ref=${encodeURIComponent(result.reference || '')}`);
+        } catch (error) {
+          note.textContent = error?.message || 'The enquiry could not be sent. Please try again.';
+          button.disabled = false;
+          button.textContent = 'Send enquiry';
+        }
       });
     })();
   </script>
