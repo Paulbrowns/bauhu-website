@@ -4,22 +4,22 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { bauhuModels } from '../data/models';
 ---
-<BaseLayout title="Choose Your Bauhu Route | Bauhu" description="Choose a Bauhu model, a private residence route or continue without deciding yet.">
+<BaseLayout title="Choose Your Bauhu Route | Bauhu" description="Choose a predesigned Bauhu model, a custom design or continue without deciding yet.">
   <SiteHeader />
   <main class="journey-page">
     <header class="journey-header">
-      <div><p class="kicker">START YOUR PROJECT</p><h1>Choose or confirm the home.</h1><p>You do not need to make a final design decision now. Choose a model if you have one in mind, select a bespoke route, or continue undecided.</p></div>
+      <div><p class="kicker">START YOUR PROJECT</p><h1>Choose or confirm the home.</h1><p>You do not need to make a final design decision now. Choose a predesigned model as your starting point, select a custom design, or continue undecided.</p></div>
       <aside><span>PROJECT JOURNEY</span><strong>3 of 4 · Home</strong><small>Next: your contact details.</small></aside>
     </header>
 
     <section class="home-shell">
       <form id="home-form" class="home-card">
-        <label class="choice"><input type="radio" name="homeChoice" value="model" /><span><strong>Model residence</strong><small>Choose an existing Bauhu design as the starting point.</small></span></label>
+        <label class="choice"><input type="radio" name="homeChoice" value="model" /><span><strong>Predesigned model</strong><small>Choose an existing Bauhu design as the starting point.</small></span></label>
         <div id="model-picker" class="model-picker" hidden>
           <label><span>Choose a model</span><select name="modelSlug"><option value="">Select a model</option>{bauhuModels.map((model) => <option value={model.slug.replace(/^bauhu-/, '')}>{model.name} · {model.bedroomsLabel} bed · {model.guidePriceLabel}</option>)}</select></label>
           <p id="model-help">You can review and change the model later.</p>
         </div>
-        <label class="choice"><input type="radio" name="homeChoice" value="private" /><span><strong>Private residence</strong><small>A fully bespoke architectural commission.</small></span></label>
+        <label class="choice"><input type="radio" name="homeChoice" value="custom" /><span><strong>Custom design</strong><small>A residence designed specifically around your brief and site.</small></span></label>
         <label class="choice"><input type="radio" name="homeChoice" value="development" /><span><strong>Development / multiple buildings</strong><small>Hospitality, residential clusters or larger projects.</small></span></label>
         <label class="choice"><input type="radio" name="homeChoice" value="unsure" /><span><strong>Not sure yet</strong><small>Let Bauhu recommend the right route from your brief.</small></span></label>
 
@@ -39,10 +39,13 @@ import { bauhuModels } from '../data/models';
       try { details = JSON.parse(localStorage.getItem('bauhuProjectDetails') || '{}'); } catch {}
       try { previous = JSON.parse(localStorage.getItem('bauhuProjectHome') || '{}'); } catch {}
 
-      const initialChoice = previous.homeChoice || (details.route === 'model' ? 'model' : details.route === 'private' ? 'private' : details.route === 'development' ? 'development' : 'unsure');
+      const normaliseRoute = (value) => value === 'private' ? 'custom' : value;
+      details.route = normaliseRoute(details.route);
+      previous.homeChoice = normaliseRoute(previous.homeChoice);
+      const initialChoice = details.route || previous.homeChoice || 'unsure';
       const radio = form.querySelector(`input[name="homeChoice"][value="${initialChoice}"]`);
       if (radio) radio.checked = true;
-      if (previous.modelSlug) select.value = previous.modelSlug;
+      if (initialChoice === 'model') select.value = details.modelSlug || previous.modelSlug || '';
 
       const refresh = () => {
         const choice = form.querySelector('input[name="homeChoice"]:checked')?.value || '';
