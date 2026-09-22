@@ -135,7 +135,8 @@ import SiteFooter from '../components/SiteFooter.astro';
         renderDocuments();
       });
 
-      loadStoredFiles();
+      if (window.BauhuEnquiryFiles) loadStoredFiles();
+      else window.addEventListener('DOMContentLoaded', loadStoredFiles, { once: true });
 
       Object.entries(previous || {}).forEach(([key, value]) => {
         if (form.elements[key] && value) form.elements[key].value = value;
