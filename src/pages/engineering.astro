@@ -62,10 +62,17 @@ import SiteFooter from '../components/SiteFooter.astro';
     </section>
 
     <section class="section-pad bg-mist">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">From engineering to manufacture</p>
-        <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">The detail only matters if it reaches the thing that gets built.</h2>
-        <p class="mt-8 max-w-3xl text-lg leading-8 text-ink/70">Bauhu coordinates approved design information with the bill of materials, procurement and fabrication information. The purpose is straightforward: reduce the chance that the drawing, the order and the manufactured component become three different versions of the project.</p>
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div>
+          <p class="eyebrow text-clay">From engineering to manufacture</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">The detail only matters if it reaches the thing that gets built.</h2>
+          <p class="mt-8 text-lg leading-8 text-ink/70">Bauhu coordinates approved design information with the bill of materials, procurement and fabrication information. The purpose is straightforward: reduce the chance that the drawing, the order and the manufactured component become three different versions of the project.</p>
+        </div>
+        <div class="overflow-hidden border border-ink/15 bg-ink">
+          <video class="h-full min-h-[30rem] w-full object-cover" autoplay muted loop playsinline preload="metadata" aria-label="Bauhu engineering and manufacture">
+            <source src="/videos/bauhu-engineering-manufacture-web.mp4" type="video/mp4" />
+          </video>
+        </div>
       </div>
     </section>
 
