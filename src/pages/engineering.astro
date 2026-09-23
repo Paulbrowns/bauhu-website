@@ -5,14 +5,16 @@ import SiteFooter from '../components/SiteFooter.astro';
 ---
 <BaseLayout title="Engineering | Bauhu" description="Engineering and resilience information for Bauhu building systems.">
   <SiteHeader />
-  <main class="bg-paper pt-32">
-    <section class="section-pad">
-      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+  <main class="bg-paper">
+    <section class="relative flex min-h-[82vh] items-end overflow-hidden bg-ink text-paper">
+      <img src="/images/developments/bauhu-engineering-hero.webp" alt="Bauhu engineering and construction system" class="absolute inset-0 h-full w-full object-cover" loading="eager" fetchpriority="high" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/45 to-ink/20"></div>
+      <div class="relative z-10 mx-auto grid w-full max-w-site gap-12 px-5 pb-16 pt-36 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:pb-20">
         <div>
-          <p class="eyebrow text-clay">Engineering</p>
+          <p class="eyebrow text-stone">Engineering</p>
           <h1 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-7xl">Designed for demanding coastal sites.</h1>
         </div>
-        <div class="space-y-7 text-lg leading-8 text-ink/70">
+        <div class="self-end space-y-7 text-lg leading-8 text-paper/75">
           <p>Bauhu homes are designed around more than appearance. The building system, structure, shipping method, site handling and local completion route all need to work together.</p>
           <p>This matters most in remote, coastal and hurricane exposed locations, where conventional construction can become slow, uncertain and difficult to control.</p>
         </div>
