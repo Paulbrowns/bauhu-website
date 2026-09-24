@@ -30,13 +30,16 @@ const isSunsetCove = modelPublicSlug === 'sunset-cove';
 const isAngel = modelPublicSlug === 'angel';
 const isBahamaBeach = modelPublicSlug === 'bahama-beach';
 const isAbaco = modelPublicSlug === 'abaco';
+const isCaribbeanCottage = modelPublicSlug === 'caribbean-cottage';
 const galleryImages = isSunsetCove
   ? Array.from({ length: 10 }, (_, index) => `${modelImageBase}/sunset-cove-${index + 1}.webp`)
   : (isAngel || isBahamaBeach)
     ? [heroImage, ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
     : isAbaco
       ? [heroImage, ...Array.from({ length: 3 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
-      : [
+      : isCaribbeanCottage
+        ? [heroImage, ...Array.from({ length: 6 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
+        : [
         heroImage,
         ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`),
       ];
@@ -45,6 +48,7 @@ const sunsetCoveVideo = '/videos/sunset-cove.mp4';
 const sunsetCovePlans = '/downloads/models/sunset-cove-plans.pdf';
 const angelPlans = '/downloads/models/angel-plans.pdf';
 const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
+const caribbeanCottagePlans = '/downloads/models/caribbean-cottage-plans.pdf';
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <SiteHeader />
@@ -75,7 +79,7 @@ const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
     <section class="home-overview">
       <div>
         <p class="home-kicker">Model Overview</p>
-        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
+        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
       </div>
       <div class="home-copy">
         {isSunsetCove ? (
@@ -100,6 +104,12 @@ const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
           <>
             <p>Abaco is a four-bedroom, two-storey residence with a classic Caribbean character, broad shaded verandas and a larger footprint suited to substantial family or hospitality use.</p>
             <p>The current model data records approximately 3,700 ft² of built area, with four bedrooms and four-and-a-half bathrooms.</p>
+            <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
+          </>
+        ) : isCaribbeanCottage ? (
+          <>
+            <p>Caribbean Cottage is a compact one-bedroom, one-bathroom residence designed around a 22 m² open-plan living and kitchen space, with an 8 m² office and a 17 m² covered deck.</p>
+            <p>The current architectural set records approximately 60.3 m² / 649 ft² of enclosed building area, with a 14 m² bedroom and a 6 m² bathroom. Including the deck, the room schedule totals approximately 67 m² / 717 ft².</p>
             <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
           </>
         ) : (
@@ -141,16 +151,18 @@ const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
           {isSunsetCove && <h2>Two bedrooms. Two bathrooms. Designed around the deck.</h2>}
           {isAngel && <h2>Three bedrooms, flexible work space and a covered terrace.</h2>}
           {isBahamaBeach && <h2>Three bedrooms, two bathrooms and a generous covered terrace.</h2>}
+          {isCaribbeanCottage && <h2>One bedroom, flexible office space and a covered deck.</h2>}
         </div>
         {isSunsetCove && <a class="home-text-link" href={sunsetCovePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isAngel && <a class="home-text-link" href={angelPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isBahamaBeach && <a class="home-text-link" href={bahamaBeachPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
+        {isCaribbeanCottage && <a class="home-text-link" href={caribbeanCottagePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
       </div>
       <figure>
         <img src={floorPlanImage} alt={`${cleanName} floor plan`} loading="lazy" onerror="this.closest('figure').classList.add('is-missing')" />
         <figcaption>Floor plan image to be added.</figcaption>
       </figure>
-      {(isSunsetCove || isAngel || isBahamaBeach) && (
+      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage) && (
         <p class="home-plan-note">Plans shown are the current reference design and are provided for model evaluation. Final project information is developed and coordinated for the specific site and approved project scope.</p>
       )}
     </section>
