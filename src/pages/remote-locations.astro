@@ -20,7 +20,7 @@ const pathways = [
 
 const challenges = [
   ['01', 'Limited local labour', 'Bauhu reduces reliance on scarce specialist trades through rationalised components, repeatable connections and clearly defined assembly sequences.'],
-  ['02', 'Difficult logistics', 'Buildings are designed around containerisation, shipping, handling and remote-site delivery from the beginning rather than treating logistics as an afterthought.'],
+  ['02', 'Difficult logistics', 'Procurement, consolidation, containerisation, shipping and handling are coordinated as part of the building delivery strategy rather than left as disconnected site problems.'],
   ['03', 'Extreme climate', 'Structure, roof systems, openings and envelope can be engineered together for hurricane exposure, uplift, salt, humidity and long-term marine durability.'],
   ['04', 'Sensitive sites', 'Factory manufacture reduces waste, repeated deliveries, construction traffic and prolonged site activity in environmentally sensitive locations.'],
 ];
@@ -29,9 +29,10 @@ const process = [
   ['Design', 'Architecture developed specifically around the site, climate, views, brief and required level of customisation.'],
   ['Engineer', 'Structure, connections and building envelope coordinated as one resilient system.'],
   ['Manufacture', 'Precision components produced in a controlled environment with repeatable quality and tolerances.'],
-  ['Consolidate', 'Building components organised into planned shipping packages for efficient transport and handling.'],
-  ['Deliver', 'Containerised logistics planned around the realities of sea freight and difficult-access locations.'],
-  ['Assemble', 'A rationalised kit-of-parts designed to reduce dependence on specialist local trades under appropriate supervision.'],
+  ['Consolidate', 'Procured and manufactured components are brought together against the approved project information before dispatch.'],
+  ['Ship', 'Containerisation, handling and sea freight are coordinated around the realities of the destination and access route.'],
+  ['Assemble', 'The local team works from coordinated project information and detailed assembly guidance for sequencing, connections and key construction stages.'],
+  ['Support', 'Bauhu remains available during assembly to assist with technical questions and interpretation of the project documentation.'],
 ];
 ---
 <BaseLayout title="Remote Locations | Bauhu" description="Architect-designed Bauhu residences for private islands, remote coastal sites, boutique resorts and difficult-access developments where conventional construction is difficult.">
@@ -72,7 +73,7 @@ const process = [
     <section class="remote-process-section">
       <div class="remote-process-inner">
         <p class="remote-kicker">The Bauhu Route</p>
-        <h2>Designed → engineered → manufactured → shipped → assembled.</h2>
+        <h2>Designed → engineered → manufactured → consolidated → shipped → assembled → supported.</h2>
         <div class="remote-process-grid">
           {process.map(([title, text], index) => (
             <article>
@@ -122,13 +123,26 @@ const process = [
         <div class="remote-control-grid">
           <article><h3>Fewer emergency shipments</h3><p>More of the component, procurement and packing decisions are resolved before dispatch, reducing avoidable repeat freight.</p></article>
           <article><h3>Less specialist labour dependency</h3><p>Rationalised components and planned assembly reduce reliance on finding every specialist trade locally at the exact moment it is needed.</p></article>
-          <article><h3>Better sequencing</h3><p>Manufacture, consolidation, shipping and site assembly are planned as connected stages rather than independent activities.</p></article>
+          <article><h3>Better sequencing</h3><p>Manufacture, consolidation, shipping and site assembly are planned as connected stages, with project-specific assembly information supporting the local team once the package arrives.</p></article>
           <article><h3>Fewer mismatches</h3><p>Approved project information is carried through engineering, procurement and manufacture so discrepancies can be found before they become site problems.</p></article>
         </div>
         <div class="remote-placeholder-grid">
           <div><span>IMAGE PLACEHOLDER</span><p>Factory manufacture / component quality</p></div>
           <div><span>IMAGE PLACEHOLDER</span><p>Container loading / consolidated shipment</p></div>
           <div><span>IMAGE PLACEHOLDER</span><p>Site assembly / local team</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="remote-support-section">
+      <div class="remote-two-col">
+        <div>
+          <p class="remote-kicker">After Delivery</p>
+          <h2>The building package arrives. Bauhu does not disappear.</h2>
+        </div>
+        <div class="remote-copy">
+          <p>Each project is supported by coordinated assembly information developed around the building itself, including structural sequencing, connections, envelope installation, material requirements and key construction stages.</p>
+          <p>During assembly, Bauhu remains available to assist with technical questions and interpretation of the project documentation. The local contractor and appointed professionals retain responsibility for site execution, supervision and professional judgement.</p>
         </div>
       </div>
     </section>
@@ -167,15 +181,15 @@ const process = [
   .remote-hero-inner, .remote-two-col, .remote-statement-inner, .remote-process-inner, .remote-pathways-inner, .remote-challenges-inner { max-width:1500px; margin:0 auto; width:100%; }
   .remote-hero-inner { position:relative; z-index:2; }
   .remote-kicker { color:#c8a96a; text-transform:uppercase; letter-spacing:.22em; font-size:12px; margin:0 0 22px; font-weight:500; }
-  .remote-hero h1, .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-statement p, .remote-parallel-section h2, .remote-cta-section h2 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; color:#f8f6f0; letter-spacing:-.055em; }
+  .remote-hero h1, .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-statement p, .remote-parallel-section h2, .remote-support-section h2, .remote-cta-section h2 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; color:#f8f6f0; letter-spacing:-.055em; }
   .remote-hero h1 { max-width:1180px; font-size:clamp(52px,8vw,122px); line-height:.88; margin:0 0 28px; }
   .remote-hero > .remote-hero-inner > p:not(.remote-kicker) { max-width:860px; font-size:clamp(19px,2vw,28px); line-height:1.35; color:rgba(248,246,240,.76); margin:0; }
   .remote-button { display:inline-block; margin-top:34px; padding:15px 24px; border:1px solid #c8a96a; color:#f8f6f0; text-decoration:none; text-transform:uppercase; letter-spacing:.16em; font-size:12px; transition:all .3s ease; }
   .remote-button:hover { background:#c8a96a; color:#050505; }
   .remote-button-secondary { border-color:rgba(255,255,255,.35); }
-  .remote-intro, .remote-parallel-section { padding:110px 7vw; background:#050505; }
+  .remote-intro, .remote-parallel-section, .remote-support-section { padding:110px 7vw; background:#050505; }
   .remote-two-col { display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
-  .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-parallel-section h2, .remote-cta-section h2 { font-size:clamp(44px,7vw,104px); line-height:.92; margin:0; }
+  .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-parallel-section h2, .remote-support-section h2, .remote-cta-section h2 { font-size:clamp(44px,7vw,104px); line-height:.92; margin:0; }
   .remote-copy p { font-size:17px; line-height:1.75; color:rgba(248,246,240,.66); margin:0 0 22px; }
   .remote-text-link { color:#c8a96a; text-decoration:none; font-size:13px; text-transform:uppercase; letter-spacing:.12em; }
   .remote-image-band{display:grid;grid-template-columns:1.15fr .85fr;gap:2px;background:#0a0a0a}
@@ -211,15 +225,16 @@ const process = [
   .remote-placeholder-grid div{display:flex;min-height:300px;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.14);background:#0a0a0a;padding:28px;text-align:center}
   .remote-placeholder-grid span{font-size:11px;letter-spacing:.18em;color:#c8a96a}
   .remote-placeholder-grid p{margin:14px 0 0;color:rgba(248,246,240,.55)}
-  .remote-parallel-section { background:#0a0a0a; }
+  .remote-support-section { background:#0a0a0a; }
+  .remote-parallel-section { background:#050505; }
   .remote-cta-section { padding:135px 7vw; text-align:center; background:radial-gradient(circle at 70% 30%, rgba(200,169,106,.20), transparent 36%), linear-gradient(135deg,#050505,#15120e); }
   .remote-cta-section h2 { max-width:1000px; margin:0 auto 26px; }
   .remote-cta-section > p:not(.remote-kicker) { max-width:780px; margin:0 auto; color:rgba(248,246,240,.66); font-size:18px; line-height:1.65; }
   .remote-cta-actions { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
   @media screen and (max-width:900px) {
     .remote-hero { min-height:84vh; padding:96px 22px 74px; }
-    .remote-hero h1, .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-parallel-section h2, .remote-cta-section h2 { font-size:clamp(36px,10.5vw,62px); line-height:.96; letter-spacing:-.045em; }
-    .remote-intro, .remote-statement, .remote-process-section, .remote-pathways-section, .remote-challenges-section, .remote-control-section, .remote-parallel-section, .remote-cta-section { padding-left:22px; padding-right:22px; }
+    .remote-hero h1, .remote-intro h2, .remote-process-section h2, .remote-pathways-section h2, .remote-parallel-section h2, .remote-support-section h2, .remote-cta-section h2 { font-size:clamp(36px,10.5vw,62px); line-height:.96; letter-spacing:-.045em; }
+    .remote-intro, .remote-statement, .remote-process-section, .remote-pathways-section, .remote-challenges-section, .remote-control-section, .remote-parallel-section, .remote-support-section, .remote-cta-section { padding-left:22px; padding-right:22px; }
     .remote-two-col { grid-template-columns:1fr; gap:34px; }
     .remote-process-grid, .remote-pathways-grid, .remote-challenges-grid, .remote-image-band, .remote-control-grid, .remote-placeholder-grid { grid-template-columns:1fr; }
     .remote-process-grid { border-left:0; }
