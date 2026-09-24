@@ -33,6 +33,7 @@ const isAbaco = modelPublicSlug === 'abaco';
 const isCaribbeanCottage = modelPublicSlug === 'caribbean-cottage';
 const isCasaLavanda = modelPublicSlug === 'casa-lavanda';
 const isCasita = modelPublicSlug === 'casita';
+const isCharlston = modelPublicSlug === 'charlston';
 const galleryImages = isSunsetCove
   ? Array.from({ length: 10 }, (_, index) => `${modelImageBase}/sunset-cove-${index + 1}.webp`)
   : (isAngel || isBahamaBeach)
@@ -45,7 +46,9 @@ const galleryImages = isSunsetCove
           ? [heroImage, ...Array.from({ length: 10 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
           : isCasita
             ? [heroImage, ...Array.from({ length: 6 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
-            : [
+            : isCharlston
+              ? [heroImage, ...Array.from({ length: 2 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
+              : [
         heroImage,
         ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`),
       ];
@@ -57,6 +60,7 @@ const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
 const caribbeanCottagePlans = '/downloads/models/caribbean-cottage-plans.pdf';
 const casaLavandaPlans = '/downloads/models/casa-lavanda-plans.pdf';
 const casitaPlans = '/downloads/models/casita-plans.pdf';
+const charlstonPlans = '/downloads/models/charlston-plans.pdf';
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <SiteHeader />
@@ -87,7 +91,7 @@ const casitaPlans = '/downloads/models/casita-plans.pdf';
     <section class="home-overview">
       <div>
         <p class="home-kicker">Model Overview</p>
-        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : isCasaLavanda ? 'A large contemporary residence organised around water, landscape and expansive indoor-outdoor living.' : isCasita ? 'A compact two-bedroom residence centred on open-plan living and a covered pool terrace.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
+        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : isCasaLavanda ? 'A large contemporary residence organised around water, landscape and expansive indoor-outdoor living.' : isCasita ? 'A compact two-bedroom residence centred on open-plan living and a covered pool terrace.' : isCharlston ? 'An elevated two-bedroom Caribbean villa with generous indoor-outdoor living and a broad wrap-around terrace.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
       </div>
       <div class="home-copy">
         {isSunsetCove ? (
@@ -132,6 +136,12 @@ const casitaPlans = '/downloads/models/casita-plans.pdf';
             <p>The current architectural set records a building footprint of approximately 117 m² / 1,260 ft², plus a 26 m² covered terrace and a 48 m² pool area. The plan includes a 16 m² primary bedroom with an 11 m² en-suite, a 21 m² second bedroom and a 5 m² en-suite.</p>
             <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
           </>
+        ) : isCharlston ? (
+          <>
+            <p>The Charlston is a two-bedroom, two-bathroom elevated Caribbean residence organised around a 40 m² open-plan living area, with both bedroom suites positioned at either end of the plan.</p>
+            <p>The current architectural set records approximately 115 m² / 1,238 ft² of building area plus a 68 m² / 733 ft² exterior terrace. Each bedroom is approximately 18 m², with two 6 m² bathrooms, a powder room and a separate pantry.</p>
+            <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
+          </>
         ) : (
           <>
             <p>{cleanName} gives you a proven architectural starting point while leaving room for site-specific refinement. The residence can be adapted around orientation, views, terrace layout, foundation strategy, finish level and the practical demands of building in a remote Caribbean location.</p>
@@ -174,6 +184,7 @@ const casitaPlans = '/downloads/models/casita-plans.pdf';
           {isCaribbeanCottage && <h2>One bedroom, flexible office space and a covered deck.</h2>}
           {isCasaLavanda && <h2>Four bedrooms across two floors, with extensive terraces and pool-facing living spaces.</h2>}
           {isCasita && <h2>Two bedrooms, two bathrooms and a covered pool terrace.</h2>}
+          {isCharlston && <h2>Two bedroom suites, open-plan living and a 68 m² wrap-around terrace.</h2>}
         </div>
         {isSunsetCove && <a class="home-text-link" href={sunsetCovePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isAngel && <a class="home-text-link" href={angelPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
@@ -181,12 +192,13 @@ const casitaPlans = '/downloads/models/casita-plans.pdf';
         {isCaribbeanCottage && <a class="home-text-link" href={caribbeanCottagePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isCasaLavanda && <a class="home-text-link" href={casaLavandaPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isCasita && <a class="home-text-link" href={casitaPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
+        {isCharlston && <a class="home-text-link" href={charlstonPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
       </div>
       <figure>
         <img src={floorPlanImage} alt={`${cleanName} floor plan`} loading="lazy" onerror="this.closest('figure').classList.add('is-missing')" />
         <figcaption>Floor plan image to be added.</figcaption>
       </figure>
-      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage || isCasaLavanda || isCasita) && (
+      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage || isCasaLavanda || isCasita || isCharlston) && (
         <p class="home-plan-note">Plans shown are the current reference design and are provided for model evaluation. Final project information is developed and coordinated for the specific site and approved project scope.</p>
       )}
     </section>
