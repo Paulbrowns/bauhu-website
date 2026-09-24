@@ -10,7 +10,8 @@ const steps = [
   ['03', 'Define the right route', 'Some clients are best served by adapting a Bauhu model. Others require a custom residence shaped more closely around the land, outlook and brief.'],
   ['04', 'Design and engineering', 'Architecture, structure, openings, envelope, foundations strategy, specification and logistics are coordinated against the approved project information.'],
   ['05', 'Controlled procurement and manufacture', 'Approved project information drives the component and procurement package so supplier orders, manufactured elements and project requirements stay aligned before shipment.'],
-  ['06', 'Pack, deliver and assemble', 'Components are consolidated for transport and the assembly sequence is planned around the realities of the site. Local foundations, services, approvals and finishing works are defined clearly for the project.'],
+  ['06', 'Consolidate and ship', 'Bauhu coordinates consolidation and shipping so the building package is organised against the approved project information before dispatch. Containerisation, handling and the realities of the destination are considered as part of delivery.'],
+  ['07', 'Assembly guidance and support', 'The local team receives project-specific assembly information covering sequencing, connections and key construction stages. Bauhu remains available during assembly to assist with technical questions and interpretation of the project information.'],
 ];
 ---
 <BaseLayout title="How It Works | Bauhu" description="The guided Bauhu buyer journey from site review to design, manufacture and delivery.">
@@ -51,15 +52,30 @@ const steps = [
         </div>
         <div class="space-y-6 text-lg leading-8 text-paper/70">
           <p>Remote construction becomes expensive when design changes, procurement mistakes, labour shortages and repeat shipments are discovered on site. Bauhu moves more decisions upstream, where they can be coordinated before the building reaches the site.</p>
-          <p>That means one controlled flow of approved design information into engineering, procurement, manufacture, packing and delivery — with a clear record of what belongs in the Bauhu package and what remains a local responsibility.</p>
+          <p>That means one controlled flow of approved design information into engineering, procurement, manufacture, consolidation and shipping — with a clear record of what belongs in the Bauhu package and what remains a local responsibility.</p>
+          <p>Delivery is not the end of Bauhu’s involvement. Project-specific assembly information is issued to support the local contractor, and the Bauhu team remains available during assembly to assist with technical questions and interpretation of the coordinated project information.</p>
         </div>
       </div>
       <div class="mx-auto mt-12 grid max-w-site gap-5 md:grid-cols-3">
-        {['Approved project information','Manufacture / quality control','Packing / assembly sequence'].map((label) => (
+        {['Approved project information','Consolidation / shipping control','Assembly guide / technical support'].map((label) => (
           <div class="flex min-h-64 items-center justify-center border border-paper/15 p-6 text-center">
             <div><p class="eyebrow text-stone">IMAGE PLACEHOLDER</p><p class="mt-4 text-sm text-paper/55">{label}</p></div>
           </div>
         ))}
+      </div>
+    </section>
+
+    <section class="section-pad bg-mist">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p class="eyebrow text-clay">Logistics & assembly support</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">One coordinated shipment. Support that continues after delivery.</h2>
+        </div>
+        <div class="space-y-6 text-lg leading-8 text-ink/70">
+          <p>Bauhu coordinates procurement, consolidation and shipping as connected parts of the building delivery process. Components are brought together against the approved project information before dispatch so the shipment is treated as one coordinated building package rather than a collection of unrelated supplier deliveries.</p>
+          <p>For assembly, Bauhu provides detailed project information covering structural sequencing, connections, envelope installation, material requirements and key construction stages. The information is designed to aid the local contractor and installers; it does not replace the responsibilities or professional judgement of the appointed site team.</p>
+          <p>During assembly, Bauhu remains available to assist with technical questions and interpretation of the project documentation.</p>
+        </div>
       </div>
     </section>
 
