@@ -29,11 +29,14 @@ const enquiryHref = `/site-fit?model=${encodeURIComponent(modelPublicSlug)}`;
 const isSunsetCove = modelPublicSlug === 'sunset-cove';
 const isAngel = modelPublicSlug === 'angel';
 const isBahamaBeach = modelPublicSlug === 'bahama-beach';
+const isAbaco = modelPublicSlug === 'abaco';
 const galleryImages = isSunsetCove
   ? Array.from({ length: 10 }, (_, index) => `${modelImageBase}/sunset-cove-${index + 1}.webp`)
   : (isAngel || isBahamaBeach)
     ? [heroImage, ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
-    : [
+    : isAbaco
+      ? [heroImage, ...Array.from({ length: 3 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
+      : [
         heroImage,
         ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`),
       ];
@@ -72,7 +75,7 @@ const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
     <section class="home-overview">
       <div>
         <p class="home-kicker">Model Overview</p>
-        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
+        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
       </div>
       <div class="home-copy">
         {isSunsetCove ? (
@@ -91,6 +94,12 @@ const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
           <>
             <p>Bahama Beach is a three-bedroom, two-bathroom single-storey residence combining a simple island-style roof form with a generous covered terrace and direct connections from the living space and bedrooms to the outdoors.</p>
             <p>The current architectural set shows approximately 83 m² / 894 ft² of enclosed building area plus a 23 m² / 251 ft² exterior terrace. The plan centres on a 29 m² open-plan living and kitchen space, with three bedrooms and two bathrooms.</p>
+            <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
+          </>
+        ) : isAbaco ? (
+          <>
+            <p>Abaco is a four-bedroom, two-storey residence with a classic Caribbean character, broad shaded verandas and a larger footprint suited to substantial family or hospitality use.</p>
+            <p>The current model data records approximately 3,700 ft² of built area, with four bedrooms and four-and-a-half bathrooms.</p>
             <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
           </>
         ) : (
