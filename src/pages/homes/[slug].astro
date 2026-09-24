@@ -28,9 +28,10 @@ const heroImage = `${modelImageBase}/${slug}.webp`;
 const enquiryHref = `/site-fit?model=${encodeURIComponent(modelPublicSlug)}`;
 const isSunsetCove = modelPublicSlug === 'sunset-cove';
 const isAngel = modelPublicSlug === 'angel';
+const isBahamaBeach = modelPublicSlug === 'bahama-beach';
 const galleryImages = isSunsetCove
   ? Array.from({ length: 10 }, (_, index) => `${modelImageBase}/sunset-cove-${index + 1}.webp`)
-  : isAngel
+  : (isAngel || isBahamaBeach)
     ? [heroImage, ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
     : [
         heroImage,
@@ -40,6 +41,7 @@ const floorPlanImage = `${modelImageBase}/floorplan.webp`;
 const sunsetCoveVideo = '/videos/sunset-cove.mp4';
 const sunsetCovePlans = '/downloads/models/sunset-cove-plans.pdf';
 const angelPlans = '/downloads/models/angel-plans.pdf';
+const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <SiteHeader />
@@ -70,7 +72,7 @@ const angelPlans = '/downloads/models/angel-plans.pdf';
     <section class="home-overview">
       <div>
         <p class="home-kicker">Model Overview</p>
-        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
+        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
       </div>
       <div class="home-copy">
         {isSunsetCove ? (
@@ -83,6 +85,12 @@ const angelPlans = '/downloads/models/angel-plans.pdf';
           <>
             <p>Angel is a three-bedroom, two-bathroom contemporary residence organised around a bright open-plan living and kitchen space, with a covered terrace extending the principal living area outdoors.</p>
             <p>The current architectural set shows a 116 m² building area plus a 26 m² terrace, with a 14 m² principal bedroom, two additional bedrooms, a 25 m² living area, 9 m² kitchen, utility room and a separate store / office.</p>
+            <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
+          </>
+        ) : isBahamaBeach ? (
+          <>
+            <p>Bahama Beach is a three-bedroom, two-bathroom single-storey residence combining a simple island-style roof form with a generous covered terrace and direct connections from the living space and bedrooms to the outdoors.</p>
+            <p>The current architectural set shows approximately 83 m² / 894 ft² of enclosed building area plus a 23 m² / 251 ft² exterior terrace. The plan centres on a 29 m² open-plan living and kitchen space, with three bedrooms and two bathrooms.</p>
             <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
           </>
         ) : (
@@ -123,15 +131,17 @@ const angelPlans = '/downloads/models/angel-plans.pdf';
           <p class="home-kicker">Floor Plan</p>
           {isSunsetCove && <h2>Two bedrooms. Two bathrooms. Designed around the deck.</h2>}
           {isAngel && <h2>Three bedrooms, flexible work space and a covered terrace.</h2>}
+          {isBahamaBeach && <h2>Three bedrooms, two bathrooms and a generous covered terrace.</h2>}
         </div>
         {isSunsetCove && <a class="home-text-link" href={sunsetCovePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isAngel && <a class="home-text-link" href={angelPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
+        {isBahamaBeach && <a class="home-text-link" href={bahamaBeachPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
       </div>
       <figure>
         <img src={floorPlanImage} alt={`${cleanName} floor plan`} loading="lazy" onerror="this.closest('figure').classList.add('is-missing')" />
         <figcaption>Floor plan image to be added.</figcaption>
       </figure>
-      {(isSunsetCove || isAngel) && (
+      {(isSunsetCove || isAngel || isBahamaBeach) && (
         <p class="home-plan-note">Plans shown are the current reference design and are provided for model evaluation. Final project information is developed and coordinated for the specific site and approved project scope.</p>
       )}
     </section>
