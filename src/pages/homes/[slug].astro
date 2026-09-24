@@ -31,6 +31,7 @@ const isAngel = modelPublicSlug === 'angel';
 const isBahamaBeach = modelPublicSlug === 'bahama-beach';
 const isAbaco = modelPublicSlug === 'abaco';
 const isCaribbeanCottage = modelPublicSlug === 'caribbean-cottage';
+const isCasaLavanda = modelPublicSlug === 'casa-lavanda';
 const galleryImages = isSunsetCove
   ? Array.from({ length: 10 }, (_, index) => `${modelImageBase}/sunset-cove-${index + 1}.webp`)
   : (isAngel || isBahamaBeach)
@@ -39,7 +40,9 @@ const galleryImages = isSunsetCove
       ? [heroImage, ...Array.from({ length: 3 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
       : isCaribbeanCottage
         ? [heroImage, ...Array.from({ length: 6 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
-        : [
+        : isCasaLavanda
+          ? [heroImage, ...Array.from({ length: 10 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
+          : [
         heroImage,
         ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`),
       ];
@@ -49,6 +52,7 @@ const sunsetCovePlans = '/downloads/models/sunset-cove-plans.pdf';
 const angelPlans = '/downloads/models/angel-plans.pdf';
 const bahamaBeachPlans = '/downloads/models/bahama-beach-plans.pdf';
 const caribbeanCottagePlans = '/downloads/models/caribbean-cottage-plans.pdf';
+const casaLavandaPlans = '/downloads/models/casa-lavanda-plans.pdf';
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <SiteHeader />
@@ -79,7 +83,7 @@ const caribbeanCottagePlans = '/downloads/models/caribbean-cottage-plans.pdf';
     <section class="home-overview">
       <div>
         <p class="home-kicker">Model Overview</p>
-        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
+        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : isCasaLavanda ? 'A large contemporary residence organised around water, landscape and expansive indoor-outdoor living.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
       </div>
       <div class="home-copy">
         {isSunsetCove ? (
@@ -110,6 +114,12 @@ const caribbeanCottagePlans = '/downloads/models/caribbean-cottage-plans.pdf';
           <>
             <p>Caribbean Cottage is a compact one-bedroom, one-bathroom residence designed around a 22 m² open-plan living and kitchen space, with an 8 m² office and a 17 m² covered deck.</p>
             <p>The current architectural set records approximately 60.3 m² / 649 ft² of enclosed building area, with a 14 m² bedroom and a 6 m² bathroom. Including the deck, the room schedule totals approximately 67 m² / 717 ft².</p>
+            <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
+          </>
+        ) : isCasaLavanda ? (
+          <>
+            <p>Casa Lavanda is a four-bedroom, two-storey contemporary residence arranged around generous living spaces, terraces and a strong relationship with the pool and landscape.</p>
+            <p>The current architectural set records approximately 237 m² / 2,551 ft² on the ground floor and 241 m² / 2,594 ft² on the first floor, giving approximately 478 m² / 5,145 ft² of enclosed building area. The drawings also show extensive terraces, a dedicated office, pantry and laundry spaces.</p>
             <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
           </>
         ) : (
@@ -152,17 +162,19 @@ const caribbeanCottagePlans = '/downloads/models/caribbean-cottage-plans.pdf';
           {isAngel && <h2>Three bedrooms, flexible work space and a covered terrace.</h2>}
           {isBahamaBeach && <h2>Three bedrooms, two bathrooms and a generous covered terrace.</h2>}
           {isCaribbeanCottage && <h2>One bedroom, flexible office space and a covered deck.</h2>}
+          {isCasaLavanda && <h2>Four bedrooms across two floors, with extensive terraces and pool-facing living spaces.</h2>}
         </div>
         {isSunsetCove && <a class="home-text-link" href={sunsetCovePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isAngel && <a class="home-text-link" href={angelPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isBahamaBeach && <a class="home-text-link" href={bahamaBeachPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isCaribbeanCottage && <a class="home-text-link" href={caribbeanCottagePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
+        {isCasaLavanda && <a class="home-text-link" href={casaLavandaPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
       </div>
       <figure>
         <img src={floorPlanImage} alt={`${cleanName} floor plan`} loading="lazy" onerror="this.closest('figure').classList.add('is-missing')" />
         <figcaption>Floor plan image to be added.</figcaption>
       </figure>
-      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage) && (
+      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage || isCasaLavanda) && (
         <p class="home-plan-note">Plans shown are the current reference design and are provided for model evaluation. Final project information is developed and coordinated for the specific site and approved project scope.</p>
       )}
     </section>
