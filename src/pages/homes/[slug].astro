@@ -40,6 +40,7 @@ const isArc = modelPublicSlug === 'arc';
 const isEon = modelPublicSlug === 'eon';
 const isIce = modelPublicSlug === 'ice';
 const isZen = modelPublicSlug === 'zen';
+const isAir = modelPublicSlug === 'air';
 const galleryImages = isSunsetCove
   ? Array.from({ length: 10 }, (_, index) => `${modelImageBase}/sunset-cove-${index + 1}.webp`)
   : (isAngel || isBahamaBeach)
@@ -66,7 +67,9 @@ const galleryImages = isSunsetCove
                         ? [heroImage, ...Array.from({ length: 5 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
                         : isZen
                           ? [heroImage, ...Array.from({ length: 2 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
-                          : [
+                          : isAir
+                            ? [heroImage, ...Array.from({ length: 3 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
+                            : [
         heroImage,
         ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`),
       ];
@@ -85,6 +88,7 @@ const arcPlans = '/downloads/models/element-arc-plans.pdf';
 const eonPlans = '/downloads/models/element-eon-plans.pdf';
 const icePlans = '/downloads/models/element-ice-plans.pdf';
 const zenPlans = '/downloads/models/element-zen-plans.pdf';
+const airPlans = '/downloads/models/element-air-plans.pdf';
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <SiteHeader />
@@ -115,7 +119,7 @@ const zenPlans = '/downloads/models/element-zen-plans.pdf';
     <section class="home-overview">
       <div>
         <p class="home-kicker">Model Overview</p>
-        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : isCasaLavanda ? 'A large contemporary residence organised around water, landscape and expansive indoor-outdoor living.' : isCasita ? 'A compact two-bedroom residence centred on open-plan living and a covered pool terrace.' : isCharlston ? 'An elevated two-bedroom Caribbean villa with generous indoor-outdoor living and a broad wrap-around terrace.' : isCoconutVilla2 ? 'A compact two-bedroom island villa with two en-suite bedrooms and generous open-plan living.' : isCoconutVilla3 ? 'A three-bedroom island villa with three bathrooms and a flexible open-plan heart.' : isArc ? 'A compact three-bedroom contemporary home built around open-plan living and a covered terrace.' : isEon ? 'A compact three-bedroom contemporary residence with a pitched roof and covered terrace.' : isIce ? 'A compact two-bedroom contemporary residence with generous open-plan living and covered outdoor space.' : isZen ? 'A compact two-bedroom contemporary residence with open-plan living and generous exterior deck space.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
+        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : isCasaLavanda ? 'A large contemporary residence organised around water, landscape and expansive indoor-outdoor living.' : isCasita ? 'A compact two-bedroom residence centred on open-plan living and a covered pool terrace.' : isCharlston ? 'An elevated two-bedroom Caribbean villa with generous indoor-outdoor living and a broad wrap-around terrace.' : isCoconutVilla2 ? 'A compact two-bedroom island villa with two en-suite bedrooms and generous open-plan living.' : isCoconutVilla3 ? 'A three-bedroom island villa with three bathrooms and a flexible open-plan heart.' : isArc ? 'A compact three-bedroom contemporary home built around open-plan living and a covered terrace.' : isEon ? 'A compact three-bedroom contemporary residence with a pitched roof and covered terrace.' : isIce ? 'A compact two-bedroom contemporary residence with generous open-plan living and covered outdoor space.' : isZen ? 'A compact two-bedroom contemporary residence with open-plan living and generous exterior deck space.' : isAir ? 'A compact two-bedroom contemporary residence with open-plan living and generous exterior deck space.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
       </div>
       <div class="home-copy">
         {isSunsetCove ? (
@@ -202,6 +206,12 @@ const zenPlans = '/downloads/models/element-zen-plans.pdf';
             <p>The current architectural set records approximately 81 m² / 872 ft² of building area. Bedroom 1 is approximately 12 m² with a 5 m² en-suite, while Bedroom 2 is approximately 13 m² with a separate 4 m² bathroom. The drawings also show approximately 34 m² of exterior deck, noted as by others.</p>
             <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
           </>
+        ) : isAir ? (
+          <>
+            <p>Element AIR is a two-bedroom, two-bathroom single-storey residence organised around a 28 m² open-plan living and kitchen space, with both bedrooms connected to exterior deck areas.</p>
+            <p>The current architectural set records approximately 81 m² / 872 ft² of building area. Bedroom 1 is approximately 12 m² with a 5 m² en-suite, while Bedroom 2 is approximately 13 m² with a separate 4 m² bathroom. The drawings also show approximately 34 m² of exterior deck, noted as by others.</p>
+            <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
+          </>
         ) : (
           <>
             <p>{cleanName} gives you a proven architectural starting point while leaving room for site-specific refinement. The residence can be adapted around orientation, views, terrace layout, foundation strategy, finish level and the practical demands of building in a remote Caribbean location.</p>
@@ -251,6 +261,7 @@ const zenPlans = '/downloads/models/element-zen-plans.pdf';
           {isEon && <h2>Three bedrooms, two bathrooms and a covered terrace beneath a pitched roof.</h2>}
           {isIce && <h2>Two bedrooms, two bathrooms and generous open-plan living with covered terraces.</h2>}
           {isZen && <h2>Two bedrooms, two bathrooms and open-plan living with generous exterior decks.</h2>}
+          {isAir && <h2>Two bedrooms, two bathrooms and open-plan living with generous exterior decks.</h2>}
         </div>
         {isSunsetCove && <a class="home-text-link" href={sunsetCovePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isAngel && <a class="home-text-link" href={angelPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
@@ -265,12 +276,13 @@ const zenPlans = '/downloads/models/element-zen-plans.pdf';
         {isEon && <a class="home-text-link" href={eonPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isIce && <a class="home-text-link" href={icePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isZen && <a class="home-text-link" href={zenPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
+        {isAir && <a class="home-text-link" href={airPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
       </div>
       <figure>
         <img src={floorPlanImage} alt={`${cleanName} floor plan`} loading="lazy" onerror="this.closest('figure').classList.add('is-missing')" />
         <figcaption>Floor plan image to be added.</figcaption>
       </figure>
-      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage || isCasaLavanda || isCasita || isCharlston || isCoconutVilla2 || isCoconutVilla3 || isArc || isEon || isIce || isZen) && (
+      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage || isCasaLavanda || isCasita || isCharlston || isCoconutVilla2 || isCoconutVilla3 || isArc || isEon || isIce || isZen || isAir) && (
         <p class="home-plan-note">Plans shown are the current reference design and are provided for model evaluation. Final project information is developed and coordinated for the specific site and approved project scope.</p>
       )}
     </section>
