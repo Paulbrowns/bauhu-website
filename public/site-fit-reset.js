@@ -12,8 +12,11 @@
       const skipLink = document.createElement('a');
       skipLink.id = 'site-fit-skip';
       skipLink.className = 'site-fit-skip';
-      skipLink.href = '/start-your-project?skipSite=1';
+      skipLink.href = '/project-details';
       skipLink.textContent = 'Not found a site yet? Skip this step';
+      skipLink.addEventListener('click', () => {
+        try { localStorage.setItem('bauhuProjectSite', JSON.stringify({ hasSite: false, savedAt: new Date().toISOString() })); } catch {}
+      });
       headerCopy.appendChild(skipLink);
     }
 
