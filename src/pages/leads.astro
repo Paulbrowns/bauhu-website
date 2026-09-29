@@ -35,7 +35,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <div class="table-shell">
         <table>
-          <thead><tr><th>Ref</th><th>Date</th><th>Name</th><th>Location</th><th>Route</th><th>Budget</th><th>Timing</th><th>Source</th><th>Status</th></tr></thead>
+          <thead><tr><th>Ref</th><th>Date</th><th>Name</th><th>Lead stage</th><th>Location</th><th>Route</th><th>Budget</th><th>Timing</th><th>Source</th></tr></thead>
           <tbody id="lead-rows"></tbody>
         </table>
       </div>
@@ -108,12 +108,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <td><button class="ref-button" type="button">${esc(lead.reference)}</button></td>
             <td>${esc(new Date(lead.created_at).toLocaleDateString())}</td>
             <td><strong>${esc(lead.contact_name)}</strong><small>${esc(lead.contact_email)}</small></td>
+            <td><span class="status status-${esc((lead.status || '').toLowerCase())}">${esc(lead.status || 'New')}</span></td>
             <td>${esc(lead.site_location || '—')}</td>
             <td>${esc(leadHomeLabel(lead))}</td>
             <td>${esc(lead.budget || '—')}</td>
             <td>${esc(lead.target_start || '—')}</td>
             <td>${esc(lead.attribution_source || 'Direct / unknown')}</td>
-            <td><span class="status status-${esc((lead.status || '').toLowerCase())}">${esc(lead.status)}</span></td>
           </tr>
         `).join('');
         empty.hidden = data.length > 0;
