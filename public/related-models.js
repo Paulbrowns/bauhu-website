@@ -82,6 +82,30 @@
       title: 'See the model in motion.',
       ariaLabel: 'Firefly video',
     },
+    'barbados-blue': {
+      src: '/videos/barbados-blue.mp4',
+      label: 'Experience Barbados Blue',
+      title: 'See the model in motion.',
+      ariaLabel: 'Barbados Blue video',
+    },
+    'caribbean-cottage': {
+      src: '/videos/caribbean-cottage.mp4',
+      label: 'Experience Caribbean Cottage',
+      title: 'See the model in motion.',
+      ariaLabel: 'Caribbean Cottage video',
+    },
+    'casa-lavanda': {
+      src: '/videos/casa-lavanda.mp4',
+      label: 'Experience Casa Lavanda',
+      title: 'See the model in motion.',
+      ariaLabel: 'Casa Lavanda video',
+    },
+    'coconut-cottage': {
+      src: '/videos/coconut-cottage.mp4',
+      label: 'Experience Coconut Cottage',
+      title: 'See the model in motion.',
+      ariaLabel: 'Coconut Cottage video',
+    },
   };
 
   const modelVideo = modelVideos[currentPublicSlug];
