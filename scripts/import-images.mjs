@@ -49,7 +49,9 @@ const collections = {
   },
 };
 
-const validExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff']);
+const validImageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff']);
+const validVideoExtensions = new Set(['.mp4', '.webm', '.mov', '.m4v']);
+const validDownloadExtensions = new Set(['.pdf']);
 
 function slugify(value) {
   return value
@@ -74,8 +76,20 @@ async function ensureDirectory(dirPath) {
   await fs.mkdir(dirPath, { recursive: true });
 }
 
+function extension(fileName) {
+  return path.extname(fileName).toLowerCase();
+}
+
 function isImageFile(fileName) {
-  return validExtensions.has(path.extname(fileName).toLowerCase());
+  return validImageExtensions.has(extension(fileName));
+}
+
+function isVideoFile(fileName) {
+  return validVideoExtensions.has(extension(fileName));
+}
+
+function isDownloadFile(fileName) {
+  return validDownloadExtensions.has(extension(fileName));
 }
 
 async function convertImage(inputPath, outputPath, config) {
@@ -88,16 +102,25 @@ async function convertImage(inputPath, outputPath, config) {
     .toFile(outputPath);
 }
 
+async function copyAsset(inputPath, outputPath) {
+  await ensureDirectory(path.dirname(outputPath));
+  await fs.copyFile(inputPath, outputPath);
+}
+
+function sortedFileNames(entries) {
+  return entries
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name)
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+}
+
 async function importFlatCollection(name, config) {
   await ensureDirectory(config.output);
 
   const entries = await fs.readdir(config.source, { withFileTypes: true });
-  const files = entries
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
+  const files = sortedFileNames(entries)
     .filter(isImageFile)
-    .filter((fileName) => !requestedItem || slugify(path.basename(fileName, path.extname(fileName))) === requestedItem)
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    .filter((fileName) => !requestedItem || slugify(path.basename(fileName, path.extname(fileName))) === requestedItem);
 
   const imported = [];
 
@@ -140,13 +163,12 @@ async function importNestedModelCollection(name, config) {
     const sourceFolder = path.join(config.source, folderName);
     const outputFolder = path.join(config.output, folderName);
     const entries = await fs.readdir(sourceFolder, { withFileTypes: true });
-    const files = entries
-      .filter((entry) => entry.isFile())
-      .map((entry) => entry.name)
-      .filter(isImageFile)
-      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    const files = sortedFileNames(entries);
+    const imageFiles = files.filter(isImageFile);
+    const videoFiles = files.filter(isVideoFile);
+    const downloadFiles = files.filter(isDownloadFile);
 
-    for (const fileName of files) {
+    for (const fileName of imageFiles) {
       const inputPath = path.join(sourceFolder, fileName);
       const baseName = slugify(path.basename(fileName, path.extname(fileName)));
       const outputName = `${baseName}.webp`;
@@ -156,6 +178,30 @@ async function importNestedModelCollection(name, config) {
 
       imported.push(`/images/${name}/${folderName}/${outputName}`);
       console.log(`Imported ${name}/${folderName}/${fileName} -> public/images/${name}/${folderName}/${outputName}`);
+    }
+
+    for (const fileName of videoFiles) {
+      const inputPath = path.join(sourceFolder, fileName);
+      const baseName = slugify(path.basename(fileName, path.extname(fileName)));
+      const outputName = `${baseName}${extension(fileName)}`;
+      const outputPath = path.join(outputFolder, outputName);
+
+      await copyAsset(inputPath, outputPath);
+
+      imported.push(`/images/${name}/${folderName}/${outputName}`);
+      console.log(`Copied ${name}/${folderName}/${fileName} -> public/images/${name}/${folderName}/${outputName}`);
+    }
+
+    for (const fileName of downloadFiles) {
+      const inputPath = path.join(sourceFolder, fileName);
+      const baseName = slugify(path.basename(fileName, path.extname(fileName)));
+      const outputName = `${baseName}.pdf`;
+      const outputPath = path.join(outputFolder, outputName);
+
+      await copyAsset(inputPath, outputPath);
+
+      imported.push(`/images/${name}/${folderName}/${outputName}`);
+      console.log(`Copied ${name}/${folderName}/${fileName} -> public/images/${name}/${folderName}/${outputName}`);
     }
   }
 
@@ -200,7 +246,7 @@ async function main() {
     total += imported.length;
   }
 
-  console.log(`Done. Imported ${total} image${total === 1 ? '' : 's'}.`);
+  console.log(`Done. Imported ${total} asset${total === 1 ? '' : 's'}.`);
 }
 
 main().catch((error) => {
