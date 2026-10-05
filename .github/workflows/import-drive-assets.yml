@@ -1,0 +1,136 @@
+name: Import Drive Assets
+
+on:
+  push:
+    paths:
+      - 'asset-imports/*.json'
+      - '.github/workflows/import-drive-assets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-drive-assets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Import Drive assets
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs/promises';
+          import path from 'node:path';
+          import sharp from 'sharp';
+
+          const importDir = 'asset-imports';
+          const publicRoot = 'public';
+
+          async function pathExists(filePath) {
+            try {
+              await fs.access(filePath);
+              return true;
+            } catch {
+              return false;
+            }
+          }
+
+          async function download(url, outputPath) {
+            const response = await fetch(url);
+            if (!response.ok) {
+              throw new Error(`Failed to download ${url}: ${response.status} ${response.statusText}`);
+            }
+            const buffer = Buffer.from(await response.arrayBuffer());
+            await fs.mkdir(path.dirname(outputPath), { recursive: true });
+            await fs.writeFile(outputPath, buffer);
+            return outputPath;
+          }
+
+          function normalisePublicPath(filePath) {
+            return `/${filePath.replace(/^public\//, '').replace(/\\/g, '/')}`;
+          }
+
+          async function processManifest(manifestPath) {
+            const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+            const modelSlug = manifest.modelSlug;
+            if (!modelSlug) throw new Error(`${manifestPath} is missing modelSlug`);
+
+            const tempDir = path.join('.tmp-drive-assets', modelSlug);
+            const assetJson = { videos: [], downloads: [] };
+
+            for (const image of manifest.images ?? []) {
+              const inputPath = path.join(tempDir, image.output.replace(/\//g, '__'));
+              const outputPath = path.join(publicRoot, image.output);
+              await download(image.url, inputPath);
+              await fs.mkdir(path.dirname(outputPath), { recursive: true });
+              await sharp(inputPath)
+                .rotate()
+                .resize({ width: image.width ?? 1600, withoutEnlargement: true })
+                .webp({ quality: image.quality ?? 80 })
+                .toFile(outputPath);
+              console.log(`Converted ${image.output}`);
+            }
+
+            for (const file of manifest.downloads ?? []) {
+              const outputPath = path.join(publicRoot, file.output);
+              await download(file.url, outputPath);
+              assetJson.downloads.push({
+                href: normalisePublicPath(outputPath),
+                label: file.label ?? 'Download file',
+              });
+              console.log(`Downloaded ${file.output}`);
+            }
+
+            for (const file of manifest.videos ?? []) {
+              const outputPath = path.join(publicRoot, file.output);
+              await download(file.url, outputPath);
+              assetJson.videos.push({
+                src: normalisePublicPath(outputPath),
+                label: file.label ?? 'Video',
+              });
+              console.log(`Downloaded ${file.output}`);
+            }
+
+            if (assetJson.videos.length || assetJson.downloads.length) {
+              const assetJsonPath = path.join(publicRoot, 'images', 'models', modelSlug, 'assets.json');
+              await fs.mkdir(path.dirname(assetJsonPath), { recursive: true });
+              await fs.writeFile(assetJsonPath, JSON.stringify(assetJson, null, 2));
+              console.log(`Wrote ${assetJsonPath}`);
+            }
+          }
+
+          if (!(await pathExists(importDir))) {
+            console.log('No asset-imports directory found.');
+            process.exit(0);
+          }
+
+          const manifests = (await fs.readdir(importDir))
+            .filter((file) => file.endsWith('.json'))
+            .map((file) => path.join(importDir, file));
+
+          for (const manifestPath of manifests) {
+            await processManifest(manifestPath);
+          }
+          NODE
+
+      - name: Commit imported assets
+        run: |
+          if [ -n "$(git status --porcelain public/images/models)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/images/models
+            git commit -m "Import Drive model assets"
+            git push
+          else
+            echo "No model asset changes to commit."
+          fi
