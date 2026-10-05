@@ -16,27 +16,43 @@
     });
   };
 
-  const insertBarbadosBlueVideo = () => {
+  const modelVideos = {
+    'barbados-blue': {
+      src: '/videos/barbados-blue.mp4',
+      label: 'Experience Barbados Blue',
+      title: 'See the model in motion.',
+      ariaLabel: 'Barbados Blue video',
+    },
+    'caribbean-cottage': {
+      src: '/videos/caribbean-cottage.mp4',
+      label: 'Experience Caribbean Cottage',
+      title: 'See the model in motion.',
+      ariaLabel: 'Caribbean Cottage video',
+    },
+  };
+
+  const insertModelVideo = () => {
     const root = document.querySelector('.home-detail[data-model-slug]');
-    if (!root) return;
+    if (!root || document.querySelector('.home-film')) return;
 
     const slug = root.dataset.modelSlug?.replace(/^bauhu-/, '');
-    if (slug !== 'barbados-blue' || document.querySelector('.home-film')) return;
+    const modelVideo = modelVideos[slug];
+    if (!modelVideo) return;
 
     const gallery = root.querySelector('.home-gallery');
     if (!gallery) return;
 
     const film = document.createElement('section');
     film.className = 'home-film';
-    film.setAttribute('aria-label', 'Barbados Blue video');
+    film.setAttribute('aria-label', modelVideo.ariaLabel);
     film.innerHTML = `
       <div class="home-film-heading">
-        <p class="home-kicker">Experience Barbados Blue</p>
-        <h2>See the model in motion.</h2>
+        <p class="home-kicker">${modelVideo.label}</p>
+        <h2>${modelVideo.title}</h2>
       </div>
       <div class="home-film-frame">
         <video autoplay muted loop playsinline preload="metadata">
-          <source src="/videos/barbados-blue.mp4" type="video/mp4">
+          <source src="${modelVideo.src}" type="video/mp4">
         </video>
       </div>
     `;
@@ -47,6 +63,6 @@
   };
 
   wireFloorplan();
-  insertBarbadosBlueVideo();
+  insertModelVideo();
   window.addEventListener('load', wireFloorplan, { once: true });
 })();
