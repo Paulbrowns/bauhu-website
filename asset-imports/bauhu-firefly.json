@@ -1,0 +1,37 @@
+{
+  "modelSlug": "bauhu-firefly",
+  "images": [
+    {
+      "url": "https://sdmntprnortheu.oaiusercontent.com/files/00000000-ccbc-81f4-b270-b579298c7828/raw?se=2026-10-05T12%3A07%3A43Z&sp=r&sv=2026-02-06&sr=b&scid=54ab999a-2f0e-5924-9b6a-e18da8f20141&skoid=6658dbdd-f305-4d30-8f6b-d62218202cb9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-05T06%3A12%3A30Z&ske=2026-10-06T06%3A12%3A30Z&sks=b&skv=2026-02-06&sig=1GgxBMyao/zQ4NLKXG4KDGs8niAUw8MpXRxfJ3ZUOlk%3D",
+      "output": "images/models/bauhu-firefly/bauhu-firefly.webp"
+    },
+    {
+      "url": "https://sdmntprukwest.oaiusercontent.com/files/00000000-2394-8243-82af-6542a9f2508b/raw?se=2026-10-05T12%3A07%3A46Z&sp=r&sv=2026-02-06&sr=b&scid=ee8bc1f5-ee41-5caf-9f9b-67ff64fe9c35&skoid=6658dbdd-f305-4d30-8f6b-d62218202cb9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-05T06%3A47%3A38Z&ske=2026-10-06T06%3A47%3A38Z&sks=b&skv=2026-02-06&sig=yJKTWFyoYlLVvdES0gQjf3uQtUIbZBbciZtEA8RPdVs%3D",
+      "output": "images/models/bauhu-firefly/1.webp"
+    },
+    {
+      "url": "https://sdmntpritalynorth.oaiusercontent.com/files/00000000-583c-8246-8596-4831caf41c04/raw?se=2026-10-05T12%3A07%3A50Z&sp=r&sv=2026-02-06&sr=b&scid=d9111f9e-751d-53e1-929c-ea93427ce782&skoid=6658dbdd-f305-4d30-8f6b-d62218202cb9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-05T06%3A12%3A35Z&ske=2026-10-06T06%3A12%3A35Z&sks=b&skv=2026-02-06&sig=uPVOjsiGYF02ttE8nZLDSQEn0s2tdvGBQ3gL0LllTkg%3D",
+      "output": "images/models/bauhu-firefly/2.webp"
+    },
+    {
+      "url": "https://sdmntpritalynorth.oaiusercontent.com/files/00000000-5884-8246-bf13-cfbdad947478/raw?se=2026-10-05T12%3A07%3A54Z&sp=r&sv=2026-02-06&sr=b&scid=6ffed2d1-2772-5e28-8f83-8596a92167d2&skoid=6658dbdd-f305-4d30-8f6b-d62218202cb9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-05T05%3A51%3A07Z&ske=2026-10-06T05%3A51%3A07Z&sks=b&skv=2026-02-06&sig=1kWt8SzVZh2O%2BB8K9MxfVsi8yumxs13a/CTjC73D1Yc%3D",
+      "output": "images/models/bauhu-firefly/3.webp"
+    },
+    {
+      "url": "https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-3bbc-8210-9c7e-bd05d8f5e444/raw?se=2026-10-05T12%3A07%3A58Z&sp=r&sv=2026-02-06&sr=b&scid=b5af151f-a555-5928-8958-d16f6e812dbb&skoid=6658dbdd-f305-4d30-8f6b-d62218202cb9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-05T03%3A51%3A16Z&ske=2026-10-06T03%3A51%3A16Z&sks=b&skv=2026-02-06&sig=Qnw1BjhnlhA%2BM2nu7LV9lpIgwN9BOoGEi0EyLnJe7m0%3D",
+      "output": "images/models/bauhu-firefly/4.webp"
+    },
+    {
+      "url": "https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-073c-8210-b91f-6f24468aab23/raw?se=2026-10-05T12%3A08%3A03Z&sp=r&sv=2026-02-06&sr=b&scid=c3442197-ee3a-5aef-94ce-6354aba5bcb8&skoid=6658dbdd-f305-4d30-8f6b-d62218202cb9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-05T06%3A47%3A38Z&ske=2026-10-06T06%3A47%3A38Z&sks=b&skv=2026-02-06&sig=nQ%2BYyQV136hVIjFOjyjZkFtGMWkCYxpimJfbRdyCrdU%3D",
+      "output": "images/models/bauhu-firefly/5.webp"
+    }
+  ],
+  "downloads": [
+    {
+      "url": "https://sdmntprnortheu.oaiusercontent.com/files/00000000-2390-81f4-8db0-80aa83211fe7/raw?se=2026-10-05T12%3A08%3A12Z&sp=r&sv=2026-02-06&sr=b&scid=ff9e2db0-a18c-5d6d-8659-215208c95ed1&skoid=6658dbdd-f305-4d30-8f6b-d62218202cb9&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-05T05%3A51%3A44Z&ske=2026-10-06T05%3A51%3A44Z&sks=b&skv=2026-02-06&sig=7K507gFMB1J9vQAbV3BT%2BkfpZWplvQHhnuZq4%2By1O3Q%3D",
+      "output": "images/models/bauhu-firefly/firefly-floorplan.pdf",
+      "label": "Download Firefly floorplan"
+    }
+  ],
+  "videos": []
+}
