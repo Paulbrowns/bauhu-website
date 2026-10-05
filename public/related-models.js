@@ -75,6 +75,37 @@
   const current = models.find((model) => model.slug === currentSlug);
   if (!current) return;
 
+  const modelVideos = {
+    firefly: {
+      src: '/videos/firefly.mp4',
+      label: 'Experience Firefly',
+      title: 'See the model in motion.',
+      ariaLabel: 'Firefly video',
+    },
+  };
+
+  const modelVideo = modelVideos[currentPublicSlug];
+  if (modelVideo && !document.querySelector('.home-film')) {
+    const gallery = root.querySelector('.home-gallery');
+    if (gallery) {
+      const film = document.createElement('section');
+      film.className = 'home-film';
+      film.setAttribute('aria-label', modelVideo.ariaLabel);
+      film.innerHTML = `
+        <div class="home-film-heading">
+          <p class="home-kicker">${modelVideo.label}</p>
+          <h2>${modelVideo.title}</h2>
+        </div>
+        <div class="home-film-frame">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="${modelVideo.src}" type="video/mp4">
+          </video>
+        </div>
+      `;
+      gallery.parentNode.insertBefore(film, gallery);
+    }
+  }
+
   const related = models
     .filter((model, index, all) => model.slug !== current.slug && all.findIndex((item) => item.slug === model.slug) === index)
     .map((model) => {
