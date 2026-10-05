@@ -95,8 +95,8 @@
     <div class="related-models-inner">
       <div class="related-models-heading">
         <div>
-          <p class="home-kicker">You may also like</p>
-          <h2>Similar models to consider.</h2>
+          <p class="home-kicker">Related models</p>
+          <h2>Explore similar Bauhu residences.</h2>
         </div>
       </div>
       <div class="related-models-grid">
