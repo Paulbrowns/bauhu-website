@@ -95,7 +95,7 @@
     <div class="related-models-inner">
       <div class="related-models-heading">
         <div>
-          <p class="home-kicker">Related models</p>
+          <p class="home-kicker">You may also like</p>
           <h2>Explore similar Bauhu residences.</h2>
         </div>
       </div>
