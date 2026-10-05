@@ -29,6 +29,12 @@
       title: 'See the model in motion.',
       ariaLabel: 'Caribbean Cottage video',
     },
+    'casa-lavanda': {
+      src: '/videos/casa-lavanda.mp4',
+      label: 'Experience Casa Lavanda',
+      title: 'See the model in motion.',
+      ariaLabel: 'Casa Lavanda video',
+    },
   };
 
   const insertModelVideo = () => {
