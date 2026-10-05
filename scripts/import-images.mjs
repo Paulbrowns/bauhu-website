@@ -143,6 +143,13 @@ async function importFlatCollection(name, config) {
   return imported;
 }
 
+async function writeModelManifest(outputFolder, manifest) {
+  const manifestPath = path.join(outputFolder, 'assets.json');
+  await ensureDirectory(outputFolder);
+  await fs.writeFile(`${manifestPath}.tmp`, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+  await fs.rename(`${manifestPath}.tmp`, manifestPath);
+}
+
 async function importNestedModelCollection(name, config) {
   await ensureDirectory(config.output);
 
@@ -167,6 +174,11 @@ async function importNestedModelCollection(name, config) {
     const imageFiles = files.filter(isImageFile);
     const videoFiles = files.filter(isVideoFile);
     const downloadFiles = files.filter(isDownloadFile);
+    const manifest = {
+      images: [],
+      videos: [],
+      downloads: [],
+    };
 
     for (const fileName of imageFiles) {
       const inputPath = path.join(sourceFolder, fileName);
@@ -176,6 +188,7 @@ async function importNestedModelCollection(name, config) {
 
       await convertImage(inputPath, outputPath, config);
 
+      manifest.images.push(outputName);
       imported.push(`/images/${name}/${folderName}/${outputName}`);
       console.log(`Imported ${name}/${folderName}/${fileName} -> public/images/${name}/${folderName}/${outputName}`);
     }
@@ -188,6 +201,7 @@ async function importNestedModelCollection(name, config) {
 
       await copyAsset(inputPath, outputPath);
 
+      manifest.videos.push(outputName);
       imported.push(`/images/${name}/${folderName}/${outputName}`);
       console.log(`Copied ${name}/${folderName}/${fileName} -> public/images/${name}/${folderName}/${outputName}`);
     }
@@ -200,8 +214,15 @@ async function importNestedModelCollection(name, config) {
 
       await copyAsset(inputPath, outputPath);
 
+      manifest.downloads.push(outputName);
       imported.push(`/images/${name}/${folderName}/${outputName}`);
       console.log(`Copied ${name}/${folderName}/${fileName} -> public/images/${name}/${folderName}/${outputName}`);
+    }
+
+    if (manifest.videos.length > 0 || manifest.downloads.length > 0) {
+      await writeModelManifest(outputFolder, manifest);
+      imported.push(`/images/${name}/${folderName}/assets.json`);
+      console.log(`Wrote public/images/${name}/${folderName}/assets.json`);
     }
   }
 
