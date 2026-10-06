@@ -13,7 +13,7 @@ const downloads = [
   ['Assembly guidance', 'Example assembly guide material showing how the Bauhu package is interpreted on site.'],
   ['Foundation examples', 'Typical elevated and on-grade foundation information used to coordinate local works.'],
   ['Drawing samples', 'Example architectural, structural and construction drawing extracts for project review.'],
-  ['Engineering information', 'Structural calculation examples and technical notes available as part of serious project discussions.'],
+  ['Engineering information', 'Structural calculation examples and technical notes available as part of project discussions.'],
   ['Specification guidance', 'Indicative finishes, decor selections and scope notes for understanding what can be included.'],
   ['Brochure material', 'Brand, system and project overview material for buyers, advisers and development teams.'],
 ];
@@ -128,8 +128,9 @@ const faqGroups = [
     <section class="resources-downloads-section">
       <div class="resources-areas-inner">
         <p class="resources-kicker">Downloads & Sample Documents</p>
-        <h2>Example material available for serious project review.</h2>
+        <h2>Example material available for project review.</h2>
         <p class="resources-section-lead">Bauhu can share sample documentation to help buyers, advisers and contractors understand the building package, project scope and coordination process. Exact documents vary by project.</p>
+        <a class="resources-button resources-downloads-button" href="/project-details">Request documentation</a>
         <div class="resources-downloads-grid">
           {downloads.map(([title, text]) => (
             <article>
@@ -210,6 +211,7 @@ const faqGroups = [
   .resources-areas-grid h3, .resources-downloads-grid h3, .faq-group h3 { font-family:"Cormorant Garamond", Georgia, serif; font-size:clamp(28px,2.6vw,42px); line-height:1.05; font-weight:400; letter-spacing:-.035em; margin:0 0 22px; color:#f8f6f0; }
   .resources-areas-grid p, .resources-downloads-grid p { color:rgba(248,246,240,.62); line-height:1.65; margin:0; }
   .resources-downloads-section { padding:105px 7vw 115px; background:#050505; }
+  .resources-downloads-button { margin-top:30px; }
   .resources-downloads-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; margin-top:54px; }
   .resources-downloads-grid span { display:block; margin-bottom:24px; color:#c8a96a; font-size:11px; letter-spacing:.18em; text-transform:uppercase; }
   .resources-proof-section { padding:105px 7vw 115px; background:#0a0a0a; }
