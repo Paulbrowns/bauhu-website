@@ -6,58 +6,118 @@ import SiteFooter from '../components/SiteFooter.astro';
 const featuredProjects = [
   {
     title: 'Ft Myers Beach, Florida',
-    status: 'Currently being assembled',
     location: 'Florida, USA',
-    date: 'February 2026',
     summary: 'A custom-designed steel frame Bauhu residence being assembled in a demanding coastal location, elevated for flood-zone requirements and engineered for hurricane-rated performance.',
     image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717683600280-A2WZU87VQCYZAFG3WFQC/20240424_130641.jpg',
-    sourceHref: 'https://bauhuhomes.com/bauhuprojectnews/ft-meyers-beach-fl',
   },
   {
-    title: 'St Thomas, USVI',
-    status: 'Under construction',
-    location: 'US Virgin Islands',
-    date: 'April 2025',
-    summary: 'A luxury modular Bauhu home on an elevated coastal site with commanding ocean views, designed to combine refined island living with modern modular construction and hurricane resistance.',
-    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1744639416535-BG7D7OFHJS3U9QW4BSUR/0BF9D999CDA0C86B3A1F936FAC9A4959.jpg',
-    sourceHref: 'https://bauhuhomes.com/bauhuprojectnews/st-thomas-usvi',
-  },
-  {
-    title: 'Coral Bay, St John',
-    status: 'Current island project',
+    title: 'Coral Bay, St John VI',
     location: 'St John, USVI',
-    date: 'August 2025',
     summary: 'A contemporary Bauhu home overlooking Coral Bay, built on a steep hillside with expansive glass, a custom pergola, a highly insulated envelope and hurricane-resistant hybrid steel frame.',
     image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755694358971-JQQ6BX2TDM51AD9PFOGO/IMG_3509.JPG',
-    sourceHref: 'https://bauhuhomes.com/bauhuprojectnews/coral-bay-st-john-vi',
   },
   {
-    title: 'Cat Island, Bahamas',
-    status: 'Remote island delivery',
+    title: 'St Thomas USVI',
+    location: 'US Virgin Islands',
+    summary: 'A luxury modular Bauhu home on an elevated coastal site with commanding ocean views, designed to combine refined island living with modern modular construction and hurricane resistance.',
+    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1744639416535-BG7D7OFHJS3U9QW4BSUR/0BF9D999CDA0C86B3A1F936FAC9A4959.jpg',
+  },
+  {
+    title: 'Cat Island',
     location: 'The Bahamas',
-    date: 'December 2024',
     summary: 'An elevated, off-grid Bauhu residence set above the coastline, combining clean architectural lines with hurricane-rated strength for a remote island site.',
     image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409504721-EOG6WZRPKW36SOKHYVW6/Hurricane%2Bproof%2Bfoundations%2Bfor%2BBauhu%2Bhome%2Bon%2BCat%2Bisland%2BBahamas%2B2.jpg',
-    sourceHref: 'https://bauhuhomes.com/bauhuprojectnews/cat-island',
   },
   {
-    title: 'Eleuthera, Bahamas',
-    status: 'Island home delivery',
+    title: 'St John USVI',
+    location: 'US Virgin Islands',
+    summary: 'A steep hillside Bauhu home based on the Coconut Villa concept, combining contemporary Caribbean design with hurricane-rated strength, energy efficiency and panoramic views.',
+    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688776966-M0E71RO9CJEZUO00EE91/cf4906bb-80a9-4e73-a70b-6f37b10a1f83.jpg',
+  },
+  {
+    title: 'Eleuthera',
     location: 'The Bahamas',
-    date: 'December 2024',
     summary: 'A modular Bauhu home near Governor’s Harbour, reinterpreting traditional Bahamian architecture with an elevated structure, Bermuda-style roof and hurricane-resistant construction.',
     image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402805814-KB6MCVMWNR1OUIA4V6GO/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera%2B3.jpg',
-    sourceHref: 'https://bauhuhomes.com/bauhuprojectnews/eleuthera',
   },
   {
-    title: 'Little Exuma, Bahamas',
-    status: 'Recent oceanfront project',
+    title: 'Little Exuma',
     location: 'The Bahamas',
-    date: 'December 2024',
     summary: 'An elevated oceanfront Bauhu home based on the Angel concept, using a flat roof, panoramic sea views and a highly insulated building envelope for resilient island living.',
     image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402344553-Y7THLL7XY2FEUPDJNJCZ/Bauhu-hurricane-proof%2B%2Bkit%2Bhome%2Bfoundations%2Bgreat%2BExuma.jpg',
-    sourceHref: 'https://bauhuhomes.com/bauhuprojectnews/little-exuma',
   },
+  {
+    title: 'Jamaica',
+    location: 'Jamaica',
+    summary: 'Xenjoh Villa, Bauhu’s first villa constructed in Jamaica, is presented as a hurricane-safe luxury modular home that remained unscathed by Hurricane Beryl.',
+    image: '/images/models/bauhu-jamaica/bauhu-jamaica.webp',
+  },
+  {
+    title: 'Exuma Waterfront',
+    location: 'The Bahamas',
+    summary: 'An oceanfront Bauhu modular home based on the Grapetree concept, with classic Caribbean colonial styling, an elevated pier foundation and hybrid steel-frame construction.',
+    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717674786384-YLO7D2RILWZ41V73KAS9/20240530_160719%2B%281%29.jpg',
+  },
+  {
+    title: 'Elbow Cay, The Bahamas',
+    location: 'The Bahamas',
+    summary: 'A modern Caribbean colonial duplex in historic Hope Town, combining two one-bedroom apartments, a ground-floor commercial space and hurricane-resistant modular construction.',
+    image: '/images/developments/bauhu-projects-hero.jpg',
+  },
+  {
+    title: 'Quinta de Lago',
+    location: 'Portugal',
+    summary: 'A completed minimalist Bauhu home in southern Portugal, combining off-grid functionality, luxury finishes and precision-engineered modular construction.',
+    image: '/images/models/bauhu-quinta/bauhu-quinta.webp',
+  },
+  {
+    title: 'Scotland Cay',
+    location: 'The Bahamas',
+    summary: 'A Bauhu project update from Scotland Cay, included in the project news archive as part of the wider island delivery portfolio.',
+    image: '/images/developments/bauhu-projects-hero.jpg',
+  },
+  {
+    title: 'Abaco',
+    location: 'The Bahamas',
+    summary: 'An Abaco project update from Bauhu’s project news archive, showing the system applied across island and hurricane-exposed locations.',
+    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688140001-K0BUOOFU75YFC65VWDF7/IMG-20200919-WA0003.jpg',
+  },
+  {
+    title: 'Tortola BVI',
+    location: 'British Virgin Islands',
+    summary: 'A Tortola project update from Bauhu’s Caribbean project archive, part of the wider record of modular island delivery.',
+    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687718436-W4V0QNFRE5IV2UOWZD37/8fe5c390-6302-4758-97a7-954323545835.jpg',
+  },
+  {
+    title: 'Antigua',
+    location: 'Antigua',
+    summary: 'An Antigua project update from Bauhu’s project news archive, showing the system across another Caribbean island setting.',
+    image: '/images/models/bauhu-azure/bauhu-azure.webp',
+  },
+  {
+    title: 'Hope Town',
+    location: 'The Bahamas',
+    summary: 'A Hope Town project update connected to Bauhu’s hurricane-resistant island building work in the Bahamas.',
+    image: '/images/developments/bauhu-projects-hero.jpg',
+  },
+  {
+    title: 'Little Cayman',
+    location: 'Cayman Islands',
+    summary: 'A Little Cayman project update from Bauhu’s project news archive, part of the wider Caribbean project portfolio.',
+    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717682346794-IVXLETD7K7JX2NRWF463/slab2.jpg',
+  },
+  {
+    title: 'Great Exuma',
+    location: 'The Bahamas',
+    summary: 'A Great Exuma project update from Bauhu’s archive, showing hurricane-resistant modular construction for the Bahamas and Caribbean.',
+    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717674786384-YLO7D2RILWZ41V73KAS9/20240530_160719%2B%281%29.jpg',
+  },
+  {
+    title: 'Cruz Bay, St John USVI',
+    location: 'US Virgin Islands',
+    summary: 'A Cruz Bay project update from Bauhu’s project news archive, extending the St John project record across multiple sites.',
+    image: '/images/models/bauhu-bahama-beach/bauhu-bahama-beach.webp',
+  }
 ];
 
 const projectSignals = [
@@ -104,30 +164,25 @@ const projectSignals = [
 
         <div class="project-slider mt-14" data-project-slider>
           <div class="mb-6 flex items-center justify-between gap-4">
-            <p class="text-sm uppercase tracking-[0.22em] text-ink/45">Featured project updates</p>
+            <p class="text-sm uppercase tracking-[0.22em] text-ink/45">Project updates</p>
             <div class="flex gap-2">
               <button type="button" class="project-slider-button" data-project-prev aria-label="Previous project">←</button>
               <button type="button" class="project-slider-button" data-project-next aria-label="Next project">→</button>
             </div>
           </div>
 
-          <div class="project-slider-window overflow-hidden">
+          <div class="project-slider-window overflow-hidden" data-project-window>
             <div class="project-slider-track flex gap-5 transition-transform duration-500 ease-out" data-project-track>
               {featuredProjects.map((project, index) => (
                 <article class="project-slide min-w-[86%] overflow-hidden bg-forest text-paper sm:min-w-[64%] lg:min-w-[38%] xl:min-w-[32%]">
                   <figure class="relative h-72 overflow-hidden bg-ink">
                     <img src={project.image} alt={`${project.title} Bauhu project`} class="h-full w-full object-cover opacity-90 transition duration-500 hover:scale-105" loading={index === 0 ? 'eager' : 'lazy'} onerror="this.src='/images/developments/bauhu-projects-hero.jpg'" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/10 to-transparent"></div>
-                    <p class="absolute left-5 top-5 rounded-full bg-paper px-4 py-2 text-xs uppercase tracking-wide text-ink">{project.status}</p>
+                    <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/5 to-transparent"></div>
                   </figure>
                   <div class="p-7">
-                    <div class="flex items-center justify-between gap-4 text-xs uppercase tracking-wide text-stone">
-                      <span>{project.location}</span>
-                      <span>{project.date}</span>
-                    </div>
+                    <p class="text-xs uppercase tracking-wide text-stone">{project.location}</p>
                     <h3 class="mt-8 font-display text-4xl leading-tight">{project.title}</h3>
-                    <p class="mt-5 min-h-32 leading-7 text-paper/70">{project.summary}</p>
-                    <a href={project.sourceHref} class="mt-8 inline-flex rounded-full border border-paper/35 px-5 py-3 text-xs uppercase tracking-wide text-paper transition hover:bg-paper hover:text-ink">Read update</a>
+                    <p class="mt-5 min-h-36 leading-7 text-paper/70">{project.summary}</p>
                   </div>
                 </article>
               ))}
@@ -198,6 +253,7 @@ const projectSignals = [
 
 <script>
   const slider = document.querySelector('[data-project-slider]');
+  const windowEl = slider?.querySelector('[data-project-window]');
   const track = slider?.querySelector('[data-project-track]');
   const slides = Array.from(slider?.querySelectorAll('.project-slide') ?? []);
   const previous = slider?.querySelector('[data-project-prev]');
@@ -206,26 +262,36 @@ const projectSignals = [
 
   const getStep = () => {
     const firstSlide = slides[0];
-    if (!firstSlide) return 0;
+    if (!firstSlide || !track) return 0;
     const slideWidth = firstSlide.getBoundingClientRect().width;
     const gap = Number.parseFloat(getComputedStyle(track).columnGap || '0');
     return slideWidth + gap;
   };
 
+  const getMaxIndex = () => {
+    if (!windowEl || slides.length === 0) return 0;
+    const step = getStep();
+    if (!step) return 0;
+    const visibleSlides = Math.max(1, Math.floor(windowEl.getBoundingClientRect().width / step));
+    return Math.max(0, slides.length - visibleSlides);
+  };
+
   const updateSlider = () => {
     if (!track || slides.length === 0) return;
-    const maxIndex = Math.max(0, slides.length - 1);
+    const maxIndex = getMaxIndex();
     currentIndex = Math.min(Math.max(currentIndex, 0), maxIndex);
     track.style.transform = `translateX(-${currentIndex * getStep()}px)`;
   };
 
   previous?.addEventListener('click', () => {
-    currentIndex = currentIndex <= 0 ? Math.max(0, slides.length - 1) : currentIndex - 1;
+    const maxIndex = getMaxIndex();
+    currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
     updateSlider();
   });
 
   next?.addEventListener('click', () => {
-    currentIndex = currentIndex >= slides.length - 1 ? 0 : currentIndex + 1;
+    const maxIndex = getMaxIndex();
+    currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
     updateSlider();
   });
 
