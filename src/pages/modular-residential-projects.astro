@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const projectTypes = [
+  ['Villa communities', 'A repeatable architectural and structural strategy for multiple private homes, branded residences or island communities.'],
+  ['Resorts and retreats', 'Guest villas, wellness accommodation, staff residences and hospitality buildings with a coordinated delivery route.'],
+  ['Multifamily buildings', 'Condominium, apartment and multi-resident buildings where consistency, efficiency and resilience matter.'],
+  ['Remote developments', 'Projects in difficult-access locations where logistics, local labour and repeat shipments need early control.'],
+];
+
+const controls = [
+  ['System consistency', 'A shared building logic can support different unit types while preserving architectural language and quality control.'],
+  ['Procurement control', 'Repeated components, coordinated information and consolidated shipping reduce avoidable site surprises.'],
+  ['Phasing', 'Development strategy can consider procurement, manufacture, shipment and site assembly across phases.'],
+];
+---
+<BaseLayout title="Modular Residential Projects | Bauhu" description="Bauhu modular residential project strategies for villa communities, resorts, retreats and multi-building developments in remote and coastal locations.">
+  <SiteHeader />
+  <main class="seo-page">
+    <section class="seo-hero">
+      <div class="seo-inner">
+        <p class="seo-kicker">Residential Projects</p>
+        <h1>Modular residential projects for places where delivery matters.</h1>
+        <p>Bauhu supports multi-building residential and hospitality projects where architecture, structural logic, procurement, shipping and assembly need to be planned as one controlled route.</p>
+        <div class="seo-actions"><a href="/remote-locations">Explore remote delivery</a><a href="/site-fit">Discuss a project</a></div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-paper">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker dark">Project types</p>
+          <h2>One building system. Different development strategies.</h2>
+        </div>
+        <div class="seo-copy dark-copy">
+          <p>Residential developments need more than a single attractive house design. They need repeatable logic, clear scope, coordinated specification, practical logistics and a route that can be understood by clients, consultants and local site teams.</p>
+          <p>Bauhu can support developments that use repeated models, varied unit types or custom residences within a consistent architectural and structural approach.</p>
+        </div>
+      </div>
+      <div class="seo-card-grid">
+        {projectTypes.map(([title, text]) => (
+          <article><h3>{title}</h3><p>{text}</p></article>
+        ))}
+      </div>
+    </section>
+
+    <section class="seo-section seo-ink">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker">Development control</p>
+          <h2>Fewer disconnected decisions before work reaches site.</h2>
+        </div>
+        <div class="seo-steps">
+          {controls.map(([title, text], index) => (
+            <article><strong>0{index + 1}</strong><h3>{title}</h3><p>{text}</p></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-paper">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker dark">Early review</p>
+          <h2>Bring Bauhu in before the project becomes fixed around the wrong assumptions.</h2>
+        </div>
+        <div class="seo-copy dark-copy">
+          <p>The earlier Bauhu can review the land, access route, intended unit mix, exposure, planning position, budget level and local delivery constraints, the more useful the system strategy can be.</p>
+          <p>For developers, resorts and private communities, the first step is not a generic quote. It is a serious review of whether Bauhu can improve the route to delivery.</p>
+          <a class="seo-text-link" href="/projects">View current projects →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  :global(html), :global(body){overflow-x:hidden!important}.seo-page{background:#050505;color:#f8f6f0;overflow:hidden}.seo-hero{min-height:86vh;display:flex;align-items:flex-end;padding:120px 7vw 96px;background:linear-gradient(180deg,rgba(5,5,5,.16),rgba(5,5,5,.9)),url('/images/developments/bauhu-projects-hero.webp') center/cover no-repeat}.seo-inner,.seo-two-col{max-width:1500px;margin:0 auto;width:100%}.seo-kicker{margin:0 0 22px;color:#c8a96a;text-transform:uppercase;letter-spacing:.22em;font:500 12px Inter,system-ui,sans-serif}.seo-kicker.dark{color:#9b7b49}.seo-hero h1,.seo-section h2{max-width:1150px;margin:0 0 28px;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(46px,7.4vw,112px);line-height:.9;font-weight:400;letter-spacing:-.055em}.seo-hero p{max-width:850px;margin:0;color:rgba(248,246,240,.76);font-size:clamp(19px,2vw,28px);line-height:1.35}.seo-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}.seo-actions a{display:inline-flex;border:1px solid #c8a96a;padding:15px 24px;color:#f8f6f0;text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:12px}.seo-actions a:hover{background:#c8a96a;color:#050505}.seo-section{padding:110px 7vw}.seo-paper{background:#ebe9e2;color:#17394c}.seo-ink{background:#050505;color:#f8f6f0}.seo-two-col{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px}.seo-section h2{font-size:clamp(42px,6vw,86px);color:inherit}.seo-copy p{font-size:17px;line-height:1.75;margin:0 0 22px}.dark-copy p{color:rgba(23,57,76,.7)}.seo-card-grid{max-width:1500px;margin:58px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.seo-card-grid article{background:#f7f5ef;border:1px solid rgba(23,57,76,.14);padding:30px;min-height:260px}.seo-card-grid h3,.seo-steps h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;font-weight:400;line-height:1.05;margin:0 0 18px}.seo-card-grid p,.seo-steps p{margin:0;line-height:1.65;color:rgba(23,57,76,.65)}.seo-steps{display:grid;gap:18px}.seo-steps article{border:1px solid rgba(255,255,255,.16);padding:30px}.seo-steps strong{color:#c8a96a;font-size:12px;letter-spacing:.16em}.seo-steps p{color:rgba(248,246,240,.64)}.seo-text-link{color:#9b7b49;text-decoration:none;text-transform:uppercase;letter-spacing:.13em;font-size:13px}@media(max-width:900px){.seo-hero{min-height:78vh;padding:96px 22px 74px}.seo-section{padding:78px 22px}.seo-two-col,.seo-card-grid{grid-template-columns:1fr;gap:34px}.seo-hero h1,.seo-section h2{font-size:clamp(36px,10.5vw,62px);line-height:.96}.seo-card-grid article{min-height:auto}}
+</style>
