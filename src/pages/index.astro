@@ -18,14 +18,38 @@ import EditorialHero from '../components/EditorialHero.astro';
       imageSrc="/images/home/bauhu-engineered-residences-hero.webp"
     />
 
-    <section class="section-pad bg-paper">
-      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <img src="/images/home/bauhu-architecture-engineering.webp" alt="Bauhu architecture and engineering system" class="min-h-[32rem] w-full object-cover" loading="lazy" />
+    <!-- Preserved Bauhu Approach copy for possible reuse:
+      Eyebrow: The Bauhu approach
+      Heading: Architecture, engineering and delivery considered as one.
+      Body: The site, climate, structure, procurement, shipping route and local build conditions are reviewed together from the beginning. The result is a home designed not only to look right, but to be engineered, manufactured, shipped and assembled with far greater control.
+      Image: /images/home/bauhu-architecture-engineering.webp
+    -->
+
+    <section class="section-pad bg-mist">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
         <div>
-          <p class="eyebrow text-clay">The Bauhu approach</p>
-          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Architecture, engineering and delivery considered as one.</h2>
-          <p class="mt-8 text-lg leading-8 text-ink/70">The site, climate, structure, procurement, shipping route and local build conditions are reviewed together from the beginning. The result is a home designed not only to look right, but to be engineered, manufactured, shipped and assembled with far greater control.</p>
+          <p class="eyebrow text-clay">Two routes</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Custom residences or predesigned model homes.</h2>
         </div>
+        <p class="text-lg leading-8 text-ink/70">Begin with a one of a kind architectural commission shaped around your land, views and lifestyle, or adapt an existing Bauhu model for a faster route to a resilient island home.</p>
+      </div>
+      <div class="mx-auto mt-14 grid max-w-site gap-5 md:grid-cols-2">
+        <a href="/residences" class="group overflow-hidden bg-forest text-paper transition hover:-translate-y-1">
+          <img src="/images/home/bauhu-contemporary-residences.webp" alt="Contemporary Bauhu custom residence" class="h-64 w-full object-cover opacity-85" loading="lazy" />
+          <div class="p-8">
+            <p class="eyebrow text-stone">Custom route</p>
+            <h3 class="mt-16 font-display text-4xl md:text-5xl">Commission a Residence</h3>
+            <p class="mt-5 max-w-md leading-7 text-paper/70">A design led route for clients seeking a home shaped around site, climate, privacy and view.</p>
+          </div>
+        </a>
+        <a href="/models" class="group overflow-hidden bg-stone text-ink transition hover:-translate-y-1">
+          <img src="/images/home/bauhu-model-home.webp" alt="Bauhu model home starting point" class="h-64 w-full object-cover" loading="lazy" />
+          <div class="p-8">
+            <p class="eyebrow text-clay">Model route</p>
+            <h3 class="mt-16 font-display text-4xl md:text-5xl">Adapt a Bauhu Model</h3>
+            <p class="mt-5 max-w-md leading-7 text-ink/70">A clear starting point using proven Bauhu ranges, refined for your site and budget.</p>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -55,34 +79,6 @@ import EditorialHero from '../components/EditorialHero.astro';
             <p class="mt-5 leading-7 text-paper/65">Packing, shipping, handling and assembly are considered as part of the building strategy from the start.</p>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section class="section-pad bg-mist">
-      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-        <div>
-          <p class="eyebrow text-clay">Two routes</p>
-          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Custom residences or predesigned model homes.</h2>
-        </div>
-        <p class="text-lg leading-8 text-ink/70">Begin with a one of a kind architectural commission shaped around your land, views and lifestyle, or adapt an existing Bauhu model for a faster route to a resilient island home.</p>
-      </div>
-      <div class="mx-auto mt-14 grid max-w-site gap-5 md:grid-cols-2">
-        <a href="/residences" class="group overflow-hidden bg-forest text-paper transition hover:-translate-y-1">
-          <img src="/images/home/bauhu-contemporary-residences.webp" alt="Contemporary Bauhu custom residence" class="h-64 w-full object-cover opacity-85" loading="lazy" />
-          <div class="p-8">
-            <p class="eyebrow text-stone">Custom route</p>
-            <h3 class="mt-16 font-display text-4xl md:text-5xl">Commission a Residence</h3>
-            <p class="mt-5 max-w-md leading-7 text-paper/70">A design led route for clients seeking a home shaped around site, climate, privacy and view.</p>
-          </div>
-        </a>
-        <a href="/models" class="group overflow-hidden bg-stone text-ink transition hover:-translate-y-1">
-          <img src="/images/home/bauhu-model-home.webp" alt="Bauhu model home starting point" class="h-64 w-full object-cover" loading="lazy" />
-          <div class="p-8">
-            <p class="eyebrow text-clay">Model route</p>
-            <h3 class="mt-16 font-display text-4xl md:text-5xl">Adapt a Bauhu Model</h3>
-            <p class="mt-5 max-w-md leading-7 text-ink/70">A clear starting point using proven Bauhu ranges, refined for your site and budget.</p>
-          </div>
-        </a>
       </div>
     </section>
 
