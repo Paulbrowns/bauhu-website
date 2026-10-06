@@ -1,6 +1,68 @@
+# Cloudflare Pages redirects
+# These rules preserve bauhu.com legacy SEO URLs when DNS is moved to this deployment.
+
+# Internal asset compatibility
 /models/3d/bahama-beach.glb /models/3d/bahama-beach/bahama-beach.glb 200
+
+# High-value legacy SEO landing pages
+/off-the-shelf-modular-homes /models 301
+/off-the-shelf-modular-homes/ /models 301
+/steel-frame-home-kits.html /engineering 301
+/steel-frame-home-kits /engineering 301
+/steel-frame-home-kits/ /engineering 301
+/bespoke-modular-homes /residences 301
+/bespoke-modular-homes/ /residences 301
+/modular-residential-projects /remote-locations 301
+/modular-residential-projects/ /remote-locations 301
 /developments /remote-locations 301
 /developments/ /remote-locations 301
+
+# Legacy support / information pages
+/downloads /resources 301
+/downloads/ /resources 301
+/faq /resources 301
+/faq/ /resources 301
+/reviews /resources 301
+/reviews/ /resources 301
+/about /resources 301
+/about/ /resources 301
+/contact /site-fit 301
+/contact/ /site-fit 301
+
+# Legacy Element range URLs to current home model pages
+/homes/element-sky /homes/sky 301
+/homes/element-sky/ /homes/sky 301
+/homes/element-sky.html /homes/sky 301
+/homes/element-arc /homes/arc 301
+/homes/element-arc/ /homes/arc 301
+/homes/element-arc.html /homes/arc 301
+/homes/element-ice /homes/ice 301
+/homes/element-ice/ /homes/ice 301
+/homes/element-ice.html /homes/ice 301
+/homes/element-eon /homes/eon 301
+/homes/element-eon/ /homes/eon 301
+/homes/element-eon.html /homes/eon 301
+/homes/element-zen /homes/zen 301
+/homes/element-zen/ /homes/zen 301
+/homes/element-zen.html /homes/zen 301
+/homes/element-air /homes/air 301
+/homes/element-air/ /homes/air 301
+/homes/element-air.html /homes/air 301
+
+# Common legacy model URL variants
+/homes/bauhu-:slug /homes/:slug 301
+/homes/bauhu-:slug/ /homes/:slug 301
+/homes/:slug.html /homes/:slug 301
+
+# Legacy project / news URLs
+/news /projects 301
+/news/ /projects 301
+/news/* /projects 301
+/project-news /projects 301
+/project-news/ /projects 301
+/project-news/* /projects 301
+
+# New-site route consolidations
 /site-placement/* /project-details 301
 /project-home /project-details 301
 /project-home/ /project-details 301
