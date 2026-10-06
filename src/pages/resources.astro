@@ -21,7 +21,7 @@ const downloads = [
 const clientNotes = [
   ['St Thomas, USVI', 'Bauhu has been great to work with, and extremely responsive.'],
   ['Eleuthera, The Bahamas', 'I am so impressed. It is absolutely beautiful.'],
-  ['Guana Cay, The Bahamas', 'You and your team are nothing shy of amazing.'],
+  ['Exuma, The Bahamas', 'You and your team are nothing shy of amazing.'],
 ];
 
 const faqGroups = [
@@ -146,7 +146,6 @@ const faqGroups = [
     <section class="resources-proof-section">
       <div class="resources-areas-inner">
         <p class="resources-kicker">Client Notes</p>
-        <h2>Proof from real island projects.</h2>
         <div class="resources-proof-grid">
           {clientNotes.map(([location, quote]) => (
             <figure>
@@ -214,11 +213,11 @@ const faqGroups = [
   .resources-downloads-button { margin-top:30px; }
   .resources-downloads-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; margin-top:54px; }
   .resources-downloads-grid span { display:block; margin-bottom:24px; color:#c8a96a; font-size:11px; letter-spacing:.18em; text-transform:uppercase; }
-  .resources-proof-section { padding:105px 7vw 115px; background:#0a0a0a; }
-  .resources-proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:54px; }
-  .resources-proof-grid figure { margin:0; padding:38px; border:1px solid rgba(255,255,255,.16); background:#050505; }
-  .resources-proof-grid blockquote { margin:0; font-family:"Cormorant Garamond", Georgia, serif; font-size:clamp(30px,2.8vw,46px); line-height:1.05; letter-spacing:-.035em; color:#f8f6f0; }
-  .resources-proof-grid figcaption { margin-top:28px; color:#c8a96a; font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
+  .resources-proof-section { padding:95px 7vw 105px; background:#0a0a0a; }
+  .resources-proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:34px; }
+  .resources-proof-grid figure { margin:0; padding:34px; border:1px solid rgba(255,255,255,.16); background:#050505; }
+  .resources-proof-grid blockquote { margin:0; font-size:clamp(18px,1.45vw,24px); line-height:1.4; letter-spacing:0; color:rgba(248,246,240,.78); }
+  .resources-proof-grid figcaption { margin-top:24px; color:#c8a96a; font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
   .resources-faq-section { padding:110px 7vw 130px; background:#050505; }
   .resources-faq-section h2 { max-width:980px; }
   .faq-groups { margin-top:64px; display:grid; gap:54px; }
