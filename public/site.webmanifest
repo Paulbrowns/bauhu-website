@@ -1,11 +1,24 @@
 {
   "name": "Bauhu",
   "short_name": "Bauhu",
-  "description": "Architectural residences and modular building systems for demanding sites.",
+  "description": "Architect-designed, precision-engineered residences for demanding coastal, remote and hurricane-exposed sites.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#F3F0EA",
   "theme_color": "#243A32",
-  "icons": []
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
