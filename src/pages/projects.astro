@@ -155,12 +155,9 @@ const featuredProjects = [
         </div>
 
         <div class="project-slider mt-14" data-project-slider>
-          <div class="mb-6 flex items-center justify-between gap-4">
-            <p class="text-sm uppercase tracking-[0.22em] text-ink/45">Project updates</p>
-            <div class="flex gap-2">
-              <button type="button" class="project-slider-button" data-project-prev aria-label="Previous project">←</button>
-              <button type="button" class="project-slider-button" data-project-next aria-label="Next project">→</button>
-            </div>
+          <div class="mb-6 flex justify-end gap-2">
+            <button type="button" class="project-slider-button" data-project-prev aria-label="Previous project">←</button>
+            <button type="button" class="project-slider-button" data-project-next aria-label="Next project">→</button>
           </div>
 
           <div class="project-slider-window overflow-hidden" data-project-window>
@@ -180,28 +177,6 @@ const featuredProjects = [
               ))}
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section-pad bg-paper">
-      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-        <div>
-          <p class="eyebrow text-clay">What these projects show</p>
-          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">The real work behind resilient homes.</h2>
-        </div>
-        <div class="grid gap-5 sm:grid-cols-2">
-          {[
-            ['Coastal exposure', 'Flood zones, uplift, wind load and corrosion risk are design inputs, not afterthoughts.'],
-            ['Remote logistics', 'Project planning considers freight, access, lifting, sequencing and local site capability.'],
-            ['Hybrid steel frame', 'Bauhu’s structural approach is designed for precision, repeatability and hurricane-rated performance.'],
-            ['Local assembly', 'The system supports trusted local contractors with engineered information and a controlled building package.'],
-          ].map(([title, text]) => (
-            <article class="bg-mist p-7">
-              <h3 class="font-display text-3xl">{title}</h3>
-              <p class="mt-5 leading-7 text-ink/65">{text}</p>
-            </article>
-          ))}
         </div>
       </div>
     </section>
