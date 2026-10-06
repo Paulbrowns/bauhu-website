@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const benefits = [
+  ['Precision steel frame', 'A rationalised steel-frame structure provides the controlled manufactured core of the building.'],
+  ['Engineered connections', 'Load paths, uplift, openings, roof structure and envelope strategy are coordinated through project-specific engineering.'],
+  ['Remote-site logic', 'The package is planned around packing, shipping, handling, local labour availability and assembly sequencing.'],
+  ['Defined responsibilities', 'Bauhu documentation helps separate the supplied building system from local foundations, approvals, services and site works.'],
+];
+
+const topics = [
+  ['Code basis', 'Applicable code, wind criteria, exposure, site conditions and final geometry are confirmed project by project.'],
+  ['Envelope', 'Roof, wall, openings, shading, insulation and moisture strategy are considered together rather than as separate afterthoughts.'],
+  ['Assembly', 'Project-specific information supports sequencing, structural connections, envelope installation and key construction stages.'],
+];
+---
+<BaseLayout title="Steel Frame Home Kits | Bauhu" description="Bauhu steel-frame building systems for resilient homes in coastal, remote and hurricane-exposed locations.">
+  <SiteHeader />
+  <main class="seo-page">
+    <section class="seo-hero">
+      <div class="seo-inner">
+        <p class="seo-kicker">Steel Frame Building System</p>
+        <h1>Steel frame home kits for serious sites.</h1>
+        <p>Bauhu’s steel-frame approach is designed for homes where structure, logistics, climate and assembly need to be coordinated before the building reaches the site.</p>
+        <div class="seo-actions"><a href="/engineering">Explore engineering</a><a href="/site-fit">Start site review</a></div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-paper">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker dark">Beyond a kit</p>
+          <h2>The value is not only the frame. It is the coordination behind it.</h2>
+        </div>
+        <div class="seo-copy dark-copy">
+          <p>A simple frame kit can still leave too many decisions to the site. Bauhu approaches the frame as part of a wider building system: architecture, structural engineering, envelope, procurement, shipping and assembly information considered together.</p>
+          <p>This is especially important in coastal, island and hurricane-exposed locations where repeat deliveries, missing components or unclear responsibilities can become expensive quickly.</p>
+        </div>
+      </div>
+      <div class="seo-card-grid">
+        {benefits.map(([title, text]) => (
+          <article><h3>{title}</h3><p>{text}</p></article>
+        ))}
+      </div>
+    </section>
+
+    <section class="seo-section seo-ink">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker">Technical route</p>
+          <h2>Project-specific engineering, not generic hurricane-proof claims.</h2>
+        </div>
+        <div class="seo-steps">
+          {topics.map(([title, text], index) => (
+            <article><strong>0{index + 1}</strong><h3>{title}</h3><p>{text}</p></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-paper">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker dark">Where it fits</p>
+          <h2>Useful for model homes, custom residences and multi-building projects.</h2>
+        </div>
+        <div class="seo-copy dark-copy">
+          <p>The Bauhu system can support predesigned model homes, one-off custom residences, resort accommodation, villa clusters and larger residential projects where repeatability, quality control and resilient engineering matter.</p>
+          <p>Material efficiency, reduced site waste, thermal performance and long-life resilience are part of the system logic, with exact performance confirmed through the project specification.</p>
+          <a class="seo-text-link" href="/resources">Read technical questions →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  :global(html), :global(body){overflow-x:hidden!important}.seo-page{background:#050505;color:#f8f6f0;overflow:hidden}.seo-hero{min-height:86vh;display:flex;align-items:flex-end;padding:120px 7vw 96px;background:linear-gradient(180deg,rgba(5,5,5,.16),rgba(5,5,5,.9)),url('/images/developments/bauhu-engineering-hero.webp') center/cover no-repeat}.seo-inner,.seo-two-col{max-width:1500px;margin:0 auto;width:100%}.seo-kicker{margin:0 0 22px;color:#c8a96a;text-transform:uppercase;letter-spacing:.22em;font:500 12px Inter,system-ui,sans-serif}.seo-kicker.dark{color:#9b7b49}.seo-hero h1,.seo-section h2{max-width:1150px;margin:0 0 28px;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(46px,7.4vw,112px);line-height:.9;font-weight:400;letter-spacing:-.055em}.seo-hero p{max-width:850px;margin:0;color:rgba(248,246,240,.76);font-size:clamp(19px,2vw,28px);line-height:1.35}.seo-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}.seo-actions a{display:inline-flex;border:1px solid #c8a96a;padding:15px 24px;color:#f8f6f0;text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:12px}.seo-actions a:hover{background:#c8a96a;color:#050505}.seo-section{padding:110px 7vw}.seo-paper{background:#ebe9e2;color:#17394c}.seo-ink{background:#050505;color:#f8f6f0}.seo-two-col{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px}.seo-section h2{font-size:clamp(42px,6vw,86px);color:inherit}.seo-copy p{font-size:17px;line-height:1.75;margin:0 0 22px}.dark-copy p{color:rgba(23,57,76,.7)}.seo-card-grid{max-width:1500px;margin:58px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.seo-card-grid article{background:#f7f5ef;border:1px solid rgba(23,57,76,.14);padding:30px;min-height:260px}.seo-card-grid h3,.seo-steps h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;font-weight:400;line-height:1.05;margin:0 0 18px}.seo-card-grid p,.seo-steps p{margin:0;line-height:1.65;color:rgba(23,57,76,.65)}.seo-steps{display:grid;gap:18px}.seo-steps article{border:1px solid rgba(255,255,255,.16);padding:30px}.seo-steps strong{color:#c8a96a;font-size:12px;letter-spacing:.16em}.seo-steps p{color:rgba(248,246,240,.64)}.seo-text-link{color:#9b7b49;text-decoration:none;text-transform:uppercase;letter-spacing:.13em;font-size:13px}@media(max-width:900px){.seo-hero{min-height:78vh;padding:96px 22px 74px}.seo-section{padding:78px 22px}.seo-two-col,.seo-card-grid{grid-template-columns:1fr;gap:34px}.seo-hero h1,.seo-section h2{font-size:clamp(36px,10.5vw,62px);line-height:.96}.seo-card-grid article{min-height:auto}}
+</style>
