@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const benefits = [
+  ['Faster starting point', 'Begin from an architect-designed Bauhu model rather than a blank page, then refine the layout, specification and site response around the project.'],
+  ['Controlled engineering', 'The model route still uses Bauhu’s steel-frame building system, with structure, envelope, openings and delivery information coordinated before manufacture.'],
+  ['Better site fit', 'Orientation, access, foundations, exposure, terraces, shading and local works are reviewed so the selected model can be adapted intelligently.'],
+  ['Clearer budget route', 'Guide pricing and model filters help establish fit early, before the project moves into detailed design, engineering and procurement.'],
+];
+
+const routes = [
+  ['Choose a model', 'Review Bauhu model homes by bedroom count, style, built area and guide price.'],
+  ['Adapt it to your site', 'Refine the selected model around views, access, climate, planning position and local construction realities.'],
+  ['Engineer and deliver', 'Coordinate the approved design into the manufactured building package, logistics and assembly information.'],
+];
+---
+<BaseLayout title="Off-the-Shelf Modular Homes | Bauhu" description="Architect-designed Bauhu model homes for clients who want a faster starting point without reducing the project to a generic modular unit.">
+  <SiteHeader />
+  <main class="seo-page">
+    <section class="seo-hero">
+      <div class="seo-inner">
+        <p class="seo-kicker">Model Homes</p>
+        <h1>Off-the-shelf modular homes, without the off-the-shelf result.</h1>
+        <p>Bauhu model homes give clients a proven architectural starting point. Each model can be refined around the site, climate, views, budget and intended use before it is engineered and delivered.</p>
+        <div class="seo-actions"><a href="/models">Explore Bauhu models</a><a href="/site-fit">Start your project</a></div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-paper">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker dark">Why this route</p>
+          <h2>Model homes are a starting point, not a compromise.</h2>
+        </div>
+        <div class="seo-copy dark-copy">
+          <p>For many clients, the best route is not a fully bespoke residence and not a generic catalogue home. A Bauhu model provides an architectural base that already works as a home, then allows the important decisions to be made around the actual land.</p>
+          <p>The result is a faster, clearer route into design and engineering while preserving the Bauhu emphasis on resilience, precision and site-specific delivery.</p>
+        </div>
+      </div>
+      <div class="seo-card-grid">
+        {benefits.map(([title, text]) => (
+          <article><h3>{title}</h3><p>{text}</p></article>
+        ))}
+      </div>
+    </section>
+
+    <section class="seo-section seo-ink">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker">How it works</p>
+          <h2>Choose the direction. Then make it site-specific.</h2>
+        </div>
+        <div class="seo-steps">
+          {routes.map(([title, text], index) => (
+            <article><strong>0{index + 1}</strong><h3>{title}</h3><p>{text}</p></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-paper">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker dark">What is included</p>
+          <h2>A coordinated building package, with scope defined project by project.</h2>
+        </div>
+        <div class="seo-copy dark-copy">
+          <p>Bauhu can coordinate architecture, engineering, the steel-frame building system, procurement, manufactured components, delivery information and project-specific assembly guidance.</p>
+          <p>Kitchen, bathroom, internal finish, external finish and decor selections can also be coordinated as part of the project specification. Local approvals, foundations, services, site works, assembly and final completion responsibilities are confirmed for each location.</p>
+          <a class="seo-text-link" href="/resources">Read buyer questions →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  :global(html), :global(body){overflow-x:hidden!important}.seo-page{background:#050505;color:#f8f6f0;overflow:hidden}.seo-hero{min-height:86vh;display:flex;align-items:flex-end;padding:120px 7vw 96px;background:linear-gradient(180deg,rgba(5,5,5,.16),rgba(5,5,5,.9)),url('/images/home/bauhu-model-home.webp') center/cover no-repeat}.seo-inner,.seo-two-col{max-width:1500px;margin:0 auto;width:100%}.seo-kicker{margin:0 0 22px;color:#c8a96a;text-transform:uppercase;letter-spacing:.22em;font:500 12px Inter,system-ui,sans-serif}.seo-kicker.dark{color:#9b7b49}.seo-hero h1,.seo-section h2{max-width:1150px;margin:0 0 28px;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(46px,7.4vw,112px);line-height:.9;font-weight:400;letter-spacing:-.055em}.seo-hero p{max-width:850px;margin:0;color:rgba(248,246,240,.76);font-size:clamp(19px,2vw,28px);line-height:1.35}.seo-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}.seo-actions a{display:inline-flex;border:1px solid #c8a96a;padding:15px 24px;color:#f8f6f0;text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:12px}.seo-actions a:hover{background:#c8a96a;color:#050505}.seo-section{padding:110px 7vw}.seo-paper{background:#ebe9e2;color:#17394c}.seo-ink{background:#050505;color:#f8f6f0}.seo-two-col{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px}.seo-section h2{font-size:clamp(42px,6vw,86px);color:inherit}.seo-copy p{font-size:17px;line-height:1.75;margin:0 0 22px}.dark-copy p{color:rgba(23,57,76,.7)}.seo-card-grid{max-width:1500px;margin:58px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.seo-card-grid article{background:#f7f5ef;border:1px solid rgba(23,57,76,.14);padding:30px;min-height:260px}.seo-card-grid h3,.seo-steps h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;font-weight:400;line-height:1.05;margin:0 0 18px}.seo-card-grid p,.seo-steps p{margin:0;line-height:1.65;color:rgba(23,57,76,.65)}.seo-steps{display:grid;gap:18px}.seo-steps article{border:1px solid rgba(255,255,255,.16);padding:30px}.seo-steps strong{color:#c8a96a;font-size:12px;letter-spacing:.16em}.seo-steps p{color:rgba(248,246,240,.64)}.seo-text-link{color:#9b7b49;text-decoration:none;text-transform:uppercase;letter-spacing:.13em;font-size:13px}@media(max-width:900px){.seo-hero{min-height:78vh;padding:96px 22px 74px}.seo-section{padding:78px 22px}.seo-two-col,.seo-card-grid{grid-template-columns:1fr;gap:34px}.seo-hero h1,.seo-section h2{font-size:clamp(36px,10.5vw,62px);line-height:.96}.seo-card-grid article{min-height:auto}}
+</style>
