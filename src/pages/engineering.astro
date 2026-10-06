@@ -2,6 +2,21 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+
+const engineeringImages = [
+  {
+    src: '/images/models/engineering-1.webp',
+    label: 'Structural frame / connection detail',
+  },
+  {
+    src: '/images/models/engineering-2.webp',
+    label: 'Roof, uplift and load-path detail',
+  },
+  {
+    src: '/images/models/engineering-3.webp',
+    label: 'Completed home in hurricane-exposed location',
+  },
+];
 ---
 <BaseLayout title="Engineering | Bauhu" description="Engineering and resilience information for Bauhu building systems.">
   <SiteHeader />
@@ -53,10 +68,11 @@ import SiteFooter from '../components/SiteFooter.astro';
         </div>
       </div>
       <div class="mx-auto mt-12 grid max-w-site gap-5 md:grid-cols-3">
-        {['Structural frame / connection detail','Roof, uplift and load-path detail','Completed home in hurricane-exposed location'].map((label) => (
-          <div class="flex min-h-64 items-center justify-center border border-ink/15 bg-mist p-6 text-center">
-            <div><p class="eyebrow text-clay">IMAGE PLACEHOLDER</p><p class="mt-4 text-sm leading-6 text-ink/55">{label}</p></div>
-          </div>
+        {engineeringImages.map((image) => (
+          <figure class="overflow-hidden bg-ink">
+            <img src={image.src} alt={image.label} class="h-80 w-full object-cover opacity-95" loading="lazy" />
+            <figcaption class="bg-mist p-5 text-sm leading-6 text-ink/65">{image.label}</figcaption>
+          </figure>
         ))}
       </div>
     </section>
