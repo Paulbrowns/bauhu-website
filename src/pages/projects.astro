@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
+const fallbackImage = '/images/developments/bauhu-projects-hero.jpg';
+
 const featuredProjects = [
   {
     title: 'Ft Myers Beach, Florida',
@@ -50,7 +52,7 @@ const featuredProjects = [
     title: 'Jamaica',
     location: 'Jamaica',
     summary: 'Xenjoh Villa, Bauhu’s first villa constructed in Jamaica, is presented as a hurricane-safe luxury modular home that remained unscathed by Hurricane Beryl.',
-    image: '/images/models/bauhu-jamaica/bauhu-jamaica.webp',
+    image: fallbackImage,
   },
   {
     title: 'Exuma Waterfront',
@@ -62,19 +64,19 @@ const featuredProjects = [
     title: 'Elbow Cay, The Bahamas',
     location: 'The Bahamas',
     summary: 'A modern Caribbean colonial duplex in historic Hope Town, combining two one-bedroom apartments, a ground-floor commercial space and hurricane-resistant modular construction.',
-    image: '/images/developments/bauhu-projects-hero.jpg',
+    image: fallbackImage,
   },
   {
     title: 'Quinta de Lago',
     location: 'Portugal',
     summary: 'A completed minimalist Bauhu home in southern Portugal, combining off-grid functionality, luxury finishes and precision-engineered modular construction.',
-    image: '/images/models/bauhu-quinta/bauhu-quinta.webp',
+    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689745175-YXZO50GR15DW41Z9HJSE/DSC00781.jpg',
   },
   {
     title: 'Scotland Cay',
     location: 'The Bahamas',
     summary: 'A Bauhu project update from Scotland Cay, included in the project news archive as part of the wider island delivery portfolio.',
-    image: '/images/developments/bauhu-projects-hero.jpg',
+    image: fallbackImage,
   },
   {
     title: 'Abaco',
@@ -92,13 +94,7 @@ const featuredProjects = [
     title: 'Antigua',
     location: 'Antigua',
     summary: 'An Antigua project update from Bauhu’s project news archive, showing the system across another Caribbean island setting.',
-    image: '/images/models/bauhu-azure/bauhu-azure.webp',
-  },
-  {
-    title: 'Hope Town',
-    location: 'The Bahamas',
-    summary: 'A Hope Town project update connected to Bauhu’s hurricane-resistant island building work in the Bahamas.',
-    image: '/images/developments/bauhu-projects-hero.jpg',
+    image: fallbackImage,
   },
   {
     title: 'Little Cayman',
@@ -116,8 +112,8 @@ const featuredProjects = [
     title: 'Cruz Bay, St John USVI',
     location: 'US Virgin Islands',
     summary: 'A Cruz Bay project update from Bauhu’s project news archive, extending the St John project record across multiple sites.',
-    image: '/images/models/bauhu-bahama-beach/bauhu-bahama-beach.webp',
-  }
+    image: fallbackImage,
+  },
 ];
 
 const projectSignals = [
@@ -253,8 +249,8 @@ const projectSignals = [
 
 <script>
   const slider = document.querySelector('[data-project-slider]');
-  const windowEl = slider?.querySelector('[data-project-window]');
   const track = slider?.querySelector('[data-project-track]');
+  const windowElement = slider?.querySelector('[data-project-window]');
   const slides = Array.from(slider?.querySelectorAll('.project-slide') ?? []);
   const previous = slider?.querySelector('[data-project-prev]');
   const next = slider?.querySelector('[data-project-next]');
@@ -269,11 +265,11 @@ const projectSignals = [
   };
 
   const getMaxIndex = () => {
-    if (!windowEl || slides.length === 0) return 0;
+    if (!track || !windowElement) return Math.max(0, slides.length - 1);
     const step = getStep();
     if (!step) return 0;
-    const visibleSlides = Math.max(1, Math.floor(windowEl.getBoundingClientRect().width / step));
-    return Math.max(0, slides.length - visibleSlides);
+    const overflow = Math.max(0, track.scrollWidth - windowElement.clientWidth);
+    return Math.ceil(overflow / step);
   };
 
   const updateSlider = () => {
