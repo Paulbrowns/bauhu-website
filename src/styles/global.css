@@ -41,3 +41,57 @@ img {
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
+
+@media screen and (max-width: 900px) {
+  .section-pad {
+    padding-top: 4.25rem;
+    padding-bottom: 4.25rem;
+  }
+
+  .resources-intro,
+  .resources-areas-section,
+  .resources-downloads-section,
+  .resources-proof-section,
+  .resources-faq-section,
+  .remote-intro,
+  .remote-statement,
+  .remote-process-section,
+  .remote-pathways-section,
+  .remote-challenges-section,
+  .remote-control-section,
+  .remote-parallel-section,
+  .remote-support-section,
+  .seo-section {
+    padding-top: 4.5rem !important;
+    padding-bottom: 4.5rem !important;
+  }
+
+  .resources-cta-section,
+  .remote-cta-section {
+    padding-top: 5.25rem !important;
+    padding-bottom: 5.25rem !important;
+  }
+
+  .resources-hero,
+  .remote-hero,
+  .seo-hero {
+    min-height: 72vh !important;
+    padding-top: 6rem !important;
+    padding-bottom: 4.25rem !important;
+  }
+
+  .resources-areas-grid,
+  .resources-downloads-grid,
+  .resources-proof-grid,
+  .remote-process-grid,
+  .remote-pathways-grid,
+  .remote-control-grid,
+  .seo-card-grid {
+    margin-top: 2.25rem !important;
+  }
+
+  .faq-groups {
+    margin-top: 2.75rem !important;
+    gap: 2.75rem !important;
+  }
+}
