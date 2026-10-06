@@ -5,13 +5,13 @@ import SiteFooter from '../components/SiteFooter.astro';
 import EditorialHero from '../components/EditorialHero.astro';
 
 const steps = [
-  ['01', 'Send your site details', 'The first step is practical. Share the location, access, planning status, preferred size, budget range, timeline and any drawings, survey material or site photographs.'],
-  ['02', 'Feasibility review', 'Bauhu reviews the site conditions, likely route to delivery, model suitability, custom residence potential and any early constraints that may affect scope or cost.'],
-  ['03', 'Define the right route', 'Some clients are best served by adapting a Bauhu model. Others require a custom residence shaped more closely around the land, outlook and brief.'],
-  ['04', 'Design and engineering', 'Architecture, structure, openings, envelope, foundations strategy, specification and logistics are coordinated against the approved project information.'],
-  ['05', 'Controlled procurement and manufacture', 'Approved project information drives the component and procurement package so supplier orders, manufactured elements and project requirements stay aligned before shipment.'],
-  ['06', 'Consolidate and ship', 'Bauhu coordinates consolidation and shipping so the building package is organised against the approved project information before dispatch. Containerisation, handling and the realities of the destination are considered as part of delivery.'],
-  ['07', 'Assembly guidance and support', 'The local team receives project-specific assembly information covering sequencing, connections and key construction stages. Bauhu remains available during assembly to assist with technical questions and interpretation of the project information.'],
+  ['01', 'Send your site details', 'Share the location, access, planning status, preferred size, budget range, timeline and any drawings, surveys or site photographs.'],
+  ['02', 'Feasibility review', 'Bauhu reviews the site conditions, likely delivery route, model suitability and early constraints that may affect scope or cost.'],
+  ['03', 'Choose the right route', 'We identify whether the project is best suited to an adapted Bauhu model, a custom residence or a larger multi-building approach.'],
+  ['04', 'Design and engineering', 'Architecture, structure, openings, envelope, foundations strategy, specification and logistics are coordinated around the approved project information.'],
+  ['05', 'Procure and manufacture', 'Approved information is translated into the component, procurement and manufacturing package so orders and project requirements stay aligned.'],
+  ['06', 'Consolidate and ship', 'The building package is organised, checked and shipped with containerisation, handling and destination realities considered before dispatch.'],
+  ['07', 'Assemble with support', 'The local team receives project-specific assembly information, with Bauhu available to assist with technical questions during the build.'],
 ];
 ---
 <BaseLayout title="How It Works | Bauhu" description="The guided Bauhu buyer journey from site review to design, manufacture and delivery.">
@@ -31,7 +31,7 @@ const steps = [
           <p class="eyebrow text-clay">Process</p>
           <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Designed to reduce uncertainty before you commit.</h2>
         </div>
-        <p class="text-lg leading-8 text-ink/70">Remote, coastal and island projects need clarity early. Bauhu’s process is designed to identify the right route, the likely constraints and the practical delivery path before detailed work begins.</p>
+        <p class="text-lg leading-8 text-ink/70">Remote, coastal and island projects need clarity early. Bauhu’s process identifies the right route, likely constraints and practical delivery path before detailed work begins.</p>
       </div>
       <div class="mx-auto mt-14 grid max-w-site gap-5 md:grid-cols-2">
         {steps.map(([number, title, text]) => (
@@ -48,20 +48,12 @@ const steps = [
       <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <p class="eyebrow text-stone">Controlled delivery</p>
-          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Designed to be built, shipped and assembled — not simply designed to be drawn.</h2>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Built around coordination, not improvisation.</h2>
         </div>
         <div class="space-y-6 text-lg leading-8 text-paper/70">
-          <p>Remote construction becomes expensive when design changes, procurement mistakes, labour shortages and repeat shipments are discovered on site. Bauhu moves more decisions upstream, where they can be coordinated before the building reaches the site.</p>
-          <p>That means one controlled flow of approved design information into engineering, procurement, manufacture, consolidation and shipping — with a clear record of what belongs in the Bauhu package and what remains a local responsibility.</p>
-          <p>Delivery is not the end of Bauhu’s involvement. Project-specific assembly information is issued to support the local contractor, and the Bauhu team remains available during assembly to assist with technical questions and interpretation of the coordinated project information.</p>
+          <p>Remote construction becomes expensive when design changes, procurement mistakes or missing information are discovered on site. Bauhu moves key decisions upstream so design, engineering, procurement, manufacture and shipping work from the same approved project information.</p>
+          <p>The result is a clearer Bauhu package, clearer local responsibilities and fewer avoidable surprises after delivery.</p>
         </div>
-      </div>
-      <div class="mx-auto mt-12 grid max-w-site gap-5 md:grid-cols-3">
-        {['Approved project information','Consolidation / shipping control','Assembly guide / technical support'].map((label) => (
-          <div class="flex min-h-64 items-center justify-center border border-paper/15 p-6 text-center">
-            <div><p class="eyebrow text-stone">IMAGE PLACEHOLDER</p><p class="mt-4 text-sm text-paper/55">{label}</p></div>
-          </div>
-        ))}
       </div>
     </section>
 
@@ -69,12 +61,11 @@ const steps = [
       <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <p class="eyebrow text-clay">Logistics & assembly support</p>
-          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">One coordinated shipment. Support that continues after delivery.</h2>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">One coordinated shipment. Support after delivery.</h2>
         </div>
         <div class="space-y-6 text-lg leading-8 text-ink/70">
-          <p>Bauhu coordinates procurement, consolidation and shipping as connected parts of the building delivery process. Components are brought together against the approved project information before dispatch so the shipment is treated as one coordinated building package rather than a collection of unrelated supplier deliveries.</p>
-          <p>For assembly, Bauhu provides detailed project information covering structural sequencing, connections, envelope installation, material requirements and key construction stages. The information is designed to aid the local contractor and installers; it does not replace the responsibilities or professional judgement of the appointed site team.</p>
-          <p>During assembly, Bauhu remains available to assist with technical questions and interpretation of the project documentation.</p>
+          <p>Components are procured, consolidated and dispatched as one coordinated building package rather than a series of disconnected supplier deliveries.</p>
+          <p>For assembly, Bauhu provides project-specific information covering sequencing, connections, envelope installation and key construction stages. The local contractor retains responsibility for site execution, supervision and professional judgement.</p>
         </div>
       </div>
     </section>
@@ -86,7 +77,7 @@ const steps = [
         <div class="mt-12 grid gap-5 md:grid-cols-3">
           <article class="bg-mist p-7"><h3 class="font-display text-3xl">We review the site</h3><p class="mt-4 leading-7 text-ink/70">Location, access, exposure, planning position and any survey or drawings you already have.</p></article>
           <article class="bg-mist p-7"><h3 class="font-display text-3xl">We identify the route</h3><p class="mt-4 leading-7 text-ink/70">Predesigned model, custom design or larger development — and the main constraints that should be resolved first.</p></article>
-          <article class="bg-mist p-7"><h3 class="font-display text-3xl">We define the next decision</h3><p class="mt-4 leading-7 text-ink/70">The objective is clarity on feasibility, scope and what information is needed before meaningful design or pricing work proceeds.</p></article>
+          <article class="bg-mist p-7"><h3 class="font-display text-3xl">We define the next decision</h3><p class="mt-4 leading-7 text-ink/70">Clarity on feasibility, scope and what information is needed before meaningful design or pricing work proceeds.</p></article>
         </div>
       </div>
     </section>
