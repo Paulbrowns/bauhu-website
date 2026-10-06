@@ -5,14 +5,10 @@
 /models/3d/bahama-beach.glb /models/3d/bahama-beach/bahama-beach.glb 200
 
 # High-value legacy SEO landing pages kept live on the new site
-/off-the-shelf-modular-homes/ /off-the-shelf-modular-homes 301
-/off-the-shelf-modular-homes.html /off-the-shelf-modular-homes 301
-/steel-frame-home-kits.html /steel-frame-home-kits 301
-/steel-frame-home-kits/ /steel-frame-home-kits 301
-/bespoke-modular-homes/ /bespoke-modular-homes 301
-/bespoke-modular-homes.html /bespoke-modular-homes 301
-/modular-residential-projects/ /modular-residential-projects 301
-/modular-residential-projects.html /modular-residential-projects 301
+/off-the-shelf-modular-homes.html /off-the-shelf-modular-homes/ 301
+/steel-frame-home-kits.html /steel-frame-home-kits/ 301
+/bespoke-modular-homes.html /bespoke-modular-homes/ 301
+/modular-residential-projects.html /modular-residential-projects/ 301
 /developments /remote-locations 301
 /developments/ /remote-locations 301
 
