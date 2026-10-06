@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const principles = [
+  ['Architectural freedom', 'Custom residences are shaped around land, outlook, privacy, lifestyle and climate rather than forced into a fixed module.'],
+  ['Engineered delivery', 'The design is coordinated with structure, envelope, procurement, manufacture, shipping and assembly from the beginning.'],
+  ['Defined specification', 'Openings, finishes, kitchens, bathrooms, terraces, shading and decor direction can be developed as part of the approved project scope.'],
+  ['Remote-site control', 'The process is designed to reduce uncertainty where local labour, material supply, weather and logistics are difficult to control.'],
+];
+
+const steps = [
+  ['Site and brief', 'Review the land, access, planning status, exposure, budget level and the type of home you want to create.'],
+  ['Concept and route', 'Decide whether the project should adapt a Bauhu model or proceed as a fully custom architectural commission.'],
+  ['Design and package', 'Coordinate the approved residence into engineering, specification, manufactured components and delivery information.'],
+];
+---
+<BaseLayout title="Bespoke Modular Homes | Bauhu" description="Bespoke Bauhu residences combining custom architecture with a controlled steel-frame building system for remote and coastal sites.">
+  <SiteHeader />
+  <main class="seo-page">
+    <section class="seo-hero">
+      <div class="seo-inner">
+        <p class="seo-kicker">Custom Residences</p>
+        <h1>Bespoke modular homes, designed as architecture first.</h1>
+        <p>Bauhu creates custom residences that use an engineered building system without reducing the home to a generic module. The architecture, structure and delivery route are developed together.</p>
+        <div class="seo-actions"><a href="/residences">Commission a residence</a><a href="/site-fit">Start site review</a></div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-paper">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker dark">Bespoke route</p>
+          <h2>For clients who need more than a catalogue home.</h2>
+        </div>
+        <div class="seo-copy dark-copy">
+          <p>Some sites, lifestyles and architectural ambitions need a one-off response. Bauhu’s custom route allows the residence to be shaped around the setting while still benefiting from a more controlled construction system.</p>
+          <p>The result is a custom home with a clearer route to engineering, manufacture, shipping and assembly — particularly valuable in remote, coastal and hurricane-exposed locations.</p>
+        </div>
+      </div>
+      <div class="seo-card-grid">
+        {principles.map(([title, text]) => (
+          <article><h3>{title}</h3><p>{text}</p></article>
+        ))}
+      </div>
+    </section>
+
+    <section class="seo-section seo-ink">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker">Project journey</p>
+          <h2>Custom design with practical delivery built in.</h2>
+        </div>
+        <div class="seo-steps">
+          {steps.map(([title, text], index) => (
+            <article><strong>0{index + 1}</strong><h3>{title}</h3><p>{text}</p></article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="seo-section seo-paper">
+      <div class="seo-two-col">
+        <div>
+          <p class="seo-kicker dark">Good fit</p>
+          <h2>Useful when the site, view or ambition deserves a singular response.</h2>
+        </div>
+        <div class="seo-copy dark-copy">
+          <p>The bespoke route is suited to private islands, cliffside plots, elevated coastal land, luxury family homes, branded residences and distinctive resort or retreat settings.</p>
+          <p>Local professionals may still be required for approvals, code compliance, foundations, services and site execution. Bauhu helps define the split between the supplied building system and local works early.</p>
+          <a class="seo-text-link" href="/how-it-works">View the process →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  :global(html), :global(body){overflow-x:hidden!important}.seo-page{background:#050505;color:#f8f6f0;overflow:hidden}.seo-hero{min-height:86vh;display:flex;align-items:flex-end;padding:120px 7vw 96px;background:linear-gradient(180deg,rgba(5,5,5,.16),rgba(5,5,5,.9)),url('/images/residences/jimmy-hill-front-elevation-hero.webp') center/cover no-repeat}.seo-inner,.seo-two-col{max-width:1500px;margin:0 auto;width:100%}.seo-kicker{margin:0 0 22px;color:#c8a96a;text-transform:uppercase;letter-spacing:.22em;font:500 12px Inter,system-ui,sans-serif}.seo-kicker.dark{color:#9b7b49}.seo-hero h1,.seo-section h2{max-width:1150px;margin:0 0 28px;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(46px,7.4vw,112px);line-height:.9;font-weight:400;letter-spacing:-.055em}.seo-hero p{max-width:850px;margin:0;color:rgba(248,246,240,.76);font-size:clamp(19px,2vw,28px);line-height:1.35}.seo-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}.seo-actions a{display:inline-flex;border:1px solid #c8a96a;padding:15px 24px;color:#f8f6f0;text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:12px}.seo-actions a:hover{background:#c8a96a;color:#050505}.seo-section{padding:110px 7vw}.seo-paper{background:#ebe9e2;color:#17394c}.seo-ink{background:#050505;color:#f8f6f0}.seo-two-col{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px}.seo-section h2{font-size:clamp(42px,6vw,86px);color:inherit}.seo-copy p{font-size:17px;line-height:1.75;margin:0 0 22px}.dark-copy p{color:rgba(23,57,76,.7)}.seo-card-grid{max-width:1500px;margin:58px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.seo-card-grid article{background:#f7f5ef;border:1px solid rgba(23,57,76,.14);padding:30px;min-height:260px}.seo-card-grid h3,.seo-steps h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;font-weight:400;line-height:1.05;margin:0 0 18px}.seo-card-grid p,.seo-steps p{margin:0;line-height:1.65;color:rgba(23,57,76,.65)}.seo-steps{display:grid;gap:18px}.seo-steps article{border:1px solid rgba(255,255,255,.16);padding:30px}.seo-steps strong{color:#c8a96a;font-size:12px;letter-spacing:.16em}.seo-steps p{color:rgba(248,246,240,.64)}.seo-text-link{color:#9b7b49;text-decoration:none;text-transform:uppercase;letter-spacing:.13em;font-size:13px}@media(max-width:900px){.seo-hero{min-height:78vh;padding:96px 22px 74px}.seo-section{padding:78px 22px}.seo-two-col,.seo-card-grid{grid-template-columns:1fr;gap:34px}.seo-hero h1,.seo-section h2{font-size:clamp(36px,10.5vw,62px);line-height:.96}.seo-card-grid article{min-height:auto}}
+</style>
