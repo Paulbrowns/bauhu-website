@@ -158,7 +158,7 @@ const capabilities = [
   const getAttribution = () => {
     const params = new URLSearchParams(window.location.search);
     return {
-      utmSource: params.get('utm_source') || document.referrer ? 'partner-page' : 'direct',
+      utmSource: params.get('utm_source') || 'partner-page',
       utmMedium: params.get('utm_medium') || 'website',
       utmCampaign: params.get('utm_campaign') || 'partner-network',
       utmContent: params.get('utm_content') || '',
