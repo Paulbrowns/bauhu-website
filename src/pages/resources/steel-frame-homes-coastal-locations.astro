@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+---
+<BaseLayout title="Steel-Frame Homes for Coastal Locations | Bauhu" description="Why Bauhu uses a precision-engineered steel frame building system for coastal, island and hurricane-exposed homes.">
+  <SiteHeader />
+  <main class="answer-page">
+    <section class="answer-hero">
+      <p class="answer-kicker">Bauhu Resources</p>
+      <h1>Steel-frame homes for coastal and hurricane-exposed locations.</h1>
+      <p class="answer-lead">A coastal home needs more than a beautiful plan. The building system has to respond to wind, corrosion, heat, maintenance, site access and the practical realities of delivery.</p>
+    </section>
+
+    <section class="answer-section">
+      <div class="answer-grid">
+        <aside><p class="answer-kicker">Short answer</p></aside>
+        <div class="answer-copy">
+          <p>Bauhu uses a precision-engineered steel frame system because it gives each project a controlled structural core, accurate manufactured components and a clearer route from design to site assembly.</p>
+          <p>For coastal and hurricane-exposed locations, the frame is only one part of the answer. It must be coordinated with connections, roof design, openings, building envelope, foundations, local code and the appointed engineer’s project-specific review.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="answer-section answer-muted">
+      <div class="answer-grid">
+        <aside><p class="answer-kicker">Why steel frame</p></aside>
+        <div class="answer-cards">
+          <article><h2>Precision</h2><p>Manufactured components help reduce uncertainty and improve coordination before the package reaches site.</p></article>
+          <article><h2>Strength logic</h2><p>Frame, load path, roof, openings and connections can be developed as one integrated structural strategy.</p></article>
+          <article><h2>Remote delivery</h2><p>A documented system is valuable where shipping, labour, access and sequencing are difficult to control.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="answer-section">
+      <div class="answer-grid">
+        <aside><p class="answer-kicker">Bauhu approach</p></aside>
+        <div class="answer-copy">
+          <p>The Bauhu approach is architectural first, but the architecture is developed with the building system in mind. This helps avoid the common problem where design intent, engineering, procurement and site execution drift apart.</p>
+          <p>The result is a home that can be desirable to live in, credible to engineer and more realistic to deliver in difficult coastal locations.</p>
+          <div class="answer-links"><a href="/engineering">Engineering</a><a href="/steel-frame-home-kits/">Steel frame home kits</a><a href="/site-fit">Check your site fit</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .answer-page{background:#050505;color:#f8f6f0;font-family:Inter,system-ui,sans-serif;overflow:hidden}.answer-hero{padding:150px 7vw 95px;background:linear-gradient(180deg,rgba(5,5,5,.20),rgba(5,5,5,.88)),url('/images/developments/bauhu-engineering-hero.webp') center/cover no-repeat}.answer-hero,.answer-section>div{max-width:1500px;margin:0 auto}.answer-kicker{margin:0 0 22px;color:#c8a96a;text-transform:uppercase;letter-spacing:.22em;font-size:12px;font-weight:500}.answer-hero h1{max-width:1180px;margin:0 0 28px;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(44px,7vw,104px);line-height:.94;font-weight:400;letter-spacing:-.055em}.answer-lead{max-width:860px;margin:0;color:rgba(248,246,240,.76);font-size:clamp(18px,1.8vw,25px);line-height:1.45}.answer-section{padding:95px 7vw;background:#050505}.answer-muted{background:#0a0a0a}.answer-grid{display:grid;grid-template-columns:.32fr .68fr;gap:70px}.answer-copy{max-width:920px}.answer-copy p{margin:0 0 24px;color:rgba(248,246,240,.70);font-size:18px;line-height:1.75}.answer-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.answer-cards article{border:1px solid rgba(255,255,255,.16);padding:32px;background:rgba(255,255,255,.025)}.answer-cards h2{margin:0 0 18px;font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;font-weight:400;letter-spacing:-.035em}.answer-cards p{margin:0;color:rgba(248,246,240,.64);line-height:1.65}.answer-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}.answer-links a{border:1px solid #c8a96a;padding:14px 20px;color:#f8f6f0;text-decoration:none;text-transform:uppercase;letter-spacing:.15em;font-size:12px}.answer-links a:hover{background:#c8a96a;color:#050505}@media(max-width:900px){.answer-hero{padding:96px 22px 72px}.answer-section{padding:64px 22px}.answer-grid,.answer-cards{grid-template-columns:1fr;gap:30px}.answer-copy p{font-size:16px}.answer-cards article{padding:26px}.answer-hero h1{font-size:clamp(38px,11vw,64px)}}
+</style>
