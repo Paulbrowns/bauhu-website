@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+---
+<BaseLayout title="Hurricane-Resistant Homes in the Caribbean | Bauhu" description="How Bauhu approaches hurricane-resistant homes for Caribbean, coastal and island sites through architecture, engineering and project-specific review.">
+  <SiteHeader />
+  <main class="answer-page">
+    <section class="answer-hero">
+      <p class="answer-kicker">Bauhu Resources</p>
+      <h1>Hurricane-resistant homes in the Caribbean.</h1>
+      <p class="answer-lead">Building in a hurricane-exposed location is not solved by a marketing label. It requires site-specific engineering, a coordinated building system and a clear understanding of exposure, geometry, openings, roof design and local code.</p>
+    </section>
+
+    <section class="answer-section">
+      <div class="answer-grid">
+        <aside>
+          <p class="answer-kicker">Short answer</p>
+        </aside>
+        <div class="answer-copy">
+          <p>Bauhu designs architect-led homes for demanding coastal and hurricane-exposed locations. The structural strategy is developed around the specific site, exposure, final geometry and applicable code, then coordinated with the frame, roof, openings, envelope and connection details.</p>
+          <p>We avoid treating “hurricane proof” as an absolute promise. The right response is documented, project-specific and reviewed with the appointed engineering team.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="answer-section answer-muted">
+      <div class="answer-grid">
+        <aside>
+          <p class="answer-kicker">What matters</p>
+        </aside>
+        <div class="answer-cards">
+          <article><h2>Wind exposure</h2><p>Design assumptions depend on the site, topography, exposure category, local code basis and final building form.</p></article>
+          <article><h2>Load path</h2><p>Roof, walls, frame, connections and foundation interface need to work as one continuous structural strategy.</p></article>
+          <article><h2>Openings and envelope</h2><p>Doors, windows, glazing, shading and weathering details must be coordinated with the structure and local conditions.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="answer-section">
+      <div class="answer-grid">
+        <aside>
+          <p class="answer-kicker">Bauhu approach</p>
+        </aside>
+        <div class="answer-copy">
+          <p>Bauhu combines architectural design with a precision-engineered steel frame building system. This is especially relevant where conventional construction can become difficult to control because of island logistics, scarce labour, coastal exposure and long supply routes.</p>
+          <p>The objective is not only resilience. It is to make the design, engineering, manufactured package and site completion route align before work begins.</p>
+          <div class="answer-links"><a href="/engineering">Engineering</a><a href="/remote-locations">Remote locations</a><a href="/site-fit">Check your site fit</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .answer-page{background:#050505;color:#f8f6f0;font-family:Inter,system-ui,sans-serif;overflow:hidden}.answer-hero{padding:150px 7vw 95px;background:linear-gradient(180deg,rgba(5,5,5,.20),rgba(5,5,5,.88)),url('/images/developments/bauhu-engineering-hero.webp') center/cover no-repeat}.answer-hero,.answer-section>div{max-width:1500px;margin:0 auto}.answer-kicker{margin:0 0 22px;color:#c8a96a;text-transform:uppercase;letter-spacing:.22em;font-size:12px;font-weight:500}.answer-hero h1{max-width:1100px;margin:0 0 28px;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(44px,7vw,104px);line-height:.94;font-weight:400;letter-spacing:-.055em}.answer-lead{max-width:860px;margin:0;color:rgba(248,246,240,.76);font-size:clamp(18px,1.8vw,25px);line-height:1.45}.answer-section{padding:95px 7vw;background:#050505}.answer-muted{background:#0a0a0a}.answer-grid{display:grid;grid-template-columns:.32fr .68fr;gap:70px}.answer-copy{max-width:920px}.answer-copy p{margin:0 0 24px;color:rgba(248,246,240,.70);font-size:18px;line-height:1.75}.answer-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.answer-cards article{border:1px solid rgba(255,255,255,.16);padding:32px;background:rgba(255,255,255,.025)}.answer-cards h2{margin:0 0 18px;font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;font-weight:400;letter-spacing:-.035em}.answer-cards p{margin:0;color:rgba(248,246,240,.64);line-height:1.65}.answer-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}.answer-links a{border:1px solid #c8a96a;padding:14px 20px;color:#f8f6f0;text-decoration:none;text-transform:uppercase;letter-spacing:.15em;font-size:12px}.answer-links a:hover{background:#c8a96a;color:#050505}@media(max-width:900px){.answer-hero{padding:96px 22px 72px}.answer-section{padding:64px 22px}.answer-grid,.answer-cards{grid-template-columns:1fr;gap:30px}.answer-copy p{font-size:16px}.answer-cards article{padding:26px}.answer-hero h1{font-size:clamp(38px,11vw,64px)}}
+</style>
