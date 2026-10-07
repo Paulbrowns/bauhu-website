@@ -10,6 +10,66 @@ interface Props {
 const { title, description, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://bauhu.com').toString();
 const ogImage = new URL('/images/developments/bauhu-projects-hero.webp', Astro.site ?? 'https://bauhu.com').toString();
+const siteUrl = (Astro.site ?? 'https://bauhu.com').toString().replace(/\/$/, '');
+const organizationSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Bauhu',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.svg`,
+  email: 'contact@bauhu.com',
+  telephone: '+44 7949 345 478',
+  description:
+    'Bauhu designs architect-led homes and precision-engineered building systems for remote, coastal and hurricane-exposed sites across the Caribbean, The Bahamas and other island locations.',
+  areaServed: [
+    'The Bahamas',
+    'Turks and Caicos',
+    'US Virgin Islands',
+    'British Virgin Islands',
+    'Cayman Islands',
+    'Antigua and Barbuda',
+    'Anguilla',
+    'St Barthélemy',
+    'St Martin / Sint Maarten',
+    'Barbados',
+    'Jamaica',
+    'Puerto Rico',
+    'Dominican Republic',
+    'St Lucia',
+    'Grenada',
+    'St Vincent and the Grenadines',
+    'Trinidad and Tobago',
+    'Bermuda',
+    'Florida',
+  ],
+  knowsAbout: [
+    'Architect-designed homes',
+    'Remote island construction',
+    'Hurricane-exposed coastal sites',
+    'Steel frame building systems',
+    'Caribbean homes',
+    'Prefab and modular home delivery',
+    'Resort and residential developments',
+  ],
+  sameAs: [
+    'https://www.instagram.com/bauhuhomes/',
+    'https://www.facebook.com/bauhu.co.uk/',
+    'https://www.linkedin.com/company/bauhu',
+  ],
+});
+const webSiteSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Bauhu',
+  url: siteUrl,
+  description:
+    'Architect-designed homes and precision-engineered building systems for remote, coastal and hurricane-exposed sites.',
+  publisher: {
+    '@type': 'Organization',
+    name: 'Bauhu',
+    url: siteUrl,
+  },
+});
 ---
 <!doctype html>
 <html lang="en">
@@ -39,6 +99,8 @@ const ogImage = new URL('/images/developments/bauhu-projects-hero.webp', Astro.s
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/site-intelligence.css" />
     <link rel="stylesheet" href="/related-models.css" />
+    <script type="application/ld+json" set:html={organizationSchema} />
+    <script type="application/ld+json" set:html={webSiteSchema} />
     <title>{title}</title>
   </head>
   <body>
