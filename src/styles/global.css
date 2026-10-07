@@ -42,6 +42,19 @@ img {
   text-transform: uppercase;
 }
 
+.partner-hero .partner-kicker {
+  color: #c8a96a !important;
+  display: block !important;
+  font-family: Inter, system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.22em !important;
+  line-height: 1.2 !important;
+  margin: 0 0 22px !important;
+  max-width: none !important;
+  text-transform: uppercase !important;
+}
+
 @media screen and (max-width: 900px) {
   .section-pad {
     padding-top: 4.25rem;
