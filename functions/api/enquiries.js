@@ -11,6 +11,36 @@ const authorised = (request, env) => {
 
 const clean = (value) => typeof value === 'string' ? value.trim() : '';
 const num = (value) => Number.isFinite(Number(value)) ? Number(value) : null;
+const pick = (...values) => values.map(clean).find(Boolean) || '';
+
+function normaliseAttribution(attribution = {}, fallback = {}) {
+  const firstTouchSource = pick(attribution.firstTouchSource, attribution.first_touch_source, attribution.utmSource, fallback.source);
+  const firstTouchMedium = pick(attribution.firstTouchMedium, attribution.first_touch_medium, attribution.utmMedium, fallback.medium);
+  const firstTouchCampaign = pick(attribution.firstTouchCampaign, attribution.first_touch_campaign, attribution.utmCampaign, fallback.campaign);
+  const lastTouchSource = pick(attribution.lastTouchSource, attribution.last_touch_source, attribution.utmSource, fallback.source);
+  const lastTouchMedium = pick(attribution.lastTouchMedium, attribution.last_touch_medium, attribution.utmMedium, fallback.medium);
+  const lastTouchCampaign = pick(attribution.lastTouchCampaign, attribution.last_touch_campaign, attribution.utmCampaign, fallback.campaign);
+
+  return {
+    source: lastTouchSource || firstTouchSource || 'direct',
+    medium: lastTouchMedium || firstTouchMedium || 'direct',
+    campaign: lastTouchCampaign || firstTouchCampaign || '',
+    content: pick(attribution.utmContent, attribution.content),
+    term: pick(attribution.utmTerm, attribution.term),
+    landingPage: pick(attribution.firstTouchLandingPage, attribution.landingPage, fallback.landingPage),
+    currentPage: pick(attribution.currentPage, fallback.currentPage),
+    referrer: pick(attribution.referrer, fallback.referrer),
+    firstTouchSource,
+    firstTouchMedium,
+    firstTouchCampaign,
+    lastTouchSource,
+    lastTouchMedium,
+    lastTouchCampaign,
+    gclid: pick(attribution.gclid),
+    fbclid: pick(attribution.fbclid),
+    msclkid: pick(attribution.msclkid)
+  };
+}
 
 function classify(project = {}) {
   const route = clean(project.route).toLowerCase();
@@ -40,7 +70,7 @@ function enquiryReference() {
 async function sendNotification(env, enquiry) {
   if (!env.RESEND_API_KEY || !env.ENQUIRY_NOTIFICATION_EMAIL) return;
   const from = env.ENQUIRY_NOTIFICATION_FROM || 'Bauhu Website <enquiries@bauhu.com>';
-  const subject = `${enquiry.reference} · ${enquiry.contact_name} · ${enquiry.site_location || 'Location not supplied'}`;
+  const subject = `${enquiry.reference} · ${enquiry.classification} · ${enquiry.contact_name} · ${enquiry.site_location || 'Location not supplied'}`;
   const text = [
     'New Bauhu website enquiry',
     '',
@@ -54,7 +84,11 @@ async function sendNotification(env, enquiry) {
     `Budget: ${enquiry.budget || '—'}`,
     `Target start: ${enquiry.target_start || '—'}`,
     `Model: ${enquiry.model_name || enquiry.home_choice || '—'}`,
-    `Source: ${enquiry.attribution_source || 'Direct / unknown'}`
+    `Source: ${enquiry.attribution_source || 'Direct / unknown'}`,
+    `Medium: ${enquiry.attribution_medium || '—'}`,
+    `Campaign: ${enquiry.attribution_campaign || '—'}`,
+    `Landing page: ${enquiry.landing_page || '—'}`,
+    `Referrer: ${enquiry.referrer || '—'}`
   ].join('\n');
 
   try {
@@ -86,6 +120,11 @@ export async function onRequestPost({ request, env }) {
   const home = payload.home || {};
   const placement = payload.placement || {};
   const attribution = payload.attribution || {};
+  const normalisedAttribution = normaliseAttribution(attribution, {
+    landingPage: clean(payload.sourceUrl),
+    currentPage: clean(payload.sourceUrl),
+    referrer: clean(attribution.referrer)
+  });
   const projectRoute = clean(project.route) === 'private' ? 'custom' : clean(project.route);
   const homeChoiceRaw = clean(home.homeChoice) === 'private' ? 'custom' : clean(home.homeChoice);
   const effectiveHomeChoice = projectRoute || homeChoiceRaw;
@@ -99,6 +138,10 @@ export async function onRequestPost({ request, env }) {
   const id = crypto.randomUUID();
   const reference = enquiryReference();
   const classification = classify(project);
+  const rawJson = JSON.stringify({
+    ...payload,
+    commercialAttribution: normalisedAttribution
+  });
 
   const row = {
     id,
@@ -134,16 +177,16 @@ export async function onRequestPost({ request, env }) {
     placement_lat: num(placement.lat),
     placement_lng: num(placement.lng),
     placement_rotation: num(placement.rotation),
-    attribution_source: clean(attribution.utmSource),
-    attribution_medium: clean(attribution.utmMedium),
-    attribution_campaign: clean(attribution.utmCampaign),
-    attribution_content: clean(attribution.utmContent),
-    attribution_term: clean(attribution.utmTerm),
-    landing_page: clean(attribution.landingPage),
-    referrer: clean(attribution.referrer),
+    attribution_source: normalisedAttribution.source,
+    attribution_medium: normalisedAttribution.medium,
+    attribution_campaign: normalisedAttribution.campaign,
+    attribution_content: normalisedAttribution.content,
+    attribution_term: normalisedAttribution.term,
+    landing_page: normalisedAttribution.landingPage,
+    referrer: normalisedAttribution.referrer,
     source_url: clean(payload.sourceUrl),
     message: clean(contact.message),
-    raw_json: JSON.stringify(payload)
+    raw_json: rawJson
   };
 
   await env.DB.prepare(`
