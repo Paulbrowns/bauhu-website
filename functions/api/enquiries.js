@@ -13,6 +13,9 @@ const clean = (value) => typeof value === 'string' ? value.trim() : '';
 const num = (value) => Number.isFinite(Number(value)) ? Number(value) : null;
 
 function classify(project = {}) {
+  const route = clean(project.route).toLowerCase();
+  if (route === 'partner') return 'Partner';
+
   const timing = clean(project.targetStart).toLowerCase();
   const land = clean(project.landStatus).toLowerCase();
   const budget = clean(project.budget).toLowerCase();
