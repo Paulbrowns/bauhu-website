@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const workflows = [
+  ['Qualified project lead', 'Respond personally within one working day. Confirm site, route, budget, decision role and next information needed. Move toward project review or call.'],
+  ['Nurture / early research lead', 'Send a lighter response with relevant Bauhu resources, what information is useful later, and an invitation to return when the site or budget is clearer.'],
+  ['Partner / contractor profile', 'Acknowledge capability, confirm operating region, ask for insurance/licensing or project references where relevant, and tag by location/trade for future projects.'],
+  ['AI / search referral', 'Review the exact landing page and enquiry quality. Strengthen content and retargeting around pages that produce serious submissions.'],
+];
+
+const emailTemplates = [
+  {
+    title: 'Qualified project lead — first reply',
+    body: `Thank you for sending the project details. Based on the information provided, this looks like a project we should review properly.\n\nThe most useful next step is to confirm the site, intended route, likely scale, budget range, timing and any drawings or land information you already have. Once we have that, we can advise whether a Bauhu model, custom residence or wider project route is the right starting point.\n\nPlease send any survey, site photos, planning notes or reference images you have, and we can come back with the next information needed for a project review.`
+  },
+  {
+    title: 'Nurture lead — early research',
+    body: `Thank you for getting in touch. It sounds like the project is still at an early stage, which is completely fine.\n\nAt this point, the most useful things to clarify are the site location, land status, approximate budget level, intended use and likely timing. Bauhu is most relevant where the site is remote, coastal, island-based or exposed to hurricane conditions, and where a more controlled design and delivery route is valuable.\n\nWhen the site or brief is clearer, we can review whether a Bauhu model or custom route is a good fit.`
+  },
+  {
+    title: 'Partner / contractor profile — first reply',
+    body: `Thank you for introducing your capability to Bauhu. We are building a network of contractors, consultants, logistics partners and local delivery teams who can support remote, coastal and island projects.\n\nWe will keep your details on file by operating region and capability. If relevant, please send any licensing, insurance, project references, photographs or examples of similar work so we can understand where you may be a good fit for future Bauhu projects.`
+  },
+  {
+    title: 'Documentation request',
+    body: `Thank you for requesting Bauhu documentation. The documents we share depend on the project route and stage, because scope, engineering, location, local works and approvals vary by project.\n\nPlease send the site location, project type, intended scale and whether you are reviewing a private residence, model home or development. We can then share the most relevant example material and explain what would be confirmed during project review.`
+  },
+];
+---
+<BaseLayout title="Commercial Playbook | Bauhu" description="Internal Bauhu follow-up framework for project leads, nurture leads and partner or contractor profiles." noindex={true}>
+  <SiteHeader />
+  <main class="playbook-page">
+    <section class="playbook-hero">
+      <p class="playbook-kicker">Internal Commercial Infrastructure</p>
+      <h1>Lead follow-up and partner response framework.</h1>
+      <p>This page gives Bauhu a simple operating framework for responding to project enquiries, nurturing early-stage leads and qualifying contractor or partner profiles.</p>
+    </section>
+
+    <section class="playbook-section">
+      <p class="playbook-kicker">Lead Workflows</p>
+      <div class="playbook-grid">
+        {workflows.map(([title, text]) => (
+          <article>
+            <h2>{title}</h2>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="playbook-section playbook-templates">
+      <p class="playbook-kicker">Email Templates</p>
+      <h2>Copy-ready first responses.</h2>
+      <div class="template-list">
+        {emailTemplates.map((template) => (
+          <article>
+            <h3>{template.title}</h3>
+            <pre>{template.body}</pre>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .playbook-page { background:#050505; color:#f8f6f0; min-height:100vh; font-family:Inter, system-ui, sans-serif; }
+  .playbook-hero { padding:130px 7vw 90px; max-width:1240px; }
+  .playbook-kicker { color:#c8a96a; text-transform:uppercase; letter-spacing:.22em; font-size:12px; margin:0 0 22px; font-weight:500; }
+  .playbook-hero h1, .playbook-section h2 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; letter-spacing:-.055em; }
+  .playbook-hero h1 { font-size:clamp(48px,7vw,108px); line-height:.92; margin:0 0 28px; }
+  .playbook-hero p { max-width:820px; color:rgba(248,246,240,.68); font-size:20px; line-height:1.6; }
+  .playbook-section { padding:80px 7vw; border-top:1px solid rgba(255,255,255,.12); }
+  .playbook-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .playbook-grid article, .template-list article { border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.035); padding:28px; }
+  .playbook-grid h2 { font-size:34px; line-height:1.05; margin:0 0 18px; }
+  .playbook-grid p { color:rgba(248,246,240,.65); line-height:1.7; margin:0; }
+  .playbook-templates > h2 { font-size:clamp(42px,5vw,78px); line-height:.95; margin:0 0 44px; }
+  .template-list { display:grid; gap:22px; max-width:1050px; }
+  .template-list h3 { margin:0 0 18px; color:#c8a96a; font-size:13px; text-transform:uppercase; letter-spacing:.18em; }
+  .template-list pre { white-space:pre-wrap; color:rgba(248,246,240,.72); font:400 15px/1.7 Inter, system-ui, sans-serif; margin:0; }
+  @media (max-width:1000px) { .playbook-grid { grid-template-columns:1fr; } }
+</style>
