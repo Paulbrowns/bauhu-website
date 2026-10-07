@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+---
+<BaseLayout title="Building on Remote Island Sites | Bauhu" description="How Bauhu plans architecture, engineering, manufacture and delivery for remote island and difficult-access building sites.">
+  <SiteHeader />
+  <main class="answer-page">
+    <section class="answer-hero">
+      <p class="answer-kicker">Bauhu Resources</p>
+      <h1>Building on remote island sites.</h1>
+      <p class="answer-lead">Remote island construction is rarely just a design problem. Shipping, unloading, local labour, weather exposure, approvals, site access and sequencing all affect whether a project stays controlled.</p>
+    </section>
+
+    <section class="answer-section">
+      <div class="answer-grid">
+        <aside><p class="answer-kicker">Short answer</p></aside>
+        <div class="answer-copy">
+          <p>Bauhu is designed for places where conventional construction can become slow, uncertain or difficult to coordinate. The process connects architecture, engineering, procurement, manufacture, packing, shipping and site completion into one planned route.</p>
+          <p>That does not remove the need for local professionals or local works. It helps define what is supplied, what is completed locally and what needs to be resolved before manufacture and dispatch.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="answer-section answer-muted">
+      <div class="answer-grid">
+        <aside><p class="answer-kicker">Key issues</p></aside>
+        <div class="answer-cards">
+          <article><h2>Logistics</h2><p>Projects need to be planned around packing, freight, port handling, road access, unloading and storage.</p></article>
+          <article><h2>Local labour</h2><p>The building package should reduce unnecessary improvisation and make the local completion route clearer.</p></article>
+          <article><h2>Early decisions</h2><p>Remote projects benefit from resolving more information before dispatch, not after materials arrive on site.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="answer-section">
+      <div class="answer-grid">
+        <aside><p class="answer-kicker">Bauhu approach</p></aside>
+        <div class="answer-copy">
+          <p>Bauhu uses a precision-engineered steel frame system and project-specific documentation to reduce the gap between drawings, procurement and what is actually built. This is valuable on island sites where mistakes, delays and missing components are harder to fix.</p>
+          <p>The site, code basis, approvals, foundations, services, local contractor role and shipping route still need to be reviewed location by location.</p>
+          <div class="answer-links"><a href="/remote-locations">Remote locations</a><a href="/resources">Resources</a><a href="/site-fit">Check your site fit</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .answer-page{background:#050505;color:#f8f6f0;font-family:Inter,system-ui,sans-serif;overflow:hidden}.answer-hero{padding:150px 7vw 95px;background:linear-gradient(180deg,rgba(5,5,5,.20),rgba(5,5,5,.88)),url('/images/developments/bauhu-projects-hero.webp') center/cover no-repeat}.answer-hero,.answer-section>div{max-width:1500px;margin:0 auto}.answer-kicker{margin:0 0 22px;color:#c8a96a;text-transform:uppercase;letter-spacing:.22em;font-size:12px;font-weight:500}.answer-hero h1{max-width:1100px;margin:0 0 28px;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(44px,7vw,104px);line-height:.94;font-weight:400;letter-spacing:-.055em}.answer-lead{max-width:860px;margin:0;color:rgba(248,246,240,.76);font-size:clamp(18px,1.8vw,25px);line-height:1.45}.answer-section{padding:95px 7vw;background:#050505}.answer-muted{background:#0a0a0a}.answer-grid{display:grid;grid-template-columns:.32fr .68fr;gap:70px}.answer-copy{max-width:920px}.answer-copy p{margin:0 0 24px;color:rgba(248,246,240,.70);font-size:18px;line-height:1.75}.answer-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.answer-cards article{border:1px solid rgba(255,255,255,.16);padding:32px;background:rgba(255,255,255,.025)}.answer-cards h2{margin:0 0 18px;font-family:"Cormorant Garamond",Georgia,serif;font-size:34px;font-weight:400;letter-spacing:-.035em}.answer-cards p{margin:0;color:rgba(248,246,240,.64);line-height:1.65}.answer-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}.answer-links a{border:1px solid #c8a96a;padding:14px 20px;color:#f8f6f0;text-decoration:none;text-transform:uppercase;letter-spacing:.15em;font-size:12px}.answer-links a:hover{background:#c8a96a;color:#050505}@media(max-width:900px){.answer-hero{padding:96px 22px 72px}.answer-section{padding:64px 22px}.answer-grid,.answer-cards{grid-template-columns:1fr;gap:30px}.answer-copy p{font-size:16px}.answer-cards article{padding:26px}.answer-hero h1{font-size:clamp(38px,11vw,64px)}}
+</style>
