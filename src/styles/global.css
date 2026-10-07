@@ -55,6 +55,24 @@ img {
   text-transform: uppercase !important;
 }
 
+.resources-page .faq-list p a {
+  color: #c8a96a !important;
+  display: inline-block !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(200, 169, 106, 0.72) !important;
+  padding-bottom: 1px !important;
+}
+
+.resources-page .faq-list p a::after {
+  content: ' →';
+}
+
+.resources-page .faq-list p a:hover {
+  color: #f8f6f0 !important;
+  border-bottom-color: #f8f6f0 !important;
+}
+
 @media screen and (max-width: 900px) {
   .section-pad {
     padding-top: 4.25rem;
