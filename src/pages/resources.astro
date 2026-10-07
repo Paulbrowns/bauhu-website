@@ -51,7 +51,7 @@ const faqGroups = [
     title: 'Choosing the right Bauhu route',
     questions: [
       ['What is the difference between Custom Design and Home Models?', 'Custom Design is a fully tailored architectural commission developed around your brief and site. Home Models are architect-designed starting points that can be adapted around your land, budget, bedroom requirement and way of living.'],
-      ['Is Bauhu a modular home company?', 'No. Bauhu uses a patented steel frame construction system, but the offer is architectural and project-led. The aim is not to sell generic modules, but to deliver resilient contemporary buildings with a more controlled route to construction.'],
+      ['Is Bauhu a modular home company?', 'No. Bauhu uses a patented steel frame construction system, but the offer is architectural and project-led. The aim is not to sell generic modules, but to deliver resilient contemporary buildings with a more controlled route to construction. For more context, see how Bauhu thinks about <a href="/resources/prefab-modular-homes-bahamas-caribbean">prefab and modular homes in The Bahamas and Caribbean</a>.'],
       ['Can a model residence be changed?', 'Yes. A model is a starting point. Layouts, terraces, openings, shading, finishes and site response can be refined before the project is engineered and delivered.'],
       ['When should I choose a fully bespoke residence?', 'Choose the Custom Design route when the home needs to be entirely shaped around a unique brief, a particular lifestyle, a difficult site, or a money-no-object architectural ambition.'],
     ],
@@ -59,8 +59,8 @@ const faqGroups = [
   {
     title: 'Sites, climate and construction',
     questions: [
-      ['Can Bauhu work on remote Caribbean sites?', 'Yes. Bauhu is especially relevant where remote access, limited labour, coastal exposure, shipping, sequencing and conventional construction risk need to be planned carefully from the beginning.'],
-      ['What does hurricane resistant mean?', 'It means the structure is designed with severe wind exposure in mind. The exact engineering response depends on the site, local code, exposure category and final building design. Bauhu does not treat “hurricane proof” as an absolute promise.'],
+      ['Can Bauhu work on remote Caribbean sites?', 'Yes. Bauhu is especially relevant where remote access, limited labour, coastal exposure, shipping, sequencing and conventional construction risk need to be planned carefully from the beginning. Read more about <a href="/resources/building-on-remote-island-sites">building on remote island sites</a>.'],
+      ['What does hurricane resistant mean?', 'It means the structure is designed with severe wind exposure in mind. The exact engineering response depends on the site, local code, exposure category and final building design. Bauhu does not treat “hurricane proof” as an absolute promise. For a fuller explanation, see <a href="/resources/hurricane-resistant-homes-caribbean">hurricane-resistant homes in the Caribbean</a>.'],
       ['Can Bauhu build on sloping or difficult land?', 'Often, yes. Sloping land, coastal exposure and constrained access are exactly the kinds of issues that should be reviewed early so the right structural, foundation and delivery strategy can be chosen.'],
       ['Does Bauhu handle foundations and local works?', 'The scope depends on the project and location. Bauhu can help define what is supplied through its system and what needs to be delivered locally, including foundations, services, approvals and site works.'],
       ['How are codes and approvals handled?', 'Bauhu projects are engineered to the applicable project code, jurisdiction, exposure and final building geometry. The code basis, wind design criteria and approval route are confirmed project by project with the appointed engineer and relevant local professionals.'],
@@ -82,7 +82,7 @@ const faqGroups = [
     questions: [
       ['Is Bauhu sustainable?', 'Bauhu’s sustainability case is based on material efficiency, reduced waste, precision manufacture, durable components, thermal performance and long-life resilience. Exact performance depends on the final project specification, climate and building envelope.'],
       ['Are the homes energy efficient?', 'The building envelope can be designed for high levels of insulation, reduced heat gain, efficient cooling and long-term comfort. Thermal performance is project-specific and should be assessed against the chosen wall, roof, glazing and shading specification.'],
-      ['What documentation supports the building package?', 'Project documentation can include architectural drawings, structural assembly information, component layouts, connection details, schedules, foundation interface information, door and window schedules and project-specific supply scope.'],
+      ['What documentation supports the building package?', 'Project documentation can include architectural drawings, structural assembly information, component layouts, connection details, schedules, foundation interface information, door and window schedules and project-specific supply scope. A related overview explains Bauhu’s <a href="/resources/steel-frame-homes-coastal-locations">steel-frame approach for coastal locations</a>.'],
       ['How does Bauhu reduce site waste?', 'More decisions are resolved before dispatch, and components are prepared against approved project information. That reduces improvised site cutting, duplicate ordering, unnecessary deliveries and avoidable waste.'],
     ],
   },
@@ -209,7 +209,7 @@ const faqGroups = [
                 {group.questions.map(([question, answer]) => (
                   <details>
                     <summary>{question}</summary>
-                    <p>{answer}</p>
+                    <p set:html={answer}></p>
                   </details>
                 ))}
               </div>
@@ -273,6 +273,8 @@ const faqGroups = [
   .faq-list summary::after { content:'+'; float:right; color:#c8a96a; padding-left:24px; }
   .faq-list details[open] summary::after { content:'–'; }
   .faq-list p { color:rgba(248,246,240,.64); line-height:1.7; margin:18px 0 0; max-width:820px; }
+  .faq-list p a { color:rgba(248,246,240,.78); text-decoration:underline; text-decoration-color:rgba(200,169,106,.45); text-underline-offset:3px; }
+  .faq-list p a:hover { color:#c8a96a; }
   .resources-cta-section { padding:135px 7vw; text-align:center; background:radial-gradient(circle at 70% 30%, rgba(200,169,106,.20), transparent 36%), linear-gradient(135deg,#050505,#15120e); }
   .resources-cta-section h2 { max-width:1000px; margin:0 auto 26px; }
   .resources-cta-section p { max-width:760px; margin:0 auto; color:rgba(248,246,240,.66); font-size:18px; line-height:1.65; }
