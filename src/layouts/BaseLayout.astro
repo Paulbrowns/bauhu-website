@@ -90,6 +90,7 @@ const webSiteSchema = JSON.stringify({
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#243A32" />
+    <meta name="facebook-domain-verification" content="iticng9m7v8xbubpf69c08sbu6ycyv" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -101,10 +102,34 @@ const webSiteSchema = JSON.stringify({
     <link rel="stylesheet" href="/related-models.css" />
     <script type="application/ld+json" set:html={organizationSchema} />
     <script type="application/ld+json" set:html={webSiteSchema} />
+    <script is:inline>
+      var _paq = window._paq = window._paq || [];
+      _paq.push(['setCookieDomain', '*.bauhu.com']);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u = 'https://bauhu.com/analytics/';
+        _paq.push(['setTrackerUrl', u + 'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.async = true;
+        g.src = u + 'matomo.js';
+        s.parentNode.insertBefore(g, s);
+      })();
+    </script>
+    <script is:inline>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '684657639337711');
+      fbq('track', 'PageView');
+    </script>
     <title>{title}</title>
   </head>
   <body>
     <slot />
+    <noscript><img alt="fb-pixel" height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=684657639337711&ev=PageView&noscript=1" /></noscript>
     <script src="/lead-attribution.js" defer></script>
     <script src="/project-start-route.js" defer></script>
     <script src="/enquiry-files.js" defer></script>
