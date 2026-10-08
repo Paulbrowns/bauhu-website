@@ -112,6 +112,32 @@ const collections = [
                 <p class="eyebrow text-clay">{category.eyebrow}</p>
                 <h2 class="mt-4 font-display text-5xl">{category.title}</h2>
                 <p class="mt-5 max-w-2xl leading-7 text-ink/65">{category.description}</p>
+                {category.id === 'kitchen' ? (
+                  <div class="mt-9 bg-mist p-6 md:p-8">
+                    <p class="eyebrow text-clay">Kitchen component coordination</p>
+                    <h3 class="mt-3 font-display text-3xl">Consider every fitted element.</h3>
+                    <p class="mt-3 text-sm leading-7 text-ink/65">Choose an overall kitchen direction above, then refine upper and lower cabinet finishes separately. These are preferences for Bauhu's design team, not an appliance or furniture order.</p>
+                    <div class="mt-5 grid gap-5" id="studio-kitchen-details">
+                      {[
+                        {id:'upper',label:'Upper cabinet fronts',options:['Coordinate with main cabinetry','Light neutral','Sand / warm tone','Contrast with lower cabinets','Other / to discuss']},
+                        {id:'lower',label:'Lower cabinet fronts / island',options:['Coordinate with main cabinetry','Light neutral','Volcanic grey direction','Sand / warm tone','Other / to discuss']},
+                        {id:'carcase',label:'Cabinet carcass',options:['Manufacturer-coordinated','Light neutral','Slate grey direction','Other / to discuss']},
+                        {id:'worktop',label:'Worktop finish',options:['Coordinate with main choice','Limestone-effect direction','Pale composite direction','Other / to discuss']},
+                        {id:'handles',label:'Handle style',options:['Manufacturer-coordinated','Recessed LINE N direction','Minimal contemporary','Other / to discuss']},
+                        {id:'sink',label:'Kitchen sink',options:['Manufacturer-coordinated','Dark composite direction','Stainless steel direction','Other / to discuss']},
+                        {id:'mixer',label:'Kitchen mixer',options:['Manufacturer-coordinated','Chrome pull-out direction','Other / to discuss']},
+                        {id:'splashback',label:'Kitchen splashback tiles',options:['Coordinate with flooring','Light ceramic direction','Contrast ceramic direction','Other / to discuss']},
+                      ].map((item) => (
+                        <label class="block text-sm font-medium">{item.label}
+                          <select data-kitchen-detail={item.id} class="mt-2 w-full border border-ink/20 bg-white px-4 py-3 text-sm">
+                            {item.options.map((option) => <option value={option}>{option}</option>)}
+                          </select>
+                        </label>
+                      ))}
+                    </div>
+                    <p class="mt-5 text-xs leading-6 text-ink/55">Kitchen appliances are outside Bauhu's supplied kitchen finishes. The architectural team will check product references, dimensions and compatibility.</p>
+                  </div>
+                ) : null}
                 {category.id === 'bathroom' ? (
                   <div class="mt-9 bg-mist p-6 md:p-8">
                     <p class="eyebrow text-clay">Room-by-room personalisation</p>
@@ -194,7 +220,7 @@ const collections = [
   const root = document.querySelector('[data-design-studio]');
   if (root) {
     const storageKey = 'bauhu-interiors-draft-v1';
-    const starter = () => ({ version: 1, collection: '', home: '', selections: {}, notes: {}, reviewed: {}, rooms: { bathroomCount: 2, bathrooms: {} }, updated: null });
+    const starter = () => ({ version: 1, collection: '', home: '', selections: {}, notes: {}, reviewed: {}, kitchenDetails: {}, rooms: { bathroomCount: 2, bathrooms: {} }, updated: null });
     let draft = starter();
     let canStore = true;
     const status = root.querySelector('#studio-status');
@@ -224,6 +250,11 @@ const collections = [
         const cell = (k,opts) => opts.includes(room[k]) ? room[k] : 'Not selected';
         return `<div class="border-b border-ink/10 py-3 text-sm"><strong>${safe(room.name || 'Bathroom '+(i+1))}</strong><p class="mt-2 text-ink/65">Vanity: ${safe(cell('vanity',bathroomOptions.vanity))} · Wall tiles: ${safe(cell('tiles',bathroomOptions.tiles))} · Taps: ${safe(cell('mixer',bathroomOptions.mixer))}</p>${room.notes ? `<p class="mt-2 whitespace-pre-wrap text-ink/60">${safe(room.notes)}</p>` : ''}</div>`;
       }).join('');
+      const kitchenRows = Object.keys(kitchenOptions).map(key => {
+        const candidate = draft.kitchenDetails[key];
+        const choice = kitchenOptions[key].includes(candidate) ? candidate : kitchenOptions[key][0];
+        return `<div class="flex justify-between gap-4 border-b border-ink/10 py-2 text-sm"><span class="text-ink/55">${safe(kitchenLabels[key])}</span><span class="text-right">${safe(choice)}</span></div>`;
+      }).join('');
       const rows = categories.map((category) => {
         const fields = category.fields.map((field) => {
           const value = draft.selections[`${category.id}.${field.id}`];
@@ -237,7 +268,7 @@ const collections = [
         `<p class="text-xs uppercase tracking-widest text-ink/55">Personal draft — not an approved specification</p>
         <h3 class="mt-4 font-display text-3xl">${safe(draft.home || 'My Bauhu home')}</h3>
         <p class="mt-2 text-sm text-ink/60">Design direction: ${safe(collection?.title || 'Individual selection')}</p>
-        <div class="mt-8 grid gap-x-10 md:grid-cols-2">${rows}</div><section class="mt-6 border-t border-ink/15 pt-5"><h3 class="font-display text-2xl">Bathrooms by room</h3><p class="text-xs text-ink/55">Personal preferences only; no fixtures ordered</p>${roomSummary}</section>
+        <div class="mt-8 grid gap-x-10 md:grid-cols-2">${rows}</div><section class="mt-6 border-t border-ink/15 pt-5"><h3 class="font-display text-2xl">Kitchen components</h3><div class="mt-3">${kitchenRows}</div></section><section class="mt-6 border-t border-ink/15 pt-5"><h3 class="font-display text-2xl">Bathrooms by room</h3><p class="text-xs text-ink/55">Personal preferences only; no fixtures ordered</p>${roomSummary}</section>
         <p class="mt-4 text-xs leading-6 text-ink/55">Indicative preferences only. Supplier references, scope, cost adjustments, material suitability and procurement require Bauhu confirmation. Furniture and decorative accessories excluded.</p>`;
     };
     // Illustrative swatches help compare finishes without suggesting physical samples or final product colours.
@@ -281,6 +312,30 @@ const collections = [
         });
       });
     });
+    const kitchenOptions = {
+      upper: ['Coordinate with main cabinetry','Light neutral','Sand / warm tone','Contrast with lower cabinets','Other / to discuss'],
+      lower: ['Coordinate with main cabinetry','Light neutral','Volcanic grey direction','Sand / warm tone','Other / to discuss'],
+      carcase: ['Manufacturer-coordinated','Light neutral','Slate grey direction','Other / to discuss'],
+      worktop: ['Coordinate with main choice','Limestone-effect direction','Pale composite direction','Other / to discuss'],
+      handles: ['Manufacturer-coordinated','Recessed LINE N direction','Minimal contemporary','Other / to discuss'],
+      sink: ['Manufacturer-coordinated','Dark composite direction','Stainless steel direction','Other / to discuss'],
+      mixer: ['Manufacturer-coordinated','Chrome pull-out direction','Other / to discuss'],
+      splashback: ['Coordinate with flooring','Light ceramic direction','Contrast ceramic direction','Other / to discuss'],
+    };
+    const kitchenLabels = {upper:'Upper cabinet fronts',lower:'Lower cabinet fronts / island',carcase:'Cabinet carcass',worktop:'Worktop finish',handles:'Handle style',sink:'Kitchen sink',mixer:'Kitchen mixer',splashback:'Splashback ceramics'};
+    if (!draft.kitchenDetails || typeof draft.kitchenDetails !== 'object' || Array.isArray(draft.kitchenDetails)) draft.kitchenDetails = {};
+    const updateKitchenDetails = () => {
+      root.querySelectorAll('[data-kitchen-detail]').forEach((select) => {
+        const key = select.dataset.kitchenDetail;
+        const selected = draft.kitchenDetails[key];
+        select.value = kitchenOptions[key].includes(selected) ? selected : kitchenOptions[key][0];
+      });
+    };
+    root.querySelectorAll('[data-kitchen-detail]').forEach((select) => select.addEventListener('change', () => {
+      const key = select.dataset.kitchenDetail;
+      draft.kitchenDetails[key] = select.value;
+      save();render();
+    }));
     // Rooms are design preferences only; geometry, quantities and scope remain architect controlled.
     const bathroomCountEl = root.querySelector('#studio-bathroom-count');
     const bathroomRoomsEl = root.querySelector('#studio-bathroom-rooms');
@@ -397,7 +452,9 @@ const collections = [
         if (draft.notes[category.id]) lines.push('Notes: ' + String(draft.notes[category.id]).slice(0,1000));
         lines.push('Reviewed by customer: ' + (draft.reviewed[category.id] ? 'Yes' : 'No'), '');
       });
-      lines.push('BATHROOMS BY ROOM');
+      lines.push('KITCHEN COMPONENTS');
+      Object.keys(kitchenOptions).forEach(key => lines.push(kitchenLabels[key]+': '+(kitchenOptions[key].includes(draft.kitchenDetails[key]) ? draft.kitchenDetails[key] : kitchenOptions[key][0])));
+      lines.push('', 'BATHROOMS BY ROOM');
       Array.from({length:draft.rooms.bathroomCount},(_,i) => {
         const room = draft.rooms.bathrooms[String(i+1)] || {};
         lines.push((room.name || 'Bathroom '+(i+1))+': '+(room.vanity || 'Shared vanity')+' / '+(room.tiles || 'Shared tiles')+' / '+(room.mixer || 'Shared taps'));
@@ -435,8 +492,11 @@ const collections = [
           restored.reviewed[category.id] = incoming.reviewed?.[category.id] === true;
         });
         restored.rooms = validRooms(incoming.rooms);
+        if(incoming.kitchenDetails && typeof incoming.kitchenDetails==='object' && !Array.isArray(incoming.kitchenDetails)) {
+          Object.keys(kitchenOptions).forEach(key => { if(kitchenOptions[key].includes(incoming.kitchenDetails[key])) restored.kitchenDetails[key] = incoming.kitchenDetails[key]; });
+        }
         draft = restored;
-        renderBathroomRooms();
+        renderBathroomRooms();updateKitchenDetails();
         root.querySelector('#studio-home').value = draft.home;
         root.querySelector('#studio-collection').value = draft.collection;
         root.querySelectorAll('[data-selection]').forEach((element) => { element.value = draft.selections[element.dataset.selection] || ''; });
@@ -450,7 +510,7 @@ const collections = [
     root.querySelector('#studio-clear').addEventListener('click', () => {
       if (!window.confirm('Clear your saved Bauhu Interiors draft from this browser?')) return;
       draft = starter();
-      renderBathroomRooms();
+      renderBathroomRooms();updateKitchenDetails();
       root.querySelector('#studio-collection').value = '';
       root.querySelector('#studio-home').value = '';
       root.querySelectorAll('[data-selection]').forEach((e) => { e.value = ''; });
@@ -460,7 +520,7 @@ const collections = [
       refreshPalette(); updateSwatches(); render(); status.textContent = 'Draft cleared from this browser.';
       show(0);
     });
-    refreshPalette(); paintVisuals(); updateSwatches(); renderBathroomRooms(); render(); show(0);
+    refreshPalette(); paintVisuals(); updateSwatches(); renderBathroomRooms(); updateKitchenDetails(); render(); show(0);
     if (!canStore) status.textContent = 'Browser storage is unavailable. Download your draft to keep it.';
   }
 </script>
