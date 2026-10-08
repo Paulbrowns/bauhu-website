@@ -130,14 +130,21 @@
     style.textContent = `
       .journey-continue[hidden]{display:none!important}
       .journey-continue{
-        margin-top:.9rem;
-        border:0!important;
-        background:#8f2f24!important;
+        display:inline-flex!important;
+        align-items:center;
+        justify-content:center;
+        width:auto!important;
+        min-width:min(100%,260px);
+        margin:.95rem auto 0!important;
+        padding:.84rem 1.35rem!important;
+        border:1px solid rgba(143,47,36,.22)!important;
+        border-radius:999px!important;
+        background:linear-gradient(135deg,#a33a2e,#7f2b22)!important;
         color:#fff!important;
-        font:800 .76rem/1 Inter,sans-serif!important;
-        letter-spacing:.08em!important;
+        font:800 .68rem/1 Inter,sans-serif!important;
+        letter-spacing:.1em!important;
         text-transform:uppercase!important;
-        box-shadow:0 12px 28px rgba(143,47,36,.24);
+        box-shadow:0 12px 24px rgba(143,47,36,.2), inset 0 1px 0 rgba(255,255,255,.18);
         transition:opacity .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease;
       }
       .journey-continue:disabled{
@@ -150,12 +157,21 @@
         opacity:1;
       }
       .journey-continue.ready:hover{
-        background:#a63a2d!important;
-        box-shadow:0 15px 34px rgba(143,47,36,.32);
+        background:linear-gradient(135deg,#b24436,#8f2f24)!important;
+        box-shadow:0 15px 30px rgba(143,47,36,.3), inset 0 1px 0 rgba(255,255,255,.22);
         transform:translateY(-1px);
       }
       .journey-continue.ready::after{
-        content:' →';
+        content:'→';
+        display:inline-grid;
+        place-items:center;
+        width:1.35rem;
+        height:1.35rem;
+        margin-left:.75rem;
+        border-radius:999px;
+        background:rgba(255,255,255,.18);
+        font-size:.78rem;
+        letter-spacing:0;
       }
       .confirmed-location{background:#dfe9df!important;color:#497150!important}
       .coordinate-options{margin:.7rem 0}
@@ -167,9 +183,11 @@
           position:sticky;
           bottom:.65rem;
           z-index:25;
-          padding:1.05rem!important;
-          font-size:.78rem!important;
-          box-shadow:0 12px 30px rgba(143,47,36,.34);
+          width:100%!important;
+          min-width:0;
+          padding:1rem 1.15rem!important;
+          font-size:.72rem!important;
+          box-shadow:0 12px 30px rgba(143,47,36,.3), inset 0 1px 0 rgba(255,255,255,.2);
         }
       }
     `;
