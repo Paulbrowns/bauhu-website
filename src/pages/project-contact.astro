@@ -71,16 +71,65 @@ import SiteFooter from '../components/SiteFooter.astro';
         try { return JSON.parse(localStorage.getItem('bauhu_attribution_v1') || '{}'); } catch { return {}; }
       };
 
-      const buildPayload = () => ({
+      const buildPayload = (extra = {}) => ({
         site,
         project: details,
         home,
         documents: storedDocuments,
         attribution: buildAttribution(),
-        sourceUrl: location.href
+        sourceUrl: location.href,
+        ...extra
       });
 
       document.getElementById('project-payload').value = JSON.stringify(buildPayload());
+
+      async function appendSafeFiles(body) {
+        const warnings = [];
+        const selectedFiles = [];
+        const isMobile = window.matchMedia('(max-width: 820px)').matches;
+
+        if (!window.BauhuEnquiryFiles) return { warnings, selectedFiles };
+
+        let records = [];
+        try {
+          records = await window.BauhuEnquiryFiles.list();
+        } catch (error) {
+          warnings.push(`Files were selected but this browser could not read them: ${error?.message || 'file read failed'}.`);
+          return { warnings, selectedFiles };
+        }
+
+        for (const record of records) {
+          const fileInfo = {
+            name: record?.name || 'document',
+            size: Number(record?.size || record?.blob?.size || 0),
+            type: record?.type || record?.blob?.type || '',
+            lastModified: record?.lastModified || null
+          };
+          selectedFiles.push(fileInfo);
+
+          if (isMobile) {
+            warnings.push(`${fileInfo.name} was selected on mobile and recorded with the enquiry, but the file itself was not uploaded from this browser.`);
+            continue;
+          }
+
+          try {
+            const blob = record?.blob;
+            if (!(blob instanceof Blob) || blob.size <= 0) {
+              warnings.push(`${fileInfo.name} could not be attached because the browser did not provide a readable file.`);
+              continue;
+            }
+            if (blob.size > 30 * 1024 * 1024) {
+              warnings.push(`${fileInfo.name} was larger than 30 MB and was not uploaded.`);
+              continue;
+            }
+            body.append('files', blob, fileInfo.name);
+          } catch (error) {
+            warnings.push(`${fileInfo.name} could not be attached: ${error?.message || 'attachment failed'}.`);
+          }
+        }
+
+        return { warnings, selectedFiles };
+      }
 
       document.getElementById('contact-form').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -95,19 +144,17 @@ import SiteFooter from '../components/SiteFooter.astro';
         note.classList.remove('ready');
 
         const contact = Object.fromEntries(new FormData(form).entries());
-        const complete = { ...buildPayload(), contact, submittedAt: new Date().toISOString() };
         const body = new FormData();
-        body.append('payload', JSON.stringify(complete));
 
         try {
-          if (window.BauhuEnquiryFiles) {
-            const files = await window.BauhuEnquiryFiles.list();
-            files.forEach((record) => {
-              if (record?.blob instanceof Blob && record.blob.size > 0) {
-                body.append('files', record.blob, record.name || 'document');
-              }
-            });
-          }
+          const { warnings, selectedFiles } = await appendSafeFiles(body);
+          const complete = buildPayload({
+            contact,
+            submittedAt: new Date().toISOString(),
+            selectedFiles,
+            attachmentWarnings: warnings
+          });
+          body.append('payload', JSON.stringify(complete));
 
           const response = await fetch('/api/enquiries', { method: 'POST', body });
           const text = await response.text();
