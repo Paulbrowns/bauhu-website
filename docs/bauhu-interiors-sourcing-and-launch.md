@@ -74,3 +74,9 @@ The working prototype at `/interiors/studio/` offers six-category draft selectio
 ## Supplier imagery authorisation
 
 Bauhu confirms it has permission from its suppliers to use images from their websites for Bauhu Interiors. This enables genuine catalogue photography and product images in the customer-facing library. Record the original manufacturer URL, product reference, asset filename and retrieval date. Do not confuse permission to reuse imagery with confirmation that every pictured product is available or included in an individual Bauhu home. Keep customer-specific technical drawings and personal information private.
+
+## Room-by-room prototype and first manufacturer photograph (October 2026)
+
+The studio now supports 1–8 separately named bathrooms, with independent draft preferences for vanities, wall-tile direction, tap finish, and notes. These fields are included in local save/import/export and the printable/copyable summary. No room counts or fixture quantities are transferred to procurement.
+
+The Materials Library includes one official Nobilia TOUCH 336 kitchen photograph, sourced from the manufacturer website (`https://www.nobilia.de/fileadmin/_processed_/5/d/csm_336_touch_g2_40ce6e6ab7.webp`), linked to its original product page. It is remotely hosted, so production should eventually copy and optimise the image into Bauhu-controlled assets for resilience, while retaining original source details and the granted supplier permission. Confirm that remote hosting is reliable during browser QA.
