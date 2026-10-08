@@ -13,6 +13,123 @@ const clean = (value) => typeof value === 'string' ? value.trim() : '';
 const num = (value) => Number.isFinite(Number(value)) ? Number(value) : null;
 const pick = (...values) => values.map(clean).find(Boolean) || '';
 
+const enquiryColumns = {
+  id: 'TEXT PRIMARY KEY',
+  reference: 'TEXT',
+  created_at: 'TEXT',
+  updated_at: 'TEXT',
+  status: 'TEXT',
+  classification: 'TEXT',
+  owner: 'TEXT',
+  internal_notes: 'TEXT',
+  contact_name: 'TEXT',
+  contact_email: 'TEXT',
+  contact_phone: 'TEXT',
+  preferred_contact: 'TEXT',
+  consent: 'INTEGER',
+  site_location: 'TEXT',
+  site_lat: 'REAL',
+  site_lng: 'REAL',
+  site_source: 'TEXT',
+  project_route: 'TEXT',
+  intended_use: 'TEXT',
+  bedrooms_scale: 'TEXT',
+  land_status: 'TEXT',
+  planning_status: 'TEXT',
+  budget: 'TEXT',
+  target_start: 'TEXT',
+  decision_role: 'TEXT',
+  project_notes: 'TEXT',
+  home_choice: 'TEXT',
+  model_slug: 'TEXT',
+  model_name: 'TEXT',
+  placement_confirmed: 'INTEGER',
+  placement_lat: 'REAL',
+  placement_lng: 'REAL',
+  placement_rotation: 'REAL',
+  attribution_source: 'TEXT',
+  attribution_medium: 'TEXT',
+  attribution_campaign: 'TEXT',
+  attribution_content: 'TEXT',
+  attribution_term: 'TEXT',
+  landing_page: 'TEXT',
+  referrer: 'TEXT',
+  source_url: 'TEXT',
+  message: 'TEXT',
+  raw_json: 'TEXT'
+};
+
+async function ensureEnquirySchema(db) {
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS enquiries (
+      id TEXT PRIMARY KEY,
+      reference TEXT,
+      created_at TEXT,
+      updated_at TEXT,
+      status TEXT,
+      classification TEXT,
+      owner TEXT,
+      internal_notes TEXT,
+      contact_name TEXT,
+      contact_email TEXT,
+      contact_phone TEXT,
+      preferred_contact TEXT,
+      consent INTEGER,
+      site_location TEXT,
+      site_lat REAL,
+      site_lng REAL,
+      site_source TEXT,
+      project_route TEXT,
+      intended_use TEXT,
+      bedrooms_scale TEXT,
+      land_status TEXT,
+      planning_status TEXT,
+      budget TEXT,
+      target_start TEXT,
+      decision_role TEXT,
+      project_notes TEXT,
+      home_choice TEXT,
+      model_slug TEXT,
+      model_name TEXT,
+      placement_confirmed INTEGER,
+      placement_lat REAL,
+      placement_lng REAL,
+      placement_rotation REAL,
+      attribution_source TEXT,
+      attribution_medium TEXT,
+      attribution_campaign TEXT,
+      attribution_content TEXT,
+      attribution_term TEXT,
+      landing_page TEXT,
+      referrer TEXT,
+      source_url TEXT,
+      message TEXT,
+      raw_json TEXT
+    )
+  `).run();
+
+  for (const [column, type] of Object.entries(enquiryColumns)) {
+    if (column === 'id') continue;
+    try {
+      await db.prepare(`ALTER TABLE enquiries ADD COLUMN ${column} ${type}`).run();
+    } catch {}
+  }
+}
+
+async function ensureFileSchema(db) {
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS enquiry_files (
+      id TEXT PRIMARY KEY,
+      enquiry_id TEXT,
+      r2_key TEXT,
+      filename TEXT,
+      content_type TEXT,
+      size INTEGER,
+      created_at TEXT
+    )
+  `).run();
+}
+
 function normaliseAttribution(attribution = {}, fallback = {}) {
   const firstTouchSource = pick(attribution.firstTouchSource, attribution.first_touch_source, attribution.utmSource, fallback.source);
   const firstTouchMedium = pick(attribution.firstTouchMedium, attribution.first_touch_medium, attribution.utmMedium, fallback.medium);
@@ -103,9 +220,8 @@ async function sendNotification(env, enquiry) {
   } catch {}
 }
 
-export async function onRequestPost({ request, env }) {
+async function handlePost({ request, env }) {
   if (!env.DB) return json({ error: 'D1 binding DB is not configured.' }, 503);
-  if (!env.ENQUIRY_FILES) return json({ error: 'R2 binding ENQUIRY_FILES is not configured.' }, 503);
 
   const form = await request.formData();
   const payloadRaw = form.get('payload');
@@ -134,14 +250,13 @@ export async function onRequestPost({ request, env }) {
   const contactEmail = clean(contact.email);
   if (!contactName || !contactEmail) return json({ error: 'Name and email are required.' }, 400);
 
+  await ensureEnquirySchema(env.DB);
+
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
   const reference = enquiryReference();
   const classification = classify(project);
-  const rawJson = JSON.stringify({
-    ...payload,
-    commercialAttribution: normalisedAttribution
-  });
+  const rawJson = JSON.stringify({ ...payload, commercialAttribution: normalisedAttribution });
 
   const row = {
     id,
@@ -172,7 +287,7 @@ export async function onRequestPost({ request, env }) {
     project_notes: clean(project.notes),
     home_choice: effectiveHomeChoice,
     model_slug: isModelRoute ? clean(home.modelSlug || project.modelSlug) : '',
-    model_name: isModelRoute ? clean(home.modelName) : '',
+    model_name: isModelRoute ? clean(home.modelName || project.modelName) : '',
     placement_confirmed: placement.confirmed ? 1 : 0,
     placement_lat: num(placement.lat),
     placement_lng: num(placement.lng),
@@ -189,61 +304,53 @@ export async function onRequestPost({ request, env }) {
     raw_json: rawJson
   };
 
-  await env.DB.prepare(`
-    INSERT INTO enquiries (
-      id, reference, created_at, updated_at, status, classification, owner, internal_notes,
-      contact_name, contact_email, contact_phone, preferred_contact, consent,
-      site_location, site_lat, site_lng, site_source,
-      project_route, intended_use, bedrooms_scale, land_status, planning_status, budget, target_start, decision_role, project_notes,
-      home_choice, model_slug, model_name,
-      placement_confirmed, placement_lat, placement_lng, placement_rotation,
-      attribution_source, attribution_medium, attribution_campaign, attribution_content, attribution_term, landing_page, referrer, source_url,
-      message, raw_json
-    ) VALUES (
-      ?, ?, ?, ?, ?, ?, ?, ?,
-      ?, ?, ?, ?, ?,
-      ?, ?, ?, ?,
-      ?, ?, ?, ?, ?, ?, ?, ?, ?,
-      ?, ?, ?,
-      ?, ?, ?, ?,
-      ?, ?, ?, ?, ?, ?, ?, ?,
-      ?, ?
-    )
-  `).bind(
-    row.id, row.reference, row.created_at, row.updated_at, row.status, row.classification, row.owner, row.internal_notes,
-    row.contact_name, row.contact_email, row.contact_phone, row.preferred_contact, row.consent,
-    row.site_location, row.site_lat, row.site_lng, row.site_source,
-    row.project_route, row.intended_use, row.bedrooms_scale, row.land_status, row.planning_status, row.budget, row.target_start, row.decision_role, row.project_notes,
-    row.home_choice, row.model_slug, row.model_name,
-    row.placement_confirmed, row.placement_lat, row.placement_lng, row.placement_rotation,
-    row.attribution_source, row.attribution_medium, row.attribution_campaign, row.attribution_content, row.attribution_term, row.landing_page, row.referrer, row.source_url,
-    row.message, row.raw_json
-  ).run();
+  const columns = Object.keys(row);
+  const placeholders = columns.map(() => '?').join(', ');
+  await env.DB.prepare(`INSERT INTO enquiries (${columns.join(', ')}) VALUES (${placeholders})`)
+    .bind(...columns.map((column) => row[column]))
+    .run();
 
   const files = form.getAll('files').filter((item) => item && typeof item !== 'string' && item.size > 0);
   const savedFiles = [];
-  for (const file of files) {
-    const fileId = crypto.randomUUID();
-    const safeName = (file.name || 'document').replace(/[^a-zA-Z0-9._-]+/g, '-').slice(-120);
-    const key = `enquiries/${id}/${fileId}-${safeName}`;
-    await env.ENQUIRY_FILES.put(key, file.stream(), {
-      httpMetadata: { contentType: file.type || 'application/octet-stream' },
-      customMetadata: { enquiryId: id, originalName: file.name || safeName }
-    });
-    await env.DB.prepare(`
-      INSERT INTO enquiry_files (id, enquiry_id, r2_key, filename, content_type, size, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `).bind(fileId, id, key, file.name || safeName, file.type || '', file.size || 0, now).run();
-    savedFiles.push({ id: fileId, name: file.name || safeName, size: file.size || 0 });
+  if (files.length) {
+    if (!env.ENQUIRY_FILES) return json({ error: 'The enquiry was saved, but file storage is not configured.' }, 503);
+    await ensureFileSchema(env.DB);
+
+    for (const file of files) {
+      const fileId = crypto.randomUUID();
+      const safeName = (file.name || 'document').replace(/[^a-zA-Z0-9._-]+/g, '-').slice(-120);
+      const key = `enquiries/${id}/${fileId}-${safeName}`;
+      await env.ENQUIRY_FILES.put(key, file.stream(), {
+        httpMetadata: { contentType: file.type || 'application/octet-stream' },
+        customMetadata: { enquiryId: id, originalName: file.name || safeName }
+      });
+      await env.DB.prepare(`
+        INSERT INTO enquiry_files (id, enquiry_id, r2_key, filename, content_type, size, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `).bind(fileId, id, key, file.name || safeName, file.type || '', file.size || 0, now).run();
+      savedFiles.push({ id: fileId, name: file.name || safeName, size: file.size || 0 });
+    }
   }
 
   await sendNotification(env, row);
   return json({ ok: true, id, reference, classification, files: savedFiles }, 201);
 }
 
+export async function onRequestPost(context) {
+  try {
+    return await handlePost(context);
+  } catch (error) {
+    return json({
+      error: 'The enquiry could not be sent.',
+      detail: error?.message || String(error || 'Unknown server error')
+    }, 500);
+  }
+}
+
 export async function onRequestGet({ request, env }) {
   if (!env.DB) return json({ error: 'D1 binding DB is not configured.' }, 503);
   if (!authorised(request, env)) return json({ error: 'Unauthorised.' }, 401);
+  await ensureEnquirySchema(env.DB);
 
   const url = new URL(request.url);
   const status = clean(url.searchParams.get('status'));
