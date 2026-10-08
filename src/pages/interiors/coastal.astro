@@ -67,7 +67,7 @@ const kitchenImages={
        <h2 id="coastal-title" class="mt-5 font-display text-5xl">Coastal Natural</h2>
        <p class="mt-5 max-w-2xl text-lg leading-8 text-ink/65">This mood board is complete as designed. You can change individual elements, but you don't have to.</p>
       </div>
-      <div class="bg-mist p-6 text-sm leading-7 text-ink/65">All product choices shown here are <strong>curated design directions</strong> until Bauhu approves exact product references. Supplier imagery is illustrative of the stated manufacturer range, not proof of contractual inclusion.</div>
+      <div class="bg-mist p-6 text-sm leading-7 text-ink/65">All product choices shown here are <strong>curated design directions</strong> until Bauhu approves exact product references. Supplier imagery is illustrative of the stated manufacturer range; colour tiles are digital approximations, not samples or proof of contractual inclusion.</div>
      </div>
      <div class="mt-10 grid gap-3 bg-mist p-3 lg:grid-cols-[1.1fr_0.9fr]">
       <div class="relative min-h-[350px] overflow-hidden bg-stone">
@@ -79,8 +79,8 @@ const kitchenImages={
         <img id="coastal-kitchen-image" src={kitchenImages['Ivory supermatt']} loading="lazy" alt="Nobilia kitchen front manufacturer photograph" class="h-52 w-full object-cover"/>
         <div class="absolute bottom-0 left-0 bg-paper/95 px-3 py-2 text-xs uppercase tracking-wide" id="coastal-kitchen-tag">Kitchen · Ivory supermatt</div>
        </div>
-       <div class="relative min-h-40 overflow-hidden bg-[#D5CCBC]"><span class="absolute bottom-0 left-0 right-0 bg-paper/95 p-3 text-xs" id="coastal-floor-tag">Ceramic · Warm limestone look</span></div>
-       <div class="relative min-h-40 overflow-hidden bg-[#EFEDE8]"><span class="absolute bottom-0 left-0 right-0 bg-paper/95 p-3 text-xs" id="coastal-paint-tag">Paint · Warm off-white</span></div>
+       <div id="coastal-floor-sample" class="relative min-h-40 overflow-hidden bg-[#D5CCBC]"><span class="absolute bottom-0 left-0 right-0 bg-paper/95 p-3 text-xs" id="coastal-floor-tag">Ceramic · Warm limestone look</span></div>
+       <div id="coastal-paint-sample" class="relative min-h-40 overflow-hidden bg-[#EFEDE8]"><span class="absolute bottom-0 left-0 right-0 bg-paper/95 p-3 text-xs" id="coastal-paint-tag">Paint · Warm off-white</span></div>
       </div>
      </div>
      <div class="mt-3 grid grid-cols-4 gap-2" id="coastal-palette"></div>
@@ -108,7 +108,7 @@ const kitchenImages={
      <div class="mt-5 grid gap-10 lg:grid-cols-2 lg:items-end">
       <div><h2 class="font-display text-5xl">Beautifully resolved.</h2><p class="mt-5 text-lg leading-8 text-ink/65">Your selected board and any refinements are saved in this browser. Share the summary with Bauhu for product confirmation, project coordination and client approval.</p></div>
       <div class="flex flex-wrap gap-3">
-       <a href="/interiors/review" class="rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest">Full Design Review →</a>
+       <a href="/interiors/studio" class="rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest">Other areas of your home →</a>
        <button id="coastal-copy" type="button" class="rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Copy my scheme →</button>
       </div>
      </div>
@@ -152,6 +152,10 @@ const kitchenImages={
     const url=kitchenImages[selected('kitchen')];
     kitchenImg.hidden=!url;
     if(url)kitchenImg.src=url;
+    const tileColour={'Warm limestone look':'#CFC3AD','Pale grey stone look':'#B9C0BE','Light sand look':'#E5D8BF'};
+    const paintColour={'Warm off-white':'#EFE9DE','Cool off-white':'#ECEDEA','Soft taupe':'#BBAF9E'};
+    root.querySelector('#coastal-floor-sample').style.backgroundColor=tileColour[selected('floor')]||'#D5CCBC';
+    root.querySelector('#coastal-paint-sample').style.backgroundColor=paintColour[selected('paint')]||'#EFEDE8';
     root.querySelector('#coastal-floor-tag').textContent='Ceramic · '+selected('floor');
     root.querySelector('#coastal-paint-tag').textContent='Paint · '+selected('paint');
     root.querySelectorAll('[data-finish]').forEach(el=>{
