@@ -72,7 +72,12 @@
       continueButton.type = 'button';
       continueButton.textContent = 'Continue to project details';
       continueButton.disabled = true;
+      continueButton.hidden = true;
       confirmLocation.after(continueButton);
+    } else {
+      continueButton.disabled = true;
+      continueButton.hidden = true;
+      continueButton.classList.remove('ready');
     }
 
     confirmLocation.addEventListener('click', (event) => {
@@ -92,6 +97,7 @@
 
       confirmLocation.textContent = 'Location confirmed';
       confirmLocation.classList.add('confirmed-location');
+      continueButton.hidden = false;
       continueButton.disabled = false;
       continueButton.classList.add('ready');
     }, true);
@@ -122,6 +128,7 @@
 
     const style = document.createElement('style');
     style.textContent = `
+      .journey-continue[hidden]{display:none!important}
       .journey-continue{
         margin-top:.9rem;
         border:0!important;
