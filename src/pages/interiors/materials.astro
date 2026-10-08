@@ -13,9 +13,9 @@ const suppliers = [
 ];
 
 const candidates = [
-  { category:'Kitchen fronts', manufacturer:'Nobilia', name:'TOUCH 336 — Ivory supermatt', code:'Front 336', url:'https://www.nobilia.de/en/products/kitchens/modern-kitchens/touch-336/', note:'Verified manufacturer front reference. Not yet Bauhu-approved for the project.' },
-  { category:'Kitchen fronts', manufacturer:'Nobilia', name:'LASER 418 — Ivory matt', code:'Front 418', url:'https://www.nobilia.de/en/products/kitchens/modern-kitchens/laser-418/', note:'Verified manufacturer reference; supply and pricing unconfirmed.' },
-  { category:'Kitchen fronts', manufacturer:'Nobilia', name:'EASYTOUCH 961 — Graphite black ultra matt', code:'Front 961', url:'https://www.nobilia.de/en/products/kitchens/designer-kitchens/easytouch-961/', note:'Verified manufacturer reference; supply and pricing unconfirmed.' },
+  { category:'Kitchen fronts', manufacturer:'Nobilia', image:'https://www.nobilia.de/fileadmin/_processed_/5/d/csm_336_touch_g2_40ce6e6ab7.webp', name:'TOUCH 336 — Ivory supermatt', code:'Front 336', url:'https://www.nobilia.de/en/products/kitchens/modern-kitchens/touch-336/', note:'Verified manufacturer front reference. Not yet Bauhu-approved for the project.' },
+  { category:'Kitchen fronts', manufacturer:'Nobilia', image:'https://www.nobilia.de/fileadmin/_processed_/4/c/csm_418_laser_g1_c7ec336585.webp', name:'LASER 418 — Ivory matt', code:'Front 418', url:'https://www.nobilia.de/en/products/kitchens/modern-kitchens/laser-418/', note:'Verified manufacturer reference; supply and pricing unconfirmed.' },
+  { category:'Kitchen fronts', manufacturer:'Nobilia', image:'https://www.nobilia.de/fileadmin/_processed_/b/d/csm_961_easytouch_g1_36a0209cc2.webp', name:'EASYTOUCH 961 — Graphite black ultra matt', code:'Front 961', url:'https://www.nobilia.de/en/products/kitchens/designer-kitchens/easytouch-961/', note:'Verified manufacturer reference; supply and pricing unconfirmed.' },
   { category:'Ceramic floor ranges', manufacturer:'Dominó', name:'Ecoliving', code:'Collection / exact tile TBD', url:'https://www.domino.pt/en/products', note:'Manufacturer collection name only. Specific tile, size and finish not yet selected.' },
   { category:'Ceramic floor ranges', manufacturer:'Dominó', name:'Jura', code:'Collection / exact tile TBD', url:'https://www.domino.pt/en/products', note:'Manufacturer collection name only. Specific tile, size and finish not yet selected.' },
   { category:'Ceramic wall ranges', manufacturer:'Dominó', name:'Mood', code:'Collection / exact tile TBD', url:'https://www.domino.pt/en/products', note:'Manufacturer collection name only. Specific tile, size and finish not yet selected.' },
@@ -73,12 +73,15 @@ const candidates = [
         </figure>
         <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {candidates.map((candidate) => (
-            <article class="bg-paper p-7">
+            <article class="overflow-hidden bg-paper">
+              {candidate.image ? <img src={candidate.image} alt={candidate.name + ' — official manufacturer image'} loading="lazy" class="h-56 w-full object-cover" /> : <div class="flex h-24 items-center bg-stone/10 px-7 text-xs uppercase tracking-widest text-ink/55">Image under preparation</div>}
+              <div class="p-7">
               <p class="text-xs uppercase tracking-widest text-clay">{candidate.category}</p>
               <h3 class="mt-5 font-display text-3xl">{candidate.name}</h3>
               <p class="mt-3 text-sm text-ink/60">{candidate.manufacturer} / {candidate.code}</p>
               <p class="mt-5 text-sm leading-7 text-ink/65">{candidate.note}</p>
               <a href={candidate.url} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex border-b border-ink/50 pb-2 text-xs uppercase tracking-widest">View manufacturer reference ↗</a>
+              </div>
             </article>
           ))}
         </div>
