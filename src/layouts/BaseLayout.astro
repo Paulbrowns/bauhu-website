@@ -112,12 +112,12 @@ const webSiteSchema = JSON.stringify({
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u = 'https://bauhu.com/analytics/';
+        var u = 'https://bauhu.matomo.cloud/';
         _paq.push(['setTrackerUrl', u + 'matomo.php']);
         _paq.push(['setSiteId', '1']);
         var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
         g.async = true;
-        g.src = u + 'matomo.js';
+        g.src = 'https://cdn.matomo.cloud/bauhu.matomo.cloud/matomo.js';
         s.parentNode.insertBefore(g, s);
       })();
     </script>
