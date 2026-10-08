@@ -27,6 +27,38 @@ const stages=[
           <p class="mt-5 max-w-xl text-ink/65">Your working draft is saved in the browser where you created it. If you're using another device, import the previously downloaded draft through the Design Studio first.</p>
           <a href="/interiors/studio" class="mt-8 inline-flex rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Open Design Studio →</a>
         </div>
+        <div id="review-coastal" class="hidden">
+          <div class="mb-12 grid gap-7 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+            <div>
+              <p class="eyebrow text-clay">Your curated mood board</p>
+              <h2 id="review-coastal-title" class="mt-4 font-display text-5xl"></h2>
+              <p class="mt-4 text-sm leading-7 text-ink/65">Your complete Bauhu Coastal starting scheme, including any personal refinements. A visual design draft, not an approved order.</p>
+              <a href="/interiors/coastal" class="mt-6 inline-flex border-b border-ink/40 pb-2 text-xs uppercase tracking-widest">Refine Coastal →</a>
+            </div>
+            <div id="review-coastal-palette" class="grid h-16 grid-cols-4"></div>
+          </div>
+          <div class="grid gap-3 bg-mist p-3 lg:grid-cols-[1.15fr_0.85fr]">
+            <div class="relative min-h-80 bg-stone">
+              <img id="review-coastal-hero" class="absolute inset-0 h-full w-full object-cover" alt="Architectural mood board inspiration"/>
+              <span id="review-coastal-hero-label" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink/70 to-transparent p-6 font-display text-4xl text-paper"></span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="relative col-span-2 min-h-48 bg-[#DDD2BC]">
+                <img id="review-coastal-kitchen" alt="Nobilia manufacturer kitchen reference" class="h-52 w-full object-cover" loading="lazy"/>
+                <span id="review-coastal-kitchen-name" class="absolute bottom-0 left-0 bg-paper/95 p-3 text-xs uppercase tracking-widest"></span>
+              </div>
+              <div id="review-coastal-floor" class="flex min-h-36 items-end bg-[#CFC3AD] p-3 text-xs">Ceramics</div>
+              <div id="review-coastal-paint" class="flex min-h-36 items-end bg-[#EFE9DE] p-3 text-xs">Paint</div>
+            </div>
+          </div>
+          <div id="review-coastal-spec" class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <button id="review-coastal-print" type="button" class="rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Print my mood board</button>
+            <button id="review-coastal-copy" type="button" class="rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest">Copy finish selections</button>
+          </div>
+          <p id="review-coastal-status" class="mt-3 text-sm text-ink/60" role="status"></p>
+          <p class="mt-6 text-xs leading-6 text-ink/55">Real products and quantities will be confirmed by Bauhu before approval. Mood-board colours are digital approximations. This page does not place an order.</p>
+        </div>
         <div id="review-content" class="hidden">
           <div class="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
             <div>
@@ -77,8 +109,44 @@ const stages=[
   const wrapper=document.getElementById('review-content');
   let draft;
   try{draft=JSON.parse(localStorage.getItem('bauhu-interiors-draft-v1')||'null')}catch{}
+  // Curated Coastal schemes have their own local draft and should be reviewable without opening the legacy form.
+  const coastalDefaults={
+    natural:{name:'Coastal Natural',hero:'/images/models/bauhu-bahama-beach/2.webp',palette:['#F2EFE8','#DCD1BD','#BBB19F','#77746A'],finishes:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory supermatt',bath:'White & chrome',floor:'Warm limestone look',doors:'Matt white',paint:'Warm off-white'}},
+    ocean:{name:'Coastal Ocean',hero:'/images/models/bauhu-barbados-blue/2.webp',palette:['#F0F1ED','#C9D7D8','#879FAA','#5A7887'],finishes:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory matt',bath:'White & chrome',floor:'Pale grey stone look',doors:'Matt white',paint:'Cool off-white'}},
+    refined:{name:'Coastal Refined',hero:'/images/models/bauhu-cap-dantibes/2.webp',palette:['#E8E0D5','#C1AE97','#827060','#433D38'],finishes:{exterior:'Warm white',frames:'Anthracite',kitchen:'Soft sand',bath:'Walnut & chrome',floor:'Warm limestone look',doors:'Timber-look',paint:'Soft taupe'}}
+  };
+  const photos={'Ivory supermatt':'https://www.nobilia.de/fileadmin/_processed_/5/d/csm_336_touch_g2_40ce6e6ab7.webp','Ivory matt':'https://www.nobilia.de/fileadmin/_processed_/4/c/csm_418_laser_g1_c7ec336585.webp','Graphite ultra matt':'https://www.nobilia.de/fileadmin/_processed_/b/d/csm_961_easytouch_g1_36a0209cc2.webp'};
+  let coastal;
+  try {coastal=JSON.parse(localStorage.getItem('bauhu-interiors-coastal-v1')||'null')}catch{}
+  if(coastal && Object.hasOwn(coastalDefaults,coastal.scheme)){
+    const board=coastalDefaults[coastal.scheme];
+    const labels={exterior:'Exterior render',frames:'Cortizo frame colour',kitchen:'Nobilia kitchen front',bath:'Bathroom scheme',floor:'Dominó floor direction',doors:'Compincar doors',paint:'CIN paint direction'};
+    const validAlternatives={exterior:['Soft white','Warm white','Light grey'],frames:['Pure white','Anthracite'],kitchen:['Ivory supermatt','Ivory matt','Soft sand','Graphite ultra matt'],bath:['White & chrome','Walnut & chrome','Light wood & chrome'],floor:['Warm limestone look','Pale grey stone look','Light sand look'],doors:['Matt white','Timber-look','Soft grey'],paint:['Warm off-white','Cool off-white','Soft taupe']};
+    const selected=key=>validAlternatives[key].includes(coastal.changes?.[key])?coastal.changes[key]:board.finishes[key];
+    const panel=document.getElementById('review-coastal');panel.classList.remove('hidden');
+    document.getElementById('review-coastal-title').textContent=board.name;
+    document.getElementById('review-coastal-hero').src=board.hero;
+    document.getElementById('review-coastal-hero-label').textContent=board.name;
+    document.getElementById('review-coastal-palette').innerHTML=board.palette.map(tone=>'<span style="background:'+tone+'"></span>').join('');
+    document.getElementById('review-coastal-kitchen-name').textContent='Kitchen · '+selected('kitchen');
+    const kitchenPhoto=document.getElementById('review-coastal-kitchen');
+    if(photos[selected('kitchen')])kitchenPhoto.src=photos[selected('kitchen')];else kitchenPhoto.hidden=true;
+    const tileColours={'Warm limestone look':'#CFC3AD','Pale grey stone look':'#B9C0BE','Light sand look':'#E5D8BF'};
+    const paintColours={'Warm off-white':'#EFE9DE','Cool off-white':'#ECEDEA','Soft taupe':'#BBAF9E'};
+    document.getElementById('review-coastal-floor').style.backgroundColor=tileColours[selected('floor')];
+    document.getElementById('review-coastal-floor').textContent='Ceramics · '+selected('floor');
+    document.getElementById('review-coastal-paint').style.backgroundColor=paintColours[selected('paint')];
+    document.getElementById('review-coastal-paint').textContent='Paint · '+selected('paint');
+    document.getElementById('review-coastal-spec').innerHTML=Object.keys(labels).map(key=>'<div class="border-t border-ink/20 py-3"><p class="text-xs uppercase tracking-widest text-ink/55">'+escapeText(labels[key])+'</p><p class="mt-2 text-lg">'+escapeText(selected(key))+'</p></div>').join('');
+    const lines=['BAUHU INTERIORS — '+board.name,'Unapproved client design preferences',''].concat(Object.keys(labels).map(key=>labels[key]+': '+selected(key)));
+    document.getElementById('review-coastal-print').addEventListener('click',()=>window.print());
+    document.getElementById('review-coastal-copy').addEventListener('click',async()=>{
+      try{await navigator.clipboard.writeText(lines.join('\\n'));document.getElementById('review-coastal-status').textContent='Copied for consultation.'}
+      catch{document.getElementById('review-coastal-status').textContent='Copy unavailable. Please use Print.'}
+    });
+  }
   if(!draft||draft.version!==1||!draft.selections||typeof draft.selections!=='object'||Array.isArray(draft.selections)){
-    empty.classList.remove('hidden');
+    if(!coastal) empty.classList.remove('hidden');
   }else{
     wrapper.classList.remove('hidden');
     const collectionTitles={coastal:'Coastal',contemporary:'Contemporary',signature:'Signature',tropical:'Tropical'};
@@ -136,7 +204,7 @@ const stages=[
 </script>
 <style>
   @media print {
-    header,footer,#review-copy,#review-print {display:none!important}
+    header,footer,#review-copy,#review-print,#review-coastal-copy,#review-coastal-print {display:none!important}
     #review-content {display:block!important}
     article {break-inside:avoid}
   }
