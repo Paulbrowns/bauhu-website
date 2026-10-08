@@ -72,6 +72,31 @@
     };
   };
 
+  const matomoEventDefaults = {
+    lead_intent_site_fit_click: ['Lead intent', 'Site fit click'],
+    lead_intent_project_details_click: ['Lead intent', 'Project details click'],
+    partner_intent_click: ['Partner intent', 'Work with Bauhu click'],
+    contact_click: ['Contact intent', 'Contact click'],
+    lead_enquiry_submitted: ['Lead', 'Enquiry submitted'],
+    partner_profile_submit: ['Partner', 'Partner profile submit'],
+    partner_profile_complete: ['Partner', 'Partner profile complete'],
+  };
+
+  const trackMatomoEvent = (eventName, detail = {}) => {
+    const queue = window._paq = window._paq || [];
+    const defaults = matomoEventDefaults[eventName] || ['Bauhu', eventName];
+    const category = detail.matomoCategory || defaults[0];
+    const action = detail.matomoAction || defaults[1];
+    const name = detail.matomoName || detail.reference || detail.classification || detail.href || window.location.pathname;
+    const value = Number.isFinite(Number(detail.matomoValue)) ? Number(detail.matomoValue) : undefined;
+
+    if (value === undefined) {
+      queue.push(['trackEvent', category, action, name]);
+    } else {
+      queue.push(['trackEvent', category, action, name, value]);
+    }
+  };
+
   const stored = readStored();
   const lastTouch = deriveTouch();
   const attribution = {
@@ -111,8 +136,10 @@
     },
     track(eventName, detail = {}) {
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: eventName, ...detail, attribution: this.asPayload() });
-      window.dispatchEvent(new CustomEvent(`bauhu:${eventName}`, { detail }));
+      const payload = { event: eventName, ...detail, attribution: this.asPayload() };
+      window.dataLayer.push(payload);
+      trackMatomoEvent(eventName, detail);
+      window.dispatchEvent(new CustomEvent(`bauhu:${eventName}`, { detail: payload }));
     },
   };
 
