@@ -112,6 +112,19 @@ const collections = [
                 <p class="eyebrow text-clay">{category.eyebrow}</p>
                 <h2 class="mt-4 font-display text-5xl">{category.title}</h2>
                 <p class="mt-5 max-w-2xl leading-7 text-ink/65">{category.description}</p>
+                {category.id === 'bathroom' ? (
+                  <div class="mt-9 bg-mist p-6 md:p-8">
+                    <p class="eyebrow text-clay">Room-by-room personalisation</p>
+                    <h3 class="mt-3 font-display text-3xl">Coordinate each bathroom.</h3>
+                    <p class="mt-3 text-sm leading-7 text-ink/65">Use a consistent scheme throughout or select different directions for individual bathrooms. These are preferences, not quantity or purchase instructions.</p>
+                    <label for="studio-bathroom-count" class="mt-5 block text-sm font-medium">Number of bathrooms to personalise</label>
+                    <select id="studio-bathroom-count" class="mt-2 w-full border border-ink/20 bg-white px-4 py-3 text-sm">
+                      {[1,2,3,4,5,6,7,8].map((n) => <option value={n}>{n} {n===1?'bathroom':'bathrooms'}</option>)}
+                    </select>
+                    <div id="studio-bathroom-rooms" class="mt-5 grid gap-4"></div>
+                    <p class="mt-4 text-xs leading-6 text-ink/55">Room names are for your personal draft. A Bauhu architect will later match them with the approved room and fixture schedules.</p>
+                  </div>
+                ) : null}
                 <div class="mt-10 grid gap-7">
                   {category.fields.map((field) => (
                     <div>
@@ -181,7 +194,7 @@ const collections = [
   const root = document.querySelector('[data-design-studio]');
   if (root) {
     const storageKey = 'bauhu-interiors-draft-v1';
-    const starter = () => ({ version: 1, collection: '', home: '', selections: {}, notes: {}, reviewed: {}, updated: null });
+    const starter = () => ({ version: 1, collection: '', home: '', selections: {}, notes: {}, reviewed: {}, rooms: { bathroomCount: 2, bathrooms: {} }, updated: null });
     let draft = starter();
     let canStore = true;
     const status = root.querySelector('#studio-status');
@@ -194,7 +207,7 @@ const collections = [
     try {
       const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
       if (saved?.version === 1 && typeof saved.selections === 'object' && saved.selections && typeof saved.notes === 'object' && saved.notes) {
-        draft = { ...starter(), ...saved };
+        draft = { ...starter(), ...saved, rooms: {bathroomCount: Number.isInteger(Number(saved.rooms?.bathroomCount)) && Number(saved.rooms.bathroomCount)>=1 && Number(saved.rooms.bathroomCount)<=8 ? Number(saved.rooms.bathroomCount) : 2, bathrooms: saved.rooms?.bathrooms && typeof saved.rooms.bathrooms === 'object' && !Array.isArray(saved.rooms.bathrooms) ? saved.rooms.bathrooms : {} } };
       }
     } catch { canStore = false; }
     const validCollection = (id) => collections.some((c) => c.id === id);
@@ -206,6 +219,11 @@ const collections = [
     const render = () => {
       const count = categories.filter((c) => draft.reviewed[c.id]).length;
       root.querySelector('#studio-progress').textContent = `${count} of 6 areas reviewed`;
+      const roomSummary = Array.from({length:draft.rooms.bathroomCount},(_,i) => {
+        const room = draft.rooms.bathrooms[String(i+1)] || {};
+        const cell = (k,opts) => opts.includes(room[k]) ? room[k] : 'Not selected';
+        return `<div class="border-b border-ink/10 py-3 text-sm"><strong>${safe(room.name || 'Bathroom '+(i+1))}</strong><p class="mt-2 text-ink/65">Vanity: ${safe(cell('vanity',bathroomOptions.vanity))} · Wall tiles: ${safe(cell('tiles',bathroomOptions.tiles))} · Taps: ${safe(cell('mixer',bathroomOptions.mixer))}</p>${room.notes ? `<p class="mt-2 whitespace-pre-wrap text-ink/60">${safe(room.notes)}</p>` : ''}</div>`;
+      }).join('');
       const rows = categories.map((category) => {
         const fields = category.fields.map((field) => {
           const value = draft.selections[`${category.id}.${field.id}`];
@@ -219,7 +237,7 @@ const collections = [
         `<p class="text-xs uppercase tracking-widest text-ink/55">Personal draft — not an approved specification</p>
         <h3 class="mt-4 font-display text-3xl">${safe(draft.home || 'My Bauhu home')}</h3>
         <p class="mt-2 text-sm text-ink/60">Design direction: ${safe(collection?.title || 'Individual selection')}</p>
-        <div class="mt-8 grid gap-x-10 md:grid-cols-2">${rows}</div>
+        <div class="mt-8 grid gap-x-10 md:grid-cols-2">${rows}</div><section class="mt-6 border-t border-ink/15 pt-5"><h3 class="font-display text-2xl">Bathrooms by room</h3><p class="text-xs text-ink/55">Personal preferences only; no fixtures ordered</p>${roomSummary}</section>
         <p class="mt-4 text-xs leading-6 text-ink/55">Indicative preferences only. Supplier references, scope, cost adjustments, material suitability and procurement require Bauhu confirmation. Furniture and decorative accessories excluded.</p>`;
     };
     // Illustrative swatches help compare finishes without suggesting physical samples or final product colours.
@@ -262,6 +280,59 @@ const collections = [
           render();
         });
       });
+    });
+    // Rooms are design preferences only; geometry, quantities and scope remain architect controlled.
+    const bathroomCountEl = root.querySelector('#studio-bathroom-count');
+    const bathroomRoomsEl = root.querySelector('#studio-bathroom-rooms');
+    const bathroomOptions = {
+      vanity: ['Shared bathroom scheme', 'White gloss', 'Warm neutral', 'Timber-look', 'Other / to discuss'],
+      tiles: ['Shared ceramic scheme', 'Light stone-effect', 'Blue feature wall', 'Warm neutral', 'Other / to discuss'],
+      mixer: ['Shared bathroom scheme', 'Chrome', 'Other / to discuss'],
+    };
+    const validRooms = (value) => {
+      const count = Number(value?.bathroomCount);
+      const rooms = value?.bathrooms;
+      return {
+        bathroomCount: Number.isInteger(count) && count >= 1 && count <= 8 ? count : 2,
+        bathrooms: rooms && typeof rooms === 'object' && !Array.isArray(rooms) ? rooms : {},
+      };
+    };
+    draft.rooms = validRooms(draft.rooms);
+    const renderBathroomRooms = () => {
+      bathroomCountEl.value = String(draft.rooms.bathroomCount);
+      bathroomRoomsEl.innerHTML = Array.from({length:draft.rooms.bathroomCount}, (_, index) => {
+        const id = String(index + 1);
+        const room = draft.rooms.bathrooms[id] || {};
+        const dropdown = (key, label, options) => `<label class="block mt-3 text-xs font-medium">${safe(label)}<select class="mt-2 w-full border border-ink/20 bg-white px-3 py-3 text-sm" data-bathroom-field="${key}" data-room-index="${id}">${options.map(option => `<option value="${safe(option)}" ${room[key]===option?'selected':''}>${safe(option)}</option>`).join('')}</select></label>`;
+        return `<div class="bg-white p-5 border border-ink/10">
+          <label class="block text-sm font-medium">Bathroom ${id} — optional room name
+            <input data-bathroom-field="name" data-room-index="${id}" class="mt-2 w-full border border-ink/20 px-3 py-3 text-sm" maxlength="80" placeholder="e.g. Primary en-suite" value="${safe(typeof room.name === 'string' ? room.name.slice(0,80) : '')}" />
+          </label>
+          ${dropdown('vanity','Vanity direction',bathroomOptions.vanity)}
+          ${dropdown('tiles','Wall tile direction',bathroomOptions.tiles)}
+          ${dropdown('mixer','Tap finish direction',bathroomOptions.mixer)}
+          <label class="mt-3 block text-xs font-medium">Room notes<textarea data-bathroom-field="notes" data-room-index="${id}" maxlength="500" rows="2" class="mt-2 w-full border border-ink/20 p-3 text-sm" placeholder="Specific preferences for this bathroom">${safe(typeof room.notes === 'string' ? room.notes.slice(0,500) : '')}</textarea></label>
+          </div>`;
+      }).join('');
+    };
+    bathroomCountEl.addEventListener('change', () => {
+      draft.rooms.bathroomCount = Number(bathroomCountEl.value);
+      renderBathroomRooms();save();render();
+    });
+    bathroomRoomsEl.addEventListener('input', event => {
+      const el = event.target.closest('[data-bathroom-field]');
+      if (!el) return;
+      const id = el.dataset.roomIndex;
+      const field = el.dataset.bathroomField;
+      if (!['name','vanity','tiles','mixer','notes'].includes(field) || !/^[1-8]$/.test(id)) return;
+      const room = draft.rooms.bathrooms[id] || {};
+      room[field] = (el.value || '').slice(0, field==='notes'?500:80);
+      draft.rooms.bathrooms[id] = room;
+      save();render();
+    });
+    bathroomRoomsEl.addEventListener('change', event => {
+      const el = event.target.closest('[data-bathroom-field]');
+      if (el) { save();render(); }
     });
     root.querySelector('#studio-collection').value = draft.collection;
     root.querySelector('#studio-home').value = draft.home || '';
@@ -326,7 +397,13 @@ const collections = [
         if (draft.notes[category.id]) lines.push('Notes: ' + String(draft.notes[category.id]).slice(0,1000));
         lines.push('Reviewed by customer: ' + (draft.reviewed[category.id] ? 'Yes' : 'No'), '');
       });
-      lines.push('Manufacturer references and colours are illustrative or unapproved. Bauhu will confirm suitability, availability, pricing and final supply scope. Furniture and decorative accessories are excluded.');
+      lines.push('BATHROOMS BY ROOM');
+      Array.from({length:draft.rooms.bathroomCount},(_,i) => {
+        const room = draft.rooms.bathrooms[String(i+1)] || {};
+        lines.push((room.name || 'Bathroom '+(i+1))+': '+(room.vanity || 'Shared vanity')+' / '+(room.tiles || 'Shared tiles')+' / '+(room.mixer || 'Shared taps'));
+        if(room.notes) lines.push('Room notes: '+room.notes);
+      });
+      lines.push('', 'Manufacturer references and colours are illustrative or unapproved. Bauhu will confirm suitability, availability, pricing and final supply scope. Furniture and decorative accessories are excluded.');
       return lines.join('\\n');
     };
     root.querySelector('#studio-copy').addEventListener('click', async () => {
@@ -357,7 +434,9 @@ const collections = [
           if (typeof note === 'string') restored.notes[category.id] = note.slice(0,1000);
           restored.reviewed[category.id] = incoming.reviewed?.[category.id] === true;
         });
+        restored.rooms = validRooms(incoming.rooms);
         draft = restored;
+        renderBathroomRooms();
         root.querySelector('#studio-home').value = draft.home;
         root.querySelector('#studio-collection').value = draft.collection;
         root.querySelectorAll('[data-selection]').forEach((element) => { element.value = draft.selections[element.dataset.selection] || ''; });
@@ -371,6 +450,7 @@ const collections = [
     root.querySelector('#studio-clear').addEventListener('click', () => {
       if (!window.confirm('Clear your saved Bauhu Interiors draft from this browser?')) return;
       draft = starter();
+      renderBathroomRooms();
       root.querySelector('#studio-collection').value = '';
       root.querySelector('#studio-home').value = '';
       root.querySelectorAll('[data-selection]').forEach((e) => { e.value = ''; });
@@ -380,7 +460,7 @@ const collections = [
       refreshPalette(); updateSwatches(); render(); status.textContent = 'Draft cleared from this browser.';
       show(0);
     });
-    refreshPalette(); paintVisuals(); updateSwatches(); render(); show(0);
+    refreshPalette(); paintVisuals(); updateSwatches(); renderBathroomRooms(); render(); show(0);
     if (!canStore) status.textContent = 'Browser storage is unavailable. Download your draft to keep it.';
   }
 </script>
