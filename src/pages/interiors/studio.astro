@@ -163,13 +163,26 @@ const collections = [
                         <div data-swatch-group={`${category.id}.${field.id}`} class="mt-4 grid gap-3 sm:grid-cols-2" aria-label={field.label + ' visual choices'}>
                           {field.choices.filter((choice) => !choice.startsWith('Other') && !choice.startsWith('To be')).map((choice, i) => (
                             <button type="button" data-swatch-choice={choice} class="group flex items-center gap-3 border border-ink/15 bg-paper p-3 text-left text-sm transition hover:border-ink/60" aria-pressed="false">
-                              <span class="h-12 w-14 shrink-0 border border-ink/10" data-visual-sample={`${category.id}.${field.id}`} data-choice-index={i} aria-hidden="true"></span>
+                              {category.id === 'kitchen' && field.id === 'cabinet' && i < 3 ? (
+                                <img
+                                  src={[
+                                    'https://www.nobilia.de/fileadmin/_processed_/5/d/csm_336_touch_g2_40ce6e6ab7.webp',
+                                    'https://www.nobilia.de/fileadmin/_processed_/4/c/csm_418_laser_g1_c7ec336585.webp',
+                                    'https://www.nobilia.de/fileadmin/_processed_/b/d/csm_961_easytouch_g1_36a0209cc2.webp',
+                                  ][i]}
+                                  alt={choice + ' — Nobilia manufacturer photograph'}
+                                  loading="lazy"
+                                  class="h-24 w-28 shrink-0 object-cover"
+                                />
+                              ) : (
+                                <span class="h-12 w-14 shrink-0 border border-ink/10" data-visual-sample={`${category.id}.${field.id}`} data-choice-index={i} aria-hidden="true"></span>
+                              )}
                               <span class="leading-5">{choice}</span>
                             </button>
                           ))}
                         </div>
                       ) : null}
-                      {category.id === 'kitchen' && field.id === 'cabinet' ? <p class="mt-3 text-xs leading-6 text-ink/55">Nobilia manufacturer references are candidates only. Actual surface appearance, inclusion and compatibility require Bauhu approval.</p> : null}
+                      {category.id === 'kitchen' && field.id === 'cabinet' ? <p class="mt-3 text-xs leading-6 text-ink/55">Photographs supplied by Nobilia. These are manufacturer ranges under consideration; product inclusion, availability and compatibility require Bauhu approval.</p> : null}
                     </div>
                   ))}
                   <div>
