@@ -14,7 +14,7 @@ For each approved selectable option, record:
 - category / room application
 - manufacturer, series and product reference
 - exact finish name and colour code (not a screen-derived approximation)
-- image asset and permission to reproduce it
+- image asset, manufacturer source URL, and recorded supplier permission (Bauhu confirms permission to use suppliers' website images; retain image attribution and source metadata)
 - format/dimensions where relevant
 - technical suitability and regional restrictions (e.g. slip resistance in wet areas; availability; specifications)
 - supplied as standard / may require adjustment / by quotation (internal status; no invented retail pricing)
@@ -70,3 +70,7 @@ For each approved selectable option, record:
 ## Design Studio prototype limitations (October 2026)
 
 The working prototype at `/interiors/studio/` offers six-category draft selections, illustrative clickable colour chips for selected finishes, local browser saving, JSON export/import, printable specification summary, and copy-to-clipboard sharing. These features are not an order form or approval workflow. A draft is not accessible on another device unless the user explicitly exports and imports it. Browser history/storage clearing may erase local drafts. No actual project BOM or payment workflow is connected. The display colours are **not** manufacturer-accurate colour chips or proof of supply.
+
+## Supplier imagery authorisation
+
+Bauhu confirms it has permission from its suppliers to use images from their websites for Bauhu Interiors. This enables genuine catalogue photography and product images in the customer-facing library. Record the original manufacturer URL, product reference, asset filename and retrieval date. Do not confuse permission to reuse imagery with confirmation that every pictured product is available or included in an individual Bauhu home. Keep customer-specific technical drawings and personal information private.
