@@ -1,0 +1,279 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+const categories = [
+  {
+    id: 'exterior', title: 'Exterior & openings', eyebrow: '01 / Architecture',
+    description: 'Coordinate façade texture and colour direction with the aluminium openings.',
+    fields: [
+      { id: 'render', label: 'Façade finish direction', choices: ['Warm white', 'Soft neutral', 'Light grey', 'Other / to discuss'] },
+      { id: 'grain', label: 'Façade grain', choices: ['Fine texture', 'Medium texture', 'To be confirmed'] },
+      { id: 'frames', label: 'Aluminium frame colour', choices: ['Anthracite', 'Pure white', 'Other / to confirm'] },
+    ],
+  },
+  {
+    id: 'kitchen', title: 'Kitchen', eyebrow: '02 / Fitted cabinetry',
+    description: 'Define a consistent direction for the cabinetry, composite worktop, sink and mixer.',
+    fields: [
+      { id: 'cabinet', label: 'Cabinet front direction', choices: ['Light neutral', 'White classic profile', 'Warm timber-look', 'Dark contemporary', 'Other / to discuss'] },
+      { id: 'worktop', label: 'Composite countertop direction', choices: ['Pale stone-effect', 'Warm neutral', 'Grey', 'Other / to discuss'] },
+      { id: 'handles', label: 'Cabinet handle direction', choices: ['Minimal', 'Classic', 'To be confirmed'] },
+      { id: 'sink', label: 'Sink & mixer direction', choices: ['Inset sink with chrome mixer', 'Other / to confirm'] },
+    ],
+  },
+  {
+    id: 'bathroom', title: 'Bathrooms', eyebrow: '03 / Sanitary fittings',
+    description: 'Coordinate fixed vanity furniture, basins, ceramics and water-conserving faucets.',
+    fields: [
+      { id: 'vanity', label: 'Wall-hung vanity direction', choices: ['White gloss', 'Warm neutral', 'Timber-look', 'Other / to confirm'] },
+      { id: 'basin', label: 'Basin & sanitary ware', choices: ['Integrated composite basin / white ceramics', 'Other / to confirm'] },
+      { id: 'faucet', label: 'Faucet direction', choices: ['Polished chrome / Bruma range', 'Other / to confirm'] },
+    ],
+  },
+  {
+    id: 'ceramics', title: 'Ceramic finishes', eyebrow: '04 / Surfaces',
+    description: 'Build a cohesive approach to interior floors and bathroom wall tiles.',
+    fields: [
+      { id: 'floor', label: 'Interior floor ceramic direction', choices: ['Warm stone-effect', 'Light stone-effect', 'Grey stone-effect', 'Timber-look ceramic', 'Other / to discuss'] },
+      { id: 'wall', label: 'Bathroom wall ceramic direction', choices: ['Tonal match', 'Light contrast', 'Feature texture', 'Other / to discuss'] },
+    ],
+  },
+  {
+    id: 'doors', title: 'Interior doors', eyebrow: '05 / Joinery',
+    description: 'Select a profile, finish and compatible door hardware direction.',
+    fields: [
+      { id: 'profile', label: 'Door profile', choices: ['Contemporary', 'Classic', 'To be confirmed'] },
+      { id: 'finish', label: 'Door finish', choices: ['Matt white lacquer', 'Coloured matt lacquer', 'Oak veneer', 'Walnut veneer', 'Wenge veneer', 'Beech veneer', 'To be confirmed'] },
+      { id: 'hardware', label: 'Door hardware direction', choices: ['Minimal contemporary', 'Classic', 'To be confirmed'] },
+    ],
+  },
+  {
+    id: 'paint', title: 'Interior paint', eyebrow: '06 / Colour',
+    description: 'Coordinate wall and ceiling finishes across your interior.',
+    fields: [
+      { id: 'walls', label: 'Wall colour direction', choices: ['Warm off-white', 'Soft neutral', 'Cool off-white', 'Muted accent', 'Other / to discuss'] },
+      { id: 'ceiling', label: 'Ceiling colour direction', choices: ['Soft white', 'Coordinated wall tone', 'Other / to discuss'] },
+      { id: 'reference', label: 'RAL / Pantone preference', choices: ['Select codes later', 'I have specific codes'] },
+    ],
+  },
+];
+const collections = [
+  { id: 'coastal', title: 'Coastal', colours: ['#F2EFE8','#E3D9C8','#C9BDAA','#414949'] },
+  { id: 'contemporary', title: 'Contemporary', colours: ['#E8E5DF','#B8B7B2','#555857','#222928'] },
+  { id: 'signature', title: 'Signature', colours: ['#F1E9DF','#B5A38E','#796452','#3E3934'] },
+  { id: 'tropical', title: 'Tropical', colours: ['#E6DDC8','#B9B59B','#77806A','#454C3D'] },
+];
+---
+<BaseLayout title="Design Studio | Bauhu Interiors" description="Explore and save preliminary architectural finish preferences for your Bauhu home, across six defined specification categories.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <section class="bg-ink px-5 pb-16 pt-36 text-paper lg:px-10">
+      <div class="mx-auto max-w-site">
+        <a href="/interiors" class="text-xs uppercase tracking-widest text-paper/65">← Bauhu Interiors</a>
+        <p class="eyebrow mt-12 text-stone">Design Studio / Exploration</p>
+        <div class="mt-5 grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
+          <h1 class="font-display text-6xl leading-tight md:text-8xl">Make it yours.</h1>
+          <p class="max-w-lg text-lg leading-8 text-paper/75">Explore coordinated finishes for your Bauhu home. Save a personal working draft before confirming actual supplier products with our team.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-paper" data-design-studio>
+      <div class="mx-auto max-w-site">
+        <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+          <aside class="self-start bg-mist p-6 md:p-8 lg:sticky lg:top-28">
+            <p class="eyebrow text-clay">Your design direction</p>
+            <label for="studio-collection" class="mt-5 block text-sm font-medium">Collection</label>
+            <select id="studio-collection" class="mt-3 w-full border border-ink/20 bg-paper px-4 py-3 text-sm text-ink">
+              <option value="">Create my own direction</option>
+              {collections.map((collection) => <option value={collection.id}>{collection.title}</option>)}
+            </select>
+            <div class="mt-6 grid h-14 grid-cols-4 overflow-hidden" id="studio-palette" aria-label="Inspiration palette">
+              {collections[0].colours.map((tone) => <div style={`background-color: ${tone}`}></div>)}
+            </div>
+            <p class="mt-4 text-sm leading-6 text-ink/60">Collections provide inspiration only. Choosing one does not automatically select or reserve supplier products.</p>
+            <div class="mt-8 border-t border-ink/15 pt-7">
+              <label for="studio-home" class="block text-sm font-medium">Home or project reference (optional)</label>
+              <input id="studio-home" type="text" maxlength="120" placeholder="e.g. Coconut Villa" class="mt-3 w-full border border-ink/20 bg-paper px-4 py-3 text-sm" />
+              <p class="mt-3 text-xs leading-5 text-ink/55">This information stays in this browser unless you download or share your draft.</p>
+            </div>
+            <div class="mt-8 border-t border-ink/15 pt-6">
+              <p class="text-xs uppercase tracking-widest text-ink/55">Progress</p>
+              <p id="studio-progress" class="mt-2 font-display text-3xl" aria-live="polite">0 of 6 areas reviewed</p>
+            </div>
+          </aside>
+          <div>
+            <div class="flex flex-wrap gap-2" role="tablist" aria-label="Finish selection categories" id="studio-tabs">
+              {categories.map((category, index) => <button type="button" role="tab" id={`tab-${category.id}`} aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`panel-${category.id}`} data-category-tab={category.id} class="border border-ink/25 px-4 py-3 text-xs uppercase tracking-wide transition hover:bg-ink hover:text-paper aria-selected:bg-ink aria-selected:text-paper">{String(index+1).padStart(2,'0')} {category.title}</button>)}
+            </div>
+            {categories.map((category, index) => (
+              <section id={`panel-${category.id}`} role="tabpanel" aria-labelledby={`tab-${category.id}`} data-category-panel={category.id} hidden={index !== 0} class="mt-9 border-t border-ink/20 pt-8">
+                <p class="eyebrow text-clay">{category.eyebrow}</p>
+                <h2 class="mt-4 font-display text-5xl">{category.title}</h2>
+                <p class="mt-5 max-w-2xl leading-7 text-ink/65">{category.description}</p>
+                <div class="mt-10 grid gap-7">
+                  {category.fields.map((field) => (
+                    <div>
+                      <label for={`choice-${category.id}-${field.id}`} class="block text-sm font-medium">{field.label}</label>
+                      <select id={`choice-${category.id}-${field.id}`} data-selection={`${category.id}.${field.id}`} class="mt-3 w-full border border-ink/20 bg-white px-4 py-4 text-sm">
+                        <option value="">Not selected</option>
+                        {field.choices.map((choice) => <option value={choice}>{choice}</option>)}
+                      </select>
+                    </div>
+                  ))}
+                  <div>
+                    <label for={`notes-${category.id}`} class="block text-sm font-medium">Notes or preferences</label>
+                    <textarea id={`notes-${category.id}`} data-notes={category.id} rows="3" maxlength="1000" placeholder="Anything you would like the Bauhu team to consider?" class="mt-3 w-full border border-ink/20 bg-white px-4 py-4 text-sm"></textarea>
+                  </div>
+                  <label class="flex items-start gap-3 border-t border-ink/15 pt-6 text-sm">
+                    <input type="checkbox" data-reviewed={category.id} class="mt-1 h-4 w-4" />
+                    <span><strong>Mark this area reviewed</strong><br /><span class="text-ink/60">A personal checklist only, not specification approval.</span></span>
+                  </label>
+                </div>
+                <div class="mt-10 flex flex-wrap gap-3">
+                  <button type="button" data-previous class="border border-ink/25 px-6 py-3 text-xs uppercase tracking-widest">← Previous</button>
+                  <button type="button" data-next class="bg-ink px-6 py-3 text-xs uppercase tracking-widest text-paper">Next area →</button>
+                </div>
+              </section>
+            ))}
+            <div class="mt-12 border-t border-ink/20 pt-8">
+              <p class="eyebrow text-clay">Your working draft</p>
+              <h2 class="mt-4 font-display text-4xl">Keep a record of your preferences.</h2>
+              <p class="mt-4 max-w-2xl text-sm leading-7 text-ink/65">Drafts are stored only in your current browser, not submitted to Bauhu. You can download a copy or print a summary. Product references, cost implications and availability require separate confirmation.</p>
+              <div class="mt-6 flex flex-wrap gap-3">
+                <button id="studio-download" type="button" class="bg-ink px-6 py-4 text-xs uppercase tracking-widest text-paper">Download draft (.json)</button>
+                <button id="studio-print" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Print summary</button>
+                <button id="studio-clear" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Clear draft</button>
+              </div>
+              <p id="studio-status" class="mt-4 text-sm text-ink/60" role="status" aria-live="polite"></p>
+              <div id="studio-summary" class="mt-8 border border-ink/15 bg-white p-6 md:p-8"></div>
+              <a href="mailto:contact@bauhu.com?subject=Bauhu%20Interiors%20design%20consultation" class="mt-8 inline-flex border-b border-ink pb-2 text-xs uppercase tracking-widest">Enquire about professional design guidance →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="bg-mist px-5 py-14 lg:px-10">
+      <div class="mx-auto max-w-site text-sm leading-7 text-ink/65">
+        <strong class="text-ink">What Bauhu provides:</strong> architectural façade and opening finishes, fitted kitchens, bathroom equipment, interior ceramics, doors and interior paint. No furniture, rugs, curtains, artwork, decorative lighting or styling service. All choices here are preliminary preferences, not an approved scope of supply, quotation or order.
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<script define:vars={{ categories, collections }}>
+  const root = document.querySelector('[data-design-studio]');
+  if (root) {
+    const storageKey = 'bauhu-interiors-draft-v1';
+    const starter = () => ({ version: 1, collection: '', home: '', selections: {}, notes: {}, reviewed: {}, updated: null });
+    let draft = starter();
+    let canStore = true;
+    const status = root.querySelector('#studio-status');
+    const safe = (text) => String(text ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+    const save = () => {
+      draft.updated = new Date().toISOString();
+      try { localStorage.setItem(storageKey, JSON.stringify(draft)); status.textContent = 'Draft saved in this browser.'; }
+      catch { canStore = false; status.textContent = 'Browser storage is unavailable. Download your draft to keep it.'; }
+    };
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (saved?.version === 1 && typeof saved.selections === 'object' && saved.selections && typeof saved.notes === 'object' && saved.notes) {
+        draft = { ...starter(), ...saved };
+      }
+    } catch { canStore = false; }
+    const validCollection = (id) => collections.some((c) => c.id === id);
+    if (!validCollection(draft.collection)) draft.collection = '';
+    const refreshPalette = () => {
+      const c = collections.find((x) => x.id === draft.collection);
+      root.querySelector('#studio-palette').innerHTML = (c?.colours || ['#EEE9DD','#D8C8AD','#A99F8C','#393F3E']).map((tone) => `<span style="background-color:${tone}"></span>`).join('');
+    };
+    const render = () => {
+      const count = categories.filter((c) => draft.reviewed[c.id]).length;
+      root.querySelector('#studio-progress').textContent = `${count} of 6 areas reviewed`;
+      const rows = categories.map((category) => {
+        const fields = category.fields.map((field) => {
+          const value = draft.selections[`${category.id}.${field.id}`];
+          const verified = field.choices.includes(value) ? value : '';
+          return `<div class="flex justify-between gap-4 border-b border-ink/10 py-2"><dt class="text-ink/55">${safe(field.label)}</dt><dd class="text-right">${safe(verified || 'Not selected')}</dd></div>`;
+        }).join('');
+        return `<section class="mb-7"><h3 class="font-display text-2xl">${safe(category.title)}</h3><dl class="mt-2 text-sm">${fields}</dl>${draft.notes[category.id] ? `<p class="mt-3 whitespace-pre-wrap text-sm text-ink/70">Notes: ${safe(draft.notes[category.id])}</p>` : ''}</section>`;
+      }).join('');
+      const collection = collections.find((c) => c.id === draft.collection);
+      root.querySelector('#studio-summary').innerHTML =
+        `<p class="text-xs uppercase tracking-widest text-ink/55">Personal draft — not an approved specification</p>
+        <h3 class="mt-4 font-display text-3xl">${safe(draft.home || 'My Bauhu home')}</h3>
+        <p class="mt-2 text-sm text-ink/60">Design direction: ${safe(collection?.title || 'Individual selection')}</p>
+        <div class="mt-8 grid gap-x-10 md:grid-cols-2">${rows}</div>
+        <p class="mt-4 text-xs leading-6 text-ink/55">Indicative preferences only. Supplier references, scope, cost adjustments, material suitability and procurement require Bauhu confirmation. Furniture and decorative accessories excluded.</p>`;
+    };
+    root.querySelector('#studio-collection').value = draft.collection;
+    root.querySelector('#studio-home').value = draft.home || '';
+    root.querySelectorAll('[data-selection]').forEach((element) => {
+      const key = element.dataset.selection;
+      if ([...element.options].some((o) => o.value === draft.selections[key])) element.value = draft.selections[key];
+      element.addEventListener('change', () => { draft.selections[key] = element.value; save(); render(); });
+    });
+    root.querySelectorAll('[data-notes]').forEach((element) => {
+      element.value = typeof draft.notes[element.dataset.notes] === 'string' ? draft.notes[element.dataset.notes].slice(0, 1000) : '';
+      element.addEventListener('input', () => { draft.notes[element.dataset.notes] = element.value; save(); render(); });
+    });
+    root.querySelectorAll('[data-reviewed]').forEach((element) => {
+      element.checked = Boolean(draft.reviewed[element.dataset.reviewed]);
+      element.addEventListener('change', () => { draft.reviewed[element.dataset.reviewed] = element.checked; save(); render(); });
+    });
+    root.querySelector('#studio-collection').addEventListener('change', (event) => { draft.collection = event.target.value; refreshPalette(); save(); render(); });
+    root.querySelector('#studio-home').addEventListener('input', (event) => { draft.home = event.target.value.slice(0,120); save(); render(); });
+    const url = new URL(window.location.href);
+    const incoming = url.searchParams.get('collection');
+    if (incoming && validCollection(incoming) && !draft.collection) {
+      draft.collection = incoming; root.querySelector('#studio-collection').value = incoming; save();
+    }
+    let active = 0;
+    const show = (index) => {
+      active = Math.min(Math.max(index, 0), categories.length - 1);
+      root.querySelectorAll('[data-category-panel]').forEach((panel, i) => { panel.hidden = i !== active; });
+      root.querySelectorAll('[data-category-tab]').forEach((tab, i) => {
+        tab.setAttribute('aria-selected', String(i === active)); tab.tabIndex = i === active ? 0 : -1;
+      });
+    };
+    root.querySelectorAll('[data-category-tab]').forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+    root.querySelectorAll('[data-next]').forEach((button) => button.addEventListener('click', () => { show(active + 1); root.querySelector('#studio-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+    root.querySelectorAll('[data-previous]').forEach((button) => button.addEventListener('click', () => { show(active - 1); root.querySelector('#studio-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+    root.querySelector('#studio-download').addEventListener('click', () => {
+      const payload = { ...draft, note: 'Draft preferences only; not an approved Bauhu specification.' };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'bauhu-interiors-draft.json'; link.click(); URL.revokeObjectURL(link.href);
+      status.textContent = 'Draft downloaded. No information has been sent to Bauhu.';
+    });
+    root.querySelector('#studio-print').addEventListener('click', () => {
+      const content = root.querySelector('#studio-summary').innerHTML;
+      const page = window.open('', '_blank');
+      if (!page) { status.textContent = 'Please allow pop-ups to print the summary.'; return; }
+      page.document.write('<!doctype html><html><head><title>Bauhu Interiors draft</title><style>body{font-family:Arial,sans-serif;padding:36px;color:#222}h3{font-family:Georgia,serif}section{margin:24px 0}dl div{display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding:7px 0}dt{color:#666}dd{margin:0}p{line-height:1.6}</style></head><body>' + content + '</body></html>');
+      page.document.close(); page.focus(); page.print();
+    });
+    root.querySelector('#studio-clear').addEventListener('click', () => {
+      if (!window.confirm('Clear your saved Bauhu Interiors draft from this browser?')) return;
+      draft = starter();
+      root.querySelector('#studio-collection').value = '';
+      root.querySelector('#studio-home').value = '';
+      root.querySelectorAll('[data-selection]').forEach((e) => { e.value = ''; });
+      root.querySelectorAll('[data-notes]').forEach((e) => { e.value = ''; });
+      root.querySelectorAll('[data-reviewed]').forEach((e) => { e.checked = false; });
+      try { localStorage.removeItem(storageKey); } catch {}
+      refreshPalette(); render(); status.textContent = 'Draft cleared from this browser.';
+      show(0);
+    });
+    refreshPalette(); render(); show(0);
+    if (!canStore) status.textContent = 'Browser storage is unavailable. Download your draft to keep it.';
+  }
+</script>
+
+<style>
+  [data-category-panel][hidden] { display: none !important; }
+  @media print {
+    header, footer, [data-design-studio] aside, #studio-tabs, [data-category-panel], #studio-download, #studio-clear, #studio-print { display: none !important; }
+  }
+</style>
