@@ -83,10 +83,17 @@ import SiteFooter from '../components/SiteFooter.astro';
 
       document.getElementById('project-payload').value = JSON.stringify(buildPayload());
 
+      async function normaliseStoredBlob(record) {
+        const source = record?.blob;
+        if (!(source instanceof Blob) || source.size <= 0) return null;
+        const type = record?.type || source.type || 'application/octet-stream';
+        const buffer = await source.arrayBuffer();
+        return new Blob([buffer], { type });
+      }
+
       async function appendSafeFiles(body) {
         const warnings = [];
         const selectedFiles = [];
-        const isMobile = window.matchMedia('(max-width: 820px)').matches;
 
         if (!window.BauhuEnquiryFiles) return { warnings, selectedFiles };
 
@@ -107,22 +114,17 @@ import SiteFooter from '../components/SiteFooter.astro';
           };
           selectedFiles.push(fileInfo);
 
-          if (isMobile) {
-            warnings.push(`${fileInfo.name} was selected on mobile and recorded with the enquiry, but the file itself was not uploaded from this browser.`);
-            continue;
-          }
-
           try {
-            const blob = record?.blob;
-            if (!(blob instanceof Blob) || blob.size <= 0) {
-              warnings.push(`${fileInfo.name} could not be attached because the browser did not provide a readable file.`);
-              continue;
-            }
-            if (blob.size > 30 * 1024 * 1024) {
+            if (fileInfo.size > 30 * 1024 * 1024) {
               warnings.push(`${fileInfo.name} was larger than 30 MB and was not uploaded.`);
               continue;
             }
-            body.append('files', blob, fileInfo.name);
+            const uploadBlob = await normaliseStoredBlob(record);
+            if (!uploadBlob) {
+              warnings.push(`${fileInfo.name} could not be attached because the browser did not provide a readable file.`);
+              continue;
+            }
+            body.append('files', uploadBlob, fileInfo.name);
           } catch (error) {
             warnings.push(`${fileInfo.name} could not be attached: ${error?.message || 'attachment failed'}.`);
           }
