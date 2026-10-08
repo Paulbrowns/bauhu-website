@@ -4,10 +4,10 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
 const collections = [
-  { number: '01', title: 'Coastal', subtitle: 'Light, calm and naturally considered', tones: ['#EEE9DD','#D8C8AD','#A99F8C','#393F3E'], detail: 'Warm whites, stone-inspired ceramics and quiet, tactile contrasts.' },
-  { number: '02', title: 'Contemporary', subtitle: 'Confident architectural simplicity', tones: ['#E8E5DF','#B8B7B2','#555857','#222928'], detail: 'Crisp lines, tonal surfaces and refined contrast.' },
-  { number: '03', title: 'Signature', subtitle: 'Understated depth and character', tones: ['#F1E9DF','#B5A38E','#796452','#3E3934'], detail: 'Layered neutrals and carefully balanced wood-look finishes.' },
-  { number: '04', title: 'Tropical', subtitle: 'Warm, relaxed and connected to place', tones: ['#E6DDC8','#B9B59B','#77806A','#454C3D'], detail: 'Grounded natural colours and contemporary island character.' },
+  { number: '01', title: 'Coastal', image: '/images/residences/luxuma-living-area.webp', href: '/interiors/coastal', subtitle: 'Light, calm and naturally considered', tones: ['#EEE9DD','#D8C8AD','#A99F8C','#393F3E'], detail: 'Warm whites, stone-inspired ceramics and quiet, tactile contrasts.' },
+  { number: '02', title: 'Contemporary', image: '/images/residences/cap-dantibes-facade.webp', href: null, subtitle: 'Confident architectural simplicity', tones: ['#E8E5DF','#B8B7B2','#555857','#222928'], detail: 'Crisp lines, tonal surfaces and refined contrast.' },
+  { number: '03', title: 'Signature', image: '/images/residences/casa-lavanda.webp', href: null, subtitle: 'Understated depth and character', tones: ['#F1E9DF','#B5A38E','#796452','#3E3934'], detail: 'Layered neutrals and carefully balanced wood-look finishes.' },
+  { number: '04', title: 'Tropical', image: '/images/residences/luxuma-pool-terrace.webp', href: null, subtitle: 'Warm, relaxed and connected to place', tones: ['#E6DDC8','#B9B59B','#77806A','#454C3D'], detail: 'Grounded natural colours and contemporary island character.' },
 ];
 
 const finishCategories = [
@@ -58,13 +58,15 @@ const finishCategories = [
           {collections.map((collection) => (
             <article class="bg-paper p-8 md:p-10">
               <p class="text-xs uppercase tracking-widest text-clay">Collection {collection.number}</p>
-              <div class="mt-8 grid h-40 grid-cols-4 overflow-hidden" aria-label={collection.title + ' colour direction'}>
+              <div class="mt-8 h-56 overflow-hidden bg-ink/10"><img src={collection.image} alt={collection.title + ' architectural inspiration'} loading="lazy" class="h-full w-full object-cover" /></div>
+              <div class="mt-3 grid h-10 grid-cols-4 overflow-hidden" aria-label={collection.title + ' colour direction'}>
                 {collection.tones.map((tone) => <div style={`background-color: ${tone}`}></div>)}
               </div>
               <h3 class="mt-9 font-display text-5xl">{collection.title}</h3>
               <p class="mt-2 text-sm uppercase tracking-wide text-ink/55">{collection.subtitle}</p>
               <p class="mt-5 leading-7 text-ink/70">{collection.detail}</p>
               <p class="mt-5 text-xs text-ink/45">Inspirational palette; individual finishes subject to supplier specification.</p>
+              {collection.href ? <a href={collection.href} class="mt-6 inline-flex border-b border-ink/60 pb-2 text-xs uppercase tracking-widest">Explore collection →</a> : <span class="mt-6 inline-flex text-xs uppercase tracking-widest text-ink/45">Collection preview</span>}
             </article>
           ))}
         </div>
