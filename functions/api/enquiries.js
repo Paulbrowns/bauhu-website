@@ -187,25 +187,14 @@ function enquiryReference() {
 async function sendNotification(env, enquiry) {
   if (!env.RESEND_API_KEY || !env.ENQUIRY_NOTIFICATION_EMAIL) return;
   const from = env.ENQUIRY_NOTIFICATION_FROM || 'Bauhu Website <enquiries@bauhu.com>';
-  const subject = `${enquiry.reference} · ${enquiry.classification} · ${enquiry.contact_name} · ${enquiry.site_location || 'Location not supplied'}`;
+  const leadsUrl = env.LEADS_DASHBOARD_URL || 'https://bauhu.com/leads/';
+  const subject = 'New Bauhu enquiry received';
   const text = [
-    'New Bauhu website enquiry',
+    'You have received a new Bauhu enquiry.',
     '',
     `Reference: ${enquiry.reference}`,
-    `Classification: ${enquiry.classification}`,
-    `Name: ${enquiry.contact_name}`,
-    `Email: ${enquiry.contact_email}`,
-    `Phone: ${enquiry.contact_phone || '—'}`,
-    `Location: ${enquiry.site_location || '—'}`,
-    `Route: ${enquiry.project_route || '—'}`,
-    `Budget: ${enquiry.budget || '—'}`,
-    `Target start: ${enquiry.target_start || '—'}`,
-    `Model: ${enquiry.model_name || enquiry.home_choice || '—'}`,
-    `Source: ${enquiry.attribution_source || 'Direct / unknown'}`,
-    `Medium: ${enquiry.attribution_medium || '—'}`,
-    `Campaign: ${enquiry.attribution_campaign || '—'}`,
-    `Landing page: ${enquiry.landing_page || '—'}`,
-    `Referrer: ${enquiry.referrer || '—'}`
+    '',
+    `View enquiries: ${leadsUrl}`
   ].join('\n');
 
   try {
