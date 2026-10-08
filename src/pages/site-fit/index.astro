@@ -133,7 +133,8 @@ import SiteFooter from '../../components/SiteFooter.astro';
         minZoom: isMobileViewport ? 4 : 3,
         worldCopyJump: false,
         dragging: !isMobileViewport,
-        scrollWheelZoom: false,
+        scrollWheelZoom: !isMobileViewport,
+        wheelPxPerZoomLevel: 90,
         tap: true
       }).setView([18, -72], 5);
       L.control.zoom({ position: 'bottomright' }).addTo(map);
