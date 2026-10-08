@@ -194,6 +194,7 @@ const collections = [
               <p class="mt-4 max-w-2xl text-sm leading-7 text-ink/65">Drafts are stored only in your current browser, not submitted to Bauhu. Manufacturer references are exploratory, not approved or guaranteed to be included. You can download a copy or print a summary. Product references, cost implications and availability require separate confirmation.</p>
               <div class="mt-6 flex flex-wrap gap-3">
                 <button id="studio-download" type="button" class="bg-ink px-6 py-4 text-xs uppercase tracking-widest text-paper">Download draft (.json)</button>
+                <button id="studio-schedule" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Export review schedule (.csv)</button>
                 <button id="studio-print" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Print summary</button>
                 <button id="studio-copy" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Copy summary</button>
                 <label class="inline-flex cursor-pointer items-center border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Import draft (.json)<input id="studio-import" type="file" accept="application/json,.json" class="sr-only" /></label>
@@ -427,6 +428,39 @@ const collections = [
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
       const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'bauhu-interiors-draft.json'; link.click(); URL.revokeObjectURL(link.href);
       status.textContent = 'Draft downloaded. No information has been sent to Bauhu.';
+    });
+    root.querySelector('#studio-schedule').addEventListener('click', () => {
+      const rows = [['Draft category','Room / area','Component','Customer preference','Manufacturer / product reference','Status']];
+      categories.forEach(category => category.fields.forEach(field => {
+        const selected = draft.selections[category.id+'.'+field.id];
+        const value = field.choices.includes(selected) ? selected : 'Not selected';
+        rows.push([category.title,'Whole project / subject to room allocation',field.label,value,'Bauhu to verify','Draft — not approved']);
+      }));
+      Object.keys(kitchenOptions).forEach(key => {
+        const selected = draft.kitchenDetails[key];
+        rows.push(['Kitchen','Kitchen (room allocation pending)',kitchenLabels[key],kitchenOptions[key].includes(selected) ? selected : kitchenOptions[key][0],'Bauhu to verify','Draft — not approved']);
+      });
+      Array.from({length:draft.rooms.bathroomCount},(_,i) => {
+        const room = draft.rooms.bathrooms[String(i+1)] || {};
+        const name = typeof room.name === 'string' && room.name.trim() ? room.name.trim() : 'Bathroom '+(i+1);
+        [['Vanity',room.vanity,bathroomOptions.vanity],['Wall tile',room.tiles,bathroomOptions.tiles],['Mixer finish',room.mixer,bathroomOptions.mixer]].forEach(([component,value,choices]) => {
+          rows.push(['Bathrooms',name,component,choices.includes(value)?value:'Not selected','Bauhu to verify','Draft — not approved']);
+        });
+      });
+      // Quote every spreadsheet field and guard against formula injection.
+      const csvField = (value) => {
+        let cell = String(value ?? '');
+        if (/^[\s]*[=+\-@]/.test(cell)) cell = "'" + cell;
+        return '"' + cell.replace(/"/g, '""') + '"';
+      };
+      const csv = '\uFEFF' + rows.map(row => row.map(csvField).join(',')).join('\r\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'bauhu-interiors-review-draft.csv';
+      link.click();
+      URL.revokeObjectURL(link.href);
+      status.textContent = 'Review schedule downloaded. It does not contain approved specifications, quantities or prices.';
     });
     root.querySelector('#studio-print').addEventListener('click', () => {
       const content = root.querySelector('#studio-summary').innerHTML;
