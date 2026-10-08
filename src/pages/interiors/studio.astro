@@ -17,7 +17,7 @@ const categories = [
     id: 'kitchen', title: 'Kitchen', eyebrow: '02 / Fitted cabinetry',
     description: 'Define a consistent direction for the cabinetry, composite worktop, sink and mixer.',
     fields: [
-      { id: 'cabinet', label: 'Cabinet front direction', choices: ['Light neutral', 'White classic profile', 'Warm timber-look', 'Dark contemporary', 'Other / to discuss'] },
+      { id: 'cabinet', label: 'Cabinet front direction', choices: ['Nobilia TOUCH 336 — Ivory supermatt (Front 336)', 'Nobilia LASER 418 — Ivory matt (Front 418)', 'Nobilia EASYTOUCH 961 — Graphite black ultra matt (Front 961)', 'Other / to discuss'] },
       { id: 'worktop', label: 'Composite countertop direction', choices: ['Pale stone-effect', 'Warm neutral', 'Grey', 'Other / to discuss'] },
       { id: 'handles', label: 'Cabinet handle direction', choices: ['Minimal', 'Classic', 'To be confirmed'] },
       { id: 'sink', label: 'Sink & mixer direction', choices: ['Inset sink with chrome mixer', 'Other / to confirm'] },
@@ -36,8 +36,8 @@ const categories = [
     id: 'ceramics', title: 'Ceramic finishes', eyebrow: '04 / Surfaces',
     description: 'Build a cohesive approach to interior floors and bathroom wall tiles.',
     fields: [
-      { id: 'floor', label: 'Interior floor ceramic direction', choices: ['Warm stone-effect', 'Light stone-effect', 'Grey stone-effect', 'Timber-look ceramic', 'Other / to discuss'] },
-      { id: 'wall', label: 'Bathroom wall ceramic direction', choices: ['Tonal match', 'Light contrast', 'Feature texture', 'Other / to discuss'] },
+      { id: 'floor', label: 'Interior floor ceramic direction', choices: ['Dominó Ecoliving — collection preference', 'Dominó Jura — collection preference', 'Warm stone-effect / unselected range', 'Other / to discuss'] },
+      { id: 'wall', label: 'Bathroom wall ceramic direction', choices: ['Dominó Mood — collection preference', 'Dominó Tokyo — collection preference', 'Tonal match / unselected range', 'Other / to discuss'] },
     ],
   },
   {
@@ -138,9 +138,9 @@ const collections = [
               </section>
             ))}
             <div class="mt-12 border-t border-ink/20 pt-8">
-              <p class="eyebrow text-clay">Your working draft</p>
+              <p class="eyebrow text-clay">Your working draft</p>\n              <p class="mt-3 text-sm text-ink/65">See our <a class="underline underline-offset-4" href="/interiors/materials">supplier and materials library</a> for current reference information.</p>
               <h2 class="mt-4 font-display text-4xl">Keep a record of your preferences.</h2>
-              <p class="mt-4 max-w-2xl text-sm leading-7 text-ink/65">Drafts are stored only in your current browser, not submitted to Bauhu. You can download a copy or print a summary. Product references, cost implications and availability require separate confirmation.</p>
+              <p class="mt-4 max-w-2xl text-sm leading-7 text-ink/65">Drafts are stored only in your current browser, not submitted to Bauhu. Manufacturer references are exploratory, not approved or guaranteed to be included. You can download a copy or print a summary. Product references, cost implications and availability require separate confirmation.</p>
               <div class="mt-6 flex flex-wrap gap-3">
                 <button id="studio-download" type="button" class="bg-ink px-6 py-4 text-xs uppercase tracking-widest text-paper">Download draft (.json)</button>
                 <button id="studio-print" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Print summary</button>
