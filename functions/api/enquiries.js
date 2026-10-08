@@ -220,6 +220,64 @@ async function sendNotification(env, enquiry) {
   } catch {}
 }
 
+async function saveFiles({ env, enquiryId, now, files }) {
+  const savedFiles = [];
+  const failedFiles = [];
+
+  if (!files.length) return { savedFiles, failedFiles };
+
+  if (!env.ENQUIRY_FILES) {
+    return {
+      savedFiles,
+      failedFiles: files.map((file) => ({
+        name: file.name || 'document',
+        size: file.size || 0,
+        reason: 'File storage is not configured.'
+      }))
+    };
+  }
+
+  try {
+    await ensureFileSchema(env.DB);
+  } catch (error) {
+    return {
+      savedFiles,
+      failedFiles: files.map((file) => ({
+        name: file.name || 'document',
+        size: file.size || 0,
+        reason: error?.message || 'File database table could not be prepared.'
+      }))
+    };
+  }
+
+  for (const file of files) {
+    const fileId = crypto.randomUUID();
+    const safeName = (file.name || 'document').replace(/[^a-zA-Z0-9._-]+/g, '-').slice(-120);
+    const key = `enquiries/${enquiryId}/${fileId}-${safeName}`;
+
+    try {
+      const body = typeof file.arrayBuffer === 'function' ? await file.arrayBuffer() : file.stream();
+      await env.ENQUIRY_FILES.put(key, body, {
+        httpMetadata: { contentType: file.type || 'application/octet-stream' },
+        customMetadata: { enquiryId, originalName: file.name || safeName }
+      });
+      await env.DB.prepare(`
+        INSERT INTO enquiry_files (id, enquiry_id, r2_key, filename, content_type, size, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `).bind(fileId, enquiryId, key, file.name || safeName, file.type || '', file.size || 0, now).run();
+      savedFiles.push({ id: fileId, name: file.name || safeName, size: file.size || 0 });
+    } catch (error) {
+      failedFiles.push({
+        name: file.name || safeName,
+        size: file.size || 0,
+        reason: error?.message || 'Upload failed.'
+      });
+    }
+  }
+
+  return { savedFiles, failedFiles };
+}
+
 async function handlePost({ request, env }) {
   if (!env.DB) return json({ error: 'D1 binding DB is not configured.' }, 503);
 
@@ -311,29 +369,18 @@ async function handlePost({ request, env }) {
     .run();
 
   const files = form.getAll('files').filter((item) => item && typeof item !== 'string' && item.size > 0);
-  const savedFiles = [];
-  if (files.length) {
-    if (!env.ENQUIRY_FILES) return json({ error: 'The enquiry was saved, but file storage is not configured.' }, 503);
-    await ensureFileSchema(env.DB);
-
-    for (const file of files) {
-      const fileId = crypto.randomUUID();
-      const safeName = (file.name || 'document').replace(/[^a-zA-Z0-9._-]+/g, '-').slice(-120);
-      const key = `enquiries/${id}/${fileId}-${safeName}`;
-      await env.ENQUIRY_FILES.put(key, file.stream(), {
-        httpMetadata: { contentType: file.type || 'application/octet-stream' },
-        customMetadata: { enquiryId: id, originalName: file.name || safeName }
-      });
-      await env.DB.prepare(`
-        INSERT INTO enquiry_files (id, enquiry_id, r2_key, filename, content_type, size, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-      `).bind(fileId, id, key, file.name || safeName, file.type || '', file.size || 0, now).run();
-      savedFiles.push({ id: fileId, name: file.name || safeName, size: file.size || 0 });
-    }
-  }
+  const { savedFiles, failedFiles } = await saveFiles({ env, enquiryId: id, now, files });
 
   await sendNotification(env, row);
-  return json({ ok: true, id, reference, classification, files: savedFiles }, 201);
+  return json({
+    ok: true,
+    id,
+    reference,
+    classification,
+    files: savedFiles,
+    fileWarning: failedFiles.length ? `${failedFiles.length} attachment${failedFiles.length === 1 ? '' : 's'} could not be uploaded, but the enquiry was saved.` : '',
+    failedFiles
+  }, 201);
 }
 
 export async function onRequestPost(context) {
@@ -351,6 +398,7 @@ export async function onRequestGet({ request, env }) {
   if (!env.DB) return json({ error: 'D1 binding DB is not configured.' }, 503);
   if (!authorised(request, env)) return json({ error: 'Unauthorised.' }, 401);
   await ensureEnquirySchema(env.DB);
+  await ensureFileSchema(env.DB);
 
   const url = new URL(request.url);
   const status = clean(url.searchParams.get('status'));
