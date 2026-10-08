@@ -3,70 +3,174 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 
-const selections = [
-  { number: '01', heading: 'Façade & frames', direction: 'Fine-textured warm-white render, balanced by anthracite aluminium frames.', source: 'Sto façade finish / Bauhu aluminium opening system', review: 'Confirm exact Sto colour and grain; confirm matching frame colour.' },
-  { number: '02', heading: 'Kitchen', direction: 'Quiet, neutral cabinet fronts, pale composite worktop, restrained handles and chrome mixer.', source: 'Bauhu made-to-order kitchen supplier', review: 'Select actual front, handle, worktop, sink and faucet references.' },
-  { number: '03', heading: 'Bathrooms', direction: 'Wall-hung vanity, integrated basin, white ceramics and polished chrome water-saving fittings.', source: 'Bauhu bathroom collection / Bruma', review: 'Confirm vanity, basin, sanitary ware and matching Bruma fittings.' },
-  { number: '04', heading: 'Ceramics', direction: 'Large-format, warm stone-effect ceramic flooring with complementary shower wall tiles.', source: 'Portuguese ceramic supplier', review: 'Confirm precise tile series, dimensions and slip ratings where relevant.' },
-  { number: '05', heading: 'Interior doors', direction: 'Simple contemporary profile with a matt white lacquer and understated hardware.', source: 'Bauhu interior joinery supplier', review: 'Confirm manufacturer, door reference, finish and hardware.' },
-  { number: '06', heading: 'Paint', direction: 'Warm off-white wall colours and soft white ceilings for a calm continuity.', source: 'RAL / Pantone selection', review: 'Agree actual colour codes and paint specification.' },
+const schemes = [
+ {id:'natural',number:'01',name:'Coastal Natural',subtitle:'Ivory · Sand · Pale stone', description:'Quiet sun-washed neutrals and subtle texture.',hero:'/images/residences/luxuma-living-area.webp', palette:['#F2EFE8','#DCD1BD','#BBB19F','#77746A'], defaults:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory supermatt',bath:'White & chrome',floor:'Warm limestone look',doors:'Matt white',paint:'Warm off-white'}},
+ {id:'ocean',number:'02',name:'Coastal Ocean',subtitle:'Chalk · Mist · Blue-grey',description:'Fresh mineral tones with a restrained maritime accent.',hero:'/images/residences/luxuma-living-area.webp',palette:['#F0F1ED','#C9D7D8','#879FAA','#5A7887'],defaults:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory matt',bath:'White & chrome',floor:'Pale grey stone look',doors:'Matt white',paint:'Cool off-white'}},
+ {id:'refined',number:'03',name:'Coastal Refined',subtitle:'Oat · Taupe · Walnut',description:'Warmer coastal elegance with deeper natural contrast.',hero:'/images/residences/luxuma-living-area.webp',palette:['#E8E0D5','#C1AE97','#827060','#433D38'],defaults:{exterior:'Warm white',frames:'Anthracite',kitchen:'Soft sand',bath:'Walnut & chrome',floor:'Warm limestone look',doors:'Timber-look',paint:'Soft taupe'}}
 ];
+const choices = [
+ {id:'exterior',name:'Exterior render',supplier:'Sto',options:['Soft white','Warm white','Light grey']},
+ {id:'frames',name:'Window & door frames',supplier:'Cortizo',options:['Pure white','Anthracite']},
+ {id:'kitchen',name:'Kitchen front',supplier:'Nobilia',options:['Ivory supermatt','Ivory matt','Soft sand','Graphite ultra matt']},
+ {id:'bath',name:'Bathroom vanity & fittings',supplier:'Kitbanho · Sanindusa · Bruma',options:['White & chrome','Walnut & chrome','Light wood & chrome']},
+ {id:'floor',name:'Floor tiles',supplier:'Dominó',options:['Warm limestone look','Pale grey stone look','Light sand look']},
+ {id:'doors',name:'Interior doors',supplier:'Compincar',options:['Matt white','Timber-look','Soft grey']},
+ {id:'paint',name:'Wall & ceiling colour',supplier:'CIN',options:['Warm off-white','Cool off-white','Soft taupe']}
+];
+const kitchenImages={
+ 'Ivory supermatt':'https://www.nobilia.de/fileadmin/_processed_/5/d/csm_336_touch_g2_40ce6e6ab7.webp',
+ 'Ivory matt':'https://www.nobilia.de/fileadmin/_processed_/4/c/csm_418_laser_g1_c7ec336585.webp',
+ 'Graphite ultra matt':'https://www.nobilia.de/fileadmin/_processed_/b/d/csm_961_easytouch_g1_36a0209cc2.webp'
+};
 ---
-<BaseLayout title="Coastal Collection | Bauhu Interiors" description="The Bauhu Coastal design direction: considered architectural finishes, kitchens, bathrooms and joinery.">
-  <SiteHeader />
-  <main class="bg-paper">
-    <section class="relative min-h-[78vh] overflow-hidden bg-ink text-paper">
-      <img src="/images/residences/luxuma-living-area.webp" alt="Illustrative Bauhu residence interior" class="absolute inset-0 h-full w-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/15"></div>
-      <div class="relative mx-auto flex min-h-[78vh] max-w-site flex-col justify-end px-5 pb-20 pt-40 lg:px-10">
-        <a class="text-xs uppercase tracking-widest text-paper/70" href="/interiors#collections">← All collections</a>
-        <p class="eyebrow mt-12 text-stone">Bauhu Interiors / Collection 01</p>
-        <h1 class="mt-5 font-display text-7xl leading-none md:text-9xl">Coastal.</h1>
-        <p class="mt-7 max-w-xl text-lg leading-8 text-paper/85">A composed interior language inspired by light, landscape and the quiet elegance of island architecture.</p>
+<BaseLayout title="Coastal Mood Boards | Bauhu Interiors" description="Three considered Coastal schemes: choose a complete mood board and refine only what you wish.">
+ <SiteHeader />
+ <main class="bg-paper">
+  <section class="relative overflow-hidden bg-ink pt-36 text-paper">
+   <div class="mx-auto max-w-site px-5 pb-20 pt-12 lg:px-10">
+    <a href="/interiors#collections" class="text-xs uppercase tracking-widest text-paper/65">← All collections</a>
+    <p class="eyebrow mt-12 text-stone">Bauhu Interiors / Coastal collection</p>
+    <h1 class="mt-5 font-display text-6xl md:text-8xl">Find your Coastal.</h1>
+    <p class="mt-6 max-w-2xl text-lg leading-8 text-paper/75">Three complete design directions, curated by Bauhu. Choose the board you love, keep it as designed, or refine just a few details.</p>
+   </div>
+  </section>
+  <section class="section-pad bg-paper" data-coastal>
+   <div class="mx-auto max-w-site">
+    <p class="eyebrow text-clay">01 / Choose your mood board</p>
+    <h2 class="mt-4 max-w-3xl font-display text-5xl">One collection. Three ways to live.</h2>
+    <div class="mt-10 grid gap-6 lg:grid-cols-3" id="coastal-board-options">
+     {schemes.map(scheme=><button type="button" data-board={scheme.id} class="group overflow-hidden border border-ink/15 bg-mist text-left transition hover:border-ink/70 aria-pressed:border-ink aria-pressed:ring-2 aria-pressed:ring-ink" aria-pressed={scheme.id==='natural'?'true':'false'}>
+      <div class="relative h-64 overflow-hidden">
+       <img src={scheme.hero} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" alt={'Bauhu architectural interior inspiration for '+scheme.name} loading="lazy" />
+       <span class="absolute left-5 top-5 bg-paper px-3 py-2 text-xs uppercase tracking-widest text-ink">Coastal {scheme.number}</span>
       </div>
-    </section>
-    <section class="section-pad bg-paper">
-      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-        <div><p class="eyebrow text-clay">The palette</p><h2 class="mt-5 font-display text-5xl leading-tight">Lightness, warmth and restraint.</h2></div>
-        <div>
-          <p class="text-lg leading-8 text-ink/70">Coastal provides a starting point for architectural finishes throughout your Bauhu home. The combination is a design direction, not a preset package: selections can be adapted to your architecture, location and preferences.</p>
-          <div class="mt-8 grid h-20 grid-cols-5" aria-label="Coastal inspiration colour swatches">
-            {['#F2EFE8','#E3D9C8','#C9BDAA','#98998F','#414949'].map((tone) => <div style={`background-color: ${tone}`}></div>)}
-          </div>
-          <p class="mt-3 text-xs leading-6 text-ink/55">Inspirational colours only. Final materials and colours must be selected from actual supplier ranges.</p>
-        </div>
+      <div class="p-6">
+       <h3 class="font-display text-3xl">{scheme.name.replace('Coastal ','')}</h3>
+       <p class="mt-2 text-sm text-ink/65">{scheme.subtitle}</p>
+       <div class="mt-5 grid h-12 grid-cols-4" aria-label={scheme.name+' palette'}>{scheme.palette.map(tone=><span style={'background:'+tone}></span>)}</div>
+       <p class="mt-5 text-sm leading-6 text-ink/65">{scheme.description}</p>
+       <p class="mt-5 text-xs uppercase tracking-widest">Select this scheme →</p>
       </div>
-    </section>
-    <section class="section-pad bg-mist">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">Coordinated choices</p>
-        <h2 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-6xl">Six elements. One cohesive result.</h2>
-        <div class="mt-12 grid gap-5 md:grid-cols-2">
-          {selections.map((item) => (
-            <article class="bg-paper p-8 md:p-10">
-              <p class="text-xs tracking-widest text-clay">{item.number} / Design direction</p>
-              <h3 class="mt-5 font-display text-4xl">{item.heading}</h3>
-              <p class="mt-5 text-lg leading-8 text-ink/75">{item.direction}</p>
-              <div class="mt-8 border-t border-ink/15 pt-5 text-sm leading-7">
-                <p><span class="font-semibold">Supply range:</span> {item.source}</p>
-                <p class="mt-2 text-ink/60"><span class="font-semibold">To verify:</span> {item.review}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+     </button>)}
+    </div>
+    <div class="mt-16 border-t border-ink/15 pt-12">
+     <div class="grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+      <div>
+       <p class="eyebrow text-clay">02 / Your selected scheme</p>
+       <h2 id="coastal-title" class="mt-5 font-display text-5xl">Coastal Natural</h2>
+       <p class="mt-5 max-w-2xl text-lg leading-8 text-ink/65">This mood board is complete as designed. You can change individual elements, but you don't have to.</p>
       </div>
-    </section>
-    <section class="section-pad bg-paper">
-      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-2">
-        <div><p class="eyebrow text-clay">Personalise the collection</p><h2 class="mt-5 font-display text-5xl leading-tight">Your home. Your choices.</h2></div>
-        <div class="space-y-6">
-          <p class="text-lg leading-8 text-ink/70">Every Bauhu client can select the standard finishes supplied with their home. The optional Bauhu Interiors design service offers additional consultation, coordinated schemes and personalised visualisation.</p>
-          <p class="text-sm leading-7 text-ink/60">Most finish choices are included in the home package. Particular alternatives may carry an additional cost, confirmed against the final project specification. Furniture, curtains, rugs, decorative lighting, artwork and accessories are not supplied.</p>
-          <a href="/interiors/studio?collection=coastal" class="inline-flex rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest text-ink">Explore finishes in Design Studio →</a>
-          <a href="mailto:contact@bauhu.com?subject=Bauhu%20Coastal%20Interiors" class="inline-flex rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Discuss your Coastal interior →</a>
-        </div>
+      <div class="bg-mist p-6 text-sm leading-7 text-ink/65">All product choices shown here are <strong>curated design directions</strong> until Bauhu approves exact product references. Supplier imagery is illustrative of the stated manufacturer range, not proof of contractual inclusion.</div>
+     </div>
+     <div class="mt-10 grid gap-3 bg-mist p-3 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="relative min-h-[350px] overflow-hidden bg-stone">
+       <img src="/images/residences/luxuma-living-area.webp" alt="Coastal residence mood board — architectural interior context" class="absolute inset-0 h-full w-full object-cover"/>
+       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink/70 to-transparent p-6 text-paper"><p class="text-xs uppercase tracking-widest">Bauhu Coastal</p><h3 class="mt-2 font-display text-4xl" id="coastal-board-image-title">Natural</h3></div>
       </div>
-    </section>
-  </main>
-  <SiteFooter />
+      <div class="grid grid-cols-2 gap-3" id="coastal-visual-tiles">
+       <div class="relative col-span-2 min-h-52 overflow-hidden bg-[#EDE7DA]">
+        <img id="coastal-kitchen-image" src={kitchenImages['Ivory supermatt']} loading="lazy" alt="Nobilia kitchen front manufacturer photograph" class="h-52 w-full object-cover"/>
+        <div class="absolute bottom-0 left-0 bg-paper/95 px-3 py-2 text-xs uppercase tracking-wide" id="coastal-kitchen-tag">Kitchen · Ivory supermatt</div>
+       </div>
+       <div class="relative min-h-40 overflow-hidden bg-[#D5CCBC]"><span class="absolute bottom-0 left-0 right-0 bg-paper/95 p-3 text-xs" id="coastal-floor-tag">Ceramic · Warm limestone look</span></div>
+       <div class="relative min-h-40 overflow-hidden bg-[#EFEDE8]"><span class="absolute bottom-0 left-0 right-0 bg-paper/95 p-3 text-xs" id="coastal-paint-tag">Paint · Warm off-white</span></div>
+      </div>
+     </div>
+     <div class="mt-3 grid grid-cols-4 gap-2" id="coastal-palette"></div>
+     <div class="mt-10 flex flex-wrap items-center gap-4">
+      <button id="coastal-refine" type="button" class="rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest">Refine selected finishes ↓</button>
+      <button id="coastal-reset" type="button" class="text-xs uppercase tracking-widest underline underline-offset-4">Restore Bauhu's scheme</button>
+      <span id="coastal-change-count" class="text-sm text-ink/55" role="status">Bauhu's original scheme — no changes</span>
+     </div>
+    </div>
+    <div id="coastal-alternatives" class="mt-16 border-t border-ink/15 pt-10" hidden>
+     <p class="eyebrow text-clay">03 / Optional refinement</p>
+     <h2 class="mt-4 font-display text-5xl">Make it yours. Simply.</h2>
+     <p class="mt-5 max-w-2xl text-ink/65">Only a small palette of complementary alternatives is offered. Every other element remains exactly as Bauhu curated it.</p>
+     <div class="mt-10 grid gap-5 md:grid-cols-2">
+      {choices.map(choice=><div class="bg-mist p-6">
+       <div class="flex items-start justify-between gap-5"><div><h3 class="font-display text-3xl">{choice.name}</h3><p class="mt-2 text-xs uppercase tracking-widest text-ink/50">{choice.supplier}</p></div><span class="text-xs text-ink/50">Optional</span></div>
+       <select data-finish={choice.id} class="mt-6 w-full border border-ink/20 bg-paper px-4 py-4 text-sm" aria-label={choice.name}>
+        {choice.options.map(option=><option value={option}>{option}</option>)}
+       </select>
+      </div>)}
+     </div>
+    </div>
+    <div class="mt-16 border-t border-ink/15 pt-10">
+     <p class="eyebrow text-clay">04 / Your personal mood board</p>
+     <div class="mt-5 grid gap-10 lg:grid-cols-2 lg:items-end">
+      <div><h2 class="font-display text-5xl">Beautifully resolved.</h2><p class="mt-5 text-lg leading-8 text-ink/65">Your selected board and any refinements are saved in this browser. Share the summary with Bauhu for product confirmation, project coordination and client approval.</p></div>
+      <div class="flex flex-wrap gap-3">
+       <a href="/interiors/review" class="rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest">Full Design Review →</a>
+       <button id="coastal-copy" type="button" class="rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Copy my scheme →</button>
+      </div>
+     </div>
+     <div id="coastal-summary" class="mt-8 bg-mist p-8"></div>
+     <p id="coastal-status" class="mt-4 text-sm text-ink/55" role="status" aria-live="polite"></p>
+    </div>
+   </div>
+  </section>
+ </main>
+ <SiteFooter />
 </BaseLayout>
+<script define:vars={{schemes,choices,kitchenImages}}>
+  const root=document.querySelector('[data-coastal]');
+  if(root){
+   const storageKey='bauhu-interiors-coastal-v1';
+   const schemeById=id=>schemes.find(item=>item.id===id)||schemes[0];
+   const allChoices=Object.fromEntries(choices.map(item=>[item.id,item.options]));
+   const normalise=(raw)=>{
+    const scheme=schemeById(raw?.scheme);
+    const modified={};
+    choices.forEach(item=>{
+     const possible=[...item.options,scheme.defaults[item.id]];
+     const candidate=raw?.changes?.[item.id];
+     if(typeof candidate==='string'&&possible.includes(candidate)&&candidate!==scheme.defaults[item.id]) modified[item.id]=candidate;
+    });
+    return {scheme:scheme.id,changes:modified};
+   };
+   let state=normalise(null);
+   try{state=normalise(JSON.parse(localStorage.getItem(storageKey)||'null'))}catch{}
+   const safe=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+   const selected=(id)=>state.changes[id]||schemeById(state.scheme).defaults[id];
+   const save=()=>{try{localStorage.setItem(storageKey,JSON.stringify(state))}catch{document.querySelector('#coastal-status').textContent='Browser storage is unavailable. Copy your scheme before leaving.'}};
+   const draw=()=>{
+    const scheme=schemeById(state.scheme);
+    root.querySelectorAll('[data-board]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.board===state.scheme)));
+    root.querySelector('#coastal-title').textContent=scheme.name;
+    root.querySelector('#coastal-board-image-title').textContent=scheme.name.replace('Coastal ','');
+    root.querySelector('#coastal-palette').innerHTML=scheme.palette.map(tone=>'<div class="h-12" style="background:'+tone+'"></div>').join('');
+    root.querySelector('#coastal-kitchen-tag').textContent='Kitchen · '+selected('kitchen');
+    const kitchenImg=root.querySelector('#coastal-kitchen-image');
+    const url=kitchenImages[selected('kitchen')];
+    kitchenImg.hidden=!url;
+    if(url)kitchenImg.src=url;
+    root.querySelector('#coastal-floor-tag').textContent='Ceramic · '+selected('floor');
+    root.querySelector('#coastal-paint-tag').textContent='Paint · '+selected('paint');
+    root.querySelectorAll('[data-finish]').forEach(el=>{
+     const choice=selected(el.dataset.finish);
+     if(![...el.options].some(opt=>opt.value===choice))el.add(new Option(choice,choice));
+     el.value=choice;
+    });
+    const count=Object.keys(state.changes).length;
+    root.querySelector('#coastal-change-count').textContent=count?count+' personal refinement'+(count===1?'':'s'):'Bauhu\'s original scheme — no changes';
+    root.querySelector('#coastal-summary').innerHTML='<p class="text-xs uppercase tracking-widest text-clay">Your saved scheme · Draft for Bauhu review</p><h3 class="mt-3 font-display text-4xl">'+safe(scheme.name)+'</h3><div class="mt-6 grid gap-3 sm:grid-cols-2">'+choices.map(choice=>'<div class="border-t border-ink/15 pt-3"><p class="text-xs text-ink/50">'+safe(choice.name)+'</p><p class="mt-2 text-sm font-medium">'+safe(selected(choice.id))+(state.changes[choice.id]?' · Personalised':' · Bauhu selection')+'</p></div>').join('')+'</div><p class="mt-7 text-xs leading-6 text-ink/55">Design-direction references only; final manufacturer codes, quantities, pricing and supply scope require Bauhu approval. Nothing has been ordered or submitted.</p>';
+   };
+   root.querySelectorAll('[data-board]').forEach(el=>el.addEventListener('click',()=>{state=normalise({scheme:el.dataset.board});save();draw();root.querySelector('#coastal-title').scrollIntoView({behavior:'smooth',block:'center'});}));
+   root.querySelectorAll('[data-finish]').forEach(el=>el.addEventListener('change',()=>{
+    const scheme=schemeById(state.scheme),id=el.dataset.finish;
+    if(!allChoices[id].includes(el.value)&&scheme.defaults[id]!==el.value)return;
+    if(scheme.defaults[id]===el.value)delete state.changes[id];else state.changes[id]=el.value;
+    save();draw();
+   }));
+   root.querySelector('#coastal-refine').addEventListener('click',()=>{const section=root.querySelector('#coastal-alternatives');section.hidden=!section.hidden;if(!section.hidden)section.scrollIntoView({behavior:'smooth',block:'start'});});
+   root.querySelector('#coastal-reset').addEventListener('click',()=>{state.changes={};save();draw();});
+   root.querySelector('#coastal-copy').addEventListener('click',async()=>{
+    const lines=['BAUHU INTERIORS — COASTAL DESIGN DRAFT','Selected scheme: '+schemeById(state.scheme).name,''];
+    choices.forEach(choice=>lines.push(choice.name+': '+selected(choice.id)+(state.changes[choice.id]?' (personalised)':'')));
+    lines.push('','Design direction only — subject to Bauhu product and scope approval.');
+    try{await navigator.clipboard.writeText(lines.join('\n'));root.querySelector('#coastal-status').textContent='Scheme copied — ready to paste into your message to Bauhu.'}catch{root.querySelector('#coastal-status').textContent='Copy was unavailable. You can still review the choices above.'}
+   });
+   draw();
+  }
+</script>
