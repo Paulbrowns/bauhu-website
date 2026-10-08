@@ -191,15 +191,15 @@ import SiteFooter from '../../components/SiteFooter.astro';
       }
 
       marker.on('dragend', () => {
-        selectedName = 'Adjusted map point';
-        selectedSource = 'Dragged marker';
+        selectedName = 'Dropped pin';
+        selectedSource = 'Dropped pin';
         const point = marker.getLatLng();
         setPoint(point.lat, point.lng, { pan: false });
       });
 
       map.on('click', (event) => {
         if (map._bauhuDrawing) return;
-        selectedName = 'Selected map point';
+        selectedName = 'Dropped pin';
         selectedSource = 'Map click';
         setPoint(event.latlng.lat, event.latlng.lng, { pan: false });
       });
