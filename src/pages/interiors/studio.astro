@@ -120,6 +120,17 @@ const collections = [
                         <option value="">Not selected</option>
                         {field.choices.map((choice) => <option value={choice}>{choice}</option>)}
                       </select>
+                      {(category.id === 'kitchen' && field.id === 'cabinet') || (category.id === 'ceramics' && (field.id === 'floor' || field.id === 'wall')) || (category.id === 'exterior' && field.id === 'frames') || (category.id === 'doors' && field.id === 'finish') ? (
+                        <div data-swatch-group={`${category.id}.${field.id}`} class="mt-4 grid gap-3 sm:grid-cols-2" aria-label={field.label + ' visual choices'}>
+                          {field.choices.filter((choice) => !choice.startsWith('Other') && !choice.startsWith('To be')).map((choice, i) => (
+                            <button type="button" data-swatch-choice={choice} class="group flex items-center gap-3 border border-ink/15 bg-paper p-3 text-left text-sm transition hover:border-ink/60" aria-pressed="false">
+                              <span class="h-12 w-14 shrink-0 border border-ink/10" data-visual-sample={`${category.id}.${field.id}`} data-choice-index={i} aria-hidden="true"></span>
+                              <span class="leading-5">{choice}</span>
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+                      {category.id === 'kitchen' && field.id === 'cabinet' ? <p class="mt-3 text-xs leading-6 text-ink/55">Nobilia manufacturer references are candidates only. Actual surface appearance, inclusion and compatibility require Bauhu approval.</p> : null}
                     </div>
                   ))}
                   <div>
@@ -209,12 +220,53 @@ const collections = [
         <div class="mt-8 grid gap-x-10 md:grid-cols-2">${rows}</div>
         <p class="mt-4 text-xs leading-6 text-ink/55">Indicative preferences only. Supplier references, scope, cost adjustments, material suitability and procurement require Bauhu confirmation. Furniture and decorative accessories excluded.</p>`;
     };
+    // Illustrative swatches help compare finishes without suggesting physical samples or final product colours.
+    const visualColours = {
+      'exterior.frames': ['#41494A','#F5F4F0'],
+      'kitchen.cabinet': ['#E6DDCD','#EEE9DC','#282929'],
+      'ceramics.floor': ['#B7AD9D','#D6C8B1','#C4BAAC'],
+      'ceramics.wall': ['#CAC7BF','#B9B8B1','#D5CEC2'],
+      'doors.finish': ['#F2F0EA','#C4B9A7','#BCA079','#81654B','#4A382E','#D1AF84']
+    };
+    const paintVisuals = () => {
+      root.querySelectorAll('[data-visual-sample]').forEach((sample) => {
+        const shades = visualColours[sample.dataset.visualSample] || ['#D8D2C6'];
+        const tone = shades[Number(sample.dataset.choiceIndex)] || '#D8D2C6';
+        sample.style.background = tone;
+      });
+    };
+    const updateSwatches = () => {
+      root.querySelectorAll('[data-swatch-group]').forEach((group) => {
+        const key = group.dataset.swatchGroup;
+        group.querySelectorAll('[data-swatch-choice]').forEach((button) => {
+          const selected = draft.selections[key] === button.dataset.swatchChoice;
+          button.setAttribute('aria-pressed', String(selected));
+          button.classList.toggle('border-ink', selected);
+          button.classList.toggle('ring-1', selected);
+          button.classList.toggle('ring-ink', selected);
+        });
+      });
+    };
+    root.querySelectorAll('[data-swatch-group]').forEach((group) => {
+      group.querySelectorAll('[data-swatch-choice]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const key = group.dataset.swatchGroup;
+          const select = [...root.querySelectorAll('[data-selection]')].find((element) => element.dataset.selection === key);
+          if (!select) return;
+          select.value = button.dataset.swatchChoice;
+          draft.selections[key] = select.value;
+          save();
+          updateSwatches();
+          render();
+        });
+      });
+    });
     root.querySelector('#studio-collection').value = draft.collection;
     root.querySelector('#studio-home').value = draft.home || '';
     root.querySelectorAll('[data-selection]').forEach((element) => {
       const key = element.dataset.selection;
       if ([...element.options].some((o) => o.value === draft.selections[key])) element.value = draft.selections[key];
-      element.addEventListener('change', () => { draft.selections[key] = element.value; save(); render(); });
+      element.addEventListener('change', () => { draft.selections[key] = element.value; save(); updateSwatches(); render(); });
     });
     root.querySelectorAll('[data-notes]').forEach((element) => {
       element.value = typeof draft.notes[element.dataset.notes] === 'string' ? draft.notes[element.dataset.notes].slice(0, 1000) : '';
@@ -264,10 +316,10 @@ const collections = [
       root.querySelectorAll('[data-notes]').forEach((e) => { e.value = ''; });
       root.querySelectorAll('[data-reviewed]').forEach((e) => { e.checked = false; });
       try { localStorage.removeItem(storageKey); } catch {}
-      refreshPalette(); render(); status.textContent = 'Draft cleared from this browser.';
+      refreshPalette(); updateSwatches(); render(); status.textContent = 'Draft cleared from this browser.';
       show(0);
     });
-    refreshPalette(); render(); show(0);
+    refreshPalette(); paintVisuals(); updateSwatches(); render(); show(0);
     if (!canStore) status.textContent = 'Browser storage is unavailable. Download your draft to keep it.';
   }
 </script>
