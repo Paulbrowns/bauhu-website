@@ -184,8 +184,23 @@ function enquiryReference() {
   return `BH-${year}-${suffix}`;
 }
 
+async function sendEmail(env, message) {
+  if (!env.RESEND_API_KEY) return;
+
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${env.RESEND_API_KEY}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(message)
+    });
+  } catch {}
+}
+
 async function sendNotification(env, enquiry) {
-  if (!env.RESEND_API_KEY || !env.ENQUIRY_NOTIFICATION_EMAIL) return;
+  if (!env.ENQUIRY_NOTIFICATION_EMAIL) return;
   const from = env.ENQUIRY_NOTIFICATION_FROM || 'Bauhu Website <enquiries@bauhu.com>';
   const leadsUrl = env.LEADS_DASHBOARD_URL || 'https://bauhu.com/leads/';
   const subject = 'New Bauhu enquiry received';
@@ -197,16 +212,33 @@ async function sendNotification(env, enquiry) {
     `View enquiries: ${leadsUrl}`
   ].join('\n');
 
-  try {
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${env.RESEND_API_KEY}`,
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({ from, to: [env.ENQUIRY_NOTIFICATION_EMAIL], subject, text })
-    });
-  } catch {}
+  await sendEmail(env, { from, to: [env.ENQUIRY_NOTIFICATION_EMAIL], subject, text });
+}
+
+async function sendLeadConfirmation(env, enquiry) {
+  if (!enquiry.contact_email) return;
+  const from = env.ENQUIRY_NOTIFICATION_FROM || 'Bauhu Website <enquiries@bauhu.com>';
+  const subject = 'We’ve received your Bauhu enquiry';
+  const text = [
+    `Hello ${enquiry.contact_name || 'there'},`,
+    '',
+    'Thank you for sending your Bauhu project enquiry.',
+    '',
+    'We’ve received the details you submitted and the Bauhu team will review your project, site information and any uploaded files.',
+    '',
+    'Your enquiry reference is:',
+    enquiry.reference,
+    '',
+    'If you would like to add drawings, site photos, planning notes or further project details, you can reply directly to this email.',
+    '',
+    'Best,',
+    'Bauhu'
+  ].join('\n');
+
+  const message = { from, to: [enquiry.contact_email], subject, text };
+  if (env.ENQUIRY_NOTIFICATION_EMAIL) message.reply_to = env.ENQUIRY_NOTIFICATION_EMAIL;
+
+  await sendEmail(env, message);
 }
 
 async function saveFiles({ env, enquiryId, now, files }) {
@@ -360,7 +392,11 @@ async function handlePost({ request, env }) {
   const files = form.getAll('files').filter((item) => item && typeof item !== 'string' && item.size > 0);
   const { savedFiles, failedFiles } = await saveFiles({ env, enquiryId: id, now, files });
 
-  await sendNotification(env, row);
+  await Promise.all([
+    sendNotification(env, row),
+    sendLeadConfirmation(env, row)
+  ]);
+
   return json({
     ok: true,
     id,
