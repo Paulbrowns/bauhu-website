@@ -19,6 +19,23 @@ import SiteFooter from '../components/SiteFooter.astro';
     (() => {
       const ref = new URLSearchParams(location.search).get('ref');
       if (ref) document.getElementById('reference').textContent = ref;
+
+      if (ref && !sessionStorage.getItem(`bauhu_enquiry_tracked_${ref}`)) {
+        sessionStorage.setItem(`bauhu_enquiry_tracked_${ref}`, '1');
+        const track = () => {
+          window.bauhuAttribution?.track?.('lead_enquiry_submitted', {
+            reference: ref,
+            matomoCategory: 'Lead',
+            matomoAction: 'Enquiry submitted',
+            matomoName: ref
+          });
+        };
+        if (window.bauhuAttribution?.track) {
+          track();
+        } else {
+          window.addEventListener('load', track, { once: true });
+        }
+      }
     })();
   </script>
 </BaseLayout>
