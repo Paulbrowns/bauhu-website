@@ -59,8 +59,14 @@ For each approved selectable option, record:
 - [ ] Verify image suitability and permission for each use
 - [ ] Verify manufacturers' current ranges and product codes
 - [ ] Load approved material photographs/swatches
-- [ ] Add actual selection controls, draft persistence, and project association
+- [x] Add preliminary selection controls, browser-only draft persistence, import/export and print/copy summary
+- [ ] Replace indicative swatches with licensed, supplier-matched approved materials
+- [ ] Add authenticated customer project association and durable server-side draft storage
 - [ ] Implement professional-service enquiry and agreed pricing
 - [ ] Build and visually QA at mobile/tablet/desktop
 - [ ] Deploy to non-production Cloudflare preview
 - [ ] Review copy, scope and functionality before production merge
+
+## Design Studio prototype limitations (October 2026)
+
+The working prototype at `/interiors/studio/` offers six-category draft selections, illustrative clickable colour chips for selected finishes, local browser saving, JSON export/import, printable specification summary, and copy-to-clipboard sharing. These features are not an order form or approval workflow. A draft is not accessible on another device unless the user explicitly exports and imports it. Browser history/storage clearing may erase local drafts. No actual project BOM or payment workflow is connected. The display colours are **not** manufacturer-accurate colour chips or proof of supply.
