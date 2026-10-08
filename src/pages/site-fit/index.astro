@@ -42,7 +42,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
           <label><span>Longitude</span><input id="longitude" type="number" step="0.000001" value="-72.000000" /></label>
         </div>
         <button id="apply-coordinates" class="secondary" type="button">Go to coordinates</button>
-        <div class="instruction">Click the map or drag the marker to refine the exact location.</div>
+        <div class="instruction">Tap the map, drag the marker or enter coordinates to refine the exact location.</div>
         <button id="confirm-location" class="primary" type="button">Use this location</button>
 
         <a class="skip-link" href="/project-details">Not found a site yet? Skip this step →</a>
@@ -121,9 +121,23 @@ import SiteFooter from '../../components/SiteFooter.astro';
       let boundaryLayer = null;
       let boundaryKind = null;
       let parcelAttributes = {};
+      const isMobileViewport = window.matchMedia('(max-width: 760px)').matches;
+      const caribbeanBounds = L.latLngBounds([[7, -89], [28, -58]]);
+      const withinCaribbean = (lat, lng) => caribbeanBounds.contains([Number(lat), Number(lng)]);
 
-      const map = L.map(mapElement, { zoomControl: false, preferCanvas: true }).setView([18, -72], 5);
+      const map = L.map(mapElement, {
+        zoomControl: false,
+        preferCanvas: true,
+        maxBounds: caribbeanBounds,
+        maxBoundsViscosity: 1,
+        minZoom: isMobileViewport ? 4 : 3,
+        worldCopyJump: false,
+        dragging: !isMobileViewport,
+        scrollWheelZoom: false,
+        tap: true
+      }).setView([18, -72], 5);
       L.control.zoom({ position: 'bottomright' }).addTo(map);
+      map.fitBounds(caribbeanBounds, { padding: [16, 16] });
 
       const street = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -161,6 +175,10 @@ import SiteFooter from '../../components/SiteFooter.astro';
         lat = Number(lat);
         lng = Number(lng);
         if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+        if (!withinCaribbean(lat, lng)) {
+          feedback.textContent = 'The site-fit map is limited to Caribbean and nearby hurricane-exposed locations. Enter a Caribbean site location or continue with project details.';
+          return;
+        }
         marker.setLatLng([lat, lng]);
         if (pan) map.setView([lat, lng], Math.max(map.getZoom(), zoom));
         latInput.value = format(lat);
@@ -197,6 +215,10 @@ import SiteFooter from '../../components/SiteFooter.astro';
           return;
         }
         navigator.geolocation.getCurrentPosition((position) => {
+          if (!withinCaribbean(position.coords.latitude, position.coords.longitude)) {
+            feedback.textContent = 'Your current device location is outside the Caribbean map area. Enter the project coordinates or tap the Caribbean map instead.';
+            return;
+          }
           selectedName = 'Current device location';
           selectedSource = 'Browser geolocation';
           setPoint(position.coords.latitude, position.coords.longitude, { zoom: 17 });
@@ -213,17 +235,17 @@ import SiteFooter from '../../components/SiteFooter.astro';
           feedback.textContent = 'Enter at least three characters.';
           return;
         }
-        feedback.textContent = 'Searching…';
+        feedback.textContent = 'Searching Caribbean locations…';
         resultsBox.hidden = true;
         resultsBox.innerHTML = '';
         try {
-          const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q=${encodeURIComponent(query)}`, {
+          const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&viewbox=-89,28,-58,7&bounded=1&q=${encodeURIComponent(query)}`, {
             headers: { 'Accept-Language': navigator.language || 'en' }
           });
           if (!response.ok) throw new Error('search failed');
-          const rows = await response.json();
+          const rows = (await response.json()).filter((row) => withinCaribbean(row.lat, row.lon));
           if (!rows.length) {
-            feedback.textContent = 'No matching locations found.';
+            feedback.textContent = 'No matching Caribbean locations found. Enter coordinates or tap the map.';
             return;
           }
           rows.forEach((row) => {
@@ -244,7 +266,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
             resultsBox.appendChild(button);
           });
           resultsBox.hidden = false;
-          feedback.textContent = `${rows.length} locations found.`;
+          feedback.textContent = `${rows.length} Caribbean locations found.`;
         } catch {
           feedback.textContent = 'Search is temporarily unavailable. Enter coordinates or use the map.';
         }
@@ -379,16 +401,21 @@ import SiteFooter from '../../components/SiteFooter.astro';
           return;
         }
         map._bauhuDrawing = true;
+        if (isMobileViewport) map.dragging.enable();
         drawHandler.enable();
         $('parcel-search-state').textContent = 'Click around the parcel perimeter. Click the first point to close the boundary.';
       };
 
       map.on(L.Draw.Event.CREATED, (event) => {
         map._bauhuDrawing = false;
+        if (isMobileViewport) map.dragging.disable();
         setBoundary(event.layer, 'manual');
         $('parcel-search-state').textContent = 'Approximate boundary drawn. Check it before confirming.';
       });
-      map.on('draw:drawstop', () => { map._bauhuDrawing = false; });
+      map.on('draw:drawstop', () => {
+        map._bauhuDrawing = false;
+        if (isMobileViewport) map.dragging.disable();
+      });
 
       $('clear-boundary').onclick = clearBoundary;
       $('find-parcel').onclick = findParcel;
@@ -464,5 +491,5 @@ import SiteFooter from '../../components/SiteFooter.astro';
   .map-workspace{display:grid;grid-template-rows:auto 1fr auto;min-width:0}.map-toolbar{display:flex;justify-content:space-between;gap:1rem;padding:.7rem .9rem;background:#f7f5ef;border-bottom:1px solid rgba(23,57,76,.16)}.base-switch,.statuses{display:flex;gap:.35rem;align-items:center}.map-toolbar button{padding:.5rem .8rem;border:1px solid rgba(23,57,76,.18);background:#fff;color:#17394c;font:700 .66rem Inter,sans-serif}.map-toolbar button.active{background:#17394c;color:#fff}.statuses span{padding:.45rem .65rem;border-radius:999px;background:#ece9df;font:700 .6rem Inter,sans-serif}.statuses .muted{opacity:.55}.confirmed-status{background:#dfe9df!important;color:#497150}.map-stage{position:relative;min-height:660px}.map-loading{position:absolute;inset:0;z-index:1200;display:grid;place-items:center;background:#d9dfdc;font:700 .75rem Inter,sans-serif}.map-loading[hidden]{display:none}.map-loading.error{color:#7a392e}.map-stage #property-map{position:absolute;inset:0;width:100%;height:100%;z-index:1}.map-card{position:absolute;z-index:900;left:1rem;bottom:1rem;max-width:290px;padding:.9rem;background:rgba(247,245,239,.94);box-shadow:0 10px 30px rgba(23,57,76,.15);font-family:Inter,sans-serif}.map-card>span{font-size:.58rem;letter-spacing:.14em;color:#9b7b49}.map-card strong{display:block;margin:.25rem 0;font-size:.76rem}.map-card p{margin:0;font-size:.64rem}
   .map-workspace footer{display:grid;grid-template-columns:repeat(4,1fr);background:#f7f5ef}.map-workspace footer div{padding:.8rem 1rem;border-right:1px solid rgba(23,57,76,.12)}.map-workspace footer span,.map-workspace footer strong{display:block;font-family:Inter,sans-serif}.map-workspace footer span{font-size:.56rem;text-transform:uppercase;color:rgba(23,57,76,.5)}.map-workspace footer strong{margin-top:.25rem;font-size:.68rem}
   .disclaimer{margin:0;padding:1rem 4vw;font:400 .65rem/1.5 Inter,sans-serif;color:rgba(23,57,76,.58)}
-  @media(max-width:760px){.site-fit-header{grid-template-columns:1fr}.site-fit-header aside{padding:1.5rem 0 0;border-left:0;border-top:1px solid rgba(23,57,76,.18)}.tool-shell{grid-template-columns:1fr}.map-stage{min-height:520px}.map-toolbar{flex-direction:column;align-items:flex-start}.map-workspace footer{grid-template-columns:1fr 1fr}}
+  @media(max-width:760px){.site-fit-header{grid-template-columns:1fr}.site-fit-header aside{padding:1.5rem 0 0;border-left:0;border-top:1px solid rgba(23,57,76,.18)}.tool-shell{grid-template-columns:1fr}.map-stage{min-height:360px;height:58vh;max-height:430px;overflow:hidden}.map-stage #property-map,.map-stage .leaflet-container{touch-action:pan-y!important}.map-card{left:.75rem;right:.75rem;bottom:.75rem;max-width:none}.map-toolbar{flex-direction:column;align-items:flex-start}.map-workspace footer{grid-template-columns:1fr 1fr}}
 </style>
