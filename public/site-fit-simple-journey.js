@@ -122,15 +122,49 @@
 
     const style = document.createElement('style');
     style.textContent = `
-      .journey-continue{margin-top:.65rem;transition:opacity .18s ease,background .18s ease}
-      .journey-continue:disabled{opacity:.32;cursor:not-allowed;background:#17394c}
-      .journey-continue.ready{opacity:1}
+      .journey-continue{
+        margin-top:.9rem;
+        border:0!important;
+        background:#8f2f24!important;
+        color:#fff!important;
+        font:800 .76rem/1 Inter,sans-serif!important;
+        letter-spacing:.08em!important;
+        text-transform:uppercase!important;
+        box-shadow:0 12px 28px rgba(143,47,36,.24);
+        transition:opacity .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease;
+      }
+      .journey-continue:disabled{
+        opacity:.32;
+        cursor:not-allowed;
+        background:#17394c!important;
+        box-shadow:none;
+      }
+      .journey-continue.ready{
+        opacity:1;
+      }
+      .journey-continue.ready:hover{
+        background:#a63a2d!important;
+        box-shadow:0 15px 34px rgba(143,47,36,.32);
+        transform:translateY(-1px);
+      }
+      .journey-continue.ready::after{
+        content:' →';
+      }
       .confirmed-location{background:#dfe9df!important;color:#497150!important}
       .coordinate-options{margin:.7rem 0}
       .coordinate-options summary{cursor:pointer;padding:.7rem .8rem;border:1px solid rgba(23,57,76,.18);background:#fff;font:700 .67rem Inter,sans-serif}
       .coordinate-options[open] summary{margin-bottom:.7rem}
       .map-workspace footer{grid-template-columns:1fr 1fr!important}
-      @media(max-width:760px){.journey-continue.ready{position:sticky;bottom:.65rem;z-index:25;box-shadow:0 8px 24px rgba(23,57,76,.22)}}
+      @media(max-width:760px){
+        .journey-continue.ready{
+          position:sticky;
+          bottom:.65rem;
+          z-index:25;
+          padding:1.05rem!important;
+          font-size:.78rem!important;
+          box-shadow:0 12px 30px rgba(143,47,36,.34);
+        }
+      }
     `;
     document.head.appendChild(style);
   }
