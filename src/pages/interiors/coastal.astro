@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+const selections = [
+  { number: '01', heading: 'Façade & frames', direction: 'Fine-textured warm-white render, balanced by anthracite aluminium frames.', source: 'Sto façade finish / Bauhu aluminium opening system', review: 'Confirm exact Sto colour and grain; confirm matching frame colour.' },
+  { number: '02', heading: 'Kitchen', direction: 'Quiet, neutral cabinet fronts, pale composite worktop, restrained handles and chrome mixer.', source: 'Bauhu made-to-order kitchen supplier', review: 'Select actual front, handle, worktop, sink and faucet references.' },
+  { number: '03', heading: 'Bathrooms', direction: 'Wall-hung vanity, integrated basin, white ceramics and polished chrome water-saving fittings.', source: 'Bauhu bathroom collection / Bruma', review: 'Confirm vanity, basin, sanitary ware and matching Bruma fittings.' },
+  { number: '04', heading: 'Ceramics', direction: 'Large-format, warm stone-effect ceramic flooring with complementary shower wall tiles.', source: 'Portuguese ceramic supplier', review: 'Confirm precise tile series, dimensions and slip ratings where relevant.' },
+  { number: '05', heading: 'Interior doors', direction: 'Simple contemporary profile with a matt white lacquer and understated hardware.', source: 'Bauhu interior joinery supplier', review: 'Confirm manufacturer, door reference, finish and hardware.' },
+  { number: '06', heading: 'Paint', direction: 'Warm off-white wall colours and soft white ceilings for a calm continuity.', source: 'RAL / Pantone selection', review: 'Agree actual colour codes and paint specification.' },
+];
+---
+<BaseLayout title="Coastal Collection | Bauhu Interiors" description="The Bauhu Coastal design direction: considered architectural finishes, kitchens, bathrooms and joinery.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <section class="relative min-h-[78vh] overflow-hidden bg-ink text-paper">
+      <img src="/images/residences/luxuma-living-area.webp" alt="Illustrative Bauhu residence interior" class="absolute inset-0 h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/15"></div>
+      <div class="relative mx-auto flex min-h-[78vh] max-w-site flex-col justify-end px-5 pb-20 pt-40 lg:px-10">
+        <a class="text-xs uppercase tracking-widest text-paper/70" href="/interiors#collections">← All collections</a>
+        <p class="eyebrow mt-12 text-stone">Bauhu Interiors / Collection 01</p>
+        <h1 class="mt-5 font-display text-7xl leading-none md:text-9xl">Coastal.</h1>
+        <p class="mt-7 max-w-xl text-lg leading-8 text-paper/85">A composed interior language inspired by light, landscape and the quiet elegance of island architecture.</p>
+      </div>
+    </section>
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        <div><p class="eyebrow text-clay">The palette</p><h2 class="mt-5 font-display text-5xl leading-tight">Lightness, warmth and restraint.</h2></div>
+        <div>
+          <p class="text-lg leading-8 text-ink/70">Coastal provides a starting point for architectural finishes throughout your Bauhu home. The combination is a design direction, not a preset package: selections can be adapted to your architecture, location and preferences.</p>
+          <div class="mt-8 grid h-20 grid-cols-5" aria-label="Coastal inspiration colour swatches">
+            {['#F2EFE8','#E3D9C8','#C9BDAA','#98998F','#414949'].map((tone) => <div style={`background-color: ${tone}`}></div>)}
+          </div>
+          <p class="mt-3 text-xs leading-6 text-ink/55">Inspirational colours only. Final materials and colours must be selected from actual supplier ranges.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Coordinated choices</p>
+        <h2 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-6xl">Six elements. One cohesive result.</h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-2">
+          {selections.map((item) => (
+            <article class="bg-paper p-8 md:p-10">
+              <p class="text-xs tracking-widest text-clay">{item.number} / Design direction</p>
+              <h3 class="mt-5 font-display text-4xl">{item.heading}</h3>
+              <p class="mt-5 text-lg leading-8 text-ink/75">{item.direction}</p>
+              <div class="mt-8 border-t border-ink/15 pt-5 text-sm leading-7">
+                <p><span class="font-semibold">Supply range:</span> {item.source}</p>
+                <p class="mt-2 text-ink/60"><span class="font-semibold">To verify:</span> {item.review}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-2">
+        <div><p class="eyebrow text-clay">Personalise the collection</p><h2 class="mt-5 font-display text-5xl leading-tight">Your home. Your choices.</h2></div>
+        <div class="space-y-6">
+          <p class="text-lg leading-8 text-ink/70">Every Bauhu client can select the standard finishes supplied with their home. The optional Bauhu Interiors design service offers additional consultation, coordinated schemes and personalised visualisation.</p>
+          <p class="text-sm leading-7 text-ink/60">Most finish choices are included in the home package. Particular alternatives may carry an additional cost, confirmed against the final project specification. Furniture, curtains, rugs, decorative lighting, artwork and accessories are not supplied.</p>
+          <a href="mailto:contact@bauhu.com?subject=Bauhu%20Coastal%20Interiors" class="inline-flex rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Discuss your Coastal interior →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
