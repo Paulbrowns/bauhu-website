@@ -4,9 +4,9 @@ import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 
 const schemes = [
- {id:'natural',number:'01',name:'Coastal Natural',subtitle:'Ivory · Sand · Pale stone', description:'Quiet sun-washed neutrals and subtle texture.',hero:'/images/residences/luxuma-living-area.webp', palette:['#F2EFE8','#DCD1BD','#BBB19F','#77746A'], defaults:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory supermatt',bath:'White & chrome',floor:'Warm limestone look',doors:'Matt white',paint:'Warm off-white'}},
- {id:'ocean',number:'02',name:'Coastal Ocean',subtitle:'Chalk · Mist · Blue-grey',description:'Fresh mineral tones with a restrained maritime accent.',hero:'/images/residences/luxuma-living-area.webp',palette:['#F0F1ED','#C9D7D8','#879FAA','#5A7887'],defaults:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory matt',bath:'White & chrome',floor:'Pale grey stone look',doors:'Matt white',paint:'Cool off-white'}},
- {id:'refined',number:'03',name:'Coastal Refined',subtitle:'Oat · Taupe · Walnut',description:'Warmer coastal elegance with deeper natural contrast.',hero:'/images/residences/luxuma-living-area.webp',palette:['#E8E0D5','#C1AE97','#827060','#433D38'],defaults:{exterior:'Warm white',frames:'Anthracite',kitchen:'Soft sand',bath:'Walnut & chrome',floor:'Warm limestone look',doors:'Timber-look',paint:'Soft taupe'}}
+ {id:'natural',number:'01',name:'Coastal Natural',subtitle:'Ivory · Sand · Pale stone', description:'Quiet sun-washed neutrals and subtle texture.',hero:'/images/models/bauhu-bahama-beach/2.webp', palette:['#F2EFE8','#DCD1BD','#BBB19F','#77746A'], defaults:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory supermatt',bath:'White & chrome',floor:'Warm limestone look',doors:'Matt white',paint:'Warm off-white'}},
+ {id:'ocean',number:'02',name:'Coastal Ocean',subtitle:'Chalk · Mist · Blue-grey',description:'Fresh mineral tones with a restrained maritime accent.',hero:'/images/models/bauhu-barbados-blue/2.webp',palette:['#F0F1ED','#C9D7D8','#879FAA','#5A7887'],defaults:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory matt',bath:'White & chrome',floor:'Pale grey stone look',doors:'Matt white',paint:'Cool off-white'}},
+ {id:'refined',number:'03',name:'Coastal Refined',subtitle:'Oat · Taupe · Walnut',description:'Warmer coastal elegance with deeper natural contrast.',hero:'/images/models/bauhu-cap-dantibes/2.webp',palette:['#E8E0D5','#C1AE97','#827060','#433D38'],defaults:{exterior:'Warm white',frames:'Anthracite',kitchen:'Soft sand',bath:'Walnut & chrome',floor:'Warm limestone look',doors:'Timber-look',paint:'Soft taupe'}}
 ];
 const choices = [
  {id:'exterior',name:'Exterior render',supplier:'Sto',options:['Soft white','Warm white','Light grey']},
@@ -71,7 +71,7 @@ const kitchenImages={
      </div>
      <div class="mt-10 grid gap-3 bg-mist p-3 lg:grid-cols-[1.1fr_0.9fr]">
       <div class="relative min-h-[350px] overflow-hidden bg-stone">
-       <img src="/images/residences/luxuma-living-area.webp" alt="Coastal residence mood board — architectural interior context" class="absolute inset-0 h-full w-full object-cover"/>
+       <img id="coastal-hero-image" src="/images/models/bauhu-bahama-beach/2.webp" alt="Bauhu Coastal scheme architectural inspiration" class="absolute inset-0 h-full w-full object-cover"/>
        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink/70 to-transparent p-6 text-paper"><p class="text-xs uppercase tracking-widest">Bauhu Coastal</p><h3 class="mt-2 font-display text-4xl" id="coastal-board-image-title">Natural</h3></div>
       </div>
       <div class="grid grid-cols-2 gap-3" id="coastal-visual-tiles">
@@ -110,6 +110,7 @@ const kitchenImages={
       <div class="flex flex-wrap gap-3">
        <a href="/interiors/studio" class="rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest">Other areas of your home →</a>
        <button id="coastal-copy" type="button" class="rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Copy my scheme →</button>
+       <button id="coastal-print" type="button" class="rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest">Print mood board</button>
       </div>
      </div>
      <div id="coastal-summary" class="mt-8 bg-mist p-8"></div>
@@ -145,6 +146,7 @@ const kitchenImages={
     const scheme=schemeById(state.scheme);
     root.querySelectorAll('[data-board]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.board===state.scheme)));
     root.querySelector('#coastal-title').textContent=scheme.name;
+    root.querySelector('#coastal-hero-image').src=scheme.hero;
     root.querySelector('#coastal-board-image-title').textContent=scheme.name.replace('Coastal ','');
     root.querySelector('#coastal-palette').innerHTML=scheme.palette.map(tone=>'<div class="h-12" style="background:'+tone+'"></div>').join('');
     root.querySelector('#coastal-kitchen-tag').textContent='Kitchen · '+selected('kitchen');
@@ -176,6 +178,7 @@ const kitchenImages={
    }));
    root.querySelector('#coastal-refine').addEventListener('click',()=>{const section=root.querySelector('#coastal-alternatives');section.hidden=!section.hidden;if(!section.hidden)section.scrollIntoView({behavior:'smooth',block:'start'});});
    root.querySelector('#coastal-reset').addEventListener('click',()=>{state.changes={};save();draw();});
+   root.querySelector('#coastal-print').addEventListener('click',()=>window.print());
    root.querySelector('#coastal-copy').addEventListener('click',async()=>{
     const lines=['BAUHU INTERIORS — COASTAL DESIGN DRAFT','Selected scheme: '+schemeById(state.scheme).name,''];
     choices.forEach(choice=>lines.push(choice.name+': '+selected(choice.id)+(state.changes[choice.id]?' (personalised)':'')));
@@ -185,3 +188,13 @@ const kitchenImages={
    draw();
   }
 </script>
+<style>
+ [data-coastal] [hidden] {display:none!important}
+ @media print {
+  header,footer,#coastal-board-options,#coastal-alternatives,#coastal-refine,#coastal-reset,#coastal-copy,#coastal-print {display:none!important}
+  [data-coastal] {padding-top:0!important}
+  [data-coastal] .max-w-site {max-width:100%!important}
+  #coastal-visual-tiles {break-inside:avoid}
+  #coastal-summary {break-inside:avoid}
+ }
+</style>
