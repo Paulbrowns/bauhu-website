@@ -156,6 +156,8 @@ const collections = [
               <div class="mt-6 flex flex-wrap gap-3">
                 <button id="studio-download" type="button" class="bg-ink px-6 py-4 text-xs uppercase tracking-widest text-paper">Download draft (.json)</button>
                 <button id="studio-print" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Print summary</button>
+                <button id="studio-copy" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Copy summary</button>
+                <label class="inline-flex cursor-pointer items-center border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Import draft (.json)<input id="studio-import" type="file" accept="application/json,.json" class="sr-only" /></label>
                 <button id="studio-clear" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Clear draft</button>
               </div>
               <p id="studio-status" class="mt-4 text-sm text-ink/60" role="status" aria-live="polite"></p>
@@ -306,6 +308,65 @@ const collections = [
       if (!page) { status.textContent = 'Please allow pop-ups to print the summary.'; return; }
       page.document.write('<!doctype html><html><head><title>Bauhu Interiors draft</title><style>body{font-family:Arial,sans-serif;padding:36px;color:#222}h3{font-family:Georgia,serif}section{margin:24px 0}dl div{display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding:7px 0}dt{color:#666}dd{margin:0}p{line-height:1.6}</style></head><body>' + content + '</body></html>');
       page.document.close(); page.focus(); page.print();
+    });
+    const asPlainText = () => {
+      const collection = collections.find((c) => c.id === draft.collection);
+      const lines = [
+        'BAUHU INTERIORS — PERSONAL DESIGN DRAFT',
+        'Not an approved specification, quote or order',
+        'Project: ' + (draft.home || 'Not supplied'),
+        'Collection: ' + (collection?.title || 'Individual selection'), '',
+      ];
+      categories.forEach((category) => {
+        lines.push(category.title.toUpperCase());
+        category.fields.forEach((field) => {
+          const value = draft.selections[category.id + '.' + field.id];
+          lines.push(field.label + ': ' + (field.choices.includes(value) ? value : 'Not selected'));
+        });
+        if (draft.notes[category.id]) lines.push('Notes: ' + String(draft.notes[category.id]).slice(0,1000));
+        lines.push('Reviewed by customer: ' + (draft.reviewed[category.id] ? 'Yes' : 'No'), '');
+      });
+      lines.push('Manufacturer references and colours are illustrative or unapproved. Bauhu will confirm suitability, availability, pricing and final supply scope. Furniture and decorative accessories are excluded.');
+      return lines.join('\\n');
+    };
+    root.querySelector('#studio-copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(asPlainText());
+        status.textContent = 'Summary copied. You can paste it into an email to Bauhu.';
+      } catch {
+        status.textContent = 'Copy is unavailable in this browser. Use download or print instead.';
+      }
+    });
+    root.querySelector('#studio-import').addEventListener('change', async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      if (file.size > 150000) { status.textContent = 'Draft file is too large.'; event.target.value = ''; return; }
+      try {
+        const incoming = JSON.parse(await file.text());
+        if (incoming?.version !== 1 || !incoming.selections || typeof incoming.selections !== 'object' || Array.isArray(incoming.selections)) throw Error('Invalid format');
+        const restored = starter();
+        restored.collection = collections.some((x) => x.id === incoming.collection) ? incoming.collection : '';
+        restored.home = typeof incoming.home === 'string' ? incoming.home.slice(0,120) : '';
+        categories.forEach((category) => {
+          category.fields.forEach((field) => {
+            const key = category.id + '.' + field.id;
+            const value = incoming.selections[key];
+            if (field.choices.includes(value)) restored.selections[key] = value;
+          });
+          const note = incoming.notes?.[category.id];
+          if (typeof note === 'string') restored.notes[category.id] = note.slice(0,1000);
+          restored.reviewed[category.id] = incoming.reviewed?.[category.id] === true;
+        });
+        draft = restored;
+        root.querySelector('#studio-home').value = draft.home;
+        root.querySelector('#studio-collection').value = draft.collection;
+        root.querySelectorAll('[data-selection]').forEach((element) => { element.value = draft.selections[element.dataset.selection] || ''; });
+        root.querySelectorAll('[data-notes]').forEach((element) => { element.value = draft.notes[element.dataset.notes] || ''; });
+        root.querySelectorAll('[data-reviewed]').forEach((element) => { element.checked = Boolean(draft.reviewed[element.dataset.reviewed]); });
+        refreshPalette(); updateSwatches(); render(); save();
+        status.textContent = 'Draft imported into this browser. It has not been submitted to Bauhu.';
+      } catch { status.textContent = 'Could not import this file. Please select a Bauhu Interiors draft JSON file.'; }
+      event.target.value = '';
     });
     root.querySelector('#studio-clear').addEventListener('click', () => {
       if (!window.confirm('Clear your saved Bauhu Interiors draft from this browser?')) return;
