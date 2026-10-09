@@ -21,7 +21,7 @@ interface Props {
  preview?:boolean;
  useImageEmbeddedLabels?:boolean;
 }
-const {title,description,palette,hero,overall,boards,preview=false,useImageEmbeddedLabels=false}=Astro.props;
+const {title,description,palette,hero,overall,boards,=NOTEXPECTED}=Astro.props;
 ---
 <div class="space-y-10">
   <section class="relative min-h-[390px] overflow-hidden rounded-xl bg-ink md:min-h-[520px]">
@@ -45,8 +45,8 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
       <p class="mt-5 text-lg leading-8 text-ink/65">A considered combination of materials, colours and architectural details.</p>
       <div class="mt-7 grid h-12 grid-cols-4 overflow-hidden rounded-md">{palette.map(p=><div style={'background-color:'+p}></div>)}</div>
     </div>
-    <div class="overflow-hidden rounded-xl bg-mist">
-      {overall?<img src={overall} alt={title+' overall editorial material mood board'} class="aspect-[6/4] w-full object-cover" loading="lazy"/>:
+    <div class="mx-auto w-full max-w-[540px] overflow-hidden rounded-xl bg-mist">
+      {overall?<img src={overall} alt={title+' overall editorial material mood board'} class="h-auto max-h-[300px] w-full object-contain" loading="lazy"/>:
         boards.some(b=>b.image)?
         <div class="grid aspect-[6/4] grid-cols-[1.2fr_.8fr] grid-rows-2 gap-2 bg-mist p-3">
           {boards.filter(b=>b.image).slice(0,3).map((b,i)=><div class={i===0?'row-span-2 overflow-hidden rounded-sm':'overflow-hidden rounded-sm'}>
