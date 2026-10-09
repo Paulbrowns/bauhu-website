@@ -41,13 +41,15 @@ This is the last user-approved layout. **Do not add a second row of hero photogr
 - **Kitbanho** Olimpo, Sara, Dali, Pompeia vanity ranges; Kloss STD alt.10 and alt.2 washbasins.
 - **Compincar** Lisa, Model 301, Model 302 interior doors.
 
-## Implementation status
+## Implementation status (2026-10-09)
 
-- Approved photorealistic Coastal Natural, Ocean and Refined **hero and three individual mood boards** already exist in `public/images/interiors/` and are linked on their pages.
-- Their overall board is temporarily created as a **composition of those three existing photographs** in `InteriorsDesignPresentation.astro`; replace with a properly art-directed single overall mood board in the next visual asset round.
-- Other nine schemes have complete curated **range-level product drafts and Bauhu IDs**, with the locked template in place. **Their photographic hero/overall/three individual boards have not been supplied**: the pages intentionally display colour studies, labelled as pending.
-- `/interiors/` landing page remains for later polishing, **after** the individual collection artwork exists.
-- Never merge or deploy to `main` until the owner explicitly approves.
+- **Coastal Natural, Ocean and Refined**: existing photographic hero and three individual mood-board artworks live under `public/images/interiors/`; an overall editorial board is currently composed from the three existing images rather than a dedicated flat-lay.
+- **Contemporary Pure, Graphite, Mineral**: five separate optimised WebP assets each (interior hero, overall flat-lay, Finishes, Kitchens and Bathrooms) published and wired to the branch preview.
+- **Signature Atelier**: five separate optimised WebP assets published and wired.
+- **Signature Gallery and Noir; Tropical Canopy, Lagoon, Terracotta**: supplier drafts, matching page templates and placeholder swatches exist; **no new photographic asset set** has been published yet. Do not mark these as finished.
+- `/interiors/` landing page is deliberately awaiting final imagery.
+- The client-approved page design is implemented in `src/components/InteriorsDesignPresentation.astro`; do not redesign.
+- Keep `main` / production untouched without the owner's approval.
 
 ## Verification checklist before calling a collection finished
 
