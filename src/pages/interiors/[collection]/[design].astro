@@ -10,7 +10,7 @@ export function getStaticPaths(){
 }
 const {scheme}=Astro.props;
 const palette=scheme.tones;
-const photoReady=(scheme.collection==='contemporary' && ['pure','graphite','mineral'].includes(scheme.slug)) || (scheme.collection==='signature' && scheme.slug==='atelier');
+const photoReady=true; // Nine additional collections have individual editorial preview assets.
 const assetBase='/images/interiors/'+scheme.collection+'-'+scheme.slug+'-';
 const finish=scheme.items.filter(i=>i.section==='FIN');
 const kitchen=scheme.items.filter(i=>i.section==='KIT');
