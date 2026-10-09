@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import { interiorsSchemes } from '../../../data/interiors-curated-schemes';
+
+export function getStaticPaths(){
+ return interiorsSchemes.map(s=>({params:{collection:s.collection,design:s.slug},props:{scheme:s}}));
+}
+const {scheme}=Astro.props;
+const palette=scheme.tones;
+const finish=scheme.items.filter(i=>i.section==='FIN');
+const kitchen=scheme.items.filter(i=>i.section==='KIT');
+const bath=scheme.items.filter(i=>i.section==='BTH');
+const boardSets=[
+ {label:'Finishes',items:finish,highlight:[0,1,2,4,5]},
+ {label:'Kitchens',items:kitchen,highlight:[0,1,2,4]},
+ {label:'Bathrooms',items:bath,highlight:[0,1,2,4]}
+];
+const displayName=scheme.collection.charAt(0).toUpperCase()+scheme.collection.slice(1);
+---
+<BaseLayout title={displayName+' '+scheme.name+' | Bauhu Interiors'} description={'Curated architectural finishes for '+displayName+' '+scheme.name+' by Bauhu.'}>
+ <SiteHeader/>
+ <main class="bg-paper px-5 pb-24 pt-32 lg:px-10">
+ <div class="mx-auto max-w-site">
+  <a href={'/interiors/'+scheme.collection+'/'} class="text-xs uppercase tracking-[.16em] text-ink/60">← {displayName} collection</a>
+  <section class="mt-8 overflow-hidden rounded-2xl">
+   <div class="relative flex min-h-[360px] items-end overflow-hidden bg-ink p-8 text-paper md:min-h-[450px] md:p-14">
+    <div class="absolute inset-0" style={'background:linear-gradient(112deg,'+palette[3]+' 0%,'+palette[2]+' 42%,'+palette[1]+' 80%);opacity:.9'}></div>
+    <div class="absolute inset-0 opacity-20" style="background:repeating-linear-gradient(120deg,transparent 0 13px,#ffffff44 14px,transparent 16px 60px)"></div>
+    <div class="relative max-w-3xl"><p class="text-xs uppercase tracking-[.28em]">Bauhu Interiors / Design preview</p><h1 class="mt-5 font-display text-6xl md:text-8xl">{displayName} {scheme.name}</h1><p class="mt-5 text-lg text-paper/85">{scheme.description}</p></div>
+   </div>
+  </section>
+  <section class="mt-10 overflow-hidden rounded-2xl bg-mist">
+   <div class="grid gap-8 p-7 md:grid-cols-[.8fr_1.2fr] md:gap-12 md:p-12">
+    <div><p class="eyebrow text-clay">The collection mood</p><h2 class="mt-3 font-display text-5xl">A sense of place.</h2><p class="mt-5 max-w-sm text-base leading-8 text-ink/65">{scheme.description} The palette and finishes form a single architectural story.</p><p class="mt-7 text-xs text-ink/50">Material palette preview — photorealistic editorial board to follow</p></div>
+    <div class="relative grid min-h-64 grid-cols-4 gap-2 overflow-hidden rounded-xl p-5" style={'background:'+palette[0]}>
+      {palette.map((t,i)=><div class="relative shadow-md" style={'background:linear-gradient(140deg,'+t+',#ffffff33),repeating-linear-gradient(100deg,transparent 0 14px,#fff2 15px,transparent 16px 28px)'}><span class="absolute bottom-3 left-3 text-[10px] uppercase text-ink/60">0{i+1}</span></div>)}
+    </div>
+   </div>
+  </section>
+  <section class="mt-8 grid gap-5 lg:grid-cols-3">
+    {boardSets.map((board,bi)=><article class="overflow-hidden rounded-xl border border-ink/10 bg-mist">
+      <div class="px-6 pt-6"><h2 class="font-display text-4xl">{board.label}</h2><p class="mt-2 text-xs text-ink/50">{bi===0?'Tile · Paint · Render · Frames · Doors':bi===1?'Cabinetry · Worktop · Sink · Tap':'Vanity · Basin · Matched taps · Wall tile'}</p></div>
+      <div class="grid h-64 grid-cols-2 gap-2 p-5">
+        {board.highlight.slice(0,4).map((ix,k)=><div class="flex items-end rounded-md p-3 text-xs" style={'background:'+palette[(k+bi)%4]+';color:'+((k+bi)%4===3?'#fff':'#333')}><span>{board.items[ix]?.range}</span></div>)}
+      </div>
+      <p class="px-6 pb-6 text-xs text-ink/60">Material-colour study · Final photographic board pending</p>
+    </article>)}
+  </section>
+  <section class="mt-16 border-t border-ink/20 pt-10">
+   <div class="flex flex-wrap items-end justify-between gap-6"><div><p class="eyebrow text-clay">Bauhu ID / Draft specification</p><h2 class="mt-4 font-display text-5xl">The details bring it together.</h2></div><button id="spec-download" class="rounded-full border border-ink/30 px-6 py-4 text-xs uppercase tracking-widest">Download draft CSV</button></div>
+   <p class="mt-5 max-w-3xl text-sm leading-7 text-ink/60">An initial supplier shortlist, not a confirmed quotation, approval, procurement schedule or statement of included scope. Exact product variants and manufacturer photographs will be checked when the material photography is finalised.</p>
+   <div class="mt-8 overflow-x-auto"><table class="w-full min-w-[650px] text-left text-sm"><thead><tr class="border-y border-ink/20 text-xs uppercase tracking-widest"><th class="py-4">Bauhu ID</th><th>Component</th><th>Supplier</th><th>Selected range</th><th>Finish / code</th></tr></thead>
+    <tbody>{scheme.items.map(item=><tr class="border-b border-ink/10"><td class="py-3 font-mono text-xs">{item.id}</td><td>{item.slot}</td><td>{item.supplier}</td><td>{item.range}</td><td>{item.finish}{item.code?' · '+item.code:''}</td></tr>)}</tbody>
+   </table></div>
+  </section>
+ </div></main><SiteFooter/>
+</BaseLayout>
+<script define:vars={{scheme}}>
+ document.querySelector('#spec-download')?.addEventListener('click',()=>{
+  const rows=[['Bauhu ID','Component','Supplier','Range','Finish','Reference','Status'],...scheme.items.map(i=>[i.id,i.slot,i.supplier,i.range,i.finish,i.code||'',i.status])];
+  const esc=v=>{let s=String(v??'');if(/^\s*[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+  const file='\uFEFF'+rows.map(row=>row.map(esc).join(',')).join('\r\n');
+  const url=URL.createObjectURL(new Blob([file],{type:'text/csv;charset=utf-8'}));
+  const a=document.createElement('a');a.href=url;a.download='bauhu-'+scheme.collection+'-'+scheme.slug+'-draft.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ });
+</script>
