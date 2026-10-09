@@ -24,7 +24,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-FIN-001",
+        "id": "BAU-CON-01-FIN-002",
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
@@ -34,7 +34,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-FIN-001",
+        "id": "BAU-CON-01-FIN-003",
         "section": "FIN",
         "slot": "Walls and ceilings",
         "supplier": "CIN",
@@ -44,7 +44,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-CON-01-FIN-001",
+        "id": "BAU-CON-01-FIN-004",
         "section": "FIN",
         "slot": "Exterior render",
         "supplier": "Sto",
@@ -54,7 +54,7 @@ export const interiorsSchemes = [
         "status": "fixed"
       },
       {
-        "id": "BAU-CON-01-FIN-001",
+        "id": "BAU-CON-01-FIN-005",
         "section": "FIN",
         "slot": "Window and exterior door frames",
         "supplier": "Cortizo",
@@ -64,7 +64,7 @@ export const interiorsSchemes = [
         "status": "confirmed-option"
       },
       {
-        "id": "BAU-CON-01-FIN-001",
+        "id": "BAU-CON-01-FIN-006",
         "section": "FIN",
         "slot": "Interior doors",
         "supplier": "Compincar",
@@ -84,7 +84,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-KIT-001",
+        "id": "BAU-CON-01-KIT-002",
         "section": "KIT",
         "slot": "Kitchen handles",
         "supplier": "Nobilia",
@@ -94,7 +94,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-KIT-001",
+        "id": "BAU-CON-01-KIT-003",
         "section": "KIT",
         "slot": "Countertop",
         "supplier": "Nobilia",
@@ -104,7 +104,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-KIT-001",
+        "id": "BAU-CON-01-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
         "supplier": "Bauhu kitchen supply",
@@ -114,7 +114,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-KIT-001",
+        "id": "BAU-CON-01-KIT-005",
         "section": "KIT",
         "slot": "Kitchen faucet",
         "supplier": "Bruma",
@@ -134,7 +134,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-BTH-001",
+        "id": "BAU-CON-01-BTH-002",
         "section": "BTH",
         "slot": "Basin",
         "supplier": "Kitbanho",
@@ -144,7 +144,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-BTH-001",
+        "id": "BAU-CON-01-BTH-003",
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
@@ -154,7 +154,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-BTH-001",
+        "id": "BAU-CON-01-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
@@ -164,7 +164,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-BTH-001",
+        "id": "BAU-CON-01-BTH-005",
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
@@ -174,7 +174,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-BTH-001",
+        "id": "BAU-CON-01-BTH-006",
         "section": "BTH",
         "slot": "Toilet",
         "supplier": "Sanindusa",
@@ -184,7 +184,7 @@ export const interiorsSchemes = [
         "status": "confirmed-reference"
       },
       {
-        "id": "BAU-CON-01-BTH-001",
+        "id": "BAU-CON-01-BTH-007",
         "section": "BTH",
         "slot": "Shower tray",
         "supplier": "Sanindusa",
@@ -194,7 +194,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-01-BTH-001",
+        "id": "BAU-CON-01-BTH-008",
         "section": "BTH",
         "slot": "Shower enclosure",
         "supplier": "Sanindusa",
@@ -219,7 +219,7 @@ export const interiorsSchemes = [
     ],
     "items": [
       {
-        "id": "BAU-CON-02-FIN-002",
+        "id": "BAU-CON-02-FIN-001",
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
@@ -239,7 +239,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-FIN-002",
+        "id": "BAU-CON-02-FIN-003",
         "section": "FIN",
         "slot": "Walls and ceilings",
         "supplier": "CIN",
@@ -249,7 +249,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-CON-02-FIN-002",
+        "id": "BAU-CON-02-FIN-004",
         "section": "FIN",
         "slot": "Exterior render",
         "supplier": "Sto",
@@ -259,7 +259,7 @@ export const interiorsSchemes = [
         "status": "fixed"
       },
       {
-        "id": "BAU-CON-02-FIN-002",
+        "id": "BAU-CON-02-FIN-005",
         "section": "FIN",
         "slot": "Window and exterior door frames",
         "supplier": "Cortizo",
@@ -269,7 +269,7 @@ export const interiorsSchemes = [
         "status": "confirmed-option"
       },
       {
-        "id": "BAU-CON-02-FIN-002",
+        "id": "BAU-CON-02-FIN-006",
         "section": "FIN",
         "slot": "Interior doors",
         "supplier": "Compincar",
@@ -279,7 +279,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-KIT-002",
+        "id": "BAU-CON-02-KIT-001",
         "section": "KIT",
         "slot": "Kitchen front",
         "supplier": "Nobilia",
@@ -299,7 +299,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-KIT-002",
+        "id": "BAU-CON-02-KIT-003",
         "section": "KIT",
         "slot": "Countertop",
         "supplier": "Nobilia",
@@ -309,7 +309,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-KIT-002",
+        "id": "BAU-CON-02-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
         "supplier": "Bauhu kitchen supply",
@@ -319,7 +319,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-KIT-002",
+        "id": "BAU-CON-02-KIT-005",
         "section": "KIT",
         "slot": "Kitchen faucet",
         "supplier": "Bruma",
@@ -329,7 +329,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-CON-02-BTH-002",
+        "id": "BAU-CON-02-BTH-001",
         "section": "BTH",
         "slot": "Vanity",
         "supplier": "Kitbanho",
@@ -349,7 +349,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-BTH-002",
+        "id": "BAU-CON-02-BTH-003",
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
@@ -359,7 +359,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-BTH-002",
+        "id": "BAU-CON-02-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
@@ -369,7 +369,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-BTH-002",
+        "id": "BAU-CON-02-BTH-005",
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
@@ -379,7 +379,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-BTH-002",
+        "id": "BAU-CON-02-BTH-006",
         "section": "BTH",
         "slot": "Toilet",
         "supplier": "Sanindusa",
@@ -389,7 +389,7 @@ export const interiorsSchemes = [
         "status": "confirmed-reference"
       },
       {
-        "id": "BAU-CON-02-BTH-002",
+        "id": "BAU-CON-02-BTH-007",
         "section": "BTH",
         "slot": "Shower tray",
         "supplier": "Sanindusa",
@@ -399,7 +399,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-02-BTH-002",
+        "id": "BAU-CON-02-BTH-008",
         "section": "BTH",
         "slot": "Shower enclosure",
         "supplier": "Sanindusa",
@@ -424,7 +424,7 @@ export const interiorsSchemes = [
     ],
     "items": [
       {
-        "id": "BAU-CON-03-FIN-003",
+        "id": "BAU-CON-03-FIN-001",
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
@@ -434,7 +434,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-FIN-003",
+        "id": "BAU-CON-03-FIN-002",
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
@@ -454,7 +454,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-CON-03-FIN-003",
+        "id": "BAU-CON-03-FIN-004",
         "section": "FIN",
         "slot": "Exterior render",
         "supplier": "Sto",
@@ -464,7 +464,7 @@ export const interiorsSchemes = [
         "status": "fixed"
       },
       {
-        "id": "BAU-CON-03-FIN-003",
+        "id": "BAU-CON-03-FIN-005",
         "section": "FIN",
         "slot": "Window and exterior door frames",
         "supplier": "Cortizo",
@@ -474,7 +474,7 @@ export const interiorsSchemes = [
         "status": "confirmed-option"
       },
       {
-        "id": "BAU-CON-03-FIN-003",
+        "id": "BAU-CON-03-FIN-006",
         "section": "FIN",
         "slot": "Interior doors",
         "supplier": "Compincar",
@@ -484,7 +484,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-KIT-003",
+        "id": "BAU-CON-03-KIT-001",
         "section": "KIT",
         "slot": "Kitchen front",
         "supplier": "Nobilia",
@@ -494,7 +494,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-KIT-003",
+        "id": "BAU-CON-03-KIT-002",
         "section": "KIT",
         "slot": "Kitchen handles",
         "supplier": "Nobilia",
@@ -514,7 +514,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-KIT-003",
+        "id": "BAU-CON-03-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
         "supplier": "Bauhu kitchen supply",
@@ -524,7 +524,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-KIT-003",
+        "id": "BAU-CON-03-KIT-005",
         "section": "KIT",
         "slot": "Kitchen faucet",
         "supplier": "Bruma",
@@ -534,7 +534,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-CON-03-BTH-003",
+        "id": "BAU-CON-03-BTH-001",
         "section": "BTH",
         "slot": "Vanity",
         "supplier": "Kitbanho",
@@ -544,7 +544,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-BTH-003",
+        "id": "BAU-CON-03-BTH-002",
         "section": "BTH",
         "slot": "Basin",
         "supplier": "Kitbanho",
@@ -564,7 +564,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-BTH-003",
+        "id": "BAU-CON-03-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
@@ -574,7 +574,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-BTH-003",
+        "id": "BAU-CON-03-BTH-005",
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
@@ -584,7 +584,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-BTH-003",
+        "id": "BAU-CON-03-BTH-006",
         "section": "BTH",
         "slot": "Toilet",
         "supplier": "Sanindusa",
@@ -594,7 +594,7 @@ export const interiorsSchemes = [
         "status": "confirmed-reference"
       },
       {
-        "id": "BAU-CON-03-BTH-003",
+        "id": "BAU-CON-03-BTH-007",
         "section": "BTH",
         "slot": "Shower tray",
         "supplier": "Sanindusa",
@@ -604,7 +604,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-CON-03-BTH-003",
+        "id": "BAU-CON-03-BTH-008",
         "section": "BTH",
         "slot": "Shower enclosure",
         "supplier": "Sanindusa",
@@ -629,7 +629,7 @@ export const interiorsSchemes = [
     ],
     "items": [
       {
-        "id": "BAU-SIG-01-FIN-004",
+        "id": "BAU-SIG-01-FIN-001",
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
@@ -639,7 +639,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-FIN-004",
+        "id": "BAU-SIG-01-FIN-002",
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
@@ -649,7 +649,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-FIN-004",
+        "id": "BAU-SIG-01-FIN-003",
         "section": "FIN",
         "slot": "Walls and ceilings",
         "supplier": "CIN",
@@ -669,7 +669,7 @@ export const interiorsSchemes = [
         "status": "fixed"
       },
       {
-        "id": "BAU-SIG-01-FIN-004",
+        "id": "BAU-SIG-01-FIN-005",
         "section": "FIN",
         "slot": "Window and exterior door frames",
         "supplier": "Cortizo",
@@ -679,7 +679,7 @@ export const interiorsSchemes = [
         "status": "confirmed-option"
       },
       {
-        "id": "BAU-SIG-01-FIN-004",
+        "id": "BAU-SIG-01-FIN-006",
         "section": "FIN",
         "slot": "Interior doors",
         "supplier": "Compincar",
@@ -689,7 +689,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-KIT-004",
+        "id": "BAU-SIG-01-KIT-001",
         "section": "KIT",
         "slot": "Kitchen front",
         "supplier": "Nobilia",
@@ -699,7 +699,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-KIT-004",
+        "id": "BAU-SIG-01-KIT-002",
         "section": "KIT",
         "slot": "Kitchen handles",
         "supplier": "Nobilia",
@@ -709,7 +709,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-KIT-004",
+        "id": "BAU-SIG-01-KIT-003",
         "section": "KIT",
         "slot": "Countertop",
         "supplier": "Nobilia",
@@ -729,7 +729,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-KIT-004",
+        "id": "BAU-SIG-01-KIT-005",
         "section": "KIT",
         "slot": "Kitchen faucet",
         "supplier": "Bruma",
@@ -739,7 +739,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-SIG-01-BTH-004",
+        "id": "BAU-SIG-01-BTH-001",
         "section": "BTH",
         "slot": "Vanity",
         "supplier": "Kitbanho",
@@ -749,7 +749,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-BTH-004",
+        "id": "BAU-SIG-01-BTH-002",
         "section": "BTH",
         "slot": "Basin",
         "supplier": "Kitbanho",
@@ -759,7 +759,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-BTH-004",
+        "id": "BAU-SIG-01-BTH-003",
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
@@ -779,7 +779,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-BTH-004",
+        "id": "BAU-SIG-01-BTH-005",
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
@@ -789,7 +789,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-BTH-004",
+        "id": "BAU-SIG-01-BTH-006",
         "section": "BTH",
         "slot": "Toilet",
         "supplier": "Sanindusa",
@@ -799,7 +799,7 @@ export const interiorsSchemes = [
         "status": "confirmed-reference"
       },
       {
-        "id": "BAU-SIG-01-BTH-004",
+        "id": "BAU-SIG-01-BTH-007",
         "section": "BTH",
         "slot": "Shower tray",
         "supplier": "Sanindusa",
@@ -809,7 +809,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-01-BTH-004",
+        "id": "BAU-SIG-01-BTH-008",
         "section": "BTH",
         "slot": "Shower enclosure",
         "supplier": "Sanindusa",
@@ -834,7 +834,7 @@ export const interiorsSchemes = [
     ],
     "items": [
       {
-        "id": "BAU-SIG-02-FIN-005",
+        "id": "BAU-SIG-02-FIN-001",
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
@@ -844,7 +844,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-FIN-005",
+        "id": "BAU-SIG-02-FIN-002",
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
@@ -854,7 +854,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-FIN-005",
+        "id": "BAU-SIG-02-FIN-003",
         "section": "FIN",
         "slot": "Walls and ceilings",
         "supplier": "CIN",
@@ -864,7 +864,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-SIG-02-FIN-005",
+        "id": "BAU-SIG-02-FIN-004",
         "section": "FIN",
         "slot": "Exterior render",
         "supplier": "Sto",
@@ -884,7 +884,7 @@ export const interiorsSchemes = [
         "status": "confirmed-option"
       },
       {
-        "id": "BAU-SIG-02-FIN-005",
+        "id": "BAU-SIG-02-FIN-006",
         "section": "FIN",
         "slot": "Interior doors",
         "supplier": "Compincar",
@@ -894,7 +894,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-KIT-005",
+        "id": "BAU-SIG-02-KIT-001",
         "section": "KIT",
         "slot": "Kitchen front",
         "supplier": "Nobilia",
@@ -904,7 +904,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-KIT-005",
+        "id": "BAU-SIG-02-KIT-002",
         "section": "KIT",
         "slot": "Kitchen handles",
         "supplier": "Nobilia",
@@ -914,7 +914,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-KIT-005",
+        "id": "BAU-SIG-02-KIT-003",
         "section": "KIT",
         "slot": "Countertop",
         "supplier": "Nobilia",
@@ -924,7 +924,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-KIT-005",
+        "id": "BAU-SIG-02-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
         "supplier": "Bauhu kitchen supply",
@@ -944,7 +944,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-SIG-02-BTH-005",
+        "id": "BAU-SIG-02-BTH-001",
         "section": "BTH",
         "slot": "Vanity",
         "supplier": "Kitbanho",
@@ -954,7 +954,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-BTH-005",
+        "id": "BAU-SIG-02-BTH-002",
         "section": "BTH",
         "slot": "Basin",
         "supplier": "Kitbanho",
@@ -964,7 +964,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-BTH-005",
+        "id": "BAU-SIG-02-BTH-003",
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
@@ -974,7 +974,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-BTH-005",
+        "id": "BAU-SIG-02-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
@@ -994,7 +994,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-BTH-005",
+        "id": "BAU-SIG-02-BTH-006",
         "section": "BTH",
         "slot": "Toilet",
         "supplier": "Sanindusa",
@@ -1004,7 +1004,7 @@ export const interiorsSchemes = [
         "status": "confirmed-reference"
       },
       {
-        "id": "BAU-SIG-02-BTH-005",
+        "id": "BAU-SIG-02-BTH-007",
         "section": "BTH",
         "slot": "Shower tray",
         "supplier": "Sanindusa",
@@ -1014,7 +1014,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-02-BTH-005",
+        "id": "BAU-SIG-02-BTH-008",
         "section": "BTH",
         "slot": "Shower enclosure",
         "supplier": "Sanindusa",
@@ -1039,7 +1039,7 @@ export const interiorsSchemes = [
     ],
     "items": [
       {
-        "id": "BAU-SIG-03-FIN-006",
+        "id": "BAU-SIG-03-FIN-001",
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
@@ -1049,7 +1049,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-FIN-006",
+        "id": "BAU-SIG-03-FIN-002",
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
@@ -1059,7 +1059,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-FIN-006",
+        "id": "BAU-SIG-03-FIN-003",
         "section": "FIN",
         "slot": "Walls and ceilings",
         "supplier": "CIN",
@@ -1069,7 +1069,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-SIG-03-FIN-006",
+        "id": "BAU-SIG-03-FIN-004",
         "section": "FIN",
         "slot": "Exterior render",
         "supplier": "Sto",
@@ -1079,7 +1079,7 @@ export const interiorsSchemes = [
         "status": "fixed"
       },
       {
-        "id": "BAU-SIG-03-FIN-006",
+        "id": "BAU-SIG-03-FIN-005",
         "section": "FIN",
         "slot": "Window and exterior door frames",
         "supplier": "Cortizo",
@@ -1099,7 +1099,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-KIT-006",
+        "id": "BAU-SIG-03-KIT-001",
         "section": "KIT",
         "slot": "Kitchen front",
         "supplier": "Nobilia",
@@ -1109,7 +1109,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-KIT-006",
+        "id": "BAU-SIG-03-KIT-002",
         "section": "KIT",
         "slot": "Kitchen handles",
         "supplier": "Nobilia",
@@ -1119,7 +1119,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-KIT-006",
+        "id": "BAU-SIG-03-KIT-003",
         "section": "KIT",
         "slot": "Countertop",
         "supplier": "Nobilia",
@@ -1129,7 +1129,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-KIT-006",
+        "id": "BAU-SIG-03-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
         "supplier": "Bauhu kitchen supply",
@@ -1139,7 +1139,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-KIT-006",
+        "id": "BAU-SIG-03-KIT-005",
         "section": "KIT",
         "slot": "Kitchen faucet",
         "supplier": "Bruma",
@@ -1149,7 +1149,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-SIG-03-BTH-006",
+        "id": "BAU-SIG-03-BTH-001",
         "section": "BTH",
         "slot": "Vanity",
         "supplier": "Kitbanho",
@@ -1159,7 +1159,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-BTH-006",
+        "id": "BAU-SIG-03-BTH-002",
         "section": "BTH",
         "slot": "Basin",
         "supplier": "Kitbanho",
@@ -1169,7 +1169,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-BTH-006",
+        "id": "BAU-SIG-03-BTH-003",
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
@@ -1179,7 +1179,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-BTH-006",
+        "id": "BAU-SIG-03-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
@@ -1189,7 +1189,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-BTH-006",
+        "id": "BAU-SIG-03-BTH-005",
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
@@ -1209,7 +1209,7 @@ export const interiorsSchemes = [
         "status": "confirmed-reference"
       },
       {
-        "id": "BAU-SIG-03-BTH-006",
+        "id": "BAU-SIG-03-BTH-007",
         "section": "BTH",
         "slot": "Shower tray",
         "supplier": "Sanindusa",
@@ -1219,7 +1219,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-SIG-03-BTH-006",
+        "id": "BAU-SIG-03-BTH-008",
         "section": "BTH",
         "slot": "Shower enclosure",
         "supplier": "Sanindusa",
@@ -1244,7 +1244,7 @@ export const interiorsSchemes = [
     ],
     "items": [
       {
-        "id": "BAU-TRO-01-FIN-007",
+        "id": "BAU-TRO-01-FIN-001",
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
@@ -1254,7 +1254,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-FIN-007",
+        "id": "BAU-TRO-01-FIN-002",
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
@@ -1264,7 +1264,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-FIN-007",
+        "id": "BAU-TRO-01-FIN-003",
         "section": "FIN",
         "slot": "Walls and ceilings",
         "supplier": "CIN",
@@ -1274,7 +1274,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-TRO-01-FIN-007",
+        "id": "BAU-TRO-01-FIN-004",
         "section": "FIN",
         "slot": "Exterior render",
         "supplier": "Sto",
@@ -1284,7 +1284,7 @@ export const interiorsSchemes = [
         "status": "fixed"
       },
       {
-        "id": "BAU-TRO-01-FIN-007",
+        "id": "BAU-TRO-01-FIN-005",
         "section": "FIN",
         "slot": "Window and exterior door frames",
         "supplier": "Cortizo",
@@ -1294,7 +1294,7 @@ export const interiorsSchemes = [
         "status": "confirmed-option"
       },
       {
-        "id": "BAU-TRO-01-FIN-007",
+        "id": "BAU-TRO-01-FIN-006",
         "section": "FIN",
         "slot": "Interior doors",
         "supplier": "Compincar",
@@ -1304,7 +1304,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-KIT-007",
+        "id": "BAU-TRO-01-KIT-001",
         "section": "KIT",
         "slot": "Kitchen front",
         "supplier": "Nobilia",
@@ -1314,7 +1314,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-KIT-007",
+        "id": "BAU-TRO-01-KIT-002",
         "section": "KIT",
         "slot": "Kitchen handles",
         "supplier": "Nobilia",
@@ -1324,7 +1324,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-KIT-007",
+        "id": "BAU-TRO-01-KIT-003",
         "section": "KIT",
         "slot": "Countertop",
         "supplier": "Nobilia",
@@ -1334,7 +1334,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-KIT-007",
+        "id": "BAU-TRO-01-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
         "supplier": "Bauhu kitchen supply",
@@ -1344,7 +1344,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-KIT-007",
+        "id": "BAU-TRO-01-KIT-005",
         "section": "KIT",
         "slot": "Kitchen faucet",
         "supplier": "Bruma",
@@ -1354,7 +1354,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-TRO-01-BTH-007",
+        "id": "BAU-TRO-01-BTH-001",
         "section": "BTH",
         "slot": "Vanity",
         "supplier": "Kitbanho",
@@ -1364,7 +1364,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-BTH-007",
+        "id": "BAU-TRO-01-BTH-002",
         "section": "BTH",
         "slot": "Basin",
         "supplier": "Kitbanho",
@@ -1374,7 +1374,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-BTH-007",
+        "id": "BAU-TRO-01-BTH-003",
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
@@ -1384,7 +1384,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-BTH-007",
+        "id": "BAU-TRO-01-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
@@ -1394,7 +1394,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-BTH-007",
+        "id": "BAU-TRO-01-BTH-005",
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
@@ -1404,7 +1404,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-BTH-007",
+        "id": "BAU-TRO-01-BTH-006",
         "section": "BTH",
         "slot": "Toilet",
         "supplier": "Sanindusa",
@@ -1424,7 +1424,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-01-BTH-007",
+        "id": "BAU-TRO-01-BTH-008",
         "section": "BTH",
         "slot": "Shower enclosure",
         "supplier": "Sanindusa",
@@ -1449,7 +1449,7 @@ export const interiorsSchemes = [
     ],
     "items": [
       {
-        "id": "BAU-TRO-02-FIN-008",
+        "id": "BAU-TRO-02-FIN-001",
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
@@ -1459,7 +1459,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-FIN-008",
+        "id": "BAU-TRO-02-FIN-002",
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
@@ -1469,7 +1469,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-FIN-008",
+        "id": "BAU-TRO-02-FIN-003",
         "section": "FIN",
         "slot": "Walls and ceilings",
         "supplier": "CIN",
@@ -1479,7 +1479,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-TRO-02-FIN-008",
+        "id": "BAU-TRO-02-FIN-004",
         "section": "FIN",
         "slot": "Exterior render",
         "supplier": "Sto",
@@ -1489,7 +1489,7 @@ export const interiorsSchemes = [
         "status": "fixed"
       },
       {
-        "id": "BAU-TRO-02-FIN-008",
+        "id": "BAU-TRO-02-FIN-005",
         "section": "FIN",
         "slot": "Window and exterior door frames",
         "supplier": "Cortizo",
@@ -1499,7 +1499,7 @@ export const interiorsSchemes = [
         "status": "confirmed-option"
       },
       {
-        "id": "BAU-TRO-02-FIN-008",
+        "id": "BAU-TRO-02-FIN-006",
         "section": "FIN",
         "slot": "Interior doors",
         "supplier": "Compincar",
@@ -1509,7 +1509,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-KIT-008",
+        "id": "BAU-TRO-02-KIT-001",
         "section": "KIT",
         "slot": "Kitchen front",
         "supplier": "Nobilia",
@@ -1519,7 +1519,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-KIT-008",
+        "id": "BAU-TRO-02-KIT-002",
         "section": "KIT",
         "slot": "Kitchen handles",
         "supplier": "Nobilia",
@@ -1529,7 +1529,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-KIT-008",
+        "id": "BAU-TRO-02-KIT-003",
         "section": "KIT",
         "slot": "Countertop",
         "supplier": "Nobilia",
@@ -1539,7 +1539,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-KIT-008",
+        "id": "BAU-TRO-02-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
         "supplier": "Bauhu kitchen supply",
@@ -1549,7 +1549,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-KIT-008",
+        "id": "BAU-TRO-02-KIT-005",
         "section": "KIT",
         "slot": "Kitchen faucet",
         "supplier": "Bruma",
@@ -1559,7 +1559,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-TRO-02-BTH-008",
+        "id": "BAU-TRO-02-BTH-001",
         "section": "BTH",
         "slot": "Vanity",
         "supplier": "Kitbanho",
@@ -1569,7 +1569,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-BTH-008",
+        "id": "BAU-TRO-02-BTH-002",
         "section": "BTH",
         "slot": "Basin",
         "supplier": "Kitbanho",
@@ -1579,7 +1579,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-BTH-008",
+        "id": "BAU-TRO-02-BTH-003",
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
@@ -1589,7 +1589,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-BTH-008",
+        "id": "BAU-TRO-02-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
@@ -1599,7 +1599,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-BTH-008",
+        "id": "BAU-TRO-02-BTH-005",
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
@@ -1609,7 +1609,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-02-BTH-008",
+        "id": "BAU-TRO-02-BTH-006",
         "section": "BTH",
         "slot": "Toilet",
         "supplier": "Sanindusa",
@@ -1619,7 +1619,7 @@ export const interiorsSchemes = [
         "status": "confirmed-reference"
       },
       {
-        "id": "BAU-TRO-02-BTH-008",
+        "id": "BAU-TRO-02-BTH-007",
         "section": "BTH",
         "slot": "Shower tray",
         "supplier": "Sanindusa",
@@ -1654,7 +1654,7 @@ export const interiorsSchemes = [
     ],
     "items": [
       {
-        "id": "BAU-TRO-03-FIN-009",
+        "id": "BAU-TRO-03-FIN-001",
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
@@ -1664,7 +1664,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-FIN-009",
+        "id": "BAU-TRO-03-FIN-002",
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
@@ -1674,7 +1674,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-FIN-009",
+        "id": "BAU-TRO-03-FIN-003",
         "section": "FIN",
         "slot": "Walls and ceilings",
         "supplier": "CIN",
@@ -1684,7 +1684,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-TRO-03-FIN-009",
+        "id": "BAU-TRO-03-FIN-004",
         "section": "FIN",
         "slot": "Exterior render",
         "supplier": "Sto",
@@ -1694,7 +1694,7 @@ export const interiorsSchemes = [
         "status": "fixed"
       },
       {
-        "id": "BAU-TRO-03-FIN-009",
+        "id": "BAU-TRO-03-FIN-005",
         "section": "FIN",
         "slot": "Window and exterior door frames",
         "supplier": "Cortizo",
@@ -1704,7 +1704,7 @@ export const interiorsSchemes = [
         "status": "confirmed-option"
       },
       {
-        "id": "BAU-TRO-03-FIN-009",
+        "id": "BAU-TRO-03-FIN-006",
         "section": "FIN",
         "slot": "Interior doors",
         "supplier": "Compincar",
@@ -1714,7 +1714,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-KIT-009",
+        "id": "BAU-TRO-03-KIT-001",
         "section": "KIT",
         "slot": "Kitchen front",
         "supplier": "Nobilia",
@@ -1724,7 +1724,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-KIT-009",
+        "id": "BAU-TRO-03-KIT-002",
         "section": "KIT",
         "slot": "Kitchen handles",
         "supplier": "Nobilia",
@@ -1734,7 +1734,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-KIT-009",
+        "id": "BAU-TRO-03-KIT-003",
         "section": "KIT",
         "slot": "Countertop",
         "supplier": "Nobilia",
@@ -1744,7 +1744,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-KIT-009",
+        "id": "BAU-TRO-03-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
         "supplier": "Bauhu kitchen supply",
@@ -1754,7 +1754,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-KIT-009",
+        "id": "BAU-TRO-03-KIT-005",
         "section": "KIT",
         "slot": "Kitchen faucet",
         "supplier": "Bruma",
@@ -1764,7 +1764,7 @@ export const interiorsSchemes = [
         "status": "confirmed-range"
       },
       {
-        "id": "BAU-TRO-03-BTH-009",
+        "id": "BAU-TRO-03-BTH-001",
         "section": "BTH",
         "slot": "Vanity",
         "supplier": "Kitbanho",
@@ -1774,7 +1774,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-BTH-009",
+        "id": "BAU-TRO-03-BTH-002",
         "section": "BTH",
         "slot": "Basin",
         "supplier": "Kitbanho",
@@ -1784,7 +1784,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-BTH-009",
+        "id": "BAU-TRO-03-BTH-003",
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
@@ -1794,7 +1794,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-BTH-009",
+        "id": "BAU-TRO-03-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
@@ -1804,7 +1804,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-BTH-009",
+        "id": "BAU-TRO-03-BTH-005",
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
@@ -1814,7 +1814,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-BTH-009",
+        "id": "BAU-TRO-03-BTH-006",
         "section": "BTH",
         "slot": "Toilet",
         "supplier": "Sanindusa",
@@ -1824,7 +1824,7 @@ export const interiorsSchemes = [
         "status": "confirmed-reference"
       },
       {
-        "id": "BAU-TRO-03-BTH-009",
+        "id": "BAU-TRO-03-BTH-007",
         "section": "BTH",
         "slot": "Shower tray",
         "supplier": "Sanindusa",
@@ -1834,7 +1834,7 @@ export const interiorsSchemes = [
         "status": "candidate"
       },
       {
-        "id": "BAU-TRO-03-BTH-009",
+        "id": "BAU-TRO-03-BTH-008",
         "section": "BTH",
         "slot": "Shower enclosure",
         "supplier": "Sanindusa",
