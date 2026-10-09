@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const collections = [
+  { number: '01', title: 'Coastal', image: '/images/interiors/coastal-natural-hero.webp', href: '/interiors/coastal', subtitle: 'Light, calm and naturally considered', tones: ['#EEE9DD','#D8C8AD','#A99F8C','#393F3E'], detail: 'Warm whites, stone-inspired ceramics and quiet, tactile contrasts.' },
+  { number: '02', title: 'Contemporary', image: '/images/interiors/contemporary-pure-hero.webp', href: '/interiors/contemporary', subtitle: 'Confident architectural simplicity', tones: ['#E8E5DF','#B8B7B2','#555857','#222928'], detail: 'Crisp lines, tonal surfaces and refined contrast.' },
+  { number: '03', title: 'Signature', image: '/images/interiors/signature-gallery-hero.webp', href: '/interiors/signature', subtitle: 'Understated depth and character', tones: ['#F1E9DF','#B5A38E','#796452','#3E3934'], detail: 'Layered neutrals and carefully balanced wood-look finishes.' },
+  { number: '04', title: 'Tropical', image: '/images/interiors/tropical-canopy-hero.webp', href: '/interiors/tropical', subtitle: 'Warm, relaxed and connected to place', tones: ['#E6DDC8','#B9B59B','#77806A','#454C3D'], detail: 'Grounded natural colours and contemporary island character.' },
+];
+
+const finishCategories = [
+  ['01', 'Façades & openings', 'Render grain and through-tint façade colours, plus aluminium window frame finishes.'],
+  ['02', 'Kitchens', 'Cabinet fronts, profiles, handles, composite worktops, sinks and mixer taps.'],
+  ['03', 'Bathrooms', 'Wall-hung vanities, integrated basins, sanitary ware and water-saving faucets.'],
+  ['04', 'Ceramic finishes', 'Coordinated interior floor and wall tile choices.'],
+  ['05', 'Interior doors', 'Door profiles, lacquer or veneer finishes, handles and associated hardware.'],
+  ['06', 'Interior paint', 'Considered wall and ceiling palettes based on specified paint colours.'],
+];
+---
+<BaseLayout title="Bauhu Interiors | Architectural Finishes & Personalisation" description="Explore Bauhu Interiors: curated architectural finishes, kitchens, bathrooms, ceramics, doors and paint palettes, personalised for your Bauhu home.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <section class="relative flex min-h-[82vh] items-end overflow-hidden bg-ink text-paper">
+      <img src="/images/developments/bauhu-projects-hero.webp" alt="Bauhu residential architecture" class="absolute inset-0 h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/65 to-ink/20"></div>
+      <div class="relative z-10 mx-auto w-full max-w-site px-5 pb-20 pt-40 lg:px-10 lg:pb-28">
+        <p class="eyebrow text-stone">Bauhu Interiors</p>
+        <h1 class="mt-6 max-w-4xl font-display text-6xl leading-[1.04] md:text-8xl">Beautifully considered.<br />Entirely yours.</h1>
+        <p class="mt-8 max-w-2xl text-lg leading-8 text-paper/80">Architectural finishes, kitchens and bathrooms thoughtfully coordinated for your Bauhu home. Explore distinctive design directions, then make them your own.</p>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a class="inline-flex rounded-full bg-paper px-7 py-4 text-xs uppercase tracking-widest text-ink transition hover:bg-stone" href="#collections">Explore collections →</a>
+          <a class="inline-flex rounded-full border border-paper/60 px-7 py-4 text-xs uppercase tracking-widest text-paper transition hover:bg-paper hover:text-ink" href="/models">Start with a home →</a>
+          <a class="inline-flex rounded-full border border-paper/60 px-7 py-4 text-xs uppercase tracking-widest text-paper transition hover:bg-paper hover:text-ink" href="/interiors/studio">Open Design Studio →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div><p class="eyebrow text-clay">The Bauhu approach</p><h2 class="mt-5 font-display text-5xl leading-tight md:text-6xl">One home.<br />One considered vision.</h2></div>
+        <div class="space-y-6 text-lg leading-8 text-ink/70">
+          <p>Choosing finishes for a new home should feel inspiring, not overwhelming. Bauhu Interiors brings your interior and exterior architectural choices together into one clear, coordinated experience.</p>
+          <p>Every Bauhu home includes a carefully selected range of fixed finishes and fittings. Our collections offer a starting point, not a restriction: every choice can be tailored to your individual preferences and project specification.</p>
+          <p class="text-sm leading-7">Most selections are included in your home package. Where a particular alternative carries an additional cost, we will confirm this as part of your project specification.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="collections" class="section-pad bg-mist">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Design collections</p>
+        <div class="mt-5 flex flex-wrap items-end justify-between gap-8">
+          <h2 class="max-w-3xl font-display text-5xl leading-tight md:text-6xl">A starting point for something personal.</h2>
+          <p class="max-w-sm leading-7 text-ink/65">Four curated design directions. No fixed packages, prescribed finishes or artificial tiers.</p>
+        </div>
+        <div class="mt-14 grid gap-5 md:grid-cols-2">
+          {collections.map((collection) => (
+            <article class="bg-paper p-8 md:p-10">
+              <p class="text-xs uppercase tracking-widest text-clay">Collection {collection.number}</p>
+              <div class="mt-8 h-56 overflow-hidden bg-ink/10"><img src={collection.image} alt={collection.title + ' architectural inspiration'} loading="lazy" class="h-full w-full object-cover" /></div>
+              <div class="mt-3 grid h-10 grid-cols-4 overflow-hidden" aria-label={collection.title + ' colour direction'}>
+                {collection.tones.map((tone) => <div style={`background-color: ${tone}`}></div>)}
+              </div>
+              <h3 class="mt-9 font-display text-5xl">{collection.title}</h3>
+              <p class="mt-2 text-sm uppercase tracking-wide text-ink/55">{collection.subtitle}</p>
+              <p class="mt-5 leading-7 text-ink/70">{collection.detail}</p>
+              <p class="mt-5 text-xs text-ink/45">Inspirational palette; individual finishes subject to supplier specification.</p>
+              {collection.href ? <a href={collection.href} class="mt-6 inline-flex border-b border-ink/60 pb-2 text-xs uppercase tracking-widest">Explore collection →</a> : <span class="mt-6 inline-flex text-xs uppercase tracking-widest text-ink/45">Collection preview</span>}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="finishes" class="section-pad bg-paper">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">What Bauhu provides</p>
+        <h2 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-6xl">Beautiful choices, carefully defined.</h2>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-ink/70">Our design service focuses exclusively on the fixed architectural finishes and fittings supplied with a Bauhu home.</p>
+        <a href="/interiors/materials" class="mt-6 inline-flex border-b border-ink/50 pb-2 text-xs uppercase tracking-widest">Explore our materials & suppliers →</a>
+        <div class="mt-12 grid gap-px bg-ink/15 md:grid-cols-2">
+          {finishCategories.map(([number, title, description]) => (
+            <article class="bg-paper px-5 py-9 md:px-9">
+              <p class="text-xs tracking-widest text-clay">{number}</p>
+              <h3 class="mt-4 font-display text-3xl">{title}</h3>
+              <p class="mt-4 leading-7 text-ink/70">{description}</p>
+            </article>
+          ))}
+        </div>
+        <div class="mt-10 border-l-2 border-clay pl-6 text-sm leading-7 text-ink/65">
+          <strong class="text-ink">Our scope is intentional.</strong> Bauhu Interiors does not supply furniture, decorative lighting, rugs, curtains, artwork, accessories or furnishing/styling services. Any furnishings shown in inspiration imagery are illustrative only. The agreed contract schedule determines the final supply scope.
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-ink text-paper">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-stone">Two ways to begin</p>
+        <h2 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-6xl">Find your aesthetic. Or start with your architecture.</h2>
+        <div class="mt-14 grid gap-6 md:grid-cols-2">
+          <div class="border border-paper/25 p-9 md:p-12"><p class="text-xs uppercase tracking-widest text-stone">01 / Explore first</p><h3 class="mt-6 font-display text-4xl">Discover your style</h3><p class="mt-5 min-h-28 leading-8 text-paper/70">Begin with a curated palette and discover how colour, ceramics, cabinetry and architectural details can work together.</p><a href="#collections" class="mt-8 inline-flex border-b border-paper/70 pb-2 text-xs uppercase tracking-widest">Explore collections →</a></div>
+          <div class="border border-paper/25 p-9 md:p-12"><p class="text-xs uppercase tracking-widest text-stone">02 / Home first</p><h3 class="mt-6 font-display text-4xl">Personalise your Bauhu home</h3><p class="mt-5 min-h-28 leading-8 text-paper/70">Choose a Bauhu model or commission a custom residence, then develop a coordinated selection of architectural finishes for your project.</p><a href="/models" class="mt-8 inline-flex border-b border-paper/70 pb-2 text-xs uppercase tracking-widest">Browse home models →</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[1fr_1fr]">
+        <div><p class="eyebrow text-clay">Personal design guidance</p><h2 class="mt-5 font-display text-5xl leading-tight md:text-6xl">More guidance when you want it.</h2></div>
+        <div class="space-y-6 text-lg leading-8 text-ink/70">
+          <p>Every client can make their standard finish selections as part of their Bauhu home. For those seeking more design involvement, we also offer an optional professional service for coordinated palettes, individual consultations, visualisations and a consolidated finish schedule.</p>
+          <p>This is a design and specification service, not a furniture retail operation. Its purpose is to make your decisions easier and your approved building specification clearer.</p>
+          <a class="inline-flex border-b border-ink/70 pb-2 text-xs uppercase tracking-widest text-ink" href="/interiors/studio">Explore preliminary finish choices →</a>
+          <a class="inline-flex rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper" href="mailto:contact@bauhu.com?subject=Bauhu%20Interiors%20enquiry">Enquire about design guidance →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

@@ -1,0 +1,581 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+const categories = [
+  {
+    id: 'exterior', title: 'Exterior & openings', eyebrow: '01 / Architecture',
+    description: 'Coordinate façade texture and colour direction with the aluminium openings.',
+    fields: [
+      { id: 'render', label: 'Façade finish direction', choices: ['Warm white', 'Soft neutral', 'Light grey', 'Other / to discuss'] },
+      { id: 'grain', label: 'Façade grain', choices: ['Fine texture', 'Medium texture', 'To be confirmed'] },
+      { id: 'frames', label: 'Aluminium frame colour', choices: ['Anthracite', 'Pure white', 'Other / to confirm'] },
+    ],
+  },
+  {
+    id: 'kitchen', title: 'Kitchen', eyebrow: '02 / Fitted cabinetry',
+    description: 'Define a consistent direction for the cabinetry, composite worktop, sink and mixer.',
+    fields: [
+      { id: 'cabinet', label: 'Cabinet front direction', choices: ['Nobilia TOUCH 336 — Ivory supermatt (Front 336)', 'Nobilia LASER 418 — Ivory matt (Front 418)', 'Nobilia EASYTOUCH 961 — Graphite black ultra matt (Front 961)', 'Other / to discuss'] },
+      { id: 'worktop', label: 'Composite countertop direction', choices: ['Pale stone-effect', 'Warm neutral', 'Grey', 'Other / to discuss'] },
+      { id: 'handles', label: 'Cabinet handle direction', choices: ['Minimal', 'Classic', 'To be confirmed'] },
+      { id: 'sink', label: 'Sink & mixer direction', choices: ['Inset sink with chrome mixer', 'Other / to confirm'] },
+    ],
+  },
+  {
+    id: 'bathroom', title: 'Bathrooms', eyebrow: '03 / Sanitary fittings',
+    description: 'Coordinate fixed vanity furniture, basins, ceramics and water-conserving faucets.',
+    fields: [
+      { id: 'vanity', label: 'Wall-hung vanity direction', choices: ['White gloss', 'Warm neutral', 'Timber-look', 'Other / to confirm'] },
+      { id: 'basin', label: 'Basin & sanitary ware', choices: ['Integrated composite basin / white ceramics', 'Other / to confirm'] },
+      { id: 'faucet', label: 'Faucet direction', choices: ['Polished chrome / Bruma range', 'Other / to confirm'] },
+    ],
+  },
+  {
+    id: 'ceramics', title: 'Ceramic finishes', eyebrow: '04 / Surfaces',
+    description: 'Build a cohesive approach to interior floors and bathroom wall tiles.',
+    fields: [
+      { id: 'floor', label: 'Interior floor ceramic direction', choices: ['Dominó Ecoliving — collection preference', 'Dominó Jura — collection preference', 'Warm stone-effect / unselected range', 'Other / to discuss'] },
+      { id: 'wall', label: 'Bathroom wall ceramic direction', choices: ['Dominó Mood — collection preference', 'Dominó Tokyo — collection preference', 'Tonal match / unselected range', 'Other / to discuss'] },
+    ],
+  },
+  {
+    id: 'doors', title: 'Interior doors', eyebrow: '05 / Joinery',
+    description: 'Select a profile, finish and compatible door hardware direction.',
+    fields: [
+      { id: 'profile', label: 'Door profile', choices: ['Contemporary', 'Classic', 'To be confirmed'] },
+      { id: 'finish', label: 'Door finish', choices: ['Matt white lacquer', 'Coloured matt lacquer', 'Oak veneer', 'Walnut veneer', 'Wenge veneer', 'Beech veneer', 'To be confirmed'] },
+      { id: 'hardware', label: 'Door hardware direction', choices: ['Minimal contemporary', 'Classic', 'To be confirmed'] },
+    ],
+  },
+  {
+    id: 'paint', title: 'Interior paint', eyebrow: '06 / Colour',
+    description: 'Coordinate wall and ceiling finishes across your interior.',
+    fields: [
+      { id: 'walls', label: 'Wall colour direction', choices: ['Warm off-white', 'Soft neutral', 'Cool off-white', 'Muted accent', 'Other / to discuss'] },
+      { id: 'ceiling', label: 'Ceiling colour direction', choices: ['Soft white', 'Coordinated wall tone', 'Other / to discuss'] },
+      { id: 'reference', label: 'RAL / Pantone preference', choices: ['Select codes later', 'I have specific codes'] },
+    ],
+  },
+];
+const collections = [
+  { id: 'coastal', title: 'Coastal', colours: ['#F2EFE8','#E3D9C8','#C9BDAA','#414949'] },
+  { id: 'contemporary', title: 'Contemporary', colours: ['#E8E5DF','#B8B7B2','#555857','#222928'] },
+  { id: 'signature', title: 'Signature', colours: ['#F1E9DF','#B5A38E','#796452','#3E3934'] },
+  { id: 'tropical', title: 'Tropical', colours: ['#E6DDC8','#B9B59B','#77806A','#454C3D'] },
+];
+---
+<BaseLayout title="Design Studio | Bauhu Interiors" description="Explore and save preliminary architectural finish preferences for your Bauhu home, across six defined specification categories.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <section class="bg-ink px-5 pb-16 pt-36 text-paper lg:px-10">
+      <div class="mx-auto max-w-site">
+        <a href="/interiors" class="text-xs uppercase tracking-widest text-paper/65">← Bauhu Interiors</a>
+        <p class="eyebrow mt-12 text-stone">Design Studio / Exploration</p>
+        <div class="mt-5 grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
+          <h1 class="font-display text-6xl leading-tight md:text-8xl">Make it yours.</h1>
+          <p class="max-w-lg text-lg leading-8 text-paper/75">Explore coordinated finishes for your Bauhu home. Save a personal working draft before confirming actual supplier products with our team.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-paper" data-design-studio>
+      <div class="mx-auto max-w-site">
+        <div class="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+          <aside class="self-start bg-mist p-6 md:p-8 lg:sticky lg:top-28">
+            <p class="eyebrow text-clay">Your design direction</p>
+            <label for="studio-collection" class="mt-5 block text-sm font-medium">Collection</label>
+            <select id="studio-collection" class="mt-3 w-full border border-ink/20 bg-paper px-4 py-3 text-sm text-ink">
+              <option value="">Create my own direction</option>
+              {collections.map((collection) => <option value={collection.id}>{collection.title}</option>)}
+            </select>
+            <div class="mt-6 grid h-14 grid-cols-4 overflow-hidden" id="studio-palette" aria-label="Inspiration palette">
+              {collections[0].colours.map((tone) => <div style={`background-color: ${tone}`}></div>)}
+            </div>
+            <p class="mt-4 text-sm leading-6 text-ink/60">Collections provide inspiration only. Choosing one does not automatically select or reserve supplier products.</p>
+            <div class="mt-8 border-t border-ink/15 pt-7">
+              <label for="studio-home" class="block text-sm font-medium">Home or project reference (optional)</label>
+              <input id="studio-home" type="text" maxlength="120" placeholder="e.g. Coconut Villa" class="mt-3 w-full border border-ink/20 bg-paper px-4 py-3 text-sm" />
+              <p class="mt-3 text-xs leading-5 text-ink/55">This information stays in this browser unless you download or share your draft.</p>
+            </div>
+            <div class="mt-8 border-t border-ink/15 pt-6">
+              <p class="text-xs uppercase tracking-widest text-ink/55">Progress</p>
+              <p id="studio-progress" class="mt-2 font-display text-3xl" aria-live="polite">0 of 6 areas reviewed</p>
+            </div>
+          </aside>
+          <div>
+            <div class="flex flex-wrap gap-2" role="tablist" aria-label="Finish selection categories" id="studio-tabs">
+              {categories.map((category, index) => <button type="button" role="tab" id={`tab-${category.id}`} aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`panel-${category.id}`} data-category-tab={category.id} class="border border-ink/25 px-4 py-3 text-xs uppercase tracking-wide transition hover:bg-ink hover:text-paper aria-selected:bg-ink aria-selected:text-paper">{String(index+1).padStart(2,'0')} {category.title}</button>)}
+            </div>
+            {categories.map((category, index) => (
+              <section id={`panel-${category.id}`} role="tabpanel" aria-labelledby={`tab-${category.id}`} data-category-panel={category.id} hidden={index !== 0} class="mt-9 border-t border-ink/20 pt-8">
+                <p class="eyebrow text-clay">{category.eyebrow}</p>
+                <h2 class="mt-4 font-display text-5xl">{category.title}</h2>
+                <p class="mt-5 max-w-2xl leading-7 text-ink/65">{category.description}</p>
+                {category.id === 'kitchen' ? (
+                  <div class="mt-9 bg-mist p-6 md:p-8">
+                    <p class="eyebrow text-clay">Kitchen component coordination</p>
+                    <h3 class="mt-3 font-display text-3xl">Consider every fitted element.</h3>
+                    <p class="mt-3 text-sm leading-7 text-ink/65">Choose an overall kitchen direction above, then refine upper and lower cabinet finishes separately. These are preferences for Bauhu's design team, not an appliance or furniture order.</p>
+                    <div class="mt-5 grid gap-5" id="studio-kitchen-details">
+                      {[
+                        {id:'upper',label:'Upper cabinet fronts',options:['Coordinate with main cabinetry','Light neutral','Sand / warm tone','Contrast with lower cabinets','Other / to discuss']},
+                        {id:'lower',label:'Lower cabinet fronts / island',options:['Coordinate with main cabinetry','Light neutral','Volcanic grey direction','Sand / warm tone','Other / to discuss']},
+                        {id:'carcase',label:'Cabinet carcass',options:['Manufacturer-coordinated','Light neutral','Slate grey direction','Other / to discuss']},
+                        {id:'worktop',label:'Worktop finish',options:['Coordinate with main choice','Limestone-effect direction','Pale composite direction','Other / to discuss']},
+                        {id:'handles',label:'Handle style',options:['Manufacturer-coordinated','Recessed LINE N direction','Minimal contemporary','Other / to discuss']},
+                        {id:'sink',label:'Kitchen sink',options:['Manufacturer-coordinated','Dark composite direction','Stainless steel direction','Other / to discuss']},
+                        {id:'mixer',label:'Kitchen mixer',options:['Manufacturer-coordinated','Chrome pull-out direction','Other / to discuss']},
+                        {id:'splashback',label:'Kitchen splashback tiles',options:['Coordinate with flooring','Light ceramic direction','Contrast ceramic direction','Other / to discuss']},
+                      ].map((item) => (
+                        <label class="block text-sm font-medium">{item.label}
+                          <select data-kitchen-detail={item.id} class="mt-2 w-full border border-ink/20 bg-white px-4 py-3 text-sm">
+                            {item.options.map((option) => <option value={option}>{option}</option>)}
+                          </select>
+                        </label>
+                      ))}
+                    </div>
+                    <p class="mt-5 text-xs leading-6 text-ink/55">Kitchen appliances are outside Bauhu's supplied kitchen finishes. The architectural team will check product references, dimensions and compatibility.</p>
+                  </div>
+                ) : null}
+                {category.id === 'bathroom' ? (
+                  <div class="mt-9 bg-mist p-6 md:p-8">
+                    <p class="eyebrow text-clay">Room-by-room personalisation</p>
+                    <h3 class="mt-3 font-display text-3xl">Coordinate each bathroom.</h3>
+                    <p class="mt-3 text-sm leading-7 text-ink/65">Use a consistent scheme throughout or select different directions for individual bathrooms. These are preferences, not quantity or purchase instructions.</p>
+                    <label for="studio-bathroom-count" class="mt-5 block text-sm font-medium">Number of bathrooms to personalise</label>
+                    <select id="studio-bathroom-count" class="mt-2 w-full border border-ink/20 bg-white px-4 py-3 text-sm">
+                      {[1,2,3,4,5,6,7,8].map((n) => <option value={n}>{n} {n===1?'bathroom':'bathrooms'}</option>)}
+                    </select>
+                    <div id="studio-bathroom-rooms" class="mt-5 grid gap-4"></div>
+                    <p class="mt-4 text-xs leading-6 text-ink/55">Room names are for your personal draft. A Bauhu architect will later match them with the approved room and fixture schedules.</p>
+                  </div>
+                ) : null}
+                <div class="mt-10 grid gap-7">
+                  {category.fields.map((field) => (
+                    <div>
+                      <label for={`choice-${category.id}-${field.id}`} class="block text-sm font-medium">{field.label}</label>
+                      <select id={`choice-${category.id}-${field.id}`} data-selection={`${category.id}.${field.id}`} class="mt-3 w-full border border-ink/20 bg-white px-4 py-4 text-sm">
+                        <option value="">Not selected</option>
+                        {field.choices.map((choice) => <option value={choice}>{choice}</option>)}
+                      </select>
+                      {(category.id === 'kitchen' && field.id === 'cabinet') || (category.id === 'ceramics' && (field.id === 'floor' || field.id === 'wall')) || (category.id === 'exterior' && field.id === 'frames') || (category.id === 'doors' && field.id === 'finish') ? (
+                        <div data-swatch-group={`${category.id}.${field.id}`} class="mt-4 grid gap-3 sm:grid-cols-2" aria-label={field.label + ' visual choices'}>
+                          {field.choices.filter((choice) => !choice.startsWith('Other') && !choice.startsWith('To be')).map((choice, i) => (
+                            <button type="button" data-swatch-choice={choice} class="group flex items-center gap-3 border border-ink/15 bg-paper p-3 text-left text-sm transition hover:border-ink/60" aria-pressed="false">
+                              {category.id === 'kitchen' && field.id === 'cabinet' && i < 3 ? (
+                                <img
+                                  src={[
+                                    'https://www.nobilia.de/fileadmin/_processed_/5/d/csm_336_touch_g2_40ce6e6ab7.webp',
+                                    'https://www.nobilia.de/fileadmin/_processed_/4/c/csm_418_laser_g1_c7ec336585.webp',
+                                    'https://www.nobilia.de/fileadmin/_processed_/b/d/csm_961_easytouch_g1_36a0209cc2.webp',
+                                  ][i]}
+                                  alt={choice + ' — Nobilia manufacturer photograph'}
+                                  loading="lazy"
+                                  class="h-24 w-28 shrink-0 object-cover"
+                                />
+                              ) : (
+                                <span class="h-12 w-14 shrink-0 border border-ink/10" data-visual-sample={`${category.id}.${field.id}`} data-choice-index={i} aria-hidden="true"></span>
+                              )}
+                              <span class="leading-5">{choice}</span>
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+                      {category.id === 'kitchen' && field.id === 'cabinet' ? <p class="mt-3 text-xs leading-6 text-ink/55">Photographs supplied by Nobilia. These are manufacturer ranges under consideration; product inclusion, availability and compatibility require Bauhu approval.</p> : null}
+                    </div>
+                  ))}
+                  <div>
+                    <label for={`notes-${category.id}`} class="block text-sm font-medium">Notes or preferences</label>
+                    <textarea id={`notes-${category.id}`} data-notes={category.id} rows="3" maxlength="1000" placeholder="Anything you would like the Bauhu team to consider?" class="mt-3 w-full border border-ink/20 bg-white px-4 py-4 text-sm"></textarea>
+                  </div>
+                  <label class="flex items-start gap-3 border-t border-ink/15 pt-6 text-sm">
+                    <input type="checkbox" data-reviewed={category.id} class="mt-1 h-4 w-4" />
+                    <span><strong>Mark this area reviewed</strong><br /><span class="text-ink/60">A personal checklist only, not specification approval.</span></span>
+                  </label>
+                </div>
+                <div class="mt-10 flex flex-wrap gap-3">
+                  <button type="button" data-previous class="border border-ink/25 px-6 py-3 text-xs uppercase tracking-widest">← Previous</button>
+                  <button type="button" data-next class="bg-ink px-6 py-3 text-xs uppercase tracking-widest text-paper">Next area →</button>
+                </div>
+              </section>
+            ))}
+            <div class="mt-12 border-t border-ink/20 pt-8">
+              <p class="eyebrow text-clay">Your working draft</p>
+              <p class="mt-3 text-sm text-ink/65">See our <a class="underline underline-offset-4" href="/interiors/materials">supplier and materials library</a> for current reference information.</p>
+              <h2 class="mt-4 font-display text-4xl">Keep a record of your preferences.</h2>
+              <a href="/interiors/review" class="mt-5 inline-flex rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">View your design review →</a>
+              <p class="mt-4 max-w-2xl text-sm leading-7 text-ink/65">Drafts are stored only in your current browser, not submitted to Bauhu. Manufacturer references are exploratory, not approved or guaranteed to be included. You can download a copy or print a summary. Product references, cost implications and availability require separate confirmation.</p>
+              <div class="mt-6 flex flex-wrap gap-3">
+                <button id="studio-download" type="button" class="bg-ink px-6 py-4 text-xs uppercase tracking-widest text-paper">Download draft (.json)</button>
+                <button id="studio-schedule" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Export review schedule (.csv)</button>
+                <button id="studio-print" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Print summary</button>
+                <button id="studio-copy" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Copy summary</button>
+                <label class="inline-flex cursor-pointer items-center border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Import draft (.json)<input id="studio-import" type="file" accept="application/json,.json" class="sr-only" /></label>
+                <button id="studio-clear" type="button" class="border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Clear draft</button>
+              </div>
+              <p id="studio-status" class="mt-4 text-sm text-ink/60" role="status" aria-live="polite"></p>
+              <div id="studio-summary" class="mt-8 border border-ink/15 bg-white p-6 md:p-8"></div>
+              <a href="mailto:contact@bauhu.com?subject=Bauhu%20Interiors%20design%20consultation" class="mt-8 inline-flex border-b border-ink pb-2 text-xs uppercase tracking-widest">Enquire about professional design guidance →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="bg-mist px-5 py-14 lg:px-10">
+      <div class="mx-auto max-w-site text-sm leading-7 text-ink/65">
+        <strong class="text-ink">What Bauhu provides:</strong> architectural façade and opening finishes, fitted kitchens, bathroom equipment, interior ceramics, doors and interior paint. No furniture, rugs, curtains, artwork, decorative lighting or styling service. All choices here are preliminary preferences, not an approved scope of supply, quotation or order.
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
+
+<script define:vars={{ categories, collections }}>
+  const root = document.querySelector('[data-design-studio]');
+  if (root) {
+    const storageKey = 'bauhu-interiors-draft-v1';
+    const starter = () => ({ version: 1, collection: '', home: '', selections: {}, notes: {}, reviewed: {}, kitchenDetails: {}, rooms: { bathroomCount: 2, bathrooms: {} }, updated: null });
+    let draft = starter();
+    let canStore = true;
+    const status = root.querySelector('#studio-status');
+    const safe = (text) => String(text ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+    const save = () => {
+      draft.updated = new Date().toISOString();
+      try { localStorage.setItem(storageKey, JSON.stringify(draft)); status.textContent = 'Draft saved in this browser.'; }
+      catch { canStore = false; status.textContent = 'Browser storage is unavailable. Download your draft to keep it.'; }
+    };
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (saved?.version === 1 && typeof saved.selections === 'object' && saved.selections && typeof saved.notes === 'object' && saved.notes) {
+        draft = { ...starter(), ...saved, rooms: {bathroomCount: Number.isInteger(Number(saved.rooms?.bathroomCount)) && Number(saved.rooms.bathroomCount)>=1 && Number(saved.rooms.bathroomCount)<=8 ? Number(saved.rooms.bathroomCount) : 2, bathrooms: saved.rooms?.bathrooms && typeof saved.rooms.bathrooms === 'object' && !Array.isArray(saved.rooms.bathrooms) ? saved.rooms.bathrooms : {} } };
+      }
+    } catch { canStore = false; }
+    const validCollection = (id) => collections.some((c) => c.id === id);
+    if (!validCollection(draft.collection)) draft.collection = '';
+    const refreshPalette = () => {
+      const c = collections.find((x) => x.id === draft.collection);
+      root.querySelector('#studio-palette').innerHTML = (c?.colours || ['#EEE9DD','#D8C8AD','#A99F8C','#393F3E']).map((tone) => `<span style="background-color:${tone}"></span>`).join('');
+    };
+    const render = () => {
+      const count = categories.filter((c) => draft.reviewed[c.id]).length;
+      root.querySelector('#studio-progress').textContent = `${count} of 6 areas reviewed`;
+      const roomSummary = Array.from({length:draft.rooms.bathroomCount},(_,i) => {
+        const room = draft.rooms.bathrooms[String(i+1)] || {};
+        const cell = (k,opts) => opts.includes(room[k]) ? room[k] : 'Not selected';
+        return `<div class="border-b border-ink/10 py-3 text-sm"><strong>${safe(room.name || 'Bathroom '+(i+1))}</strong><p class="mt-2 text-ink/65">Vanity: ${safe(cell('vanity',bathroomOptions.vanity))} · Wall tiles: ${safe(cell('tiles',bathroomOptions.tiles))} · Taps: ${safe(cell('mixer',bathroomOptions.mixer))}</p>${room.notes ? `<p class="mt-2 whitespace-pre-wrap text-ink/60">${safe(room.notes)}</p>` : ''}</div>`;
+      }).join('');
+      const kitchenRows = Object.keys(kitchenOptions).map(key => {
+        const candidate = draft.kitchenDetails[key];
+        const choice = kitchenOptions[key].includes(candidate) ? candidate : kitchenOptions[key][0];
+        return `<div class="flex justify-between gap-4 border-b border-ink/10 py-2 text-sm"><span class="text-ink/55">${safe(kitchenLabels[key])}</span><span class="text-right">${safe(choice)}</span></div>`;
+      }).join('');
+      const rows = categories.map((category) => {
+        const fields = category.fields.map((field) => {
+          const value = draft.selections[`${category.id}.${field.id}`];
+          const verified = field.choices.includes(value) ? value : '';
+          return `<div class="flex justify-between gap-4 border-b border-ink/10 py-2"><dt class="text-ink/55">${safe(field.label)}</dt><dd class="text-right">${safe(verified || 'Not selected')}</dd></div>`;
+        }).join('');
+        return `<section class="mb-7"><h3 class="font-display text-2xl">${safe(category.title)}</h3><dl class="mt-2 text-sm">${fields}</dl>${draft.notes[category.id] ? `<p class="mt-3 whitespace-pre-wrap text-sm text-ink/70">Notes: ${safe(draft.notes[category.id])}</p>` : ''}</section>`;
+      }).join('');
+      const collection = collections.find((c) => c.id === draft.collection);
+      root.querySelector('#studio-summary').innerHTML =
+        `<p class="text-xs uppercase tracking-widest text-ink/55">Personal draft — not an approved specification</p>
+        <h3 class="mt-4 font-display text-3xl">${safe(draft.home || 'My Bauhu home')}</h3>
+        <p class="mt-2 text-sm text-ink/60">Design direction: ${safe(collection?.title || 'Individual selection')}</p>
+        <div class="mt-8 grid gap-x-10 md:grid-cols-2">${rows}</div><section class="mt-6 border-t border-ink/15 pt-5"><h3 class="font-display text-2xl">Kitchen components</h3><div class="mt-3">${kitchenRows}</div></section><section class="mt-6 border-t border-ink/15 pt-5"><h3 class="font-display text-2xl">Bathrooms by room</h3><p class="text-xs text-ink/55">Personal preferences only; no fixtures ordered</p>${roomSummary}</section>
+        <p class="mt-4 text-xs leading-6 text-ink/55">Indicative preferences only. Supplier references, scope, cost adjustments, material suitability and procurement require Bauhu confirmation. Furniture and decorative accessories excluded.</p>`;
+    };
+    // Illustrative swatches help compare finishes without suggesting physical samples or final product colours.
+    const visualColours = {
+      'exterior.frames': ['#41494A','#F5F4F0'],
+      'kitchen.cabinet': ['#E6DDCD','#EEE9DC','#282929'],
+      'ceramics.floor': ['#B7AD9D','#D6C8B1','#C4BAAC'],
+      'ceramics.wall': ['#CAC7BF','#B9B8B1','#D5CEC2'],
+      'doors.finish': ['#F2F0EA','#C4B9A7','#BCA079','#81654B','#4A382E','#D1AF84']
+    };
+    const paintVisuals = () => {
+      root.querySelectorAll('[data-visual-sample]').forEach((sample) => {
+        const shades = visualColours[sample.dataset.visualSample] || ['#D8D2C6'];
+        const tone = shades[Number(sample.dataset.choiceIndex)] || '#D8D2C6';
+        sample.style.background = tone;
+      });
+    };
+    const updateSwatches = () => {
+      root.querySelectorAll('[data-swatch-group]').forEach((group) => {
+        const key = group.dataset.swatchGroup;
+        group.querySelectorAll('[data-swatch-choice]').forEach((button) => {
+          const selected = draft.selections[key] === button.dataset.swatchChoice;
+          button.setAttribute('aria-pressed', String(selected));
+          button.classList.toggle('border-ink', selected);
+          button.classList.toggle('ring-1', selected);
+          button.classList.toggle('ring-ink', selected);
+        });
+      });
+    };
+    root.querySelectorAll('[data-swatch-group]').forEach((group) => {
+      group.querySelectorAll('[data-swatch-choice]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const key = group.dataset.swatchGroup;
+          const select = [...root.querySelectorAll('[data-selection]')].find((element) => element.dataset.selection === key);
+          if (!select) return;
+          select.value = button.dataset.swatchChoice;
+          draft.selections[key] = select.value;
+          save();
+          updateSwatches();
+          render();
+        });
+      });
+    });
+    const kitchenOptions = {
+      upper: ['Coordinate with main cabinetry','Light neutral','Sand / warm tone','Contrast with lower cabinets','Other / to discuss'],
+      lower: ['Coordinate with main cabinetry','Light neutral','Volcanic grey direction','Sand / warm tone','Other / to discuss'],
+      carcase: ['Manufacturer-coordinated','Light neutral','Slate grey direction','Other / to discuss'],
+      worktop: ['Coordinate with main choice','Limestone-effect direction','Pale composite direction','Other / to discuss'],
+      handles: ['Manufacturer-coordinated','Recessed LINE N direction','Minimal contemporary','Other / to discuss'],
+      sink: ['Manufacturer-coordinated','Dark composite direction','Stainless steel direction','Other / to discuss'],
+      mixer: ['Manufacturer-coordinated','Chrome pull-out direction','Other / to discuss'],
+      splashback: ['Coordinate with flooring','Light ceramic direction','Contrast ceramic direction','Other / to discuss'],
+    };
+    const kitchenLabels = {upper:'Upper cabinet fronts',lower:'Lower cabinet fronts / island',carcase:'Cabinet carcass',worktop:'Worktop finish',handles:'Handle style',sink:'Kitchen sink',mixer:'Kitchen mixer',splashback:'Splashback ceramics'};
+    if (!draft.kitchenDetails || typeof draft.kitchenDetails !== 'object' || Array.isArray(draft.kitchenDetails)) draft.kitchenDetails = {};
+    const updateKitchenDetails = () => {
+      root.querySelectorAll('[data-kitchen-detail]').forEach((select) => {
+        const key = select.dataset.kitchenDetail;
+        const selected = draft.kitchenDetails[key];
+        select.value = kitchenOptions[key].includes(selected) ? selected : kitchenOptions[key][0];
+      });
+    };
+    root.querySelectorAll('[data-kitchen-detail]').forEach((select) => select.addEventListener('change', () => {
+      const key = select.dataset.kitchenDetail;
+      draft.kitchenDetails[key] = select.value;
+      save();render();
+    }));
+    // Rooms are design preferences only; geometry, quantities and scope remain architect controlled.
+    const bathroomCountEl = root.querySelector('#studio-bathroom-count');
+    const bathroomRoomsEl = root.querySelector('#studio-bathroom-rooms');
+    const bathroomOptions = {
+      vanity: ['Shared bathroom scheme', 'White gloss', 'Warm neutral', 'Timber-look', 'Other / to discuss'],
+      tiles: ['Shared ceramic scheme', 'Light stone-effect', 'Blue feature wall', 'Warm neutral', 'Other / to discuss'],
+      mixer: ['Shared bathroom scheme', 'Chrome', 'Other / to discuss'],
+    };
+    const validRooms = (value) => {
+      const count = Number(value?.bathroomCount);
+      const rooms = value?.bathrooms;
+      return {
+        bathroomCount: Number.isInteger(count) && count >= 1 && count <= 8 ? count : 2,
+        bathrooms: rooms && typeof rooms === 'object' && !Array.isArray(rooms) ? rooms : {},
+      };
+    };
+    draft.rooms = validRooms(draft.rooms);
+    const renderBathroomRooms = () => {
+      bathroomCountEl.value = String(draft.rooms.bathroomCount);
+      bathroomRoomsEl.innerHTML = Array.from({length:draft.rooms.bathroomCount}, (_, index) => {
+        const id = String(index + 1);
+        const room = draft.rooms.bathrooms[id] || {};
+        const dropdown = (key, label, options) => `<label class="block mt-3 text-xs font-medium">${safe(label)}<select class="mt-2 w-full border border-ink/20 bg-white px-3 py-3 text-sm" data-bathroom-field="${key}" data-room-index="${id}">${options.map(option => `<option value="${safe(option)}" ${room[key]===option?'selected':''}>${safe(option)}</option>`).join('')}</select></label>`;
+        return `<div class="bg-white p-5 border border-ink/10">
+          <label class="block text-sm font-medium">Bathroom ${id} — optional room name
+            <input data-bathroom-field="name" data-room-index="${id}" class="mt-2 w-full border border-ink/20 px-3 py-3 text-sm" maxlength="80" placeholder="e.g. Primary en-suite" value="${safe(typeof room.name === 'string' ? room.name.slice(0,80) : '')}" />
+          </label>
+          ${dropdown('vanity','Vanity direction',bathroomOptions.vanity)}
+          ${dropdown('tiles','Wall tile direction',bathroomOptions.tiles)}
+          ${dropdown('mixer','Tap finish direction',bathroomOptions.mixer)}
+          <label class="mt-3 block text-xs font-medium">Room notes<textarea data-bathroom-field="notes" data-room-index="${id}" maxlength="500" rows="2" class="mt-2 w-full border border-ink/20 p-3 text-sm" placeholder="Specific preferences for this bathroom">${safe(typeof room.notes === 'string' ? room.notes.slice(0,500) : '')}</textarea></label>
+          </div>`;
+      }).join('');
+    };
+    bathroomCountEl.addEventListener('change', () => {
+      draft.rooms.bathroomCount = Number(bathroomCountEl.value);
+      renderBathroomRooms();save();render();
+    });
+    bathroomRoomsEl.addEventListener('input', event => {
+      const el = event.target.closest('[data-bathroom-field]');
+      if (!el) return;
+      const id = el.dataset.roomIndex;
+      const field = el.dataset.bathroomField;
+      if (!['name','vanity','tiles','mixer','notes'].includes(field) || !/^[1-8]$/.test(id)) return;
+      const room = draft.rooms.bathrooms[id] || {};
+      room[field] = (el.value || '').slice(0, field==='notes'?500:80);
+      draft.rooms.bathrooms[id] = room;
+      save();render();
+    });
+    bathroomRoomsEl.addEventListener('change', event => {
+      const el = event.target.closest('[data-bathroom-field]');
+      if (el) { save();render(); }
+    });
+    root.querySelector('#studio-collection').value = draft.collection;
+    root.querySelector('#studio-home').value = draft.home || '';
+    root.querySelectorAll('[data-selection]').forEach((element) => {
+      const key = element.dataset.selection;
+      if ([...element.options].some((o) => o.value === draft.selections[key])) element.value = draft.selections[key];
+      element.addEventListener('change', () => { draft.selections[key] = element.value; save(); updateSwatches(); render(); });
+    });
+    root.querySelectorAll('[data-notes]').forEach((element) => {
+      element.value = typeof draft.notes[element.dataset.notes] === 'string' ? draft.notes[element.dataset.notes].slice(0, 1000) : '';
+      element.addEventListener('input', () => { draft.notes[element.dataset.notes] = element.value; save(); render(); });
+    });
+    root.querySelectorAll('[data-reviewed]').forEach((element) => {
+      element.checked = Boolean(draft.reviewed[element.dataset.reviewed]);
+      element.addEventListener('change', () => { draft.reviewed[element.dataset.reviewed] = element.checked; save(); render(); });
+    });
+    root.querySelector('#studio-collection').addEventListener('change', (event) => { draft.collection = event.target.value; refreshPalette(); save(); render(); });
+    root.querySelector('#studio-home').addEventListener('input', (event) => { draft.home = event.target.value.slice(0,120); save(); render(); });
+    const url = new URL(window.location.href);
+    const incoming = url.searchParams.get('collection');
+    if (incoming && validCollection(incoming) && !draft.collection) {
+      draft.collection = incoming; root.querySelector('#studio-collection').value = incoming; save();
+    }
+    let active = 0;
+    const show = (index) => {
+      active = Math.min(Math.max(index, 0), categories.length - 1);
+      root.querySelectorAll('[data-category-panel]').forEach((panel, i) => { panel.hidden = i !== active; });
+      root.querySelectorAll('[data-category-tab]').forEach((tab, i) => {
+        tab.setAttribute('aria-selected', String(i === active)); tab.tabIndex = i === active ? 0 : -1;
+      });
+    };
+    root.querySelectorAll('[data-category-tab]').forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+    root.querySelectorAll('[data-next]').forEach((button) => button.addEventListener('click', () => { show(active + 1); root.querySelector('#studio-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+    root.querySelectorAll('[data-previous]').forEach((button) => button.addEventListener('click', () => { show(active - 1); root.querySelector('#studio-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+    root.querySelector('#studio-download').addEventListener('click', () => {
+      const payload = { ...draft, note: 'Draft preferences only; not an approved Bauhu specification.' };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'bauhu-interiors-draft.json'; link.click(); URL.revokeObjectURL(link.href);
+      status.textContent = 'Draft downloaded. No information has been sent to Bauhu.';
+    });
+    root.querySelector('#studio-schedule').addEventListener('click', () => {
+      const rows = [['Draft category','Room / area','Component','Customer preference','Manufacturer / product reference','Status']];
+      categories.forEach(category => category.fields.forEach(field => {
+        const selected = draft.selections[category.id+'.'+field.id];
+        const value = field.choices.includes(selected) ? selected : 'Not selected';
+        rows.push([category.title,'Whole project / subject to room allocation',field.label,value,'Bauhu to verify','Draft — not approved']);
+      }));
+      Object.keys(kitchenOptions).forEach(key => {
+        const selected = draft.kitchenDetails[key];
+        rows.push(['Kitchen','Kitchen (room allocation pending)',kitchenLabels[key],kitchenOptions[key].includes(selected) ? selected : kitchenOptions[key][0],'Bauhu to verify','Draft — not approved']);
+      });
+      Array.from({length:draft.rooms.bathroomCount},(_,i) => {
+        const room = draft.rooms.bathrooms[String(i+1)] || {};
+        const name = typeof room.name === 'string' && room.name.trim() ? room.name.trim() : 'Bathroom '+(i+1);
+        [['Vanity',room.vanity,bathroomOptions.vanity],['Wall tile',room.tiles,bathroomOptions.tiles],['Mixer finish',room.mixer,bathroomOptions.mixer]].forEach(([component,value,choices]) => {
+          rows.push(['Bathrooms',name,component,choices.includes(value)?value:'Not selected','Bauhu to verify','Draft — not approved']);
+        });
+      });
+      // Quote every spreadsheet field and guard against formula injection.
+      const csvField = (value) => {
+        let cell = String(value ?? '');
+        if (/^[\s]*[=+\-@]/.test(cell)) cell = "'" + cell;
+        return '"' + cell.replace(/"/g, '""') + '"';
+      };
+      const csv = '\uFEFF' + rows.map(row => row.map(csvField).join(',')).join('\r\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'bauhu-interiors-review-draft.csv';
+      link.click();
+      URL.revokeObjectURL(link.href);
+      status.textContent = 'Review schedule downloaded. It does not contain approved specifications, quantities or prices.';
+    });
+    root.querySelector('#studio-print').addEventListener('click', () => {
+      const content = root.querySelector('#studio-summary').innerHTML;
+      const page = window.open('', '_blank');
+      if (!page) { status.textContent = 'Please allow pop-ups to print the summary.'; return; }
+      page.document.write('<!doctype html><html><head><title>Bauhu Interiors draft</title><style>body{font-family:Arial,sans-serif;padding:36px;color:#222}h3{font-family:Georgia,serif}section{margin:24px 0}dl div{display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding:7px 0}dt{color:#666}dd{margin:0}p{line-height:1.6}</style></head><body>' + content + '</body></html>');
+      page.document.close(); page.focus(); page.print();
+    });
+    const asPlainText = () => {
+      const collection = collections.find((c) => c.id === draft.collection);
+      const lines = [
+        'BAUHU INTERIORS — PERSONAL DESIGN DRAFT',
+        'Not an approved specification, quote or order',
+        'Project: ' + (draft.home || 'Not supplied'),
+        'Collection: ' + (collection?.title || 'Individual selection'), '',
+      ];
+      categories.forEach((category) => {
+        lines.push(category.title.toUpperCase());
+        category.fields.forEach((field) => {
+          const value = draft.selections[category.id + '.' + field.id];
+          lines.push(field.label + ': ' + (field.choices.includes(value) ? value : 'Not selected'));
+        });
+        if (draft.notes[category.id]) lines.push('Notes: ' + String(draft.notes[category.id]).slice(0,1000));
+        lines.push('Reviewed by customer: ' + (draft.reviewed[category.id] ? 'Yes' : 'No'), '');
+      });
+      lines.push('KITCHEN COMPONENTS');
+      Object.keys(kitchenOptions).forEach(key => lines.push(kitchenLabels[key]+': '+(kitchenOptions[key].includes(draft.kitchenDetails[key]) ? draft.kitchenDetails[key] : kitchenOptions[key][0])));
+      lines.push('', 'BATHROOMS BY ROOM');
+      Array.from({length:draft.rooms.bathroomCount},(_,i) => {
+        const room = draft.rooms.bathrooms[String(i+1)] || {};
+        lines.push((room.name || 'Bathroom '+(i+1))+': '+(room.vanity || 'Shared vanity')+' / '+(room.tiles || 'Shared tiles')+' / '+(room.mixer || 'Shared taps'));
+        if(room.notes) lines.push('Room notes: '+room.notes);
+      });
+      lines.push('', 'Manufacturer references and colours are illustrative or unapproved. Bauhu will confirm suitability, availability, pricing and final supply scope. Furniture and decorative accessories are excluded.');
+      return lines.join('\\n');
+    };
+    root.querySelector('#studio-copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(asPlainText());
+        status.textContent = 'Summary copied. You can paste it into an email to Bauhu.';
+      } catch {
+        status.textContent = 'Copy is unavailable in this browser. Use download or print instead.';
+      }
+    });
+    root.querySelector('#studio-import').addEventListener('change', async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      if (file.size > 150000) { status.textContent = 'Draft file is too large.'; event.target.value = ''; return; }
+      try {
+        const incoming = JSON.parse(await file.text());
+        if (incoming?.version !== 1 || !incoming.selections || typeof incoming.selections !== 'object' || Array.isArray(incoming.selections)) throw Error('Invalid format');
+        const restored = starter();
+        restored.collection = collections.some((x) => x.id === incoming.collection) ? incoming.collection : '';
+        restored.home = typeof incoming.home === 'string' ? incoming.home.slice(0,120) : '';
+        categories.forEach((category) => {
+          category.fields.forEach((field) => {
+            const key = category.id + '.' + field.id;
+            const value = incoming.selections[key];
+            if (field.choices.includes(value)) restored.selections[key] = value;
+          });
+          const note = incoming.notes?.[category.id];
+          if (typeof note === 'string') restored.notes[category.id] = note.slice(0,1000);
+          restored.reviewed[category.id] = incoming.reviewed?.[category.id] === true;
+        });
+        restored.rooms = validRooms(incoming.rooms);
+        if(incoming.kitchenDetails && typeof incoming.kitchenDetails==='object' && !Array.isArray(incoming.kitchenDetails)) {
+          Object.keys(kitchenOptions).forEach(key => { if(kitchenOptions[key].includes(incoming.kitchenDetails[key])) restored.kitchenDetails[key] = incoming.kitchenDetails[key]; });
+        }
+        draft = restored;
+        renderBathroomRooms();updateKitchenDetails();
+        root.querySelector('#studio-home').value = draft.home;
+        root.querySelector('#studio-collection').value = draft.collection;
+        root.querySelectorAll('[data-selection]').forEach((element) => { element.value = draft.selections[element.dataset.selection] || ''; });
+        root.querySelectorAll('[data-notes]').forEach((element) => { element.value = draft.notes[element.dataset.notes] || ''; });
+        root.querySelectorAll('[data-reviewed]').forEach((element) => { element.checked = Boolean(draft.reviewed[element.dataset.reviewed]); });
+        refreshPalette(); updateSwatches(); render(); save();
+        status.textContent = 'Draft imported into this browser. It has not been submitted to Bauhu.';
+      } catch { status.textContent = 'Could not import this file. Please select a Bauhu Interiors draft JSON file.'; }
+      event.target.value = '';
+    });
+    root.querySelector('#studio-clear').addEventListener('click', () => {
+      if (!window.confirm('Clear your saved Bauhu Interiors draft from this browser?')) return;
+      draft = starter();
+      renderBathroomRooms();updateKitchenDetails();
+      root.querySelector('#studio-collection').value = '';
+      root.querySelector('#studio-home').value = '';
+      root.querySelectorAll('[data-selection]').forEach((e) => { e.value = ''; });
+      root.querySelectorAll('[data-notes]').forEach((e) => { e.value = ''; });
+      root.querySelectorAll('[data-reviewed]').forEach((e) => { e.checked = false; });
+      try { localStorage.removeItem(storageKey); } catch {}
+      refreshPalette(); updateSwatches(); render(); status.textContent = 'Draft cleared from this browser.';
+      show(0);
+    });
+    refreshPalette(); paintVisuals(); updateSwatches(); renderBathroomRooms(); updateKitchenDetails(); render(); show(0);
+    if (!canStore) status.textContent = 'Browser storage is unavailable. Download your draft to keep it.';
+  }
+</script>
+
+<style>
+  [data-category-panel][hidden] { display: none !important; }
+  @media print {
+    header, footer, [data-design-studio] aside, #studio-tabs, [data-category-panel], #studio-download, #studio-clear, #studio-print { display: none !important; }
+  }
+</style>

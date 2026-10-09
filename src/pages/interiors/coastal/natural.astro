@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import InteriorsDesignPresentation from '../../../components/InteriorsDesignPresentation.astro';
+import {coastalNatural} from '../../../data/interiors-coastal-natural';
+const boards = [
+ {id:'finishes',title:'Finishes',summary:'Floor and wall tile · paint · render · frames · doors',image:'/images/interiors/coastal-natural-finishes.webp', fallback:'/images/interiors/coastal-natural-finishes-moodboard.svg'},
+ {id:'kitchens',title:'Kitchens',summary:'Cabinet front · handles · countertop · sink · faucet',image:'/images/interiors/coastal-natural-kitchens.webp', fallback:'/images/interiors/coastal-natural-kitchens-moodboard.svg'},
+ {id:'bathrooms',title:'Bathrooms',summary:'Vanity · basin · matching tapware · wall tile',image:'/images/interiors/coastal-natural-bathrooms.webp', fallback:'/images/interiors/coastal-natural-bathrooms-moodboard.svg'}
+];
+---
+<BaseLayout title="Coastal Natural | Bauhu Interiors" description="A curated Coastal Natural interior design with three mood boards and a traceable Bauhu product schedule.">
+ <SiteHeader/>
+ <main class="bg-paper px-5 pb-20 pt-32 lg:px-10">
+  <div class="mx-auto max-w-site">
+   <a href="/interiors/coastal/" class="text-xs uppercase tracking-widest text-ink/60">← Coastal collection</a>
+   <div class="mt-7">
+    <InteriorsDesignPresentation
+      title="Coastal Natural"
+      description="Sand, pale stone and soft white. Beautifully coordinated."
+      palette={["#F2EFE8","#DDD1BE","#B9AE9C","#77776E"]}
+      hero="/images/interiors/coastal-natural-hero.webp"
+      overall="/images/interiors/coastal-natural-overall.webp"
+      useImageEmbeddedLabels={true}
+      boards={boards.map(board=>({title:board.title,subtitle:board.summary,image:board.image}))}
+    />
+   </div>
+   <div class="mt-16 grid gap-6 border-t border-ink/15 pt-10 md:grid-cols-[1fr_.9fr] md:items-end">
+     <div><p class="eyebrow text-clay">The product behind the picture</p><h2 class="mt-4 font-display text-5xl">Every item has an identity.</h2></div>
+     <p class="text-sm leading-7 text-ink/65">The mood boards capture the look. The separate Bauhu ID list maps the selected components to supplier ranges and, later, actual product photographs and confirmed manufacturer references.</p>
+   </div>
+   <div class="mt-8 flex flex-wrap gap-3">
+    <button id="natural-download" type="button" class="rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Download Bauhu ID list</button>
+    <button id="natural-print" type="button" class="rounded-full border border-ink/25 px-7 py-4 text-xs uppercase tracking-widest">Print mood boards</button>
+   </div>
+   <div class="mt-8 overflow-x-auto">
+    <table class="w-full min-w-[650px] text-left text-sm">
+     <thead><tr class="border-y border-ink/20 text-xs uppercase tracking-wider text-ink/55"><th class="py-4">Bauhu ID</th><th>Component</th><th>Supplier / collection</th><th>Reference</th><th>Review</th></tr></thead>
+     <tbody>{coastalNatural.boards.flatMap(board=>board.items.map(item=><tr class="border-b border-ink/10"><td class="py-4 font-mono text-xs">{item.bauhuId}</td><td>{item.label}</td><td>{item.supplier} · {item.range}</td><td>{item.model||'Pending'}</td><td class="text-xs text-ink/60">{item.status==='confirmed-rule'?'Bauhu range confirmed':item.status==='manufacturer-reference'?'Manufacturer reference':'Variant to confirm'}</td></tr>))}</tbody>
+    </table>
+   </div>
+   <p id="natural-status" class="mt-4 text-sm text-ink/60" role="status"></p>
+   <p class="mt-8 max-w-4xl text-xs leading-6 text-ink/60">This is the first curated Coastal Natural proposal, not an approved supplier schedule. Mood-board artwork represents the intended look rather than the specific products. Actual supplier images and exact variants belong in the technical ID list and must be verified before approval. All bathrooms must use coordinated Bruma tap ranges and finishes. Sto Stolit K fine grain RAL 9003 is fixed across collections.</p>
+  </div>
+ </main>
+ <SiteFooter/>
+</BaseLayout>
+<script define:vars={{coastalNatural}}>
+ const rows=coastalNatural.boards.flatMap(board=>board.items.map(item=>[board.title,item.label,item.bauhuId,item.supplier,item.range,item.model||'',item.finish||'',item.status,item.image||'']));
+ document.getElementById('natural-print').addEventListener('click',()=>window.print());
+ document.getElementById('natural-download').addEventListener('click',()=>{
+  const escapeCSV=v=>{let s=String(v??'');if(/^\s*[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+  const csv='\uFEFF'+[['Board','Component','Bauhu ID','Supplier','Collection','Model','Finish','Status','Product image'],...rows].map(row=>row.map(escapeCSV).join(',')).join('\r\n');
+  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='bauhu-coastal-natural-draft.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  document.getElementById('natural-status').textContent='Draft schedule saved locally. Not submitted to Bauhu.';
+ });
+</script>
+<style>@media print{header,footer,button{display:none!important}section{break-inside:avoid}}</style>

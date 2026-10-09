@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import { interiorsSchemes } from '../../../data/interiors-curated-schemes';
+import InteriorsDesignPresentation from '../../../components/InteriorsDesignPresentation.astro';
+
+export function getStaticPaths(){
+ return interiorsSchemes.map(s=>({params:{collection:s.collection,design:s.slug},props:{scheme:s}}));
+}
+const {scheme}=Astro.props;
+const palette=scheme.tones;
+const photoReady=true; // Nine additional collections have individual editorial preview assets.
+const assetBase='/images/interiors/'+scheme.collection+'-'+scheme.slug+'-';
+const finish=scheme.items.filter(i=>i.section==='FIN');
+const kitchen=scheme.items.filter(i=>i.section==='KIT');
+const bath=scheme.items.filter(i=>i.section==='BTH');
+const boardSets=[
+ {label:'Finishes',items:finish,highlight:[0,1,2,4,5]},
+ {label:'Kitchens',items:kitchen,highlight:[0,1,2,4]},
+ {label:'Bathrooms',items:bath,highlight:[0,1,2,4]}
+];
+const displayName=scheme.collection.charAt(0).toUpperCase()+scheme.collection.slice(1);
+---
+<BaseLayout title={displayName+' '+scheme.name+' | Bauhu Interiors'} description={'Curated architectural finishes for '+displayName+' '+scheme.name+' by Bauhu.'}>
+ <SiteHeader/>
+ <main class="bg-paper px-5 pb-24 pt-32 lg:px-10">
+ <div class="mx-auto max-w-site">
+  <a href={'/interiors/'+scheme.collection+'/'} class="text-xs uppercase tracking-[.16em] text-ink/60">← {displayName} collection</a>
+  <div class="mt-8">
+    <InteriorsDesignPresentation
+      title={displayName+' '+scheme.name}
+      description={scheme.description}
+      palette={palette}
+      hero={photoReady?assetBase+'hero.webp':undefined}
+      overall={photoReady?assetBase+'overall.webp':undefined}
+      boards={boardSets.map((board,bi)=>({
+        title:board.label,
+        subtitle:bi===0?'Floor and wall tile · paint · render · frames · doors':bi===1?'Kitchen front · handles · countertop · sink · faucet':'Vanity · basin · matched tapware · wall tile',
+        items:board.items,
+        image:photoReady?assetBase+board.label.toLowerCase()+'.webp':undefined
+      }))}
+      useImageEmbeddedLabels={true}
+      preview={!photoReady}
+    />
+  </div>
+  <section class="mt-16 border-t border-ink/20 pt-10">
+   <div class="flex flex-wrap items-end justify-between gap-6"><div><p class="eyebrow text-clay">Bauhu ID / Draft specification</p><h2 class="mt-4 font-display text-5xl">The details bring it together.</h2></div><button id="spec-download" class="rounded-full border border-ink/30 px-6 py-4 text-xs uppercase tracking-widest">Download draft CSV</button></div>
+   <p class="mt-5 max-w-3xl text-sm leading-7 text-ink/60">An initial supplier shortlist, not a confirmed quotation, approval, procurement schedule or statement of included scope. Exact product variants and manufacturer photographs will be checked when the material photography is finalised.</p>
+   <div class="mt-8 overflow-x-auto"><table class="w-full min-w-[650px] text-left text-sm"><thead><tr class="border-y border-ink/20 text-xs uppercase tracking-widest"><th class="py-4">Bauhu ID</th><th>Component</th><th>Supplier</th><th>Selected range</th><th>Finish / code</th></tr></thead>
+    <tbody>{scheme.items.map(item=><tr class="border-b border-ink/10"><td class="py-3 font-mono text-xs">{item.id}</td><td>{item.slot}</td><td>{item.supplier}</td><td>{item.range}</td><td>{item.finish}{item.code?' · '+item.code:''}</td></tr>)}</tbody>
+   </table></div>
+  </section>
+ </div></main><SiteFooter/>
+</BaseLayout>
+<script define:vars={{scheme}}>
+ document.querySelector('#spec-download')?.addEventListener('click',()=>{
+  const rows=[['Bauhu ID','Component','Supplier','Range','Finish','Reference','Status'],...scheme.items.map(i=>[i.id,i.slot,i.supplier,i.range,i.finish,i.code||'',i.status])];
+  const esc=v=>{let s=String(v??'');if(/^\s*[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+  const file='\uFEFF'+rows.map(row=>row.map(esc).join(',')).join('\r\n');
+  const url=URL.createObjectURL(new Blob([file],{type:'text/csv;charset=utf-8'}));
+  const a=document.createElement('a');a.href=url;a.download='bauhu-'+scheme.collection+'-'+scheme.slug+'-draft.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ });
+</script>
