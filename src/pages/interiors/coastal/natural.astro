@@ -3,12 +3,11 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../components/SiteHeader.astro';
 import SiteFooter from '../../../components/SiteFooter.astro';
 import {coastalNatural} from '../../../data/interiors-coastal-natural';
-const palette=['#F1ECE2','#DCD0BC','#B3A58E','#7F8179'];
-const imageFallback={
- finishes:'/images/residences/casa-lavanda.webp',
- kitchens:'/images/residences/luxuma-living-area.webp',
- bathrooms:'/images/models/bauhu-bahama-beach/4.webp'
-};
+const boards = [
+ {id:'finishes',title:'Finishes',summary:'Floor and wall tile · paint · render · frames · doors',image:'/images/interiors/coastal-natural-finishes-moodboard.svg'},
+ {id:'kitchens',title:'Kitchens',summary:'Cabinet front · handles · countertop · sink · faucet',image:'/images/interiors/coastal-natural-kitchens-moodboard.svg'},
+ {id:'bathrooms',title:'Bathrooms',summary:'Vanity · basin · matching tapware · wall tile',image:'/images/interiors/coastal-natural-bathrooms-moodboard.svg'}
+];
 ---
 <BaseLayout title="Coastal Natural | Bauhu Interiors" description="A curated Coastal Natural interior design with three mood boards and a traceable Bauhu product schedule.">
  <SiteHeader/>
@@ -28,28 +27,21 @@ const imageFallback={
      <div><p class="eyebrow text-clay">One look / Three boards</p><h2 class="mt-4 font-display text-5xl">Everything at a glance.</h2></div>
      <p class="text-lg leading-8 text-ink/65">A complete first-pass scheme organised exactly as a designer would present it: architectural finishes, kitchen and bathroom. Every item below has a Bauhu ID and a traceable supplier shortlist.</p>
    </div>
-   <div class="mt-10 grid gap-6 lg:grid-cols-3">
-     {coastalNatural.boards.map(board=><section class="overflow-hidden rounded-xl bg-mist">
-       <div class="relative">
-         <img src={imageFallback[board.id]} alt={'Editorial inspiration for '+board.title+' — not a supplier product photograph'} class="h-52 w-full object-cover" loading="lazy"/>
-         <div class="absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent"></div>
-         <h3 class="absolute bottom-4 left-6 font-display text-4xl text-paper">{board.title}</h3>
-       </div>
-       <div class="p-5">
-         <p class="min-h-12 text-sm leading-6 text-ink/65">{board.subtitle}</p>
-         <div class="mt-4 grid grid-cols-2 gap-2">
-           {board.items.slice(0,6).map((item,i)=><div class="relative flex min-h-28 flex-col justify-end overflow-hidden rounded-md bg-paper p-3">
-             {item.image?<img src={item.image} alt={item.supplier+' '+item.range} loading="lazy" class="absolute inset-0 h-full w-full object-cover opacity-80"/>:<span class="absolute inset-0" style={'background:'+palette[i%palette.length]}></span>}
-             <div class="relative bg-paper/90 p-2"><p class="text-[10px] uppercase tracking-wider text-ink/60">{item.label}</p><p class="mt-1 text-xs font-medium">{item.range}</p></div>
-           </div>)}
-         </div>
-         <p class="mt-5 text-xs text-ink/50">Curated design direction. Exact variants still under selection.</p>
-       </div>
-     </section>)}
+   <div class="mt-10 grid gap-7 lg:grid-cols-3">
+    {boards.map(board=><figure class="min-w-0">
+      <div class="overflow-hidden rounded-2xl bg-mist shadow-sm">
+        <img src={board.image} class="block aspect-[4/5] w-full object-cover" alt={'Coastal Natural '+board.title+' editorial material mood board composition'} loading="lazy"/>
+      </div>
+      <figcaption class="mt-5">
+        <h3 class="font-display text-4xl">{board.title}</h3>
+        <p class="mt-2 text-sm leading-6 text-ink/60">{board.summary}</p>
+      </figcaption>
+    </figure>)}
    </div>
+   <p class="mt-8 text-xs leading-6 text-ink/55">These are illustrative design mood boards, expressing the intended colours, textures and material combinations. They are not photographs of the exact specified products.</p>
    <div class="mt-16 grid gap-6 border-t border-ink/15 pt-10 md:grid-cols-[1fr_.9fr] md:items-end">
      <div><p class="eyebrow text-clay">The product behind the picture</p><h2 class="mt-4 font-display text-5xl">Every item has an identity.</h2></div>
-     <p class="text-sm leading-7 text-ink/65">The photographic mood boards are the customer experience. The Bauhu reference list below is for detailed review and future architectural scheduling, not an order.</p>
+     <p class="text-sm leading-7 text-ink/65">The mood boards capture the look. The separate Bauhu ID list maps the selected components to supplier ranges and, later, actual product photographs and confirmed manufacturer references.</p>
    </div>
    <div class="mt-8 flex flex-wrap gap-3">
     <button id="natural-download" type="button" class="rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Download Bauhu ID list</button>
@@ -62,7 +54,7 @@ const imageFallback={
     </table>
    </div>
    <p id="natural-status" class="mt-4 text-sm text-ink/60" role="status"></p>
-   <p class="mt-8 max-w-4xl text-xs leading-6 text-ink/60">This is the first curated Coastal Natural proposal, not an approved supplier schedule. Manufacturer photographs are only used where a source image is identified. Other visual samples are illustrative and must be replaced with the matching supplier products before final approval. All bathrooms must use coordinated Bruma tap ranges and finishes. Sto Stolit K fine grain RAL 9003 is fixed across collections.</p>
+   <p class="mt-8 max-w-4xl text-xs leading-6 text-ink/60">This is the first curated Coastal Natural proposal, not an approved supplier schedule. Mood-board artwork represents the intended look rather than the specific products. Actual supplier images and exact variants belong in the technical ID list and must be verified before approval. All bathrooms must use coordinated Bruma tap ranges and finishes. Sto Stolit K fine grain RAL 9003 is fixed across collections.</p>
   </div>
  </main>
  <SiteFooter/>
