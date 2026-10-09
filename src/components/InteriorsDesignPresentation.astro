@@ -86,10 +86,10 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
               <p class="col-span-2 text-xs text-ink/55">Photography in preparation</p>
             </div>}
         </div>
-        <figcaption class="mt-5">
+        {!useImageEmbeddedLabels&&<figcaption class="mt-5">
           <h3 class="font-display text-4xl">{b.title}</h3>
           <p class="mt-2 text-sm leading-6 text-ink/60">{b.subtitle}</p>
-        </figcaption>
+        </figcaption>}
       </figure>)}
     </div>
   </section>
