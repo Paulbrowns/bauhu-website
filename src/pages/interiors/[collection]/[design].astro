@@ -10,6 +10,8 @@ export function getStaticPaths(){
 }
 const {scheme}=Astro.props;
 const palette=scheme.tones;
+const photoReady=scheme.collection==='contemporary' && ['pure','graphite'].includes(scheme.slug);
+const assetBase='/images/interiors/'+scheme.collection+'-'+scheme.slug+'-';
 const finish=scheme.items.filter(i=>i.section==='FIN');
 const kitchen=scheme.items.filter(i=>i.section==='KIT');
 const bath=scheme.items.filter(i=>i.section==='BTH');
@@ -30,12 +32,15 @@ const displayName=scheme.collection.charAt(0).toUpperCase()+scheme.collection.sl
       title={displayName+' '+scheme.name}
       description={scheme.description}
       palette={palette}
+      hero={photoReady?assetBase+'hero.webp':undefined}
+      overall={photoReady?assetBase+'overall.webp':undefined}
       boards={boardSets.map((board,bi)=>({
         title:board.label,
         subtitle:bi===0?'Floor and wall tile · paint · render · frames · doors':bi===1?'Kitchen front · handles · countertop · sink · faucet':'Vanity · basin · matched tapware · wall tile',
-        items:board.items
+        items:board.items,
+        image:photoReady?assetBase+board.label.toLowerCase()+'.webp':undefined
       }))}
-      preview={true}
+      preview={!photoReady}
     />
   </div>
   <section class="mt-16 border-t border-ink/20 pt-10">
