@@ -2,92 +2,22 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
-const items = [
-  {
-    "number": "01",
-    "name": "Façade & openings",
-    "direction": "Smooth light-grey through-colour façade with anthracite frames."
-  },
-  {
-    "number": "02",
-    "name": "Kitchen",
-    "direction": "Streamlined cabinetry in a neutral grey or white finish, composite worktop and simple handles."
-  },
-  {
-    "number": "03",
-    "name": "Bathrooms",
-    "direction": "Clean-lined wall-hung vanity, white sanitary ware and polished chrome water-saving fittings."
-  },
-  {
-    "number": "04",
-    "name": "Ceramics",
-    "direction": "Large-format grey stone-effect floor tiles and minimal complementary shower ceramics."
-  },
-  {
-    "number": "05",
-    "name": "Interior doors",
-    "direction": "Flush contemporary door profiles, matt lacquer and understated hardware."
-  },
-  {
-    "number": "06",
-    "name": "Paint",
-    "direction": "Cool-toned whites and soft greys across interior walls and ceilings."
-  }
-];
-const tones = ["#E8E5DF","#B8B7B2","#555857","#222928"];
+import {interiorsSchemes} from '../../data/interiors-curated-schemes';
+const schemes=interiorsSchemes.filter(s=>s.collection==='contemporary');
 ---
-<BaseLayout title="Contemporary Collection | Bauhu Interiors" description="Explore the Bauhu Contemporary collection: a curated architectural finish direction for your home.">
-  <SiteHeader />
-  <main class="bg-paper">
-    <section class="relative min-h-[78vh] overflow-hidden bg-ink text-paper">
-      <img src="/images/residences/cap-dantibes-facade.webp" alt="Bauhu architectural inspiration for the Contemporary collection" class="absolute inset-0 h-full w-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/55 to-ink/15"></div>
-      <div class="relative mx-auto flex min-h-[78vh] max-w-site flex-col justify-end px-5 pb-20 pt-40 lg:px-10">
-        <a class="text-xs uppercase tracking-widest text-paper/70" href="/interiors#collections">← All collections</a>
-        <p class="eyebrow mt-12 text-stone">Bauhu Interiors / Collection 02</p>
-        <h1 class="mt-5 font-display text-7xl leading-none md:text-9xl">Contemporary.</h1>
-        <p class="mt-7 max-w-xl text-lg leading-8 text-paper/85">Calm geometry, subtle contrast and precision in every architectural detail.</p>
-      </div>
-    </section>
-    <section class="section-pad bg-paper">
-      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-        <div><p class="eyebrow text-clay">The palette</p><h2 class="mt-5 font-display text-5xl leading-tight">Restrained. Architectural. Timeless.</h2></div>
-        <div>
-          <p class="text-lg leading-8 text-ink/70">This collection is an inspirational starting point, not a prescribed product package. Your Bauhu home can be personalised using the architectural finishes and fixed fittings available for your particular project.</p>
-          <div class="mt-8 grid h-20 grid-cols-4" aria-label="Contemporary inspiration colour palette">
-            {tones.map((tone) => <div style={`background-color: ${tone}`}></div>)}
-          </div>
-          <p class="mt-3 text-xs leading-6 text-ink/55">Indicative colour direction, not manufacturer swatches. Exact product codes and available options are confirmed during specification.</p>
-        </div>
-      </div>
-    </section>
-    <section class="section-pad bg-mist">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">The architectural scheme</p>
-        <h2 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-6xl">Six carefully coordinated choices.</h2>
-        <div class="mt-12 grid gap-5 md:grid-cols-2">
-          {items.map((item) => (
-            <article class="bg-paper p-8 md:p-10">
-              <p class="text-xs tracking-widest text-clay">{item.number} / Design direction</p>
-              <h3 class="mt-5 font-display text-4xl">{item.name}</h3>
-              <p class="mt-5 text-lg leading-8 text-ink/75">{item.direction}</p>
-              <p class="mt-7 border-t border-ink/15 pt-5 text-sm leading-7 text-ink/55">Exact supplier range, product references and any price variations to be confirmed for the project.</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-    <section class="section-pad bg-paper">
-      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-2">
-        <div><p class="eyebrow text-clay">Make it yours</p><h2 class="mt-5 font-display text-5xl leading-tight">Your architecture. Your choices.</h2></div>
-        <div class="space-y-6">
-          <p class="text-lg leading-8 text-ink/70">Most standard finish selections are included in the Bauhu home package. Optional professional guidance is available for clients who want coordinated schemes, consultation or visualisations.</p>
-          <p class="text-sm leading-7 text-ink/60">This is an architectural finishes service. Furniture, rugs, curtains, decorative lighting, accessories and artwork are not supplied. Final inclusions and any supplementary charges are determined by the contract specification.</p>
-          <a href="/interiors/studio?collection=contemporary" class="inline-flex rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest text-ink">Explore finishes in Design Studio →</a>
-          <a href="mailto:contact@bauhu.com?subject=Bauhu%20Contemporary%20Interiors" class="inline-flex rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Discuss this collection →</a>
-        </div>
-      </div>
-    </section>
-  </main>
-  <SiteFooter />
+<BaseLayout title="Contemporary Collection | Bauhu Interiors" description="Quietly confident spaces, calm geometry and considered contrasts.">
+<SiteHeader/>
+<main class="bg-paper px-5 pb-28 pt-36 lg:px-10"><div class="mx-auto max-w-site">
+<a href="/interiors/" class="text-xs uppercase tracking-[.2em] text-ink/55">← Bauhu Interiors</a>
+<div class="mt-12 grid items-end gap-9 md:grid-cols-[1fr_.75fr]"><div><p class="eyebrow text-clay">Bauhu / Interior collection</p><h1 class="mt-5 font-display text-7xl md:text-8xl">Contemporary.</h1><p class="mt-6 max-w-xl text-xl leading-8 text-ink/65">Quietly confident spaces, calm geometry and considered contrasts.</p></div><p class="max-w-md border-t border-ink/15 pt-5 text-sm leading-7 text-ink/60">Three curated design stories. Choose a complete look, explore its mood board, then view the corresponding supplier selection and Bauhu IDs.</p></div>
+<div class="mt-14 grid gap-7 lg:grid-cols-3">
+{schemes.map((scheme,i)=><article class="overflow-hidden rounded-2xl bg-mist">
+<div class="relative h-72 overflow-hidden" style={'background:linear-gradient(130deg,'+scheme.tones[0]+','+scheme.tones[1]+','+scheme.tones[3]+')'}>
+<div class="absolute inset-0 opacity-30" style="background:repeating-linear-gradient(122deg,transparent 0 24px,#ffffff 25px,transparent 26px 50px)"></div>
+<div class="absolute left-6 top-6 rounded-full bg-paper px-4 py-2 text-xs uppercase tracking-widest text-ink">Contemporary 0{i+1}</div>
+<div class="absolute bottom-5 left-6 right-6 grid h-12 grid-cols-4 overflow-hidden rounded-md shadow-lg">{scheme.tones.map(t=><span style={'background:'+t}></span>)}</div></div>
+<div class="p-7"><h2 class="font-display text-4xl">{scheme.name}</h2><p class="mt-4 min-h-20 text-sm leading-7 text-ink/65">{scheme.description}</p><a href={'/interiors/contemporary/'+scheme.slug+'/'} class="mt-5 inline-flex border-b border-ink/50 pb-2 text-xs uppercase tracking-widest">Explore this design →</a></div></article>)}
+</div>
+<p class="mt-10 max-w-3xl text-xs leading-6 text-ink/50">The schemes shown are draft product selections from Bauhu's approved supplier ranges. Photographic hero images and mood boards are in preparation; colour previews are not physical manufacturer samples.</p>
+</div></main><SiteFooter/>
 </BaseLayout>
