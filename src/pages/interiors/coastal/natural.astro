@@ -4,9 +4,9 @@ import SiteHeader from '../../../components/SiteHeader.astro';
 import SiteFooter from '../../../components/SiteFooter.astro';
 import {coastalNatural} from '../../../data/interiors-coastal-natural';
 const boards = [
- {id:'finishes',title:'Finishes',summary:'Floor and wall tile · paint · render · frames · doors',image:'/images/interiors/coastal-natural-finishes-moodboard.svg'},
- {id:'kitchens',title:'Kitchens',summary:'Cabinet front · handles · countertop · sink · faucet',image:'/images/interiors/coastal-natural-kitchens-moodboard.svg'},
- {id:'bathrooms',title:'Bathrooms',summary:'Vanity · basin · matching tapware · wall tile',image:'/images/interiors/coastal-natural-bathrooms-moodboard.svg'}
+ {id:'finishes',title:'Finishes',summary:'Floor and wall tile · paint · render · frames · doors',image:'/images/interiors/coastal-natural-finishes.webp', fallback:'/images/interiors/coastal-natural-finishes-moodboard.svg'},
+ {id:'kitchens',title:'Kitchens',summary:'Cabinet front · handles · countertop · sink · faucet',image:'/images/interiors/coastal-natural-kitchens.webp', fallback:'/images/interiors/coastal-natural-kitchens-moodboard.svg'},
+ {id:'bathrooms',title:'Bathrooms',summary:'Vanity · basin · matching tapware · wall tile',image:'/images/interiors/coastal-natural-bathrooms.webp', fallback:'/images/interiors/coastal-natural-bathrooms-moodboard.svg'}
 ];
 ---
 <BaseLayout title="Coastal Natural | Bauhu Interiors" description="A curated Coastal Natural interior design with three mood boards and a traceable Bauhu product schedule.">
@@ -15,7 +15,7 @@ const boards = [
   <div class="mx-auto max-w-site">
    <a href="/interiors/coastal/" class="text-xs uppercase tracking-widest text-ink/60">← Coastal collection</a>
    <div class="relative mt-7 overflow-hidden rounded-2xl">
-     <img src={coastalNatural.hero} alt="Coastal Natural architectural interior mood and palette" class="h-[48vh] min-h-80 w-full object-cover lg:h-[60vh]"/>
+     <img src="/images/interiors/coastal-natural-hero.webp" data-fallback={coastalNatural.hero} onerror="this.onerror=null;this.src=this.dataset.fallback" alt="Coastal Natural architectural interior mood and palette" class="h-[48vh] min-h-80 w-full object-cover lg:h-[60vh]"/>
      <div class="absolute inset-0 bg-gradient-to-t from-ink/65 via-transparent to-transparent"></div>
      <div class="absolute bottom-9 left-8 text-paper md:bottom-12 md:left-12">
        <p class="text-xs uppercase tracking-[.25em]">Bauhu Interiors · Coastal 01</p>
@@ -25,12 +25,12 @@ const boards = [
    </div>
    <div class="mt-12 grid gap-8 md:grid-cols-[.9fr_1.1fr] md:items-end">
      <div><p class="eyebrow text-clay">One look / Three boards</p><h2 class="mt-4 font-display text-5xl">Everything at a glance.</h2></div>
-     <p class="text-lg leading-8 text-ink/65">A complete first-pass scheme organised exactly as a designer would present it: architectural finishes, kitchen and bathroom. Every item below has a Bauhu ID and a traceable supplier shortlist.</p>
+     <p class="text-lg leading-8 text-ink/65">Three coordinated editorial mood boards covering the finishes, kitchen and bathrooms. The supplier specification lives separately below the presentation.</p>
    </div>
    <div class="mt-10 grid gap-7 lg:grid-cols-3">
     {boards.map(board=><figure class="min-w-0">
       <div class="overflow-hidden rounded-2xl bg-mist shadow-sm">
-        <img src={board.image} class="block aspect-[4/5] w-full object-cover" alt={'Coastal Natural '+board.title+' editorial material mood board composition'} loading="lazy"/>
+        <img src={board.image} data-fallback={board.fallback} onerror="this.onerror=null;this.src=this.dataset.fallback" class="block aspect-[4/5] w-full object-cover" alt={'Coastal Natural '+board.title+' editorial material mood board composition'} loading="lazy"/>
       </div>
       <figcaption class="mt-5">
         <h3 class="font-display text-4xl">{board.title}</h3>
