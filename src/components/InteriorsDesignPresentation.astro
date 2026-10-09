@@ -21,7 +21,7 @@ interface Props {
  preview?:boolean;
  useImageEmbeddedLabels?:boolean;
 }
-const {title,description,palette,hero,overall,boards,=NOTEXPECTED}=Astro.props;
+const {title,description,palette,hero,overall,boards,preview=false,useImageEmbeddedLabels=false}=Astro.props;
 ---
 <div class="space-y-10">
   <section class="relative min-h-[390px] overflow-hidden rounded-xl bg-ink md:min-h-[520px]">
