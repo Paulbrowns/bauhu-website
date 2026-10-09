@@ -13,12 +13,12 @@ const schemes=interiorsSchemes.filter(s=>s.collection==='signature');
 <div class="mt-14 grid gap-7 lg:grid-cols-3">
 {schemes.map((scheme,i)=><article class="overflow-hidden rounded-2xl bg-mist">
 <div class="relative h-72 overflow-hidden" style={'background:linear-gradient(130deg,'+scheme.tones[0]+','+scheme.tones[1]+','+scheme.tones[3]+')'}>
-{scheme.slug==='atelier'&&<img src="/images/interiors/signature-atelier-hero.webp" alt="Signature Atelier interior design" class="absolute inset-0 h-full w-full object-cover" loading="lazy"/>}
+<img src={'/images/interiors/signature-'+scheme.slug+'-hero.webp'} alt={'Signature '+scheme.name+' interior design'} class="absolute inset-0 h-full w-full object-cover" loading="lazy"/>
 <div class="absolute inset-0 opacity-30" style="background:repeating-linear-gradient(122deg,transparent 0 24px,#ffffff 25px,transparent 26px 50px)"></div>
 <div class="absolute left-6 top-6 rounded-full bg-paper px-4 py-2 text-xs uppercase tracking-widest text-ink">Signature 0{i+1}</div>
 <div class="absolute bottom-5 left-6 right-6 grid h-12 grid-cols-4 overflow-hidden rounded-md shadow-lg">{scheme.tones.map(t=><span style={'background:'+t}></span>)}</div></div>
 <div class="p-7"><h2 class="font-display text-4xl">{scheme.name}</h2><p class="mt-4 min-h-20 text-sm leading-7 text-ink/65">{scheme.description}</p><a href={'/interiors/signature/'+scheme.slug+'/'} class="mt-5 inline-flex border-b border-ink/50 pb-2 text-xs uppercase tracking-widest">Explore this design →</a></div></article>)}
 </div>
-<p class="mt-10 max-w-3xl text-xs leading-6 text-ink/50">The schemes shown are draft product selections from Bauhu's approved supplier ranges. Photographic hero images and mood boards are in preparation; colour previews are not physical manufacturer samples.</p>
+<p class="mt-10 max-w-3xl text-xs leading-6 text-ink/50">The schemes shown are draft product selections from Bauhu's approved supplier ranges. Editorial images are illustrative design previews, not actual manufacturer product photographs or verified swatches.</p>
 </div></main><SiteFooter/>
 </BaseLayout>
