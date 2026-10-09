@@ -40,7 +40,7 @@ const displayName=scheme.collection.charAt(0).toUpperCase()+scheme.collection.sl
         items:board.items,
         image:photoReady?assetBase+board.label.toLowerCase()+'.webp':undefined
       }))}
-      useImageEmbeddedLabels={scheme.collection==='signature'&&scheme.slug==='gallery'}
+      useImageEmbeddedLabels={true}
       preview={!photoReady}
     />
   </div>
