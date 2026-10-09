@@ -38,15 +38,15 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
     {!hero&&<span class="absolute right-4 top-4 rounded-full bg-paper/90 px-3 py-2 text-xs text-ink">Hero photography in preparation</span>}
   </section>
 
-  <section class="grid gap-8 md:grid-cols-[.75fr_1.25fr] md:items-center">
+  <section class="grid gap-8 md:grid-cols-[.75fr_1.25fr] md:items-stretch">
     <div>
       <p class="eyebrow text-clay">The mood / one complete look</p>
       <h2 class="mt-5 font-display text-5xl leading-tight">Everything in harmony.</h2>
       <p class="mt-5 text-lg leading-8 text-ink/65">A considered combination of materials, colours and architectural details.</p>
       <div class="mt-7 grid h-12 grid-cols-4 overflow-hidden rounded-md">{palette.map(p=><div style={'background-color:'+p}></div>)}</div>
     </div>
-    <div class="mx-auto w-full max-w-[540px] overflow-hidden rounded-xl bg-mist">
-      {overall?<img src={overall} alt={title+' overall editorial material mood board'} class="h-auto max-h-[300px] w-full object-contain" loading="lazy"/>:
+    <div class="mx-auto w-full max-w-[540px] overflow-hidden rounded-xl bg-mist md:h-[340px]">
+      {overall?<img src={overall} alt={title+' overall editorial material mood board'} class="aspect-[6/4] w-full object-cover md:aspect-auto md:h-full" loading="lazy"/>:
         boards.some(b=>b.image)?
         <div class="grid aspect-[6/4] grid-cols-[1.2fr_.8fr] grid-rows-2 gap-2 bg-mist p-3">
           {boards.filter(b=>b.image).slice(0,3).map((b,i)=><div class={i===0?'row-span-2 overflow-hidden rounded-sm':'overflow-hidden rounded-sm'}>
