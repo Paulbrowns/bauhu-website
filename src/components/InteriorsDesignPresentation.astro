@@ -46,6 +46,12 @@ const {title,description,palette,hero,overall,boards,preview=false}=Astro.props;
     </div>
     <div class="overflow-hidden rounded-xl bg-mist">
       {overall?<img src={overall} alt={title+' overall editorial material mood board'} class="aspect-[6/4] w-full object-cover" loading="lazy"/>:
+        boards.some(b=>b.image)?
+        <div class="grid aspect-[6/4] grid-cols-[1.2fr_.8fr] grid-rows-2 gap-2 bg-mist p-3">
+          {boards.filter(b=>b.image).slice(0,3).map((b,i)=><div class={i===0?'row-span-2 overflow-hidden rounded-sm':'overflow-hidden rounded-sm'}>
+            <img src={b.image!} alt={b.title+' material styling'} loading="lazy" class="h-full w-full object-cover"/>
+          </div>)}
+        </div>:
         <div class="relative grid aspect-[6/4] grid-cols-[1.1fr_.8fr_.7fr] gap-2 overflow-hidden p-5" style={'background:'+palette[0]}>
           <div class="rounded-sm shadow-lg" style={'background:linear-gradient(130deg,'+palette[1]+',#ffffff22)'}></div>
           <div class="grid grid-rows-2 gap-2"><div class="rounded-sm shadow-lg" style={'background:'+palette[2]}></div><div class="rounded-sm bg-paper shadow-lg"></div></div>
