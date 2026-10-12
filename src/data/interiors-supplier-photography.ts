@@ -79,6 +79,15 @@ export const supplierProductImages = {
   'COMPINCAR-301-CAT': {supplier:'Compincar',range:'Model 301',variant:'301 · maple catalogue example',slot:'Interior doors',image:'/images/interiors/suppliers/compincar-model-301.webp',source:'https://compincar.com/en/model-301-configuration-door-maple/?lang=en'},
   'COMPINCAR-302-CAT': {supplier:'Compincar',range:'Model 302',variant:'302 · matt lacquer catalogue example',slot:'Interior doors',image:'/images/interiors/suppliers/compincar-model-302.webp',source:'/interiors/materials/'},
   'STO-STOLIT-K-RAL9003': {supplier:'Sto',range:'Stolit K fine grain',variant:'Signal White · RAL 9003 · client-supplied finish photo',slot:'Exterior render',image:'/images/interiors/suppliers/sto-render-ral9003.webp',source:'/interiors/materials/'},
+  'KITBANHO-OLIMPO': {supplier:'Kitbanho',range:'Olimpo',variant:'Light neutral sample · client-supplied manufacturer image',slot:'Vanity furniture',image:'/images/interiors/suppliers/kitbanho-olimpo-white.png',source:'https://kitbanho.com/'},
+  'KITBANHO-SARA': {supplier:'Kitbanho',range:'Sara',variant:'Light neutral sample · client-supplied manufacturer image',slot:'Vanity furniture',image:'/images/interiors/suppliers/kitbanho-sara-white.png',source:'https://kitbanho.com/'},
+  'KITBANHO-DALI': {supplier:'Kitbanho',range:'Dali',variant:'Walnut sample · client-supplied manufacturer image',slot:'Vanity furniture',image:'/images/interiors/suppliers/kitbanho-dali-walnut.png',source:'https://kitbanho.com/'},
+  'KITBANHO-POMPEIA': {supplier:'Kitbanho',range:'Pompeia',variant:'White sample · client-supplied manufacturer image',slot:'Vanity furniture',image:'/images/interiors/suppliers/kitbanho-pompeia-white.png',source:'https://kitbanho.com/'},
+  'KITBANHO-KLOSS-ALT10': {supplier:'Kitbanho',range:'Kloss STD alt.10',variant:'White sample · client-supplied manufacturer image',slot:'Washbasin',image:'/images/interiors/suppliers/kitbanho-kloss-alt10.png',source:'https://kitbanho.com/'},
+  'KITBANHO-KLOSS-ALT2': {supplier:'Kitbanho',range:'Kloss STD alt.2',variant:'White sample · client-supplied manufacturer image',slot:'Washbasin',image:'/images/interiors/suppliers/kitbanho-kloss-alt2.png',source:'https://kitbanho.com/'},
+  'SANINDUSA-URBY-CLOSE-IMAGE': {supplier:'Sanindusa',range:'URB.Y close coupled',variant:'Illustrative URB.Y photo · photo file 140912-1; Bauhu scheduled model remains 140052004 (photo code unverified)',slot:'Toilet',image:'/images/interiors/suppliers/sanindusa-urby-close-coupled.jpg',source:'https://sanindusa.pt/'},
+  'SANINDUSA-MARINA-STAR-WHITE': {supplier:'Sanindusa',range:'Marina Star',variant:'White · manufacturer supplied photo',slot:'Shower tray',image:'/images/interiors/suppliers/sanindusa-9708007000-marina-star-white.jpg',source:'https://sanindusa.pt/'},
+  'SANINDUSA-SAFIRA': {supplier:'Sanindusa',range:'Safira',variant:'Manufacturer photo · glass/configuration subject to approval',slot:'Shower enclosure',image:'/images/interiors/suppliers/sanindusa-safira-shower-screen.jpg',source:'https://sanindusa.pt/'},
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -97,6 +106,20 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
   'tropical/terracotta': 'NOBILIA-SYLT-848'
 };
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
+  if ((item.supplier||'').toLowerCase()==='kitbanho') {
+    const k=(item.range||'').toLowerCase();
+    if(k==='olimpo') return supplierProductImages['KITBANHO-OLIMPO'];
+    if(k==='sara') return supplierProductImages['KITBANHO-SARA'];
+    if(k==='dali') return supplierProductImages['KITBANHO-DALI'];
+    if(k==='pompeia') return supplierProductImages['KITBANHO-POMPEIA'];
+    if(k==='kloss std alt.10') return supplierProductImages['KITBANHO-KLOSS-ALT10'];
+    if(k==='kloss std alt.2') return supplierProductImages['KITBANHO-KLOSS-ALT2'];
+  }
+  if ((item.supplier||'').toLowerCase()==='sanindusa') {
+    if(/urb.y close coupled/i.test(item.range||'') && item.slot==='Toilet') return supplierProductImages['SANINDUSA-URBY-CLOSE-IMAGE'];
+    if(/marina star/i.test(item.range||'')) return supplierProductImages['SANINDUSA-MARINA-STAR-WHITE'];
+    if(/safira/i.test(item.range||'')) return supplierProductImages['SANINDUSA-SAFIRA'];
+  }
   if (item.supplier==='Sto' && /exterior render/i.test(item.slot||'') && /9003|signal white/i.test(item.finish||'')) return supplierProductImages['STO-STOLIT-K-RAL9003'];
   if (item.supplier==='Dominó' && ['Floor tile','Wall tile'].includes(item.slot||'')) {
     const key='DOMINO-'+(item.range||'').toUpperCase().replace('CRYSTAL','CRISTAL').replace(/ /g,'-')+'-CAT';
