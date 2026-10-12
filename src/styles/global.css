@@ -3,12 +3,6 @@
 @tailwind utilities;
 
 :root {
-  /* Experimental Bauhu palette — scoped adoption, no global recolouring */
-  --bauhu-navy: #17394c;
-  --bauhu-ivory: #f6f3ec;
-  --bauhu-graphite: #111315;
-  --bauhu-slate: #809098;
-  --bauhu-brass: #b89a62;
   color-scheme: light;
   font-family: Inter, system-ui, sans-serif;
   background: #f3f0ea;

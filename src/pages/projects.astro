@@ -132,9 +132,9 @@ const featuredProjects = [
 <BaseLayout title="Current Projects | Bauhu" description="Current and recent Bauhu projects across coastal, island and hurricane-exposed locations.">
   <SiteHeader />
   <main class="bg-paper">
-    <section class="relative flex min-h-[78vh] items-end overflow-hidden bg-navy text-paper">
+    <section class="relative flex min-h-[78vh] items-end overflow-hidden bg-ink text-paper">
       <img src={fallbackImage} alt="Current Bauhu project" class="absolute inset-0 h-full w-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/30 to-navy/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/45 to-ink/20"></div>
       <div class="relative z-10 mx-auto grid w-full max-w-site gap-12 px-5 pb-16 pt-36 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:pb-20">
         <div>
           <p class="eyebrow text-stone">Current projects</p>
@@ -164,9 +164,9 @@ const featuredProjects = [
             <div class="project-slider-track flex gap-5 transition-transform duration-500 ease-out" data-project-track>
               {featuredProjects.map((project, index) => (
                 <article class="project-slide min-w-[86%] overflow-hidden bg-forest text-paper sm:min-w-[64%] lg:min-w-[38%] xl:min-w-[32%]">
-                  <figure class="relative h-72 overflow-hidden bg-navy">
+                  <figure class="relative h-72 overflow-hidden bg-ink">
                     <img src={project.image} alt={`${project.title} Bauhu project`} class="h-full w-full object-cover opacity-90 transition duration-500 hover:scale-105" loading={index === 0 ? 'eager' : 'lazy'} onerror={`this.src='${fallbackImage}'`} />
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy/45 via-navy/5 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/5 to-transparent"></div>
                   </figure>
                   <div class="p-7">
                     <p class="text-xs uppercase tracking-wide text-stone">{project.location}</p>
@@ -181,7 +181,7 @@ const featuredProjects = [
       </div>
     </section>
 
-    <section class="section-pad bg-navy text-paper">
+    <section class="section-pad bg-ink text-paper">
       <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
         <div>
           <p class="eyebrow text-stone">Start a project</p>
