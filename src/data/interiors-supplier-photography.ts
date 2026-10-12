@@ -110,8 +110,8 @@ const kitbanhoSources: Record<string,string> = {
   'Sara':'https://kitbanho.com/en/products/bathroom-furniture/sara-4',
   'Pompeia':'https://kitbanho.com/en/products/bathroom-furniture/pompeia-3',
   'Dali':'https://kitbanho.com/en/products/bathroom-furniture/dali-3',
-  'Kloss STD alt.10':'https://kitbanho.com/en/products/washbasins/kloss-std-alt-10-1',
-  'Kloss STD alt.2':'https://kitbanho.com/en/products/washbasins/kloss-std-alt-2-1'
+  'Kloss STD alt.10':'https://online.fliphtml5.com/kitbanho/ituy/#p=6',
+  'Kloss STD alt.2':'https://online.fliphtml5.com/kitbanho/ituy/#p=6'
 };
 export function supplierCatalogueUrl(item: {supplier?:string;range?:string}): string | undefined {
   if (item.supplier==='Dominó') {
