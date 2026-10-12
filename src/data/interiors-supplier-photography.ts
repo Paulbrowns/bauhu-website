@@ -99,7 +99,7 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
   if (item.supplier==='Sto' && /exterior render/i.test(item.slot||'') && /9003|signal white/i.test(item.finish||'')) return supplierProductImages['STO-STOLIT-K-RAL9003'];
   if (item.supplier==='Dominó' && ['Floor tile','Wall tile'].includes(item.slot||'')) {
-    const key='DOMINO-'+(item.range||'').toUpperCase().replace(/ /g,'-')+'-CAT';
+    const key='DOMINO-'+(item.range||'').toUpperCase().replace('CRYSTAL','CRISTAL').replace(/ /g,'-')+'-CAT';
     const hit=(supplierProductImages as Record<string,SupplierProductImage>)[key];
     if(hit) return hit;
   }
