@@ -149,13 +149,15 @@ export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot
 }
 
 /** Direct official catalogue pages for Kitbanho product ranges. A page link is NOT proof that a specific photographed finish has been selected. */
+// Exact photographed furniture/basin combinations in the client-provided Design Collection flipbook.
+// These links open catalogue photography; they are not direct image assets.
 const kitbanhoSources: Record<string,string> = {
-  'Olimpo':'https://kitbanho.com/en/products/bathroom-furniture/olimpo-2',
-  'Sara':'https://kitbanho.com/en/products/bathroom-furniture/sara-4',
-  'Pompeia':'https://kitbanho.com/en/products/bathroom-furniture/pompeia-3',
-  'Dali':'https://kitbanho.com/en/products/bathroom-furniture/dali-3',
-  'Kloss STD alt.10':'https://online.fliphtml5.com/kitbanho/ituy/#p=6',
-  'Kloss STD alt.2':'https://online.fliphtml5.com/kitbanho/ituy/#p=6'
+  'Olimpo':'https://online.fliphtml5.com/kitbanho/iwap/#p=9',
+  'Sara':'https://online.fliphtml5.com/kitbanho/iwap/#p=82',
+  'Pompeia':'https://online.fliphtml5.com/kitbanho/iwap/#p=136',
+  'Dali':'https://online.fliphtml5.com/kitbanho/iwap/#p=148',
+  'Kloss STD alt.10':'https://online.fliphtml5.com/kitbanho/iwap/#p=9',
+  'Kloss STD alt.2':'https://online.fliphtml5.com/kitbanho/iwap/#p=13'
 };
 export function supplierCatalogueUrl(item: {supplier?:string;range?:string}): string | undefined {
   if (item.supplier==='Dominó') {
