@@ -77,17 +77,18 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
                 <p class="mt-1 text-[9px] uppercase tracking-widest text-ink/50">Manufacturer selections</p>
                 <div class="mt-3 grid grid-cols-2 gap-2">
                   {b.items.filter(item=>['Floor tile','Wall tile','Walls and ceilings','Interior doors','Window and exterior door frames','Exterior render'].includes(item.slot||'')).map(item=>{
-                    const product=verifiedSupplierImage(item,schemeKey);
+                    const isWallPaint=item.slot==='Walls and ceilings';
+                    const product=isWallPaint?undefined:verifiedSupplierImage(item,schemeKey);
                     return <div class="min-w-0">
-                      {product?<a href={product.source} target="_blank" rel="noopener noreferrer" aria-label={'View '+product.supplier+' '+product.variant+' on manufacturer website'} class="block">
+                      {isWallPaint?<div class="aspect-square overflow-hidden rounded-sm border border-stone/20" aria-label="Proposed wall paint palette, not exact paint mixing codes"><div class="grid h-full grid-cols-2"><div style={'background-color:'+palette[1]}></div><div style={'background-color:'+palette[2]}></div></div></div>:product?<a href={product.source} target="_blank" rel="noopener noreferrer" aria-label={'View '+product.supplier+' '+product.variant+' on manufacturer website'} class="block">
                         <div class="aspect-square overflow-hidden bg-white"><img src={product.image} alt={product.supplier+' '+product.variant} loading="lazy" class={'h-full w-full '+('cropFromBoard' in product ? 'object-cover object-left' : 'object-contain')} style={'cropFromBoard' in product ? 'transform:scale(1.85);transform-origin:left center' : undefined}/></div>
                       </a>:<div class="flex aspect-square items-center justify-center bg-stone/15 px-2 text-center text-[10px] text-ink/50">
                           {supplierCatalogueUrl(item)?<a href={supplierCatalogueUrl(item)} target="_blank" rel="noopener noreferrer" class="flex h-full w-full flex-col items-center justify-center gap-1 text-ink/70 underline underline-offset-2">
                             <span>View Kitbanho</span><span>catalogue photo ↗</span>
                           </a>:<span>Photo pending</span>}
                         </div>}
-                      <p class="mt-1 truncate text-[9px] uppercase text-ink/60">{item.slot}</p>
-                      <p class="truncate text-[10px] font-medium">{product?product.supplier+' '+product.variant:item.range}</p>
+                      <p class="mt-1 truncate text-[9px] uppercase text-ink/60">{isWallPaint?'Wall paint palette':item.slot}</p>
+                      <p class="truncate text-[10px] font-medium">{isWallPaint?'Curated collection colours · indicative':product?product.supplier+' '+product.variant:item.range}</p>
                     </div>
                   })}
                 </div>
