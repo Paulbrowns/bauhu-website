@@ -114,6 +114,9 @@ export const supplierProductImages = {
   'ELLECI-QUADRA-130-DRIVE': {supplier:'Elleci',range:'Quadra 130',variant:'Client-supplied Quadra 130 product photograph · photographed finish to confirm',slot:'Kitchen sink',image:'/images/interiors/suppliers/elleci/quadra-130-vista2_03.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
   'NOBILIA-SYLT-849-DRIVE': {supplier:'Nobilia',range:'Sylt',variant:'849 · official gallery',slot:'Kitchen front',image:'/images/interiors/suppliers/nobilia/csm_849_sylt_gallery_0c90e4d450.webp',source:'https://www.nobilia.de/en/'},
   'NOBILIA-SYLT-848-DRIVE': {supplier:'Nobilia',range:'Sylt',variant:'848 · official gallery',slot:'Kitchen front',image:'/images/interiors/suppliers/nobilia/csm_848_sylt_gallery_cdb613fd99.webp',source:'https://www.nobilia.de/en/'},
+  'NOBILIA-HANDLE-511': {supplier:'Nobilia',range:'Coordinated hardware',variant:'Handle 511 · manufacturer image · preliminary selection',slot:'Kitchen handles',image:'/images/interiors/suppliers/nobilia/handles/csm_511_3139858bac.webp',source:'https://www.nobilia.de/en/products/design-elements/handles/'},
+  'NOBILIA-HANDLE-230': {supplier:'Nobilia',range:'Coordinated hardware',variant:'Handle 230 · manufacturer image · preliminary selection',slot:'Kitchen handles',image:'/images/interiors/suppliers/nobilia/handles/csm_230_217ee231ce.webp',source:'https://www.nobilia.de/en/products/design-elements/handles/'},
+  'NOBILIA-HANDLE-677': {supplier:'Nobilia',range:'Coordinated hardware',variant:'Handle 677 · manufacturer image · preliminary selection',slot:'Kitchen handles',image:'/images/interiors/suppliers/nobilia/handles/csm_677_c699fdc0b9.webp',source:'https://www.nobilia.de/en/products/design-elements/handles/'},
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -150,6 +153,11 @@ export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot
     if(/safira/i.test(item.range||'')) return supplierProductImages['SANINDUSA-SAFIRA'];
   }
   if (item.supplier==='CIN' && item.slot==='Walls and ceilings' && /Cináqua GC 300/i.test(item.range||'')) return supplierProductImages['CIN-CINAQUA-GC300-WHITE'];
+  if (item.supplier==='Nobilia' && item.slot==='Kitchen handles') {
+    const darker=['contemporary/graphite','signature/noir','tropical/lagoon'].includes(scheme||'');
+    const warmer=['signature/atelier','tropical/canopy','tropical/terracotta','coastal/natural'].includes(scheme||'');
+    return darker?supplierProductImages['NOBILIA-HANDLE-677']:warmer?supplierProductImages['NOBILIA-HANDLE-230']:supplierProductImages['NOBILIA-HANDLE-511'];
+  }
   if (item.supplier==='Nobilia' && item.slot==='Countertop' && /coordinated laminate/i.test(item.range||'')) return supplierProductImages['NOBILIA-WORKTOP-376-PROPOSAL'];
   if (item.supplier==='Sto' && /exterior render/i.test(item.slot||'') && /9003|signal white/i.test(item.finish||'')) return supplierProductImages['STO-STOLIT-K-RAL9003'];
   if (item.supplier==='Dominó' && ['Floor tile','Wall tile'].includes(item.slot||'')) {
