@@ -78,6 +78,7 @@ export const supplierProductImages = {
   'COMPINCAR-LISA-CAT': {supplier:'Compincar',range:'Lisa',variant:'Lisa · oak RW163 catalogue example',slot:'Interior doors',image:'/images/interiors/suppliers/compincar-lisa.webp',source:'https://compincar.com/en/lisa-model-configuration-door-oak-rw163/?lang=en'},
   'COMPINCAR-301-CAT': {supplier:'Compincar',range:'Model 301',variant:'301 · maple catalogue example',slot:'Interior doors',image:'/images/interiors/suppliers/compincar-model-301.webp',source:'https://compincar.com/en/model-301-configuration-door-maple/?lang=en'},
   'COMPINCAR-302-CAT': {supplier:'Compincar',range:'Model 302',variant:'302 · matt lacquer catalogue example',slot:'Interior doors',image:'/images/interiors/suppliers/compincar-model-302.webp',source:'/interiors/materials/'},
+  'STO-STOLIT-K-RAL9003': {supplier:'Sto',range:'Stolit K fine grain',variant:'Signal White · RAL 9003 · client-supplied finish photo',slot:'Exterior render',image:'/images/interiors/suppliers/sto-render-ral9003.webp',source:'/interiors/materials/'},
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -96,6 +97,7 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
   'tropical/terracotta': 'NOBILIA-SYLT-848'
 };
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
+  if (item.supplier==='Sto' && /exterior render/i.test(item.slot||'') && /9003|signal white/i.test(item.finish||'')) return supplierProductImages['STO-STOLIT-K-RAL9003'];
   if (item.supplier==='Dominó' && ['Floor tile','Wall tile'].includes(item.slot||'')) {
     const key='DOMINO-'+(item.range||'').toUpperCase().replace(/ /g,'-')+'-CAT';
     const hit=(supplierProductImages as Record<string,SupplierProductImage>)[key];
