@@ -4,6 +4,16 @@ import SiteHeader from '../../../components/SiteHeader.astro';
 import SiteFooter from '../../../components/SiteFooter.astro';
 import InteriorsDesignPresentation from '../../../components/InteriorsDesignPresentation.astro';
 import {coastalRefined} from '../../../data/interiors-coastal-refined';
+const supplierSlot = (slot:string) => {
+  if (['front','cabinet-fronts'].includes(slot)) return 'Kitchen front';
+  if (['handles','cabinet-handles'].includes(slot)) return 'Kitchen handles';
+  if (['countertop','worktop'].includes(slot)) return 'Countertop';
+  if (['sink','kitchen-sink'].includes(slot)) return 'Kitchen sink';
+  if (['faucet','kitchen-faucet','kitchen-tap'].includes(slot)) return 'Kitchen faucet';
+  if (slot.includes('basin')&&slot.includes('tap')) return 'Basin faucet';
+  if (slot.includes('shower')&&slot.includes('tap')) return 'Shower faucet';
+  return slot;
+};
 const boards = [
  {id:'finishes',title:'Finishes',summary:'Floor and wall tile · paint · render · frames · doors',image:'/images/interiors/coastal-refined-finishes.webp', fallback:'/images/interiors/coastal-natural-finishes-moodboard.svg'},
  {id:'kitchens',title:'Kitchens',summary:'Cabinet front · handles · countertop · sink · faucet',image:'/images/interiors/coastal-refined-kitchens.webp', fallback:'/images/interiors/coastal-natural-kitchens-moodboard.svg'},
@@ -22,8 +32,9 @@ const boards = [
       palette={["#EBE2D5","#C7B4A0","#8D7967","#51473F"]}
       hero="/images/interiors/coastal-refined-hero.webp"
       overall="/images/interiors/coastal-refined-overall.webp"
+      schemeKey="coastal/refined"
       useImageEmbeddedLabels={true}
-      boards={boards.map(board=>({title:board.title,subtitle:board.summary,image:board.image}))}
+      boards={boards.map(board=>({title:board.title,subtitle:board.summary,image:board.image,items:coastalRefined.boards.find(b=>b.id===board.id)?.items.map(item=>({slot:supplierSlot(item.slot),supplier:item.supplier,range:item.range,finish:item.finish||''}))||[]}))}
     />
    </div>
    <div class="mt-16 grid gap-6 border-t border-ink/15 pt-10 md:grid-cols-[1fr_.9fr] md:items-end">
