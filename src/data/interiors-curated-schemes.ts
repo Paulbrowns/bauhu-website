@@ -18,7 +18,7 @@ export const interiorsSchemes = [
         "section": "FIN",
         "slot": "Floor tile",
         "supplier": "Dominó",
-        "range": "New York",
+        "range": "Ecoliving",
         "finish": "#D4D4D0 · exact shade pending",
         "code": null,
         "status": "candidate"
@@ -643,7 +643,7 @@ export const interiorsSchemes = [
         "section": "FIN",
         "slot": "Wall tile",
         "supplier": "Dominó",
-        "range": "Atlas",
+        "range": "Mundi",
         "finish": "#E8DED1 · exact shade pending",
         "code": null,
         "status": "candidate"
