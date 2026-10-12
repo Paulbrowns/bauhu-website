@@ -64,6 +64,20 @@ export const supplierProductImages = {
     source:'/interiors/signature/atelier/',
     cropFromBoard:true
   },
+  'DOMINO-CRISTAL-CAT': {supplier:'Dominó',range:'Cristal',variant:'Cristal · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-cristal.webp',source:'/interiors/materials/'},
+  'DOMINO-CUBE-CAT': {supplier:'Dominó',range:'Cube',variant:'Cube · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-cube.webp',source:'/interiors/materials/'},
+  'DOMINO-ECOLIVING-CAT': {supplier:'Dominó',range:'Ecoliving',variant:'Ecoliving · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-ecoliving.webp',source:'/interiors/materials/'},
+  'DOMINO-FEEL-GOOD-CAT': {supplier:'Dominó',range:'Feel Good',variant:'Feel Good · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-feel-good.webp',source:'/interiors/materials/'},
+  'DOMINO-GEO-CAT': {supplier:'Dominó',range:'Geo',variant:'Geo · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-geo.webp',source:'/interiors/materials/'},
+  'DOMINO-HABITAT-CAT': {supplier:'Dominó',range:'Habitat',variant:'Habitat · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-habitat.webp',source:'/interiors/materials/'},
+  'DOMINO-LODGE-CAT': {supplier:'Dominó',range:'Lodge',variant:'Lodge · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-lodge.webp',source:'/interiors/materials/'},
+  'DOMINO-MUNDI-CAT': {supplier:'Dominó',range:'Mundi',variant:'Mundi · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-mundi.webp',source:'/interiors/materials/'},
+  'DOMINO-NORDIC-CAT': {supplier:'Dominó',range:'Nordic',variant:'Nordic · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-nordic.webp',source:'/interiors/materials/'},
+  'DOMINO-PANTANAL-CAT': {supplier:'Dominó',range:'Pantanal',variant:'Pantanal · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-pantanal.webp',source:'/interiors/materials/'},
+  'DOMINO-TOKYO-CAT': {supplier:'Dominó',range:'Tokyo',variant:'Tokyo · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-tokyo.webp',source:'/interiors/materials/'},
+  'COMPINCAR-LISA-CAT': {supplier:'Compincar',range:'Lisa',variant:'Lisa · oak RW163 catalogue example',slot:'Interior doors',image:'/images/interiors/suppliers/compincar-lisa.webp',source:'https://compincar.com/en/lisa-model-configuration-door-oak-rw163/?lang=en'},
+  'COMPINCAR-301-CAT': {supplier:'Compincar',range:'Model 301',variant:'301 · maple catalogue example',slot:'Interior doors',image:'/images/interiors/suppliers/compincar-model-301.webp',source:'https://compincar.com/en/model-301-configuration-door-maple/?lang=en'},
+  'COMPINCAR-302-CAT': {supplier:'Compincar',range:'Model 302',variant:'302 · matt lacquer catalogue example',slot:'Interior doors',image:'/images/interiors/suppliers/compincar-model-302.webp',source:'/interiors/materials/'},
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -82,6 +96,17 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
   'tropical/terracotta': 'NOBILIA-SYLT-848'
 };
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
+  if (item.supplier==='Dominó' && ['Floor tile','Wall tile'].includes(item.slot||'')) {
+    const key='DOMINO-'+(item.range||'').toUpperCase().replace(/ /g,'-')+'-CAT';
+    const hit=(supplierProductImages as Record<string,SupplierProductImage>)[key];
+    if(hit) return hit;
+  }
+  if (item.supplier==='Compincar' && ['Interior doors','Interior door'].includes(item.slot||'')) {
+    if (/^Lisa$/i.test(item.range||'')) return supplierProductImages['COMPINCAR-LISA-CAT'];
+    if (/^Model 301$/i.test(item.range||'')) return supplierProductImages['COMPINCAR-301-CAT'];
+    if (/^Model 302$/i.test(item.range||'')) return supplierProductImages['COMPINCAR-302-CAT'];
+  }
+
   if (item.supplier==='Cortizo' && ['Window and exterior door frames','Windows and exterior doors','Window Frames'].includes(item.slot||'')) {
     if (/anthracite/i.test(item.finish||'')) return supplierProductImages['CORTIZO-ANTHRACITE-APPROVED-BOARD'];
     if (/white|9010/i.test(item.finish||'')) return supplierProductImages['CORTIZO-WHITE-APPROVED-BOARD'];
