@@ -10,7 +10,10 @@ const supplierSlot = (slot:string) => {
   if (['countertop','worktop'].includes(slot)) return 'Countertop';
   if (['sink','kitchen-sink'].includes(slot)) return 'Kitchen sink';
   if (['faucet','kitchen-faucet','kitchen-tap'].includes(slot)) return 'Kitchen faucet';
-  if (['frames','window-frames'].includes(slot)) return 'Window and exterior door frames';
+  if (['floor-tile'].includes(slot)) return 'Floor tile';
+  if (['wall-tile'].includes(slot)) return 'Wall tile';
+  if (['render','exterior-render'].includes(slot)) return 'Exterior render';
+    if (['frames','window-frames'].includes(slot)) return 'Window and exterior door frames';
   if (['interior-door','interior-doors'].includes(slot)) return 'Interior doors';
   if (slot.includes('basin')&&slot.includes('tap')) return 'Basin faucet';
   if (slot.includes('shower')&&slot.includes('tap')) return 'Shower faucet';
