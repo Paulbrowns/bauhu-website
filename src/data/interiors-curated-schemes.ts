@@ -839,9 +839,9 @@ export const interiorsSchemes = [
         "slot": "Floor tile",
         "supplier": "Dominó",
         "range": "Pantanal",
-        "finish": "#CEBEA9 · exact shade pending",
-        "code": null,
-        "status": "candidate"
+        "finish": "Cream · 19 × 118.2 cm · proposed",
+        "code": "PA22",
+        "status": "manufacturer-reference; finish and compatibility pending"
       },
       {
         "id": "BAU-SIG-02-FIN-002",
@@ -1454,9 +1454,9 @@ export const interiorsSchemes = [
         "slot": "Floor tile",
         "supplier": "Dominó",
         "range": "Nordic",
-        "finish": "#C4D3C8 · exact shade pending",
-        "code": null,
-        "status": "candidate"
+        "finish": "Beige · 20 × 90 cm · proposed",
+        "code": "NR26",
+        "status": "manufacturer-reference; finish and compatibility pending"
       },
       {
         "id": "BAU-TRO-02-FIN-002",
@@ -1659,9 +1659,9 @@ export const interiorsSchemes = [
         "slot": "Floor tile",
         "supplier": "Dominó",
         "range": "Pantanal",
-        "finish": "#D5B69F · exact shade pending",
-        "code": null,
-        "status": "candidate"
+        "finish": "Honey · 19 × 118.2 cm · proposed",
+        "code": "PA72",
+        "status": "manufacturer-reference; finish and compatibility pending"
       },
       {
         "id": "BAU-TRO-03-FIN-002",
@@ -1669,9 +1669,9 @@ export const interiorsSchemes = [
         "slot": "Wall tile",
         "supplier": "Dominó",
         "range": "Uptown",
-        "finish": "#EEE3D4 · exact shade pending",
-        "code": null,
-        "status": "candidate"
+        "finish": "Cherry · 34 × 91.5 cm · proposed",
+        "code": "UT80R",
+        "status": "manufacturer-reference; finish and compatibility pending"
       },
       {
         "id": "BAU-TRO-03-FIN-003",
