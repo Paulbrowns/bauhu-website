@@ -4,10 +4,10 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
 const collections = [
-  { number: '01', title: 'Coastal', image: '/images/interiors/coastal-natural-hero.webp', href: '/interiors/coastal', subtitle: 'Light, calm and naturally considered', tones: ['#EEE9DD','#D8C8AD','#A99F8C','#393F3E'], detail: 'Warm whites, stone-inspired ceramics and quiet, tactile contrasts.' },
-  { number: '02', title: 'Contemporary', image: '/images/interiors/contemporary-pure-hero.webp', href: '/interiors/contemporary', subtitle: 'Confident architectural simplicity', tones: ['#E8E5DF','#B8B7B2','#555857','#222928'], detail: 'Crisp lines, tonal surfaces and refined contrast.' },
-  { number: '03', title: 'Signature', image: '/images/interiors/signature-gallery-hero.webp', href: '/interiors/signature', subtitle: 'Understated depth and character', tones: ['#F1E9DF','#B5A38E','#796452','#3E3934'], detail: 'Layered neutrals and carefully balanced wood-look finishes.' },
-  { number: '04', title: 'Tropical', image: '/images/interiors/tropical-canopy-hero.webp', href: '/interiors/tropical', subtitle: 'Warm, relaxed and connected to place', tones: ['#E6DDC8','#B9B59B','#77806A','#454C3D'], detail: 'Grounded natural colours and contemporary island character.' },
+  { number: '01', title: 'Coastal', designs: [{ name: 'Natural', image: '/images/interiors/coastal-natural-hero.webp', href: '/interiors/coastal/natural/' }, { name: 'Ocean', image: '/images/interiors/coastal-ocean-hero.webp', href: '/interiors/coastal/ocean/' }, { name: 'Refined', image: '/images/interiors/coastal-refined-hero.webp', href: '/interiors/coastal/refined/' }], image: '/images/interiors/coastal-natural-hero.webp', href: '/interiors/coastal', subtitle: 'Light, calm and naturally considered', tones: ['#EEE9DD','#D8C8AD','#A99F8C','#393F3E'], detail: 'Warm whites, stone-inspired ceramics and quiet, tactile contrasts.' },
+  { number: '02', title: 'Contemporary', designs: [{ name: 'Pure', image: '/images/interiors/contemporary-pure-hero.webp', href: '/interiors/contemporary/pure/' }, { name: 'Graphite', image: '/images/interiors/contemporary-graphite-hero.webp', href: '/interiors/contemporary/graphite/' }, { name: 'Mineral', image: '/images/interiors/contemporary-mineral-hero.webp', href: '/interiors/contemporary/mineral/' }], image: '/images/interiors/contemporary-pure-hero.webp', href: '/interiors/contemporary', subtitle: 'Confident architectural simplicity', tones: ['#E8E5DF','#B8B7B2','#555857','#222928'], detail: 'Crisp lines, tonal surfaces and refined contrast.' },
+  { number: '03', title: 'Signature', designs: [{ name: 'Atelier', image: '/images/interiors/signature-atelier-hero.webp', href: '/interiors/signature/atelier/' }, { name: 'Gallery', image: '/images/interiors/signature-gallery-hero.webp', href: '/interiors/signature/gallery/' }, { name: 'Noir', image: '/images/interiors/signature-noir-hero.webp', href: '/interiors/signature/noir/' }], image: '/images/interiors/signature-gallery-hero.webp', href: '/interiors/signature', subtitle: 'Understated depth and character', tones: ['#F1E9DF','#B5A38E','#796452','#3E3934'], detail: 'Layered neutrals and carefully balanced wood-look finishes.' },
+  { number: '04', title: 'Tropical', designs: [{ name: 'Canopy', image: '/images/interiors/tropical-canopy-hero.webp', href: '/interiors/tropical/canopy/' }, { name: 'Lagoon', image: '/images/interiors/tropical-lagoon-hero.webp', href: '/interiors/tropical/lagoon/' }, { name: 'Terracotta', image: '/images/interiors/tropical-terracotta-hero.webp', href: '/interiors/tropical/terracotta/' }], image: '/images/interiors/tropical-canopy-hero.webp', href: '/interiors/tropical', subtitle: 'Warm, relaxed and connected to place', tones: ['#E6DDC8','#B9B59B','#77806A','#454C3D'], detail: 'Grounded natural colours and contemporary island character.' },
 ];
 
 const finishCategories = [
@@ -53,13 +53,26 @@ const finishCategories = [
         <p class="eyebrow text-clay">Design collections</p>
         <div class="mt-5 flex flex-wrap items-end justify-between gap-8">
           <h2 class="max-w-3xl font-display text-5xl leading-tight md:text-6xl">A starting point for something personal.</h2>
-          <p class="max-w-sm leading-7 text-ink/65">Four curated design directions. No fixed packages, prescribed finishes or artificial tiers.</p>
+          <p class="max-w-sm leading-7 text-ink/65">Four curated collections, each with three complete interior looks. Explore all 12 designs below.</p>
         </div>
         <div class="mt-14 grid gap-5 md:grid-cols-2">
           {collections.map((collection) => (
             <article class="bg-paper p-8 md:p-10">
               <p class="text-xs uppercase tracking-widest text-clay">Collection {collection.number}</p>
               <div class="mt-8 h-56 overflow-hidden bg-ink/10"><img src={collection.image} alt={collection.title + ' architectural inspiration'} loading="lazy" class="h-full w-full object-cover" /></div>
+              <div class="mt-4 grid grid-cols-3 gap-3" aria-label={collection.title + ' design options'}>
+                {collection.designs.map((design) => (
+                  <a href={design.href} class="group block min-w-0 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-clay" aria-label={'Explore ' + collection.title + ' ' + design.name}>
+                    <div class="aspect-[4/3] overflow-hidden bg-ink/10">
+                      <img src={design.image} alt={collection.title + ' ' + design.name + ' interior'} loading="lazy" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+                    </div>
+                    <div class="mt-2 flex items-center justify-between gap-1">
+                      <span class="truncate font-display text-lg leading-6 md:text-xl">{design.name}</span>
+                      <span aria-hidden="true" class="text-xs text-ink/55 transition group-hover:translate-x-1">↗</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
               <div class="mt-3 grid h-10 grid-cols-4 overflow-hidden" aria-label={collection.title + ' colour direction'}>
                 {collection.tones.map((tone) => <div style={`background-color: ${tone}`}></div>)}
               </div>
