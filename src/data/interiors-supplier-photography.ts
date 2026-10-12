@@ -88,6 +88,18 @@ export const supplierProductImages = {
   'SANINDUSA-URBY-CLOSE-IMAGE': {supplier:'Sanindusa',range:'URB.Y close coupled',variant:'Illustrative URB.Y photo · photo file 140912-1; Bauhu scheduled model remains 140052004 (photo code unverified)',slot:'Toilet',image:'/images/interiors/suppliers/sanindusa-urby-close-coupled.jpg',source:'https://sanindusa.pt/'},
   'SANINDUSA-MARINA-STAR-WHITE': {supplier:'Sanindusa',range:'Marina Star',variant:'White · manufacturer supplied photo',slot:'Shower tray',image:'/images/interiors/suppliers/sanindusa-9708007000-marina-star-white.jpg',source:'https://sanindusa.pt/'},
   'SANINDUSA-SAFIRA': {supplier:'Sanindusa',range:'Safira',variant:'Manufacturer photo · glass/configuration subject to approval',slot:'Shower enclosure',image:'/images/interiors/suppliers/sanindusa-safira-shower-screen.jpg',source:'https://sanindusa.pt/'},
+  'KITBANHO-OLIMPO-GREY': {supplier:"Kitbanho",range:"Olimpo",variant:"Grey · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-olimpo-grey.png',source:"https://kitbanho.com/"},
+  'KITBANHO-OLIMPO-EARTH': {supplier:"Kitbanho",range:"Olimpo",variant:"Earth · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-olimpo-earth.png',source:"https://kitbanho.com/"},
+  'KITBANHO-SARA-GREY': {supplier:"Kitbanho",range:"Sara",variant:"Grey · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-sara-grey.png',source:"https://kitbanho.com/"},
+  'KITBANHO-SARA-BLUE': {supplier:"Kitbanho",range:"Sara",variant:"Blue · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-sara-blue.png',source:"https://kitbanho.com/"},
+  'KITBANHO-SARA-EARTH': {supplier:"Kitbanho",range:"Sara",variant:"Earth · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-sara-earth.png',source:"https://kitbanho.com/"},
+  'KITBANHO-DALI-GREY': {supplier:"Kitbanho",range:"Dali",variant:"Grey · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-dali-grey.png',source:"https://kitbanho.com/"},
+  'KITBANHO-DALI-PINE': {supplier:"Kitbanho",range:"Dali",variant:"Pine · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-dali-pine.png',source:"https://kitbanho.com/"},
+  'KITBANHO-POMPEIA-GREY': {supplier:"Kitbanho",range:"Pompeia",variant:"Grey · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-pompeia-grey.png',source:"https://kitbanho.com/"},
+  'KITBANHO-POMPEIA-EARTH': {supplier:"Kitbanho",range:"Pompeia",variant:"Earth · original supplied photograph; verify selected finish",slot:"Vanity furniture",image:'/images/interiors/suppliers/kitbanho-pompeia-earth.png',source:"https://kitbanho.com/"},
+  'SANINDUSA-URBY-BACK-WALL': {supplier:"Sanindusa",range:"URB.Y back-to-wall",variant:"140014004 · supplier image · original supplied photograph; verify selected finish",slot:"Toilet",image:'/images/interiors/suppliers/sanindusa-urby-back-to-wall.jpg',source:"https://sanindusa.pt/"},
+  'SANINDUSA-URBY-BATH': {supplier:"Sanindusa",range:"URB.Y bathtub",variant:"8076000000 · supplier image · original supplied photograph; verify selected finish",slot:"Bathtub",image:'/images/interiors/suppliers/sanindusa-urby-bathtub.jpg',source:"https://sanindusa.pt/"},
+  'SANINDUSA-URBY-FREESTANDING': {supplier:"Sanindusa",range:"URB.Y freestanding bath",variant:"8046000000 · supplier image · original supplied photograph; verify selected finish",slot:"Bathtub",image:'/images/interiors/suppliers/sanindusa-urby-freestanding-bath.jpg',source:"https://sanindusa.pt/"},
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -108,10 +120,13 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
   if ((item.supplier||'').toLowerCase()==='kitbanho') {
     const k=(item.range||'').toLowerCase();
-    if(k==='olimpo') return supplierProductImages['KITBANHO-OLIMPO'];
-    if(k==='sara') return supplierProductImages['KITBANHO-SARA'];
-    if(k==='dali') return supplierProductImages['KITBANHO-DALI'];
-    if(k==='pompeia') return supplierProductImages['KITBANHO-POMPEIA'];
+    const finish=(item.finish||'').toLowerCase();
+    // Prefer the actual photographed finish where the proposed finish has a clear match.
+    // Other proposals retain the representative photo and remain subject to sign-off.
+    if(k==='olimpo') return /grey|gray|graphite|charcoal/.test(finish)?supplierProductImages['KITBANHO-OLIMPO-GREY']:/earth|taupe|oat|sand/.test(finish)?supplierProductImages['KITBANHO-OLIMPO-EARTH']:supplierProductImages['KITBANHO-OLIMPO'];
+    if(k==='sara') return /blue|navy|lagoon/.test(finish)?supplierProductImages['KITBANHO-SARA-BLUE']:/grey|gray|graphite|charcoal/.test(finish)?supplierProductImages['KITBANHO-SARA-GREY']:/earth|taupe|oat|sand/.test(finish)?supplierProductImages['KITBANHO-SARA-EARTH']:supplierProductImages['KITBANHO-SARA'];
+    if(k==='dali') return /pine/.test(finish)?supplierProductImages['KITBANHO-DALI-PINE']:/grey|gray|graphite|charcoal/.test(finish)?supplierProductImages['KITBANHO-DALI-GREY']:supplierProductImages['KITBANHO-DALI'];
+    if(k==='pompeia') return /grey|gray|graphite|charcoal/.test(finish)?supplierProductImages['KITBANHO-POMPEIA-GREY']:/earth|taupe|oat|sand/.test(finish)?supplierProductImages['KITBANHO-POMPEIA-EARTH']:supplierProductImages['KITBANHO-POMPEIA'];
     if(k==='kloss std alt.10') return supplierProductImages['KITBANHO-KLOSS-ALT10'];
     if(k==='kloss std alt.2') return supplierProductImages['KITBANHO-KLOSS-ALT2'];
   }
