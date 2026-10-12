@@ -24,7 +24,7 @@ export const supplierProductImages = {
     supplier:'Bruma', range:'Avalon', variant:'189 010 1 · CR Chrome', slot:'Basin faucet',
     image:'https://bruma.pt/_next/image?q=75&url=https%3A%2F%2Fnbg1.your-objectstorage.com%2Fbackupamos%2Fbruma%2F189%2520010%25201CR.webp&w=1920',
     source:'https://bruma.pt/en/p/599-basin-mixer'
-  }
+  },
   'NOBILIA-SENSO-490': { supplier:'Nobilia',range:'Senso',variant:'490 · Premium honed alpine white',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/1/1/csm_front_senso_490_8ce9d6f859.webp',source:'https://www.nobilia.de/en/products/kitchens/modern-kitchens/senso-490/' },
   'NOBILIA-LASER-463': { supplier:'Nobilia',range:'Laser',variant:'463 · Black concrete reproduction',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/9/e/csm_front_laser_463_b2b1964c96.webp',source:'https://www.nobilia.de/en/products/kitchens/designer-kitchens/laser-463/' },
   'NOBILIA-NORDIC-788': { supplier:'Nobilia',range:'Nordic',variant:'788 · Perfect honed sand',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/d/b/csm_front_nordic_788_8d2af65c90.webp',source:'https://www.nobilia.de/en/products/kitchens/modern-cottage-style/nordic-788/' },
