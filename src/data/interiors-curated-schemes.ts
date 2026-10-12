@@ -783,7 +783,7 @@ export const interiorsSchemes = [
         "section": "BTH",
         "slot": "Bathroom wall tile",
         "supplier": "Dominó",
-        "range": "Atlas",
+        "range": "Mundi",
         "finish": "#E8DED1 · exact shade pending",
         "code": null,
         "status": "candidate"
