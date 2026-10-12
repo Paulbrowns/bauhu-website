@@ -44,6 +44,14 @@ export const supplierProductImages = {
     image:'https://compincar.com/wp-content/uploads/2021/01/ref-301-300x68.png',
     source:'https://compincar.com/en/model-301-configuration-door-maple/?lang=en'
   },
+  'ELLECI-Q130-K96': {supplier:'Elleci',range:'Quadra 130',variant:'K96 · White · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/k96.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'ELLECI-Q130-K86': {supplier:'Elleci',range:'Quadra 130',variant:'K86 · Black · product photograph',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/lkq13086.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'ELLECI-Q130-K89': {supplier:'Elleci',range:'Quadra 130',variant:'K89 · Dove · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/k89.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'ELLECI-Q130-G43': {supplier:'Elleci',range:'Quadra 130',variant:'G43 · Tortora · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/g43.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'ELLECI-Q130-K95': {supplier:'Elleci',range:'Quadra 130',variant:'K95 · Champagne · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/k95.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'ELLECI-Q130-G51': {supplier:'Elleci',range:'Quadra 130',variant:'G51 · Avena · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/g51.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'ELLECI-Q130-K88': {supplier:'Elleci',range:'Quadra 130',variant:'K88 · Cloud · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/k88.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'ELLECI-Q130-G62': {supplier:'Elleci',range:'Quadra 130',variant:'G62 · Bianco Antico · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/g62.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -62,6 +70,20 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
   'tropical/terracotta': 'NOBILIA-SYLT-848'
 };
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
+  if (item.supplier==='Elleci'&&item.range==='Quadra 130'&&item.slot==='Kitchen sink'&&scheme) {
+    const choice: Record<string, keyof typeof supplierProductImages> = {
+      'contemporary/pure':'ELLECI-Q130-K96',
+      'contemporary/graphite':'ELLECI-Q130-K86',
+      'contemporary/mineral':'ELLECI-Q130-K89',
+      'signature/atelier':'ELLECI-Q130-G43',
+      'signature/gallery':'ELLECI-Q130-K95',
+      'signature/noir':'ELLECI-Q130-K86',
+      'tropical/canopy':'ELLECI-Q130-G51',
+      'tropical/lagoon':'ELLECI-Q130-K88',
+      'tropical/terracotta':'ELLECI-Q130-G62'
+    };
+    const key=choice[scheme];return key?supplierProductImages[key]:undefined;
+  }
   if (item.supplier==='Compincar' && ['Interior doors','Interior door'].includes(item.slot||'')) {
     if (/^Lisa$/i.test(item.range||'')) return supplierProductImages['COMPINCAR-LISA-RW163'];
     if (/^Model 301$/i.test(item.range||'')) return supplierProductImages['COMPINCAR-301-MAPLE'];
