@@ -103,3 +103,20 @@ export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot
   }
   return undefined;
 }
+
+/** Direct official catalogue pages for Kitbanho product ranges. A page link is NOT proof that a specific photographed finish has been selected. */
+const kitbanhoSources: Record<string,string> = {
+  'Olimpo':'https://kitbanho.com/en/products/bathroom-furniture/olimpo-2',
+  'Sara':'https://kitbanho.com/en/products/bathroom-furniture/sara-4',
+  'Pompeia':'https://kitbanho.com/en/products/bathroom-furniture/pompeia-3',
+  'Dali':'https://kitbanho.com/en/products/bathroom-furniture/dali-3',
+  'Kloss STD alt.10':'https://kitbanho.com/en/products/washbasins/kloss-std-alt-10-1',
+  'Kloss STD alt.2':'https://kitbanho.com/en/products/washbasins/kloss-std-alt-2-1'
+};
+export function supplierCatalogueUrl(item: {supplier?:string;range?:string}): string | undefined {
+  if (item.supplier?.toLowerCase()==='kitbanho') {
+    const key=Object.keys(kitbanhoSources).find(k=>k.toLowerCase()===item.range?.toLowerCase());
+    return key?kitbanhoSources[key]:undefined;
+  }
+  return undefined;
+}
