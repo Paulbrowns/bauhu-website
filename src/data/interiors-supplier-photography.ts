@@ -52,6 +52,18 @@ export const supplierProductImages = {
   'ELLECI-Q130-G51': {supplier:'Elleci',range:'Quadra 130',variant:'G51 · Avena · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/g51.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
   'ELLECI-Q130-K88': {supplier:'Elleci',range:'Quadra 130',variant:'K88 · Cloud · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/k88.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
   'ELLECI-Q130-G62': {supplier:'Elleci',range:'Quadra 130',variant:'G62 · Bianco Antico · official colour sample',slot:'Kitchen sink',image:'https://www.elleci.com/wp-content/uploads/2026/07/g62.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'CORTIZO-WHITE-APPROVED-BOARD': {
+    supplier:'Cortizo',range:'Aluminium frames',variant:'RAL 9010 · Pure White',slot:'Window and exterior door frames',
+    image:'/images/interiors/signature-gallery-finishes.webp',
+    source:'/interiors/signature/gallery/',
+    cropFromBoard:true
+  },
+  'CORTIZO-ANTHRACITE-APPROVED-BOARD': {
+    supplier:'Cortizo',range:'Aluminium frames',variant:'Anthracite · precise RAL pending',slot:'Window and exterior door frames',
+    image:'/images/interiors/signature-atelier-finishes.webp',
+    source:'/interiors/signature/atelier/',
+    cropFromBoard:true
+  },
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -70,6 +82,11 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
   'tropical/terracotta': 'NOBILIA-SYLT-848'
 };
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
+  if (item.supplier==='Cortizo' && ['Window and exterior door frames','Windows and exterior doors','Window Frames'].includes(item.slot||'')) {
+    if (/anthracite/i.test(item.finish||'')) return supplierProductImages['CORTIZO-ANTHRACITE-APPROVED-BOARD'];
+    if (/white|9010/i.test(item.finish||'')) return supplierProductImages['CORTIZO-WHITE-APPROVED-BOARD'];
+  }
+
   if (item.supplier==='Elleci'&&item.range==='Quadra 130'&&item.slot==='Kitchen sink'&&scheme) {
     const choice: Record<string, keyof typeof supplierProductImages> = {
       'coastal/natural':'ELLECI-Q130-G62',
