@@ -70,6 +70,7 @@ export const supplierProductImages = {
     source:'/interiors/signature/atelier/',
     cropFromBoard:true
   },
+  'DOMINO-URBAN-CAT': {supplier:'Dominó',range:'Urban',variant:'Urban Light Grey · official supplier tile image, final shade pending',slot:'Floor tile',image:'https://www.domino.pt/files/images/project/UB10.jpg',source:'https://www.domino.pt/en/products/'},
   'DOMINO-CRISTAL-CAT': {supplier:'Dominó',range:'Cristal',variant:'Cristal · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-cristal.webp',source:'/interiors/materials/'},
   'DOMINO-CUBE-CAT': {supplier:'Dominó',range:'Cube',variant:'Cube · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-cube.webp',source:'/interiors/materials/'},
   'DOMINO-ECOLIVING-CAT': {supplier:'Dominó',range:'Ecoliving',variant:'Ecoliving · manufacturer catalogue image (colour to confirm)',slot:'Floor tile',image:'/images/interiors/suppliers/domino-ecoliving.webp',source:'/interiors/materials/'},
