@@ -1359,9 +1359,9 @@ export const interiorsSchemes = [
         "slot": "Vanity",
         "supplier": "Kitbanho",
         "range": "Olimpo",
-        "finish": "Natural timber",
+        "finish": "Cream matte lacquer · proposed (replaces unsupported natural timber)",
         "code": null,
-        "status": "candidate"
+        "status": "manufacturer-finish-selection-pending"
       },
       {
         "id": "BAU-TRO-01-BTH-002",
