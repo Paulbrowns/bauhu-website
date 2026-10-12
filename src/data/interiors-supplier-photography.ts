@@ -117,6 +117,11 @@ export const supplierProductImages = {
   'NOBILIA-HANDLE-511': {supplier:'Nobilia',range:'Coordinated hardware',variant:'Handle 511 · manufacturer image · preliminary selection',slot:'Kitchen handles',image:'/images/interiors/suppliers/nobilia/handles/csm_511_3139858bac.webp',source:'https://www.nobilia.de/en/products/design-elements/handles/'},
   'NOBILIA-HANDLE-230': {supplier:'Nobilia',range:'Coordinated hardware',variant:'Handle 230 · manufacturer image · preliminary selection',slot:'Kitchen handles',image:'/images/interiors/suppliers/nobilia/handles/csm_230_217ee231ce.webp',source:'https://www.nobilia.de/en/products/design-elements/handles/'},
   'NOBILIA-HANDLE-677': {supplier:'Nobilia',range:'Coordinated hardware',variant:'Handle 677 · manufacturer image · preliminary selection',slot:'Kitchen handles',image:'/images/interiors/suppliers/nobilia/handles/csm_677_c699fdc0b9.webp',source:'https://www.nobilia.de/en/products/design-elements/handles/'},
+  'NOBILIA-WORKTOP-237-DISPLAY': {supplier:'Nobilia',range:'Coordinated laminate',variant:'237 · Jura greige marble · indicative finish swatch; exact decor photo pending',slot:'Countertop',image:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22%3E%3Crect width=%22320%22 height=%22320%22 fill=%22%23a69b8b%22/%3E%3C/svg%3E',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
+  'NOBILIA-WORKTOP-378-DISPLAY': {supplier:'Nobilia',range:'Coordinated laminate',variant:'378 · Black concrete · indicative finish swatch; exact decor photo pending',slot:'Countertop',image:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22%3E%3Crect width=%22320%22 height=%22320%22 fill=%22%23383a3a%22/%3E%3C/svg%3E',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
+  'NOBILIA-WORKTOP-381-DISPLAY': {supplier:'Nobilia',range:'Coordinated laminate',variant:'381 · Honed alpine white · indicative finish swatch; exact decor photo pending',slot:'Countertop',image:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22%3E%3Crect width=%22320%22 height=%22320%22 fill=%22%23e7e5dd%22/%3E%3C/svg%3E',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
+  'NOBILIA-WORKTOP-349-DISPLAY': {supplier:'Nobilia',range:'Coordinated laminate',variant:'349 · Sand grey travertine · indicative finish swatch; exact decor photo pending',slot:'Countertop',image:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22%3E%3Crect width=%22320%22 height=%22320%22 fill=%22%23beb4a3%22/%3E%3C/svg%3E',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
+  'NOBILIA-WORKTOP-235-DISPLAY': {supplier:'Nobilia',range:'Coordinated laminate',variant:'235 · Venato Bianco marble · indicative finish swatch; exact decor photo pending',slot:'Countertop',image:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22%3E%3Crect width=%22320%22 height=%22320%22 fill=%22%23e5e2df%22/%3E%3C/svg%3E',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -158,7 +163,23 @@ export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot
     const warmer=['signature/atelier','tropical/canopy','tropical/terracotta','coastal/natural'].includes(scheme||'');
     return darker?supplierProductImages['NOBILIA-HANDLE-677']:warmer?supplierProductImages['NOBILIA-HANDLE-230']:supplierProductImages['NOBILIA-HANDLE-511'];
   }
-  if (item.supplier==='Nobilia' && item.slot==='Countertop' && /coordinated laminate/i.test(item.range||'')) return supplierProductImages['NOBILIA-WORKTOP-376-PROPOSAL'];
+  if (item.supplier==='Nobilia' && item.slot==='Countertop' && /coordinated laminate/i.test(item.range||'')) {
+    const group: Record<string, keyof typeof supplierProductImages> = {
+      'coastal/natural':'NOBILIA-WORKTOP-237-DISPLAY',
+      'coastal/ocean':'NOBILIA-WORKTOP-381-DISPLAY',
+      'coastal/refined':'NOBILIA-WORKTOP-376-PROPOSAL',
+      'contemporary/pure':'NOBILIA-WORKTOP-381-DISPLAY',
+      'contemporary/graphite':'NOBILIA-WORKTOP-378-DISPLAY',
+      'contemporary/mineral':'NOBILIA-WORKTOP-349-DISPLAY',
+      'signature/atelier':'NOBILIA-WORKTOP-237-DISPLAY',
+      'signature/gallery':'NOBILIA-WORKTOP-235-DISPLAY',
+      'signature/noir':'NOBILIA-WORKTOP-378-DISPLAY',
+      'tropical/canopy':'NOBILIA-WORKTOP-349-DISPLAY',
+      'tropical/lagoon':'NOBILIA-WORKTOP-381-DISPLAY',
+      'tropical/terracotta':'NOBILIA-WORKTOP-237-DISPLAY'
+    };
+    return supplierProductImages[group[scheme||'']||'NOBILIA-WORKTOP-376-PROPOSAL'];
+  }
   if (item.supplier==='Sto' && /exterior render/i.test(item.slot||'') && /9003|signal white/i.test(item.finish||'')) return supplierProductImages['STO-STOLIT-K-RAL9003'];
   if (item.supplier==='Dominó' && ['Floor tile','Wall tile'].includes(item.slot||'')) {
     const key='DOMINO-'+(item.range||'').toUpperCase().replace('CRYSTAL','CRISTAL').replace(/ /g,'-')+'-CAT';
