@@ -107,11 +107,11 @@ export const interiorsSchemes = [
         "id": "BAU-CON-01-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "White · Keratek · provisional",
+        "code": "K96",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-CON-01-KIT-005",
@@ -312,11 +312,11 @@ export const interiorsSchemes = [
         "id": "BAU-CON-02-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "Black · Keratek · provisional",
+        "code": "K86",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-CON-02-KIT-005",
@@ -517,11 +517,11 @@ export const interiorsSchemes = [
         "id": "BAU-CON-03-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "Dove · Keratek · provisional",
+        "code": "K89",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-CON-03-KIT-005",
@@ -722,11 +722,11 @@ export const interiorsSchemes = [
         "id": "BAU-SIG-01-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "Tortora · Granitek · provisional",
+        "code": "G43",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-SIG-01-KIT-005",
@@ -927,11 +927,11 @@ export const interiorsSchemes = [
         "id": "BAU-SIG-02-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "Champagne · Keratek · provisional",
+        "code": "K95",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-SIG-02-KIT-005",
@@ -1132,11 +1132,11 @@ export const interiorsSchemes = [
         "id": "BAU-SIG-03-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "Black · Keratek · provisional",
+        "code": "K86",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-SIG-03-KIT-005",
@@ -1337,11 +1337,11 @@ export const interiorsSchemes = [
         "id": "BAU-TRO-01-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "Avena · Granitek · provisional",
+        "code": "G51",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-TRO-01-KIT-005",
@@ -1542,11 +1542,11 @@ export const interiorsSchemes = [
         "id": "BAU-TRO-02-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "Cloud · Keratek · provisional",
+        "code": "K88",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-TRO-02-KIT-005",
@@ -1747,11 +1747,11 @@ export const interiorsSchemes = [
         "id": "BAU-TRO-03-KIT-004",
         "section": "KIT",
         "slot": "Kitchen sink",
-        "supplier": "Bauhu kitchen supply",
-        "range": "Selected model pending",
-        "finish": "Matching neutral sink",
-        "code": null,
-        "status": "candidate"
+        "supplier": "Elleci",
+        "range": "Quadra 130",
+        "finish": "Bianco Antico · Granitek · provisional",
+        "code": "G62",
+        "status": "manufacturer-reference; dimensions/fit pending"
       },
       {
         "id": "BAU-TRO-03-KIT-005",
