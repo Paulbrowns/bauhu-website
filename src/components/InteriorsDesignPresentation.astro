@@ -71,12 +71,12 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
         <div class="overflow-hidden rounded-xl bg-mist">
           {b.image?<div class="relative aspect-[4/5]">
             <img src={b.image} alt={title+' '+b.title+' product-specific mood board'} loading="lazy" class="absolute inset-0 h-full w-full object-cover"/>
-            {schemeKey==='signature/gallery'&&b.title==='Kitchens'&&b.items?.length&&
+            {schemeKey&&b.title==='Kitchens'&&b.items?.some(item=>verifiedSupplierImage(item,schemeKey))&&
               <div class="absolute inset-y-0 left-0 w-[49%] overflow-y-auto bg-[#fbfaf7] p-3 md:p-4">
                 <h3 class="font-display text-xl md:text-2xl">Kitchens</h3>
                 <p class="mt-1 text-[9px] uppercase tracking-widest text-ink/50">Manufacturer photography</p>
                 <div class="mt-3 grid grid-cols-2 gap-2">
-                  {b.items.filter(item=>['Kitchen front','Countertop','Kitchen faucet'].includes(item.slot||'')).map(item=>{
+                  {b.items.filter(item=>['Kitchen front','Kitchen handles','Countertop','Kitchen sink','Kitchen faucet'].includes(item.slot||'')).map(item=>{
                     const product=verifiedSupplierImage(item,schemeKey);
                     return <div class="min-w-0">
                       {product?<a href={product.source} target="_blank" rel="noopener noreferrer" class="block" aria-label={'View '+product.supplier+' '+product.variant+' on manufacturer website'}>
