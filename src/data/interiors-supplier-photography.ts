@@ -10,6 +10,8 @@ export const supplierProductImages = {
     image:'https://www.nobilia.de/fileadmin/_processed_/3/3/csm_front_sylt_849_76bac33f32.webp',
     source:'https://www.nobilia.de/en/products/kitchens/modern-cottage-style/sylt-849/'
   },
+  'CIN-CINAQUA-GC300-WHITE': {supplier:'CIN',range:'Cináqua GC 300',variant:'White · schematic colour swatch (not measured coating colour)',slot:'Walls and ceilings',image:'/images/interiors/suppliers/cin-cinaqua-gc300-white-swatch.svg',source:'https://cin.com/'},
+  'NOBILIA-WORKTOP-376-PROPOSAL': {supplier:'Nobilia',range:'Coordinated laminate',variant:'376 · Limestone reproduction · illustrative proposed worktop; actual décor not confirmed',slot:'Countertop',image:'https://www.nobilia.de/fileadmin/_processed_/1/e/csm_376_5760d954c1.webp',source:'https://www.nobilia.de/en/'},
   'NOBILIA-WORKTOP-376': {
     supplier:'Nobilia', range:'Worktop', variant:'376 · Limestone reproduction', slot:'Countertop',
     image:'https://www.nobilia.de/fileadmin/_processed_/1/e/csm_376_5760d954c1.webp',
@@ -143,6 +145,8 @@ export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot
     if(/marina star/i.test(item.range||'')) return supplierProductImages['SANINDUSA-MARINA-STAR-WHITE'];
     if(/safira/i.test(item.range||'')) return supplierProductImages['SANINDUSA-SAFIRA'];
   }
+  if (item.supplier==='CIN' && item.slot==='Walls and ceilings' && /Cináqua GC 300/i.test(item.range||'')) return supplierProductImages['CIN-CINAQUA-GC300-WHITE'];
+  if (item.supplier==='Nobilia' && item.slot==='Countertop' && /coordinated laminate/i.test(item.range||'')) return supplierProductImages['NOBILIA-WORKTOP-376-PROPOSAL'];
   if (item.supplier==='Sto' && /exterior render/i.test(item.slot||'') && /9003|signal white/i.test(item.finish||'')) return supplierProductImages['STO-STOLIT-K-RAL9003'];
   if (item.supplier==='Dominó' && ['Floor tile','Wall tile'].includes(item.slot||'')) {
     const key='DOMINO-'+(item.range||'').toUpperCase().replace('CRYSTAL','CRISTAL').replace(/ /g,'-')+'-CAT';
