@@ -9,6 +9,7 @@ export default {
       },
       colors: {
         ink: '#171716',
+        navy: '#17394C',
         paper: '#F3F0EA',
         stone: '#D9D2C5',
         clay: '#9A765E',
