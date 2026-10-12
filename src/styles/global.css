@@ -5,33 +5,8 @@
 :root {
   color-scheme: light;
   font-family: Inter, system-ui, sans-serif;
-
-  /* Bauhu — Precision / Engineering palette */
-  --color-ink: #17394c;
-  --color-graphite: #111315;
-  --color-paper: #f6f3ec;
-  --color-stone: #809098;
-  --color-clay: #b89a62;
-  --color-forest: #17394c;
-  --color-mist: #e8ecec;
-
-  /* RGB channels keep Tailwind opacity utilities working */
-  --color-ink-rgb: 23 57 76;
-  --color-paper-rgb: 246 243 236;
-  --color-stone-rgb: 128 144 152;
-  --color-clay-rgb: 184 154 98;
-  --color-forest-rgb: 23 57 76;
-  --color-mist-rgb: 232 236 236;
-
-  --color-brand-primary: var(--color-forest);
-  --color-accent: var(--color-clay);
-  --color-background: var(--color-paper);
-  --color-surface: var(--color-mist);
-  --color-text: var(--color-graphite);
-  --color-text-inverse: var(--color-paper);
-
-  background: var(--color-background);
-  color: var(--color-text);
+  background: #f3f0ea;
+  color: #171716;
 }
 
 html {
@@ -41,8 +16,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: var(--color-background);
-  color: var(--color-text);
+  background: #f3f0ea;
+  color: #171716;
 }
 
 img {
@@ -51,8 +26,8 @@ img {
 }
 
 ::selection {
-  background: var(--color-brand-primary);
-  color: var(--color-text-inverse);
+  background: #243a32;
+  color: #f3f0ea;
 }
 
 .section-pad {
@@ -60,7 +35,7 @@ img {
 }
 
 .eyebrow {
-  color: var(--color-accent);
+  color: #c8a96a;
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.18em;
@@ -68,7 +43,7 @@ img {
 }
 
 .partner-hero .partner-kicker {
-  color: var(--color-accent) !important;
+  color: #c8a96a !important;
   display: block !important;
   font-family: Inter, system-ui, sans-serif !important;
   font-size: 12px !important;
@@ -81,11 +56,11 @@ img {
 }
 
 .resources-page .faq-list p a {
-  color: var(--color-accent) !important;
+  color: #c8a96a !important;
   display: inline-block !important;
   font-weight: 500 !important;
   text-decoration: none !important;
-  border-bottom: 1px solid rgb(var(--color-clay-rgb) / 0.72) !important;
+  border-bottom: 1px solid rgba(200, 169, 106, 0.72) !important;
   padding-bottom: 1px !important;
 }
 
