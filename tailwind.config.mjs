@@ -13,7 +13,7 @@ export default {
         paper: '#F3F0EA',
         stone: '#D9D2C5',
         clay: '#9A765E',
-        forest: '#243A32',
+        forest: '#17394C',
         mist: '#ECE7DE',
       },
       letterSpacing: {
