@@ -22,7 +22,7 @@ export const coastalNatural = {
       {slot:'front',bauhuId:'BAU-COA01-KIT-001',label:'Kitchen fronts',supplier:'Nobilia',range:'LASER',model:'418',finish:'Ivory matt',image:'https://www.nobilia.de/fileadmin/_processed_/4/c/csm_418_laser_g1_c7ec336585.webp',url:'https://www.nobilia.de/en/products/kitchens/modern-kitchens/laser-418/',status:'manufacturer-reference'},
       {slot:'handles',bauhuId:'BAU-COA01-KIT-002',label:'Cabinet handles',supplier:'Nobilia',range:'Coordinated handle',model:null,finish:'Minimal metal',image:null,status:'candidate'},
       {slot:'countertop',bauhuId:'BAU-COA01-KIT-003',label:'Countertop',supplier:'Nobilia',range:'Limestone reproduction laminate',model:'376',finish:'Light stone-effect',image:null,status:'documented-example'},
-      {slot:'sink',bauhuId:'BAU-COA01-KIT-004',label:'Kitchen sink',supplier:'Schock / Bauhu kitchen supply',range:'To be selected',model:null,finish:'Neutral sink',image:null,status:'candidate'},
+      {slot:'sink',bauhuId:'BAU-COA01-KIT-004',label:'Kitchen sink',supplier:'Elleci',range:'Quadra 130',model:'G62',finish:'Bianco Antico · Granitek · provisional; 800mm cabinet fit pending',image:null,status:'manufacturer-reference'},
       {slot:'faucet',bauhuId:'BAU-COA01-KIT-005',label:'Kitchen faucet',supplier:'Bruma',range:'Ginger',model:'1227003',finish:'Chrome',image:null,status:'confirmed-rule'}
     ]},
     {id:'bathrooms',title:'Bathrooms',subtitle:'White sanitaryware and a carefully coordinated faucet suite',items:[
