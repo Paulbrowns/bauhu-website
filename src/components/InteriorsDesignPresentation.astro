@@ -1,5 +1,5 @@
 ---
-import { verifiedSupplierImage } from '../data/interiors-supplier-photography';
+import { verifiedSupplierImage, supplierCatalogueUrl } from '../data/interiors-supplier-photography';
 /**
  * Single approved Bauhu Interiors visual layout:
  * 1 interior hero, 2 overall mood board, 3 category-specific Finishes/Kitchens/Bathrooms cards.
@@ -81,7 +81,11 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
                     return <div class="min-w-0">
                       {product?<a href={product.source} target="_blank" rel="noopener noreferrer" aria-label={'View '+product.supplier+' '+product.variant+' on manufacturer website'} class="block">
                         <div class="aspect-square overflow-hidden bg-white"><img src={product.image} alt={product.supplier+' '+product.variant} loading="lazy" class="h-full w-full object-contain"/></div>
-                      </a>:<div class="flex aspect-square items-center justify-center bg-stone/15 px-2 text-center text-[10px] text-ink/50">Photo pending</div>}
+                      </a>:<div class="flex aspect-square items-center justify-center bg-stone/15 px-2 text-center text-[10px] text-ink/50">
+                          {supplierCatalogueUrl(item)?<a href={supplierCatalogueUrl(item)} target="_blank" rel="noopener noreferrer" class="flex h-full w-full flex-col items-center justify-center gap-1 text-ink/70 underline underline-offset-2">
+                            <span>View supplier</span><span>photographs ↗</span>
+                          </a>:<span>Photo pending</span>}
+                        </div>}
                       <p class="mt-1 truncate text-[9px] uppercase text-ink/60">{item.slot}</p>
                       <p class="truncate text-[10px] font-medium">{product?product.supplier+' '+product.variant:item.range}</p>
                     </div>
