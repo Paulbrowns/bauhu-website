@@ -30,6 +30,7 @@ export const supplierProductImages = {
   'NOBILIA-NORDIC-788': { supplier:'Nobilia',range:'Nordic',variant:'788 · Perfect honed sand',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/d/b/csm_front_nordic_788_8d2af65c90.webp',source:'https://www.nobilia.de/en/products/kitchens/modern-cottage-style/nordic-788/' },
   'NOBILIA-NATURA-744': { supplier:'Nobilia',range:'Natura',variant:'744 · Oak Montreal reproduction',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/a/3/csm_front_natura_744_3194946265.webp',source:'https://www.nobilia.de/en/products/kitchens/natural-scandi/natura-744/' },
   'NOBILIA-CASCADA-774': { supplier:'Nobilia',range:'Cascada',variant:'774 · White',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/5/3/csm_front_cascada_774_22cb1ddf4c.webp',source:'https://www.nobilia.de/en/products/bathroom-designs/cascada-774/' },
+  'NOBILIA-LASER-418': {supplier:'Nobilia',range:'Laser',variant:'418 · Ivory matt',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/5/2/csm_front_laser_418_aacd9aa0f7.webp',source:'https://www.nobilia.de/en/products/kitchens/modern-kitchens/laser-418/'},
   'NOBILIA-SYLT-848': { supplier:'Nobilia',range:'Sylt',variant:'848 · Sand Perfect matt',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/e/1/csm_front_sylt_848_61b7127943.webp',source:'https://www.nobilia.de/en/products/kitchens/modern-cottage-style/sylt-848/' },
   'BRUMA-BREEZE-1680000CR': {supplier:'Bruma',range:'Breeze',variant:'168 000 0 · CR Chrome',slot:'Basin faucet',image:'https://bruma.pt/_next/image?q=75&url=https%3A%2F%2Fnbg1.your-objectstorage.com%2Fbackupamos%2Fbruma%2F168%2520000%25200CR.jpg&w=1920',source:'https://bruma.pt/en/p/379-basin-mixer'},
   'BRUMA-NAUTIC-1810101CR': {supplier:'Bruma',range:'Nautic',variant:'181 010 1 · CR Chrome',slot:'Basin faucet',image:'https://bruma.pt/_next/image?q=75&url=https%3A%2F%2Fnbg1.your-objectstorage.com%2Fbackupamos%2Fbruma%2F181%2520010%25201CR.webp&w=1920',source:'https://bruma.pt/en/p/1728-basin-mixer'},
@@ -37,6 +38,9 @@ export const supplierProductImages = {
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
 const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
+  'coastal/natural':'NOBILIA-LASER-418',
+  'coastal/ocean':'NOBILIA-SENSO-490',
+  'coastal/refined':'NOBILIA-NATURA-744',
   'contemporary/pure': 'NOBILIA-SENSO-490',
   'contemporary/graphite': 'NOBILIA-LASER-463',
   'contemporary/mineral': 'NOBILIA-NORDIC-788',
@@ -52,10 +56,10 @@ export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot
   if (item.supplier==='Bruma'&&item.range==='Breeze'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-BREEZE-1680000CR'];
   if (item.supplier==='Bruma'&&item.range==='Nautic'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-NAUTIC-1810101CR'];
   if (item.supplier==='Bruma'&&item.range==='Avalon'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-AVALON-1890101CR'];
-  if (scheme==='signature/gallery'&&item.supplier==='Nobilia'&&item.slot==='Countertop') return supplierProductImages['NOBILIA-WORKTOP-376'];
+  if (['signature/gallery','coastal/natural'].includes(scheme||'')&&item.supplier==='Nobilia'&&item.slot==='Countertop') return supplierProductImages['NOBILIA-WORKTOP-376'];
   if (item.supplier==='Nobilia'&&item.slot==='Kitchen front'&&scheme&&chosenFronts[scheme]){
     const p=supplierProductImages[chosenFronts[scheme]];
-    return p.range===item.range?p:undefined;
+    return p.range.toLowerCase()===item.range?.toLowerCase()?p:undefined;
   }
   return undefined;
 }
