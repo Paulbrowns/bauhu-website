@@ -34,6 +34,16 @@ export const supplierProductImages = {
   'NOBILIA-SYLT-848': { supplier:'Nobilia',range:'Sylt',variant:'848 · Sand Perfect matt',slot:'Kitchen front',image:'https://www.nobilia.de/fileadmin/_processed_/e/1/csm_front_sylt_848_61b7127943.webp',source:'https://www.nobilia.de/en/products/kitchens/modern-cottage-style/sylt-848/' },
   'BRUMA-BREEZE-1680000CR': {supplier:'Bruma',range:'Breeze',variant:'168 000 0 · CR Chrome',slot:'Basin faucet',image:'https://bruma.pt/_next/image?q=75&url=https%3A%2F%2Fnbg1.your-objectstorage.com%2Fbackupamos%2Fbruma%2F168%2520000%25200CR.jpg&w=1920',source:'https://bruma.pt/en/p/379-basin-mixer'},
   'BRUMA-NAUTIC-1810101CR': {supplier:'Bruma',range:'Nautic',variant:'181 010 1 · CR Chrome',slot:'Basin faucet',image:'https://bruma.pt/_next/image?q=75&url=https%3A%2F%2Fnbg1.your-objectstorage.com%2Fbackupamos%2Fbruma%2F181%2520010%25201CR.webp&w=1920',source:'https://bruma.pt/en/p/1728-basin-mixer'},
+  'COMPINCAR-LISA-RW163': {
+    supplier:'Compincar',range:'Lisa',variant:'Lisa · Oak RW163 (model example)',slot:'Interior doors',
+    image:'https://compincar.com/wp-content/uploads/2021/01/ref-lisa-300x241.png',
+    source:'https://compincar.com/en/lisa-model-configuration-door-oak-rw163/?lang=en'
+  },
+  'COMPINCAR-301-MAPLE': {
+    supplier:'Compincar',range:'Model 301',variant:'301 · Maple (model example)',slot:'Interior doors',
+    image:'https://compincar.com/wp-content/uploads/2021/01/ref-301-300x68.png',
+    source:'https://compincar.com/en/model-301-configuration-door-maple/?lang=en'
+  },
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -52,6 +62,11 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
   'tropical/terracotta': 'NOBILIA-SYLT-848'
 };
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
+  if (item.supplier==='Compincar' && ['Interior doors','Interior door'].includes(item.slot||'')) {
+    if (/^Lisa$/i.test(item.range||'')) return supplierProductImages['COMPINCAR-LISA-RW163'];
+    if (/^Model 301$/i.test(item.range||'')) return supplierProductImages['COMPINCAR-301-MAPLE'];
+  }
+
   if (item.supplier==='Bruma'&&item.range==='Ginger'&&item.slot==='Kitchen faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-GINGER-1227003CR'];
   if (item.supplier==='Bruma'&&item.range==='Breeze'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-BREEZE-1680000CR'];
   if (item.supplier==='Bruma'&&item.range==='Nautic'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-NAUTIC-1810101CR'];
