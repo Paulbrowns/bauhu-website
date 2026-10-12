@@ -83,7 +83,7 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
                         <div class="aspect-square overflow-hidden bg-white"><img src={product.image} alt={product.supplier+' '+product.variant} loading="lazy" class={'h-full w-full '+('cropFromBoard' in product ? 'object-cover object-left' : 'object-contain')} style={'cropFromBoard' in product ? 'transform:scale(1.85);transform-origin:left center' : undefined}/></div>
                       </a>:<div class="flex aspect-square items-center justify-center bg-stone/15 px-2 text-center text-[10px] text-ink/50">
                           {supplierCatalogueUrl(item)?<a href={supplierCatalogueUrl(item)} target="_blank" rel="noopener noreferrer" class="flex h-full w-full flex-col items-center justify-center gap-1 text-ink/70 underline underline-offset-2">
-                            <span>View supplier</span><span>photographs ↗</span>
+                            <span>View Kitbanho</span><span>catalogue photo ↗</span>
                           </a>:<span>Photo pending</span>}
                         </div>}
                       <p class="mt-1 truncate text-[9px] uppercase text-ink/60">{item.slot}</p>
