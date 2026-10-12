@@ -71,6 +71,24 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
         <div class="overflow-hidden rounded-xl bg-mist">
           {b.image?<div class="relative aspect-[4/5]">
             <img src={b.image} alt={title+' '+b.title+' product-specific mood board'} loading="lazy" class="absolute inset-0 h-full w-full object-cover"/>
+            {schemeKey&&b.title==='Finishes'&&b.items?.some(item=>verifiedSupplierImage(item,schemeKey))&&
+              <div class="absolute inset-y-0 left-0 w-[49%] overflow-y-auto bg-[#fbfaf7] p-3 md:p-4">
+                <h3 class="font-display text-xl md:text-2xl">Finishes</h3>
+                <p class="mt-1 text-[9px] uppercase tracking-widest text-ink/50">Manufacturer selections</p>
+                <div class="mt-3 grid grid-cols-2 gap-2">
+                  {b.items.filter(item=>['Floor tile','Wall tile','Walls and ceilings','Interior doors','Window and exterior door frames','Exterior render'].includes(item.slot||'')).map(item=>{
+                    const product=verifiedSupplierImage(item,schemeKey);
+                    return <div class="min-w-0">
+                      {product?<a href={product.source} target="_blank" rel="noopener noreferrer" aria-label={'View '+product.supplier+' '+product.variant+' on manufacturer website'} class="block">
+                        <div class="aspect-square overflow-hidden bg-white"><img src={product.image} alt={product.supplier+' '+product.variant} loading="lazy" class="h-full w-full object-contain"/></div>
+                      </a>:<div class="flex aspect-square items-center justify-center bg-stone/15 px-2 text-center text-[10px] text-ink/50">Photo pending</div>}
+                      <p class="mt-1 truncate text-[9px] uppercase text-ink/60">{item.slot}</p>
+                      <p class="truncate text-[10px] font-medium">{product?product.supplier+' '+product.variant:item.range}</p>
+                    </div>
+                  })}
+                </div>
+                <p class="mt-4 text-[9px] leading-4 text-ink/55">Official model photographs; finish selection subject to approval.</p>
+              </div>}
             {schemeKey&&b.title==='Kitchens'&&b.items?.some(item=>verifiedSupplierImage(item,schemeKey))&&
               <div class="absolute inset-y-0 left-0 w-[49%] overflow-y-auto bg-[#fbfaf7] p-3 md:p-4">
                 <h3 class="font-display text-xl md:text-2xl">Kitchens</h3>
