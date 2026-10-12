@@ -79,9 +79,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Senso",
-        "finish": "Ivory / pale grey",
-        "code": null,
-        "status": "candidate"
+        "finish": "Premium honed alpine white · proposed variant",
+        "code": "490",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-CON-01-KIT-002",
@@ -284,9 +284,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Laser",
-        "finish": "Graphite grey",
-        "code": null,
-        "status": "candidate"
+        "finish": "Black concrete reproduction · proposed variant",
+        "code": "463",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-CON-02-KIT-002",
@@ -489,9 +489,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Nordic",
-        "finish": "Oat / taupe",
-        "code": null,
-        "status": "candidate"
+        "finish": "Perfect honed sand · proposed variant",
+        "code": "788",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-CON-03-KIT-002",
@@ -694,9 +694,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Natura",
-        "finish": "Walnut wood",
-        "code": null,
-        "status": "candidate"
+        "finish": "Oak Montreal reproduction · proposed variant",
+        "code": "744",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-SIG-01-KIT-002",
@@ -899,9 +899,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Sylt",
-        "finish": "Warm ivory",
-        "code": null,
-        "status": "candidate"
+        "finish": "Honed ivory · proposed variant",
+        "code": "849",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-SIG-02-KIT-002",
@@ -968,20 +968,20 @@ export const interiorsSchemes = [
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
-        "range": "Adamaster",
+        "range": "Adamastor",
         "finish": "Chrome",
         "code": null,
-        "status": "candidate"
+        "status": "manufacturer-range-verified"
       },
       {
         "id": "BAU-SIG-02-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
-        "range": "Adamaster",
+        "range": "Adamastor",
         "finish": "Chrome",
         "code": null,
-        "status": "candidate"
+        "status": "manufacturer-range-verified"
       },
       {
         "id": "BAU-SIG-02-BTH-005",
@@ -1104,9 +1104,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Laser",
-        "finish": "Dark neutral",
-        "code": null,
-        "status": "candidate"
+        "finish": "Black concrete reproduction · proposed variant",
+        "code": "463",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-SIG-03-KIT-002",
@@ -1309,9 +1309,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Natura",
-        "finish": "Natural timber",
-        "code": null,
-        "status": "candidate"
+        "finish": "Oak Montreal reproduction · proposed variant",
+        "code": "744",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-TRO-01-KIT-002",
@@ -1514,9 +1514,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Cascada",
-        "finish": "Ivory / warm white",
-        "code": null,
-        "status": "candidate"
+        "finish": "White · proposed variant",
+        "code": "774",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-TRO-02-KIT-002",
@@ -1719,9 +1719,9 @@ export const interiorsSchemes = [
         "slot": "Kitchen front",
         "supplier": "Nobilia",
         "range": "Sylt",
-        "finish": "Warm wood",
-        "code": null,
-        "status": "candidate"
+        "finish": "Sand Perfect matt · proposed variant",
+        "code": "848",
+        "status": "manufacturer-reference"
       },
       {
         "id": "BAU-TRO-03-KIT-002",
@@ -1788,20 +1788,20 @@ export const interiorsSchemes = [
         "section": "BTH",
         "slot": "Basin faucet",
         "supplier": "Bruma",
-        "range": "Adamaster",
+        "range": "Adamastor",
         "finish": "Chrome",
         "code": null,
-        "status": "candidate"
+        "status": "manufacturer-range-verified"
       },
       {
         "id": "BAU-TRO-03-BTH-004",
         "section": "BTH",
         "slot": "Shower faucet",
         "supplier": "Bruma",
-        "range": "Adamaster",
+        "range": "Adamastor",
         "finish": "Chrome",
         "code": null,
-        "status": "candidate"
+        "status": "manufacturer-range-verified"
       },
       {
         "id": "BAU-TRO-03-BTH-005",
