@@ -181,7 +181,7 @@ export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot
     return supplierProductImages[group[scheme||'']||'NOBILIA-WORKTOP-376-PROPOSAL'];
   }
   if (item.supplier==='Sto' && /exterior render/i.test(item.slot||'') && /9003|signal white/i.test(item.finish||'')) return supplierProductImages['STO-STOLIT-K-RAL9003'];
-  if (item.supplier==='Dominó' && ['Floor tile','Wall tile'].includes(item.slot||'')) {
+  if (item.supplier==='Dominó' && ['Floor tile','Wall tile','Bathroom wall tile'].includes(item.slot||'')) {
     const key='DOMINO-'+(item.range||'').toUpperCase().replace('CRYSTAL','CRISTAL').replace(/ /g,'-')+'-CAT';
     const hit=(supplierProductImages as Record<string,SupplierProductImage>)[key];
     if(hit) return hit;
