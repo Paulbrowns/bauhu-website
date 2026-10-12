@@ -7,7 +7,8 @@
   font-family: Inter, system-ui, sans-serif;
 
   /* Bauhu — Precision / Engineering palette */
-  --color-ink: #111315;
+  --color-ink: #17394c;
+  --color-graphite: #111315;
   --color-paper: #f6f3ec;
   --color-stone: #809098;
   --color-clay: #b89a62;
@@ -15,7 +16,7 @@
   --color-mist: #e8ecec;
 
   /* RGB channels keep Tailwind opacity utilities working */
-  --color-ink-rgb: 17 19 21;
+  --color-ink-rgb: 23 57 76;
   --color-paper-rgb: 246 243 236;
   --color-stone-rgb: 128 144 152;
   --color-clay-rgb: 184 154 98;
@@ -26,7 +27,7 @@
   --color-accent: var(--color-clay);
   --color-background: var(--color-paper);
   --color-surface: var(--color-mist);
-  --color-text: var(--color-ink);
+  --color-text: var(--color-graphite);
   --color-text-inverse: var(--color-paper);
 
   background: var(--color-background);
