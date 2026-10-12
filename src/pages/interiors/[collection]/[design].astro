@@ -40,6 +40,7 @@ const displayName=scheme.collection.charAt(0).toUpperCase()+scheme.collection.sl
         items:board.items,
         image:photoReady?assetBase+board.label.toLowerCase()+'.webp':undefined
       }))}
+      schemeKey={scheme.collection+'/'+scheme.slug}
       useImageEmbeddedLabels={true}
       preview={!photoReady}
     />
