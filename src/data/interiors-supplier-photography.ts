@@ -114,6 +114,14 @@ const kitbanhoSources: Record<string,string> = {
   'Kloss STD alt.2':'https://kitbanho.com/en/products/washbasins/kloss-std-alt-2-1'
 };
 export function supplierCatalogueUrl(item: {supplier?:string;range?:string}): string | undefined {
+  if (item.supplier==='Dominó') {
+    const pages: Record<string,string> = {
+      Pantanal:'https://www.domino.pt/en/products/[[type-all][collection-91][material-all][ambient-all]]/91-pantanal',
+      Nordic:'https://www.domino.pt/pt/produtos/[[tipo-tudo][colecao-76][material-tudo][ambiente-tudo]]/76-nordic',
+      Uptown:'https://www.domino.pt/pt/produtos/[[tipo-tudo][colecao-63][material-tudo][ambiente-tudo]]/63-uptown'
+    };
+    return pages[item.range||''] || 'https://www.domino.pt/en/products';
+  }
   if (item.supplier?.toLowerCase()==='kitbanho') {
     const key=Object.keys(kitbanhoSources).find(k=>k.toLowerCase()===item.range?.toLowerCase());
     return key?kitbanhoSources[key]:undefined;
