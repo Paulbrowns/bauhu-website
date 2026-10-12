@@ -100,6 +100,14 @@ export const supplierProductImages = {
   'SANINDUSA-URBY-BACK-WALL': {supplier:"Sanindusa",range:"URB.Y back-to-wall",variant:"140014004 · supplier image · original supplied photograph; verify selected finish",slot:"Toilet",image:'/images/interiors/suppliers/sanindusa-urby-back-to-wall.jpg',source:"https://sanindusa.pt/"},
   'SANINDUSA-URBY-BATH': {supplier:"Sanindusa",range:"URB.Y bathtub",variant:"8076000000 · supplier image · original supplied photograph; verify selected finish",slot:"Bathtub",image:'/images/interiors/suppliers/sanindusa-urby-bathtub.jpg',source:"https://sanindusa.pt/"},
   'SANINDUSA-URBY-FREESTANDING': {supplier:"Sanindusa",range:"URB.Y freestanding bath",variant:"8046000000 · supplier image · original supplied photograph; verify selected finish",slot:"Bathtub",image:'/images/interiors/suppliers/sanindusa-urby-freestanding-bath.jpg',source:"https://sanindusa.pt/"},
+
+  'BRUMA-AVALON-DRIVE-CHROME': {supplier:'Bruma',range:'Avalon',variant:'Client-supplied chrome basin tap photo · 189201CR',slot:'Basin faucet',image:'/images/interiors/suppliers/bruma/189201cr--avalon-basin-tap.webp',source:'https://bruma.pt/'},
+  'BRUMA-NAUTIC-DRIVE-CHROME': {supplier:'Bruma',range:'Nautic',variant:'Client-supplied chrome basin tap photo · 181201CR',slot:'Basin faucet',image:'/images/interiors/suppliers/bruma/181201cr-nautic-basin-tap.webp',source:'https://bruma.pt/'},
+  'BRUMA-BREEZE-DRIVE-CHROME': {supplier:'Bruma',range:'Breeze',variant:'Client-supplied chrome basin tap photo · 168200CR',slot:'Basin faucet',image:'/images/interiors/suppliers/bruma/168200cr-breeze-basin-tap.webp',source:'https://bruma.pt/'},
+  'BRUMA-ADAMASTOR-DRIVE-CHROME': {supplier:'Bruma',range:'Adamastor',variant:'Client-supplied chrome basin tap photo · 301202CR (Drive label Adamaster)',slot:'Basin faucet',image:'/images/interiors/suppliers/bruma/301202cr-adamaster-basin-tap.webp',source:'https://bruma.pt/'},
+  'ELLECI-QUADRA-130-DRIVE': {supplier:'Elleci',range:'Quadra 130',variant:'Client-supplied Quadra 130 product photograph · photographed finish to confirm',slot:'Kitchen sink',image:'/images/interiors/suppliers/elleci/quadra-130-vista2_03.webp',source:'https://www.elleci.com/sinks/quadra-130/'},
+  'NOBILIA-SYLT-849-DRIVE': {supplier:'Nobilia',range:'Sylt',variant:'849 · official gallery',slot:'Kitchen front',image:'/images/interiors/suppliers/nobilia/csm_849_sylt_gallery_0c90e4d450.webp',source:'https://www.nobilia.de/en/'},
+  'NOBILIA-SYLT-848-DRIVE': {supplier:'Nobilia',range:'Sylt',variant:'848 · official gallery',slot:'Kitchen front',image:'/images/interiors/suppliers/nobilia/csm_848_sylt_gallery_cdb613fd99.webp',source:'https://www.nobilia.de/en/'},
 } as const;
 
 type SupplierProductImage = (typeof supplierProductImages)[keyof typeof supplierProductImages];
@@ -175,9 +183,10 @@ export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot
   }
 
   if (item.supplier==='Bruma'&&item.range==='Ginger'&&item.slot==='Kitchen faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-GINGER-1227003CR'];
-  if (item.supplier==='Bruma'&&item.range==='Breeze'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-BREEZE-1680000CR'];
-  if (item.supplier==='Bruma'&&item.range==='Nautic'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-NAUTIC-1810101CR'];
-  if (item.supplier==='Bruma'&&item.range==='Avalon'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-AVALON-1890101CR'];
+  if (item.supplier==='Bruma'&&item.range==='Breeze'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-BREEZE-DRIVE-CHROME'];
+  if (item.supplier==='Bruma'&&item.range==='Nautic'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-NAUTIC-DRIVE-CHROME'];
+  if (item.supplier==='Bruma'&&item.range==='Avalon'&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-AVALON-DRIVE-CHROME'];
+  if (item.supplier==='Bruma'&&/adamastor/i.test(item.range||'')&&item.slot==='Basin faucet' && /chrome/i.test(item.finish||'')) return supplierProductImages['BRUMA-ADAMASTOR-DRIVE-CHROME'];
   if (['signature/gallery','coastal/natural'].includes(scheme||'')&&item.supplier==='Nobilia'&&item.slot==='Countertop') return supplierProductImages['NOBILIA-WORKTOP-376'];
   if (item.supplier==='Nobilia'&&item.slot==='Kitchen front'&&scheme&&chosenFronts[scheme]){
     const p=supplierProductImages[chosenFronts[scheme]];
