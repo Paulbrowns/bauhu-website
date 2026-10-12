@@ -72,6 +72,9 @@ const chosenFronts: Record<string, keyof typeof supplierProductImages> = {
 export function verifiedSupplierImage(item: {supplier?:string;range?:string;slot?:string;finish?:string}, scheme?:string): SupplierProductImage | undefined {
   if (item.supplier==='Elleci'&&item.range==='Quadra 130'&&item.slot==='Kitchen sink'&&scheme) {
     const choice: Record<string, keyof typeof supplierProductImages> = {
+      'coastal/natural':'ELLECI-Q130-G62',
+      'coastal/ocean':'ELLECI-Q130-K88',
+      'coastal/refined':'ELLECI-Q130-K89',
       'contemporary/pure':'ELLECI-Q130-K96',
       'contemporary/graphite':'ELLECI-Q130-K86',
       'contemporary/mineral':'ELLECI-Q130-K89',
