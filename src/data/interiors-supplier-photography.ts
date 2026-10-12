@@ -11,11 +11,15 @@ export const supplierProductImages = {
     source:'https://www.nobilia.de/en/products/kitchens/modern-cottage-style/sylt-849/'
   },
   'CIN-CINAQUA-GC300-WHITE': {supplier:'CIN',range:'Cináqua GC 300',variant:'White · schematic colour swatch (not measured coating colour)',slot:'Walls and ceilings',image:'/images/interiors/suppliers/cin-cinaqua-gc300-white-swatch.svg',source:'https://cin.com/'},
-  'NOBILIA-WORKTOP-376-PROPOSAL': {supplier:'Nobilia',range:'Coordinated laminate',variant:'376 · Limestone reproduction · illustrative proposed worktop; actual décor not confirmed',slot:'Countertop',image:'https://www.nobilia.de/fileadmin/_processed_/1/e/csm_376_5760d954c1.webp',source:'https://www.nobilia.de/en/'},
+  // Approved manufacturer catalogue choices; no image attached until the exact worktop photo is verified.
+  'NOBILIA-WORKTOP-237-CANDIDATE': {supplier:'Nobilia',range:'Coordinated laminate',variant:'237 · Jura greige marble reproduction · proposed, not approved',slot:'Countertop',image:'',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
+  'NOBILIA-WORKTOP-378-CANDIDATE': {supplier:'Nobilia',range:'Coordinated laminate',variant:'378 · Black concrete reproduction · proposed, not approved',slot:'Countertop',image:'',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
+  'NOBILIA-WORKTOP-381-CANDIDATE': {supplier:'Nobilia',range:'Coordinated laminate',variant:'381 · Honed alpine white Xtra · proposed, not approved',slot:'Countertop',image:'',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
+  'NOBILIA-WORKTOP-376-PROPOSAL': {supplier:'Nobilia',range:'Coordinated laminate',variant:'376 · Limestone reproduction · illustrative proposed worktop; actual décor not confirmed',slot:'Countertop',image:'https://www.nobilia.de/fileadmin/_processed_/1/e/csm_376_5760d954c1.webp',source:'https://www.nobilia.de/en/products/design-elements/worktops/'},
   'NOBILIA-WORKTOP-376': {
     supplier:'Nobilia', range:'Worktop', variant:'376 · Limestone reproduction', slot:'Countertop',
     image:'https://www.nobilia.de/fileadmin/_processed_/1/e/csm_376_5760d954c1.webp',
-    source:'https://www.nobilia.de/en/products/kitchens/modern-cottage-style/sylt-849/'
+    source:'https://www.nobilia.de/en/products/design-elements/worktops/'
   },
   'BRUMA-GINGER-1227003CR': {
     supplier:'Bruma', range:'Ginger', variant:'122 700 3 · CR Chrome', slot:'Kitchen faucet',
