@@ -131,12 +131,12 @@ export const coastalOcean = {
           "slot": "sink",
           "bauhuId": "BAU-COA02-KIT-004",
           "label": "Sink",
-          "supplier": "Bauhu kitchen supply",
-          "range": "Coordinated sink",
-          "model": null,
-          "finish": "Stone grey / neutral direction",
+          "supplier": "Elleci",
+          "range": "Quadra 130",
+          "model": "K88",
+          "finish": "Cloud · Keratek · provisional; 800mm cabinet fit pending",
           "image": null,
-          "status": "candidate"
+          "status": "manufacturer-reference"
         },
         {
           "slot": "kitchen-faucet",
