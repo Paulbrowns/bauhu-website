@@ -64,7 +64,7 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
           <p class="absolute bottom-6 left-7 rounded bg-paper/90 px-3 py-2 text-xs text-ink/70">Overall mood board imagery in preparation</p>
         </div>}
     </div>
-  </section>
+  </section>}
 
   {singleMoodboard&&<section class="mx-auto max-w-[1500px]"><img src={singleMoodboard} onerror={moodboardFallback ? "this.onerror=null;this.src="+JSON.stringify(moodboardFallback) : undefined} alt={title+" curated interior mood board, illustrative product and material selection"} class="w-full rounded-xl object-contain shadow-sm" loading="lazy"/><p class="mt-4 text-xs leading-5 text-ink/60">Curated design illustration. Exact manufacturer ranges and finishes are listed in the specification below and require confirmation.</p></section>}
   {!singleMoodboard&&<section>
