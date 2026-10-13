@@ -23,8 +23,9 @@ interface Props {
  useImageEmbeddedLabels?:boolean;
  schemeKey?:string;
  singleMoodboard?:string;
+ moodboardFallback?:string;
 }
-const {title,description,palette,hero,overall,boards,preview=false,useImageEmbeddedLabels=false,schemeKey,singleMoodboard}=Astro.props;
+const {title,description,palette,hero,overall,boards,preview=false,useImageEmbeddedLabels=false,schemeKey,singleMoodboard,moodboardFallback}=Astro.props;
 ---
 <div class="space-y-10">
   <section class="relative min-h-[390px] overflow-hidden rounded-xl bg-ink md:min-h-[520px]">
@@ -65,7 +66,7 @@ const {title,description,palette,hero,overall,boards,preview=false,useImageEmbed
     </div>
   </section>
 
-  {singleMoodboard&&<section class="mx-auto max-w-[1500px]"><img src={singleMoodboard} alt={title+" curated interior mood board, illustrative product and material selection"} class="w-full rounded-xl object-contain shadow-sm" loading="lazy"/><p class="mt-4 text-xs leading-5 text-ink/60">Curated design illustration. Exact manufacturer ranges and finishes are listed in the specification below and require confirmation.</p></section>}
+  {singleMoodboard&&<section class="mx-auto max-w-[1500px]"><img src={singleMoodboard} onerror={moodboardFallback ? "this.onerror=null;this.src="+JSON.stringify(moodboardFallback) : undefined} alt={title+" curated interior mood board, illustrative product and material selection"} class="w-full rounded-xl object-contain shadow-sm" loading="lazy"/><p class="mt-4 text-xs leading-5 text-ink/60">Curated design illustration. Exact manufacturer ranges and finishes are listed in the specification below and require confirmation.</p></section>}
   {!singleMoodboard&&<section>
     <div class="mb-6"><p class="eyebrow text-clay">The details / three considered boards</p><h2 class="mt-3 font-display text-4xl">The look, up close.</h2></div>
     <div class="grid gap-6 lg:grid-cols-3">
