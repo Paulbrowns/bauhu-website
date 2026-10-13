@@ -37,6 +37,8 @@ const boards = [
       palette={["#F2EFE8","#DDD1BE","#B9AE9C","#77776E"]}
       hero="/images/interiors/coastal-natural-hero.webp"
       overall="/images/interiors/coastal-natural-overall.webp"
+      singleMoodboard="/images/interiors/coastal-natural-curated-moodboard.webp"
+      moodboardFallback="/images/interiors/coastal-natural-overall.webp"
       schemeKey="coastal/natural"
       useImageEmbeddedLabels={true}
       boards={boards.map(board=>({title:board.title,subtitle:board.summary,image:board.image,items:coastalNatural.boards.find(b=>b.id===board.id)?.items.map(item=>({slot:supplierSlot(item.slot),supplier:item.supplier,range:item.range,finish:item.finish||''}))||[]}))}
