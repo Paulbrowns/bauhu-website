@@ -34,6 +34,8 @@ const displayName=scheme.collection.charAt(0).toUpperCase()+scheme.collection.sl
       palette={palette}
       hero={photoReady?assetBase+'hero.webp':undefined}
       overall={photoReady?assetBase+'overall.webp':undefined}
+      singleMoodboard={assetBase+'curated-moodboard.webp'}
+      moodboardFallback={assetBase+'overall.webp'}
       boards={boardSets.map((board,bi)=>({
         title:board.label,
         subtitle:bi===0?'Floor and wall tile · paint · render · frames · doors':bi===1?'Kitchen front · handles · countertop · sink · faucet':'Vanity · basin · matched tapware · wall tile',
