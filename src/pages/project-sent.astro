@@ -20,6 +20,16 @@ import SiteFooter from '../components/SiteFooter.astro';
       const ref = new URLSearchParams(location.search).get('ref');
       if (ref) document.getElementById('reference').textContent = ref;
 
+      if (ref && !sessionStorage.getItem(`bauhu_meta_lead_${ref}`)) {
+        const markLead = () => {
+          if (window.bauhuMeta?.trackLead?.()) {
+            sessionStorage.setItem(`bauhu_meta_lead_${ref}`, '1');
+          }
+        };
+        markLead();
+        window.addEventListener('bauhu:meta-ready', markLead, { once: true });
+      }
+
       if (ref && !sessionStorage.getItem(`bauhu_enquiry_tracked_${ref}`)) {
         sessionStorage.setItem(`bauhu_enquiry_tracked_${ref}`, '1');
         const track = () => {
