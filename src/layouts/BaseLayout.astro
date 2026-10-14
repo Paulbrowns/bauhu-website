@@ -121,19 +121,11 @@ const webSiteSchema = JSON.stringify({
         s.parentNode.insertBefore(g, s);
       })();
     </script>
-    <script is:inline>
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '684657639337711');
-      fbq('track', 'PageView');
-    </script>
+    <script src="/meta-pixel-consent.js" defer></script>
     <title>{title}</title>
   </head>
   <body>
     <slot />
-    <noscript><img alt="fb-pixel" height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=684657639337711&ev=PageView&noscript=1" /></noscript>
     <script src="/lead-attribution.js" defer></script>
     <script src="/project-start-route.js" defer></script>
     <script src="/enquiry-files.js" defer></script>
