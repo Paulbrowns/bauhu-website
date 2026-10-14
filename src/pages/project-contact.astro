@@ -36,6 +36,7 @@ import SiteFooter from '../components/SiteFooter.astro';
           <div><dt>Budget</dt><dd id="recap-budget">—</dd></div>
           <div><dt>Target start</dt><dd id="recap-timing">—</dd></div>
           <div><dt>Documents</dt><dd id="recap-documents">None supplied</dd></div>
+          <div><dt>Interior direction</dt><dd id="recap-interiors">Not selected</dd></div>
         </dl>
       </aside>
     </section>
@@ -48,6 +49,7 @@ import SiteFooter from '../components/SiteFooter.astro';
       const site = read('bauhuProjectSite');
       const details = read('bauhuProjectDetails');
       const storedDocuments = (() => { try { return JSON.parse(localStorage.getItem('bauhuProjectDocuments') || '[]'); } catch { return []; } })();
+      const interiors = (() => { try { return JSON.parse(localStorage.getItem('bauhuInteriorPreferences') || '{}'); } catch { return {}; } })();
       const routeLabels = { private:'Custom design', custom:'Custom design', development:'Development / multiple buildings', unsure:'Not sure yet', model:'Predesigned model' };
       const effectiveRoute = details.route === 'private' ? 'custom' : details.route;
       document.getElementById('recap-home').textContent = effectiveRoute === 'model' ? (details.modelName || 'Predesigned model') : (routeLabels[effectiveRoute] || 'Route not selected');
@@ -57,6 +59,7 @@ import SiteFooter from '../components/SiteFooter.astro';
       document.getElementById('recap-budget').textContent = details.budget || '—';
       document.getElementById('recap-timing').textContent = details.targetStart || '—';
       document.getElementById('recap-documents').textContent = storedDocuments.length ? `${storedDocuments.length} file${storedDocuments.length === 1 ? '' : 's'} selected` : 'None supplied';
+      document.getElementById('recap-interiors').textContent = interiors?.designLabel || interiors?.design || 'Not selected';
 
       if (details.route === 'private') details.route = 'custom';
       const home = {
@@ -76,6 +79,7 @@ import SiteFooter from '../components/SiteFooter.astro';
         project: details,
         home,
         documents: storedDocuments,
+        interiors: interiors?.design ? interiors : null,
         attribution: buildAttribution(),
         sourceUrl: location.href,
         ...extra
@@ -168,7 +172,7 @@ import SiteFooter from '../components/SiteFooter.astro';
           }
 
           try {
-            ['bauhuProjectSite','bauhuProjectDetails','bauhuProjectHome','bauhuProjectDocuments'].forEach((key) => localStorage.removeItem(key));
+            ['bauhuProjectSite','bauhuProjectDetails','bauhuProjectHome','bauhuProjectDocuments','bauhuInteriorPreferences'].forEach((key) => localStorage.removeItem(key));
             if (window.BauhuEnquiryFiles) await window.BauhuEnquiryFiles.clear();
           } catch {}
 
