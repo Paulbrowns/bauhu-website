@@ -47,6 +47,20 @@ const displayName=scheme.collection.charAt(0).toUpperCase()+scheme.collection.sl
       preview={!photoReady}
     />
   </div>
+  <section class="mt-14 border-y border-ink/15 bg-mist px-6 py-8 md:px-9">
+    <p class="eyebrow text-clay">Choose your starting point</p>
+    <div class="mt-4 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+      <div>
+        <h2 class="font-display text-4xl">Use this design for your Bauhu interior.</h2>
+        <p class="mt-3 max-w-3xl text-sm leading-7 text-ink/65">Keep the complete collection as designed, or personalise only the areas you want to change. If you want alternatives, you can browse our supplier library or simply tell us what you would like and Bauhu will curate suitable options.</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href={'/interiors/studio?design='+scheme.collection+'-'+scheme.slug+'&mode=approve'} class="rounded-full bg-ink px-6 py-4 text-xs uppercase tracking-widest text-paper">Choose this design</a>
+        <a href={'/interiors/studio?design='+scheme.collection+'-'+scheme.slug+'&mode=change'} class="rounded-full border border-ink/25 px-6 py-4 text-xs uppercase tracking-widest">Personalise this design</a>
+      </div>
+    </div>
+  </section>
+
   <section class="mt-16 border-t border-ink/20 pt-10">
    <div class="flex flex-wrap items-end justify-between gap-6"><div><p class="eyebrow text-clay">Bauhu ID / Draft specification</p><h2 class="mt-4 font-display text-5xl">The details bring it together.</h2></div><button id="spec-download" class="rounded-full border border-ink/30 px-6 py-4 text-xs uppercase tracking-widest">Download draft CSV</button></div>
    <p class="mt-5 max-w-3xl text-sm leading-7 text-ink/60">An initial supplier shortlist, not a confirmed quotation, approval, procurement schedule or statement of included scope. Exact product variants and manufacturer photographs will be checked when the material photography is finalised.</p>
