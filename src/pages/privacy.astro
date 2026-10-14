@@ -38,11 +38,6 @@ import SiteFooter from '../components/SiteFooter.astro';
         <p>You can ask Bauhu to correct, update or remove enquiry information where appropriate. You can also choose not to upload supporting documents and instead discuss them later.</p>
       </article>
       <article>
-        <h2>Optional advertising cookies</h2>
-        <p>With your permission, Bauhu uses the Meta Pixel to measure website visits and successful project enquiries from Facebook and Instagram advertisements. Meta may process information about your visit under its own privacy terms. This advertising tracking is optional and is not activated unless you accept. Your enquiry details and uploaded documents are not sent to Meta through this Pixel.</p>
-        <p style="margin-top:1rem"><button id="meta-consent-settings" type="button" style="padding:.7rem 1rem;background:#17394c;color:#fff;border:0;cursor:pointer">Review advertising cookie choices</button></p>
-      </article>
-      <article>
         <h2>Contact</h2>
         <p>For privacy questions or requests relating to information submitted through this website, contact Bauhu using the same email or contact channel used for your project enquiry.</p>
       </article>
@@ -50,7 +45,6 @@ import SiteFooter from '../components/SiteFooter.astro';
     </section>
   </main>
   <SiteFooter />
-  <script is:inline>document.getElementById('meta-consent-settings')?.addEventListener('click', () => window.bauhuMeta?.resetConsent?.());</script>
 </BaseLayout>
 
 <style>
