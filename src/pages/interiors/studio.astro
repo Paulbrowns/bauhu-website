@@ -97,11 +97,11 @@ const designs = [
             </div>
 
             <section class="mt-8 bg-ink p-7 text-paper md:p-9">
-              <p class="eyebrow text-stone">Send your preferences</p>
-              <h2 class="mt-4 font-display text-4xl">That’s all we need.</h2>
-              <p class="mt-4 max-w-2xl leading-7 text-paper/70">We’ll review your chosen collection, check any requested changes against the supplier ranges, and come back with appropriate alternatives where required.</p>
+              <p class="eyebrow text-stone">Next step</p>
+              <h2 class="mt-4 font-display text-4xl">Tell us about your project.</h2>
+              <p class="mt-4 max-w-2xl leading-7 text-paper/70">Your interior direction is useful context, but the site, location, home and project requirements come first. We’ll keep these preferences as part of your working brief while you continue through the project journey.</p>
               <div class="mt-7 flex flex-wrap gap-3">
-                <button id="send-preferences" type="button" class="rounded-full bg-paper px-7 py-4 text-xs uppercase tracking-widest text-ink">Email preferences to Bauhu →</button>
+                <button id="send-preferences" type="button" class="rounded-full bg-paper px-7 py-4 text-xs uppercase tracking-widest text-ink">Continue to site & project details →</button>
                 <a href="/interiors/#collections" class="rounded-full border border-paper/35 px-7 py-4 text-xs uppercase tracking-widest text-paper">Choose another design</a>
               </div>
               <p id="studio-status" class="mt-4 text-sm text-paper/60" aria-live="polite"></p>
@@ -157,8 +157,19 @@ const designs = [
         lines.push(title+': CHANGE'+(note ? ' — '+note : ' — please recommend alternatives'));
       }
     });
-    const subject = encodeURIComponent('Bauhu Interiors preferences — '+label);
-    const body = encodeURIComponent('Hello Bauhu,\n\nHere are my interior preferences:\n\n'+lines.join('\n')+'\n\nPlease review these and recommend suitable alternatives where I have requested a change.\n');
-    window.location.href = 'mailto:contact@bauhu.com?subject='+subject+'&body='+body;
+    const preferences = {
+      design: chosen,
+      designLabel: label,
+      areas: [...document.querySelectorAll('[data-area]')].map(area => {
+        const id = area.getAttribute('data-area');
+        const title = area.querySelector('h3')?.textContent?.trim() || '';
+        const value = area.querySelector('input[type="radio"]:checked')?.value || 'keep';
+        const note = value === 'change' ? (document.getElementById('note-'+id)?.value?.trim() || '') : '';
+        return { id, title, status: value, note };
+      }),
+      savedAt: new Date().toISOString()
+    };
+    try { localStorage.setItem('bauhuInteriorPreferences', JSON.stringify(preferences)); } catch {}
+    window.location.href = '/site-fit';
   });
 </script>
