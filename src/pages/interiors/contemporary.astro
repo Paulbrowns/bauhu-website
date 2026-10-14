@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import {interiorsSchemes} from '../../data/interiors-curated-schemes';
+const schemes=interiorsSchemes.filter(s=>s.collection==='contemporary');
+---
+<BaseLayout title="Contemporary Collection | Bauhu Interiors" description="Quietly confident spaces, calm geometry and considered contrasts.">
+<SiteHeader/>
+<main class="bg-paper px-5 pb-28 pt-36 lg:px-10"><div class="mx-auto max-w-site">
+<a href="/interiors/" class="text-xs uppercase tracking-[.2em] text-ink/55">← Bauhu Interiors</a>
+<div class="mt-12 grid items-end gap-9 md:grid-cols-[1fr_.75fr]"><div><p class="eyebrow text-clay">Bauhu / Interior collection</p><h1 class="mt-5 font-display text-7xl md:text-8xl">Contemporary.</h1><p class="mt-6 max-w-xl text-xl leading-8 text-ink/65">Quietly confident spaces, calm geometry and considered contrasts.</p></div><p class="max-w-md border-t border-ink/15 pt-5 text-sm leading-7 text-ink/60">Three curated design stories. Choose a complete look, explore its mood board, then view the corresponding supplier selection and Bauhu IDs.</p></div>
+<div class="mt-14 grid gap-7 lg:grid-cols-3">
+{schemes.map((scheme,i)=><article class="overflow-hidden rounded-2xl bg-mist">
+<div class="relative h-72 overflow-hidden" style={'background:linear-gradient(130deg,'+scheme.tones[0]+','+scheme.tones[1]+','+scheme.tones[3]+')'}>
+{['pure','graphite','mineral'].includes(scheme.slug)&&<img src={'/images/interiors/contemporary-'+scheme.slug+'-hero.webp'} alt={'Contemporary '+scheme.name+' interior design'} class="absolute inset-0 h-full w-full object-cover" loading="lazy"/>}
+<div class="absolute inset-0 opacity-30" style="background:repeating-linear-gradient(122deg,transparent 0 24px,#ffffff 25px,transparent 26px 50px)"></div>
+<div class="absolute left-6 top-6 rounded-full bg-paper px-4 py-2 text-xs uppercase tracking-widest text-ink">Contemporary 0{i+1}</div>
+<div class="absolute bottom-5 left-6 right-6 grid h-12 grid-cols-4 overflow-hidden rounded-md shadow-lg">{scheme.tones.map(t=><span style={'background:'+t}></span>)}</div></div>
+<div class="p-7"><h2 class="font-display text-4xl">{scheme.name}</h2><p class="mt-4 min-h-20 text-sm leading-7 text-ink/65">{scheme.description}</p><a href={'/interiors/contemporary/'+scheme.slug+'/'} class="mt-5 inline-flex border-b border-ink/50 pb-2 text-xs uppercase tracking-widest">Explore this design →</a></div></article>)}
+</div>
+<p class="mt-10 max-w-3xl text-xs leading-6 text-ink/50">The schemes shown are draft product selections from Bauhu's approved supplier ranges. Photographic hero images and mood boards are in preparation; colour previews are not physical manufacturer samples.</p>
+</div></main><SiteFooter/>
+</BaseLayout>

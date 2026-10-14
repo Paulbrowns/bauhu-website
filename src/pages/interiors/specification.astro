@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import {interiorsProducts} from '../../data/interiors-products';
+
+const schemeDefaults={
+ natural:{title:'Coastal Natural',defaults:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory supermatt',bath:'White & chrome',floor:'Warm limestone look',doors:'Matt white',paint:'Warm off-white'}},
+ ocean:{title:'Coastal Ocean',defaults:{exterior:'Soft white',frames:'Pure white',kitchen:'Ivory matt',bath:'White & chrome',floor:'Pale grey stone look',doors:'Matt white',paint:'Cool off-white'}},
+ refined:{title:'Coastal Refined',defaults:{exterior:'Warm white',frames:'Anthracite',kitchen:'Soft sand',bath:'Walnut & chrome',floor:'Warm limestone look',doors:'Timber-look',paint:'Soft taupe'}}
+};
+const details=[
+ {section:'Finishes',slot:'Floor tile',id:'BAU-SLOT-FIN-01',category:'floor',supplier:'Dominó',reference:null,code:null},
+ {section:'Finishes',slot:'Wall tile',id:'BAU-SLOT-FIN-02',supplier:'Dominó',reference:'Stella White / Stella Brick Blue',code:'SA05R / SA53R'},
+ {section:'Finishes',slot:'Wall paint',id:'BAU-SLOT-FIN-03',category:'paint',supplier:'CIN'},
+ {section:'Finishes',slot:'Exterior render',id:'BAU-SLOT-FIN-04',category:'exterior',supplier:'Sto'},
+ {section:'Finishes',slot:'Window frame colour',id:'BAU-SLOT-FIN-05',category:'frames',supplier:'Cortizo'},
+ {section:'Finishes',slot:'Interior door style',id:'BAU-SLOT-FIN-06',category:'doors',supplier:'Compincar'},
+ {section:'Kitchens',slot:'Cabinet fronts',id:'BAU-SLOT-KIT-01',category:'kitchen',supplier:'Nobilia'},
+ {section:'Kitchens',slot:'Handles',id:'BAU-SLOT-KIT-02',supplier:'Nobilia',reference:'LINE N recessed bronze metallic',code:'012'},
+ {section:'Kitchens',slot:'Countertop',id:'BAU-SLOT-KIT-03',supplier:'Nobilia',reference:'Limestone reproduction laminate',code:'376'},
+ {section:'Kitchens',slot:'Sink',id:'BAU-SLOT-KIT-04',supplier:'Schock',reference:'Patos D-200 Magma',code:'87422'},
+ {section:'Kitchens',slot:'Faucet',id:'BAU-SLOT-KIT-05',supplier:'Bruma',reference:'Ginger mixer',code:'1227003CR'},
+ {section:'Bathrooms',slot:'Vanity',id:'BAU-SLOT-BTH-01',category:'bath',supplier:'Kitbanho',reference:'ASTRO ALT.10 white / ALT.25 walnut',code:'ALT.10 / ALT.25'},
+ {section:'Bathrooms',slot:'Basin',id:'BAU-SLOT-BTH-02',supplier:'Kitbanho',reference:'BERNA white basin',code:'BERNA-002'},
+ {section:'Bathrooms',slot:'Faucet',id:'BAU-SLOT-BTH-03',supplier:'Bruma',reference:'Infante 2-hole basin mixer',code:'108 840 1CR'},
+ {section:'Bathrooms',slot:'Wall tile',id:'BAU-SLOT-BTH-04',supplier:'Dominó',reference:'Stella White / Stella Brick Blue',code:'SA05R / SA53R'}
+];
+---
+<BaseLayout title="Design product list | Bauhu Interiors" description="Draft finish-by-finish Bauhu ID and manufacturer reference list for your chosen Coastal mood board.">
+ <SiteHeader/>
+ <main class="bg-paper px-5 pb-24 pt-40 lg:px-10">
+  <div class="mx-auto max-w-site">
+   <a href="/interiors/coastal" class="text-xs uppercase tracking-widest text-ink/55">← Back to Coastal mood boards</a>
+   <div class="mt-12 grid gap-6 lg:grid-cols-[1fr_.8fr] lg:items-end">
+    <div><p class="eyebrow text-clay">Bauhu Interiors / Design specification draft</p><h1 class="mt-4 font-display text-6xl md:text-7xl">Behind the mood board.</h1>
+    <p id="products-design-title" class="mt-5 text-xl text-ink/65">Coastal Natural</p></div>
+    <p class="leading-7 text-ink/60">Every visible finish has its own Bauhu component ID. Where a manufacturer reference has been verified against previous Bauhu drawings, it appears as a <strong>reference example</strong> — not a confirmed selection for your new project.</p>
+   </div>
+   <div id="products-review" class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+   <div class="mt-10 flex flex-wrap items-center gap-4">
+    <button id="products-csv" type="button" class="rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Download product list (.csv)</button>
+    <button id="products-print" type="button" class="rounded-full border border-ink/30 px-7 py-4 text-xs uppercase tracking-widest">Print reference list</button>
+    <span id="products-status" role="status" aria-live="polite" class="text-sm text-ink/55"></span>
+   </div>
+   <p class="mt-10 max-w-4xl text-sm leading-7 text-ink/60">Important: This list is a <strong>design mapping prototype</strong>. No quantities, availability, contractual inclusion, variation costs or final approvals are represented. The actual supplier products for each board need to be curated and confirmed by Bauhu before this can be used as a procurement or fabrication schedule. Images are shown only where an identified manufacturer image is available.</p>
+  </div>
+ </main>
+ <SiteFooter/>
+</BaseLayout>
+<script define:vars={{interiorsProducts,details,schemeDefaults}}>
+ const boardKey='bauhu-interiors-coastal-v1';
+ let stored=null;
+ try{stored=JSON.parse(localStorage.getItem(boardKey)||'null')}catch{}
+ const scheme=Object.hasOwn(schemeDefaults,stored?.scheme)?schemeDefaults[stored.scheme]:schemeDefaults.natural;
+ document.getElementById('products-design-title').textContent=scheme.title+' / Draft selection schedule';
+ const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const labelFor=slot=>slot.category?(typeof stored?.changes?.[slot.category]==='string'?stored.changes[slot.category]:scheme.defaults[slot.category]):null;
+ const rows=details.map(slot=>{
+  const selected=labelFor(slot);
+  const product=interiorsProducts.items.find(item=>item.category===slot.category&&item.label===selected);
+  return {
+   section:slot.section,slot:slot.slot,bauhuId:product?.bauhuId||slot.id,supplier:product?.supplier||slot.supplier,
+   selectedDirection:selected||'Product selection to be confirmed',reference:product?.manufacturerProduct||slot.reference||'Reference pending',
+   supplierCode:product?.supplierCode||(!selected?slot.code:null)||'Not yet assigned',image:product?.image||null,
+   state:product?.status==='manufacturer-candidate'?'Manufacturer candidate — Bauhu approval pending':product?.status==='documented-example'||slot.reference?'Past project example — project matching pending':'Product reference pending'
+  };
+ });
+ const host=document.getElementById('products-review');
+ host.innerHTML=rows.map(row=>'<article class="overflow-hidden rounded-xl border border-ink/10 bg-mist">'+
+ (row.image?'<img src="'+row.image+'" alt="'+safe(row.supplier+' '+row.reference)+'" loading="lazy" class="h-48 w-full object-cover"/>':'<div class="flex h-36 items-end bg-[#DCD8CF] p-5 text-xs uppercase tracking-widest text-ink/50">Supplier image pending</div>')+
+ '<div class="p-6"><p class="text-xs uppercase tracking-widest text-clay">'+safe(row.section)+'</p><h2 class="mt-2 font-display text-3xl">'+safe(row.slot)+'</h2><p class="mt-4 text-sm font-medium">'+safe(row.selectedDirection)+'</p><p class="mt-2 text-sm text-ink/70">'+safe(row.supplier)+' / '+safe(row.reference)+'</p><p class="mt-3 text-xs text-ink/55">Bauhu ID: '+safe(row.bauhuId)+'</p><p class="mt-1 text-xs text-ink/55">Supplier ref: '+safe(row.supplierCode)+'</p><p class="mt-4 border-t border-ink/10 pt-3 text-xs leading-5 text-ink/55">'+safe(row.state)+'</p></div></article>').join('');
+ document.getElementById('products-print').addEventListener('click',()=>window.print());
+ document.getElementById('products-csv').addEventListener('click',()=>{
+  const fields=['Section','Component','Bauhu ID','Selected direction','Manufacturer','Manufacturer product','Supplier code','Review status','Image URL'];
+  const escapeCSV=value=>{let x=String(value??'');if(/^[\s]*[=+\-@]/.test(x))x="'"+x;return '"'+x.replace(/"/g,'""')+'"'};
+  const values=rows.map(r=>[r.section,r.slot,r.bauhuId,r.selectedDirection,r.supplier,r.reference,r.supplierCode,r.state,r.image||'']);
+  const csv='\uFEFF'+[fields,...values].map(row=>row.map(escapeCSV).join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='bauhu-interiors-coastal-product-draft.csv';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+  document.getElementById('products-status').textContent='Draft product mapping downloaded.';
+ });
+</script>
+<style>@media print{header,footer,button{display:none!important}article{break-inside:avoid}}</style>
