@@ -12,6 +12,7 @@ const {scheme}=Astro.props;
 const palette=scheme.tones;
 const photoReady=true; // Nine additional collections have individual editorial preview assets.
 const assetBase='/images/interiors/'+scheme.collection+'-'+scheme.slug+'-';
+const heroAsset=(scheme.collection==='tropical' && ['lagoon','terracotta'].includes(scheme.slug)) ? assetBase+'overall.webp' : assetBase+'hero.webp';
 const finish=scheme.items.filter(i=>i.section==='FIN');
 const kitchen=scheme.items.filter(i=>i.section==='KIT');
 const bath=scheme.items.filter(i=>i.section==='BTH');
@@ -32,7 +33,7 @@ const displayName=scheme.collection.charAt(0).toUpperCase()+scheme.collection.sl
       title={displayName+' '+scheme.name}
       description={scheme.description}
       palette={palette}
-      hero={photoReady?assetBase+'hero.webp':undefined}
+      hero={photoReady?heroAsset:undefined}
       overall={photoReady?assetBase+'overall.webp':undefined}
       singleMoodboard={assetBase+'curated-moodboard.webp'}
       moodboardFallback={assetBase+'overall.webp'}
