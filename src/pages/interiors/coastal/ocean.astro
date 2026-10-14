@@ -62,7 +62,6 @@ const boards = [
      <p class="text-sm leading-7 text-ink/65">The mood boards capture the look. The separate Bauhu ID list maps the selected components to supplier ranges and, later, actual product photographs and confirmed manufacturer references.</p>
    </div>
    <div class="mt-8 flex flex-wrap gap-3">
-    <button id="natural-download" type="button" class="rounded-full bg-ink px-7 py-4 text-xs uppercase tracking-widest text-paper">Download Bauhu ID list</button>
     <button id="natural-print" type="button" class="rounded-full border border-ink/25 px-7 py-4 text-xs uppercase tracking-widest">Print mood boards</button>
    </div>
    <div class="mt-8 overflow-x-auto">
@@ -80,11 +79,5 @@ const boards = [
 <script define:vars={{coastalOcean}}>
  const rows=coastalOcean.boards.flatMap(board=>board.items.map(item=>[board.title,item.label,item.bauhuId,item.supplier,item.range,item.model||'',item.finish||'',item.status,item.image||'']));
  document.getElementById('natural-print').addEventListener('click',()=>window.print());
- document.getElementById('natural-download').addEventListener('click',()=>{
-  const escapeCSV=v=>{let s=String(v??'');if(/^\s*[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
-  const csv='\uFEFF'+[['Board','Component','Bauhu ID','Supplier','Collection','Model','Finish','Status','Product image'],...rows].map(row=>row.map(escapeCSV).join(',')).join('\r\n');
-  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='bauhu-coastal-ocean-draft.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-  document.getElementById('natural-status').textContent='Draft schedule saved locally. Not submitted to Bauhu.';
- });
 </script>
 <style>@media print{header,footer,button{display:none!important}section{break-inside:avoid}}</style>
