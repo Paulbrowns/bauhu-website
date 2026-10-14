@@ -1,0 +1,58 @@
+name: Refresh legacy model floorplans
+on:
+  push:
+    paths:
+      - '.github/workflows/refresh-legacy-floorplans.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install converters
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          python -m pip install Pillow
+      - name: Convert updated PDFs from Drive
+        run: |
+          python - <<'PY'
+          import base64
+          import subprocess
+          import tempfile
+          from pathlib import Path
+          from PIL import Image
+          sources=sorted(Path('.floorplan-input').glob('*-floorplan*.pdf.base64'))
+          assert len(sources) >= 10, f"Expected 10 or more updated model plans, got {len(sources)}"
+          for source in sources:
+              name=source.name.removesuffix('.pdf.base64')
+              suffix='-gf' if name.endswith('-floorplan-gf') else '-ff' if name.endswith('-floorplan-ff') else ''
+              model=name.removesuffix('-floorplan-gf').removesuffix('-floorplan-ff').removesuffix('-floorplan')
+              dest=Path('public/images/models') / ('bauhu-'+model) / ('floorplan'+suffix+'.webp')
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              with tempfile.TemporaryDirectory() as t:
+                  pdf=Path(t)/'original.pdf'
+                  pdf.write_bytes(base64.b64decode(source.read_text()))
+                  out=Path(t)/'page'
+                  subprocess.run(['pdftoppm','-f','1','-l','1','-singlefile','-r','200','-png',str(pdf),str(out)],check=True)
+                  with Image.open(str(out)+'.png') as im:
+                      im=im.convert('RGB')
+                      im.thumbnail((2800,2800),Image.Resampling.LANCZOS)
+                      im.save(dest,'WEBP',quality=92,method=6)
+              print(f'{source} -> {dest}')
+          PY
+      - name: Commit replacement floorplans
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/models/
+          git rm -r .floorplan-input
+          if ! git diff --cached --quiet; then
+            git commit -m "Replace legacy model floorplans with current WebP drawings"
+            git push
+          fi
