@@ -1,0 +1,62 @@
+name: Convert model floorplans to WebP
+on:
+  push:
+    paths:
+      - '.github/workflows/convert-model-floorplans.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install conversion tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          python -m pip install Pillow
+      - name: Convert PDF floorplans to WebP
+        run: |
+          cat > /tmp/convert_floorplans.py <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import subprocess, tempfile
+          
+          sources = ["ice-floorplan.pdf","eon-floorplan.pdf","zen-floorplan.pdf","air-floorplan.pdf","abaco-floorplan-gf.pdf","abaco-floorplan-ff.pdf","azure-floorplan.pdf","jade-floorplan.pdf","amber-floorplan.pdf","topaz-floorplan.pdf","moonstone-floorplan.pdf","cat-island-floorplan-gf.pdf","cat-island-floorplan-ff.pdf","coconut-cottage-floorplan.pdf","grapetree-floorplan.pdf","halo-floorplan.pdf","toucan-floorplan.pdf","jamaica-floorplan-gf.pdf","jamaica-floorplan-ff.pdf","providence-floorplan-gf.pdf","providence-floorplan-ff.pdf","st-thomas-floorplan-gf.pdf","st-thomas-floorplan-ff.pdf","serenity-heights-floorplan-gf.pdf","serenity-heights-floorplan-ff.pdf","red-hawk-ridge-floorplan-gf.pdf","red-hawk-ridge-floorplan-ff.pdf"]
+          root = Path("public/downloads/models")
+          models = Path("public/images/models")
+          with tempfile.TemporaryDirectory() as temp:
+              for name in sources:
+                  pdf = root / name
+                  if not pdf.is_file():
+                      raise FileNotFoundError(pdf)
+                  model = name.removesuffix(".pdf").removesuffix("-floorplan-gf").removesuffix("-floorplan-ff").removesuffix("-floorplan")
+                  suffix = "-gf" if name.endswith("-gf.pdf") else "-ff" if name.endswith("-ff.pdf") else ""
+                  destination = models / ("bauhu-" + model) / ("floorplan" + suffix + ".webp")
+                  destination.parent.mkdir(parents=True, exist_ok=True)
+                  prefix = Path(temp) / "render"
+                  subprocess.run(["pdftoppm","-f","1","-l","1","-singlefile","-r","190","-png",str(pdf),str(prefix)],check=True)
+                  with Image.open(str(prefix) + ".png") as im:
+                      im = im.convert("RGB")
+                      im.thumbnail((2800,2800),Image.Resampling.LANCZOS)
+                      im.save(destination,"WEBP",quality=92,method=6)
+                  Path(str(prefix)+".png").unlink()
+                  print(destination)
+          
+          PY
+          python /tmp/convert_floorplans.py
+      - name: Commit generated floorplan images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/models/
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate WebP images for model floorplans"
+            git push
+          fi
