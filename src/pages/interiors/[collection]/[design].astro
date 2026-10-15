@@ -12,7 +12,7 @@ const {scheme}=Astro.props;
 const palette=scheme.tones;
 const photoReady=true; // Nine additional collections have individual editorial preview assets.
 const assetBase='/images/interiors/'+scheme.collection+'-'+scheme.slug+'-';
-const heroAsset=(scheme.collection==='tropical' && ['lagoon','terracotta'].includes(scheme.slug)) ? assetBase+'overall.webp' : assetBase+'hero.webp';
+const heroAsset=assetBase+'hero.webp';
 const finish=scheme.items.filter(i=>i.section==='FIN');
 const kitchen=scheme.items.filter(i=>i.section==='KIT');
 const bath=scheme.items.filter(i=>i.section==='BTH');
