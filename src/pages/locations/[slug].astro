@@ -27,7 +27,8 @@ const articleSchema = JSON.stringify({
   <SiteHeader />
   <main class="bg-paper">
     <section class="relative min-h-[37rem] bg-navy text-paper">
-      <img src={place.image} alt={place.imageAlt} class="absolute inset-0 h-full w-full object-cover opacity-35" loading="eager" />
+      <img src={place.image} alt={place.imageAlt} class="absolute inset-0 h-full w-full object-cover" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-t from-navy/75 via-navy/20 to-transparent"></div>
       <div class="relative mx-auto flex min-h-[37rem] max-w-site flex-col justify-end px-5 pb-16 pt-36 lg:px-10">
         <a href="/locations/" class="text-sm text-paper/75 underline underline-offset-4">← All Caribbean locations</a>
         <p class="eyebrow mt-9 text-stone">{place.region}</p>
@@ -79,7 +80,7 @@ const articleSchema = JSON.stringify({
         </div>
         <div>
           <p class="text-lg leading-8 text-ink/75">{place.otherDevelopmentsText}</p>
-          <p class="mt-7 text-sm leading-7 text-ink/55">Named developments and communities are independent of Bauhu. Their inclusion is for geographical and editorial context only; it does not imply Bauhu has worked there or is permitted to build there.</p>
+          
         </div>
       </div>
     </section>
@@ -91,7 +92,7 @@ const articleSchema = JSON.stringify({
     </section>
     <section class="section-pad bg-paper">
       <div class="mx-auto max-w-site">
-        <p class="text-sm leading-7 text-ink/55">Independent editorial guide. References to {place.example} are illustrative only. Bauhu is not affiliated with, endorsed by or appointed to the development or its owners/operators. The images on this page depict Bauhu projects or concepts, not the named development. Construction methods are subject to local regulation, third-party permissions and project-specific feasibility.</p>
+        <p class="text-sm leading-7 text-ink/55">Independent guide by Bauhu. Development names illustrate the region; Bauhu is not affiliated with or endorsed by the communities mentioned. Imagery shows Bauhu designs, not those developments. All projects require local approvals and site-specific assessment.</p>
         <h2 class="mt-12 font-display text-3xl">Explore other Caribbean locations</h2>
         <div class="mt-6 grid gap-4 md:grid-cols-3">
           {otherPlaces.map((other) => <a class="border border-ink/15 bg-mist p-6 hover:underline" href={`/locations/${other.slug}/`}><span class="eyebrow text-clay">{other.region}</span><h3 class="mt-3 font-display text-2xl">{other.title}</h3></a>)}
