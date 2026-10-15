@@ -11,7 +11,7 @@ export const locations = [
     supportingImage: '/images/residences/moonstone-pergola-pool.webp',
     supportingImageAlt: 'Bauhu Moonstone poolside residence',
     lead: 'From the secluded cays of Exuma and Eleuthera to the residential estates of New Providence and Abaco, The Bahamas offers extraordinary opportunities to create a private home. Every island, plot and managed development has its own requirements for access, engineering and construction.',
-    context: 'The Bahamas spans very different development environments. Albany on New Providence offers custom residential homesites; Baker’s Bay and The Abaco Club have estate-home opportunities in Abaco; Royal Island in North Eleuthera represents a different, large-scale private-island proposition; and Torch Cay is an example of an Exuma island development. Bauhu has no stated affiliation with these projects and does not claim its building systems are approved within them.',
+    context: 'The Bahamas spans very different development environments. Albany on New Providence offers custom residential homesites; Baker’s Bay and The Abaco Club have estate-home opportunities in Abaco; Royal Island in North Eleuthera represents a different, large-scale private-island proposition; and Torch Cay is an example of an Exuma island development. Each offers a different context for bespoke residential design.',
     questions: [
       ['Island access', 'Will the site be reached by road, commercial port or private marine transfer, and how do unloading, freight and on-site handling differ between islands?'],
       ['Design and approvals', 'What wind, flood, elevation and environmental requirements apply, and does an estate or developer control permitted designs and methods?'],
@@ -21,7 +21,7 @@ export const locations = [
     caveat: 'The practicality and permissibility of any Bauhu building system will differ between New Providence, Eleuthera, the Exumas, Abaco and other islands, and must be confirmed with the relevant authorities and estate representatives.',
     example: 'Torch Cay',
     otherDevelopmentsHeading: "Other notable residential communities and island opportunities across The Bahamas",
-    otherDevelopmentsText: "Examples across the islands include Albany on New Providence; Royal Island and the Jewel Point parcel off Eleuthera; Baker’s Bay on Great Guana Cay and The Abaco Club at Winding Bay; Ocean Club Estates on Paradise Island; February Point in Great Exuma; and Briland Club on Harbour Island. Torch Cay, Norman’s Cay and private estates near Staniel Cay illustrate different opportunities in Exuma. Some are managed developments with existing design and contractor arrangements, some offer residential homesites, and others are whole-island or estate propositions. Their inclusion is not a claim that Bauhu can build within any of them.",
+    otherDevelopmentsText: "Examples across the islands include Albany on New Providence; Royal Island and the Jewel Point parcel off Eleuthera; Baker’s Bay on Great Guana Cay and The Abaco Club at Winding Bay; Ocean Club Estates on Paradise Island; February Point in Great Exuma; and Briland Club on Harbour Island. Torch Cay, Norman’s Cay and private estates near Staniel Cay illustrate different opportunities in Exuma. Some are managed developments with existing design and contractor arrangements, some offer residential homesites, and others are whole-island or estate propositions. Each location illustrates a different approach to island development.",
     otherDevelopmentNames: ["Albany Bahamas","Royal Island Bahamas","Jewel Point Royal Island","Baker’s Bay","The Abaco Club","Ocean Club Estates","February Point","Briland Club","Torch Cay","Norman’s Cay","Staniel Cay"],
     relatedLabel: 'Remote-island shipping and access',
     relatedHref: '/remote-locations/'
@@ -38,7 +38,7 @@ export const locations = [
     supportingImage: '/images/models/bauhu-st-thomas/bauhu-st-thomas.webp',
     supportingImageAlt: 'Bauhu St Thomas coastal house design',
     lead: 'Virgin Gorda combines remarkable elevated plots and sheltered bays with highly varied access and exposure conditions. The success of a substantial home depends on resolving the site and the building system together.',
-    context: 'Communities such as Oil Nut Bay are useful examples of design-controlled luxury residential environments. Oil Nut Bay publicly recommends concrete structures and operates its own construction services; Bauhu does not claim eligibility or approval to supply homes within that community.',
+    context: 'Communities such as Oil Nut Bay are useful examples of design-controlled luxury residential environments. Oil Nut Bay publicly recommends concrete structures and operates its own construction services; Its established construction guidance makes it an instructive example of the importance of project-specific design criteria.',
     questions: [
       ['Development controls', 'Does the plot sit within a managed estate with specific design, contractor and construction-method requirements?'],
       ['Site access', 'Can components be transferred from port to the final plot, including steep routes and restricted turning areas?'],
@@ -65,7 +65,7 @@ export const locations = [
     supportingImage: '/images/models/bauhu-abaco/bauhu-abaco.webp',
     supportingImageAlt: 'Bauhu Abaco residence design',
     lead: 'Barbuda offers long stretches of low-lying coastline and considerable privacy. Remote logistics, wind exposure, environmental sensitivity and appropriate specification require unusually careful advance coordination.',
-    context: 'Barbuda Ocean Club is one example of a master-planned residential environment on the island, with custom homesites and its own architectural and development processes. Bauhu is not an appointed provider to that development.',
+    context: 'Barbuda Ocean Club is one example of a master-planned residential environment on the island, with custom homesites and its own architectural and development processes. Its design-led environment is one example of the high standards expected for new residences on Barbuda.',
     questions: [
       ['Development permissions', 'Which local approvals, planning restrictions, ownership requirements and estate design standards apply?'],
       ['Site conditions', 'How do wind exposure, storm surge, finished-floor elevation and ground conditions affect the design?'],
@@ -92,7 +92,7 @@ export const locations = [
     supportingImage: '/images/residences/jimmy-hill-front-elevation-hero.webp',
     supportingImageAlt: 'Bauhu Jimmy Hill residence front elevation',
     lead: 'Low-density private-island living in Turks and Caicos attracts owners who value seclusion without compromising architecture or finish quality. Achieving that result can depend heavily on decisions made before materials leave the mainland.',
-    context: 'Ambergris Cay, including Big Ambergris Cay, illustrates the appeal of managed private-island living. The existence of estate or villa opportunities does not imply that Bauhu is permitted to build there or has any affiliation with the island’s operators.',
+    context: 'Ambergris Cay, including Big Ambergris Cay, illustrates the appeal of managed private-island living. Private-island homes demand particular attention to access, coordination and long-term resilience.',
     questions: [
       ['Estate rules', 'Are independent architects, contractors and imported systems permitted, and who must approve the design?'],
       ['Transport', 'Which vessel, aircraft, handling equipment and on-island access routes are realistically available?'],
@@ -119,7 +119,7 @@ export const locations = [
     supportingImage: '/images/residences/amber-pool-elevation.webp',
     supportingImageAlt: 'Bauhu Amber poolside residence',
     lead: 'The Grenadines offer a range of private and low-density residential environments, from established island estates to isolated coastal plots. Each setting requires its own response to planning, access and engineering.',
-    context: 'Mustique is a well-known example of an established private-island community, but its property, building and design processes are controlled locally. Mentioning Mustique is geographic context only; Bauhu is not a Mustique-approved or affiliated supplier.',
+    context: 'Mustique is a well-known example of an established private-island community, but its property, building and design processes are controlled locally. Its established design standards reflect the close consideration given to architecture in the Grenadines.',
     questions: [
       ['Local governance', 'Which planning authority or estate body controls building approvals, designs and contractors?'],
       ['Delivery', 'How will construction materials be consolidated, landed, handled and protected from weather?'],
@@ -165,7 +165,7 @@ export const locations = [
     "caveat": "Estate rules, local approvals and the acceptability of the proposed structural system must be reviewed with local professionals before proceeding.",
     "example": "Altamer",
     "otherDevelopmentsHeading": "Other notable luxury residential settings in Anguilla",
-    "otherDevelopmentsText": "Anguilla’s luxury villa landscape includes established beachfront and hillside homes around Shoal Bay West, Meads Bay, the West End, Long Bay and Little Harbour. Altamer represents an established private-villa property rather than a publicly available plot development. These examples illustrate local residential character, not Bauhu project affiliations or construction permissions.",
+    "otherDevelopmentsText": "Anguilla’s luxury villa landscape includes established beachfront and hillside homes around Shoal Bay West, Meads Bay, the West End, Long Bay and Little Harbour. Altamer represents an established private-villa property rather than a publicly available plot development. Each suggests a different response to site, views and architecture.",
     "otherDevelopmentNames": [
       "Shoal Bay West",
       "Altamer",
@@ -205,7 +205,7 @@ export const locations = [
       ]
     ],
     "angle": "Where the site, regulations and project team support it, Bauhu can explore a coordinated architectural and engineered package for a high-specification St Barts residence.",
-    "caveat": "Nothing on this page implies Bauhu has been appointed in St Barts or that its building method has local approval. Local regulatory and engineering review would be essential.",
+    "caveat": "A successful proposal would begin with local architectural and engineering advice.",
     "example": "Pointe Milou",
     "otherDevelopmentsHeading": "Other sought-after villa locations on St Barthélemy",
     "otherDevelopmentsText": "Prestige residential areas include Pointe Milou, Colombier, Gouverneur, Flamands, Anse des Cayes, Grand Cul de Sac, Lurin and Saint Jean. These are geographical villa districts, not necessarily named master-planned developments. Limited land supply and existing permit requirements make plot-specific due diligence especially important.",
@@ -250,7 +250,7 @@ export const locations = [
       ]
     ],
     "angle": "Bauhu’s coordinated engineering, procurement and shipping approach can be evaluated for eligible Tortola and outer-island sites, with the appointed local team responsible for approvals and construction.",
-    "caveat": "A residential listing or association with a luxury resort does not imply permission for Bauhu to supply or erect a building there.",
+    "caveat": "A project would begin with a review of the site, development controls and local delivery strategy.",
     "example": "Scrub Island",
     "otherDevelopmentsHeading": "Other luxury residential settings across the BVI",
     "otherDevelopmentsText": "Beyond Oil Nut Bay and Virgin Gorda, locations of interest include Scrub Island and its Governor’s Point land offering, Belmont Estate, Trunk Bay and Frenchman’s Cay on Tortola, and the broader private-island context of Peter Island. Each differs in ownership, access and management. Availability and acceptance of independent construction must be checked directly.",
