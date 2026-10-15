@@ -133,5 +133,136 @@ export const locations = [
     otherDevelopmentNames: ["The Liming Bequia","Canouan luxury estates"],
     relatedLabel: 'Custom architect-designed residences',
     relatedHref: '/residences/'
+  },
+  {
+    "slug": "anguilla",
+    "seoTitle": "Luxury Home Construction in Anguilla | Shoal Bay West & West End | Bauhu",
+    "seoDescription": "An independent guide to architect-designed coastal residences in Anguilla, including Shoal Bay West, Altamer, West End and Meads Bay settings.",
+    "region": "Anguilla · British West Indies",
+    "title": "Building a luxury coastal residence in Anguilla",
+    "description": "An independent perspective on coastal home design, site access and engineered building systems across Anguilla's luxury residential districts.",
+    "image": "/images/models/bauhu-amber/bauhu-amber.webp",
+    "imageAlt": "Bauhu Amber luxury residence design",
+    "supportingImage": "/images/models/bauhu-cap-dantibes/bauhu-cap-dantibes.webp",
+    "supportingImageAlt": "Bauhu Cap d’Antibes residence design",
+    "lead": "Anguilla's low-rise coastline and private villa market offer distinctive settings for substantial homes, from exposed oceanfront plots to sheltered bays. The building approach must respond to wind, salt exposure, design ambition and the realities of island supply.",
+    "context": "Shoal Bay West, the West End and Meads Bay are established luxury villa areas. Altamer is a named private-villa hospitality estate at Shoal Bay West, not an open homesite community. We reference it as an example of the architecture and setting, not as an opportunity or an affiliated project.",
+    "questions": [
+      [
+        "Coastal exposure",
+        "How should wind loads, salt-laden air, glazing and roof connections shape the engineered design?"
+      ],
+      [
+        "Planning and site constraints",
+        "What setback, environmental, building-permit and ownership requirements apply to the particular parcel?"
+      ],
+      [
+        "Island delivery",
+        "How will manufactured components and finishes be consolidated, imported and moved safely to site?"
+      ]
+    ],
+    "angle": "For independently commissioned residences on eligible Anguilla sites, Bauhu can bring architectural design, structural engineering, manufacture and coordinated delivery into one project strategy.",
+    "caveat": "Estate rules, local approvals and the acceptability of the proposed structural system must be reviewed with local professionals before proceeding.",
+    "example": "Altamer",
+    "otherDevelopmentsHeading": "Other notable luxury residential settings in Anguilla",
+    "otherDevelopmentsText": "Anguilla’s luxury villa landscape includes established beachfront and hillside homes around Shoal Bay West, Meads Bay, the West End, Long Bay and Little Harbour. Altamer represents an established private-villa property rather than a publicly available plot development. These examples illustrate local residential character, not Bauhu project affiliations or construction permissions.",
+    "otherDevelopmentNames": [
+      "Shoal Bay West",
+      "Altamer",
+      "Meads Bay",
+      "West End Anguilla",
+      "Long Bay Anguilla",
+      "Little Harbour Anguilla"
+    ],
+    "relatedLabel": "Bauhu and remote coastal sites",
+    "relatedHref": "/remote-locations/"
+  },
+  {
+    "slug": "st-barts",
+    "seoTitle": "Luxury Villa Construction St Barts | Colombier, Gouverneur & Pointe Milou | Bauhu",
+    "seoDescription": "Independent guide to architect-led villa construction in St Barthélemy, including Colombier, Gouverneur, Pointe Milou, Flamands and Grand Cul de Sac.",
+    "region": "St Barthélemy · French Caribbean",
+    "title": "Planning an architect-designed villa in St Barts",
+    "description": "Independent guidance on luxury villa development on St Barthélemy, from challenging hillside sites to planning permissions and island construction logistics.",
+    "image": "/images/residences/jade-pool-view.webp",
+    "imageAlt": "Bauhu Jade coastal villa design",
+    "supportingImage": "/images/residences/moonstone-pergola-pool.webp",
+    "supportingImageAlt": "Bauhu Moonstone outdoor living and pool design",
+    "lead": "St Barthélemy is a mature, highly constrained luxury villa market, where a beautiful plot may come with difficult access, demanding terrain and detailed planning requirements. A successful residence begins with feasibility, not a catalogue design.",
+    "context": "Colombier, Gouverneur, Pointe Milou, Flamands and Grand Cul de Sac are established prestige villa districts rather than a single centrally managed residential development. Property brokers market limited individual building plots in some of these areas, but availability and permitted plans change.",
+    "questions": [
+      [
+        "Planning permission",
+        "What current zoning, building permit, slope and design restrictions apply to the land?"
+      ],
+      [
+        "Steep-site engineering",
+        "How do excavation, retaining works, wind exposure and access constraints affect construction?"
+      ],
+      [
+        "Import logistics",
+        "Can off-site manufacture and consolidated shipment suit the local contractor's sequencing and permitted construction method?"
+      ]
+    ],
+    "angle": "Where the site, regulations and project team support it, Bauhu can explore a coordinated architectural and engineered package for a high-specification St Barts residence.",
+    "caveat": "Nothing on this page implies Bauhu has been appointed in St Barts or that its building method has local approval. Local regulatory and engineering review would be essential.",
+    "example": "Pointe Milou",
+    "otherDevelopmentsHeading": "Other sought-after villa locations on St Barthélemy",
+    "otherDevelopmentsText": "Prestige residential areas include Pointe Milou, Colombier, Gouverneur, Flamands, Anse des Cayes, Grand Cul de Sac, Lurin and Saint Jean. These are geographical villa districts, not necessarily named master-planned developments. Limited land supply and existing permit requirements make plot-specific due diligence especially important.",
+    "otherDevelopmentNames": [
+      "Pointe Milou",
+      "Colombier",
+      "Gouverneur",
+      "Flamands",
+      "Anse des Cayes",
+      "Grand Cul de Sac",
+      "Lurin",
+      "Saint Jean St Barts"
+    ],
+    "relatedLabel": "Explore Bauhu's custom residences",
+    "relatedHref": "/residences/"
+  },
+  {
+    "slug": "british-virgin-islands",
+    "seoTitle": "BVI Luxury Home Construction | Scrub Island, Tortola & Peter Island | Bauhu",
+    "seoDescription": "Independent guide to building luxury homes across the British Virgin Islands, including Scrub Island, Tortola estates, Peter Island and private-island environments.",
+    "region": "British Virgin Islands · Tortola & outer islands",
+    "title": "Building an exceptional residence across the British Virgin Islands",
+    "description": "Guide to residential construction across Tortola and the BVI outer islands, with attention to approved methods, shipping routes and hurricane exposure.",
+    "image": "/images/residences/jimmy-hill-front-elevation-hero.webp",
+    "imageAlt": "Bauhu Jimmy Hill substantial residence design",
+    "supportingImage": "/images/models/bauhu-skyline/bauhu-skyline.webp",
+    "supportingImageAlt": "Bauhu Skyline villa architecture",
+    "lead": "Beyond Virgin Gorda, the British Virgin Islands offer varied settings for luxury residences, from elevated Tortola estates to marina-served private-island communities. Their transport routes, developer restrictions and engineering needs can be very different.",
+    "context": "Scrub Island has an active residential real-estate programme including villas, condominiums and advertised land opportunities such as Governor’s Point. Belmont Estate, Trunk Bay and Frenchman’s Cay on Tortola are established villa and estate areas. Peter Island is a well-known private-island hospitality destination, not an assumed open market for independent homesites.",
+    "questions": [
+      [
+        "Estate or independent plot",
+        "Does the site permit an independent architect and externally manufactured building system?"
+      ],
+      [
+        "Access and handling",
+        "Which ferry, harbour, road or landing access is available for full construction shipments?"
+      ],
+      [
+        "Exposure and approvals",
+        "How will the project address hurricane wind loading, corrosion, slope, drainage and required building permits?"
+      ]
+    ],
+    "angle": "Bauhu’s coordinated engineering, procurement and shipping approach can be evaluated for eligible Tortola and outer-island sites, with the appointed local team responsible for approvals and construction.",
+    "caveat": "A residential listing or association with a luxury resort does not imply permission for Bauhu to supply or erect a building there.",
+    "example": "Scrub Island",
+    "otherDevelopmentsHeading": "Other luxury residential settings across the BVI",
+    "otherDevelopmentsText": "Beyond Oil Nut Bay and Virgin Gorda, locations of interest include Scrub Island and its Governor’s Point land offering, Belmont Estate, Trunk Bay and Frenchman’s Cay on Tortola, and the broader private-island context of Peter Island. Each differs in ownership, access and management. Availability and acceptance of independent construction must be checked directly.",
+    "otherDevelopmentNames": [
+      "Scrub Island",
+      "Governor’s Point Scrub Island",
+      "Belmont Estate Tortola",
+      "Trunk Bay Tortola",
+      "Frenchman’s Cay",
+      "Peter Island"
+    ],
+    "relatedLabel": "Engineering for hurricane-exposed sites",
+    "relatedHref": "/engineering/"
   }
 ];
