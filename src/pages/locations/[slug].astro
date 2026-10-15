@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { locations } from '../../data/caribbeanLocations';
+export function getStaticPaths() {
+  return locations.map((place) => ({ params: { slug: place.slug }, props: { place } }));
+}
+const { place } = Astro.props;
+const otherPlaces = locations.filter((item) => item.slug !== place.slug).slice(0, 3);
+---
+<BaseLayout title={`${place.title} | Bauhu`} description={place.description}>
+  <SiteHeader />
+  <main class="bg-paper">
+    <section class="relative min-h-[37rem] bg-navy text-paper">
+      <img src={place.image} alt={place.imageAlt} class="absolute inset-0 h-full w-full object-cover opacity-35" loading="eager" />
+      <div class="relative mx-auto flex min-h-[37rem] max-w-site flex-col justify-end px-5 pb-16 pt-36 lg:px-10">
+        <a href="/locations/" class="text-sm text-paper/75 underline underline-offset-4">← All Caribbean locations</a>
+        <p class="eyebrow mt-9 text-stone">{place.region}</p>
+        <h1 class="mt-5 max-w-5xl font-display text-5xl leading-tight md:text-7xl">{place.title}</h1>
+        <p class="mt-7 max-w-3xl text-lg leading-8 text-paper/85">{place.lead}</p>
+      </div>
+    </section>
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[.8fr_1.2fr]">
+        <div><p class="eyebrow text-clay">The location</p><h2 class="mt-5 font-display text-4xl">An extraordinary setting demands a considered building strategy.</h2></div>
+        <div class="space-y-5 text-lg leading-8 text-ink/75">
+          <p>{place.context}</p>
+          <p>Before a construction approach can be recommended, the land, local professional advice, planning framework and actual transport route must be understood. Bauhu assesses suitability on a project-by-project basis.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Early-stage considerations</p>
+        <h2 class="mt-4 max-w-4xl font-display text-4xl md:text-5xl">Three questions worth answering before design advances.</h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-3">
+          {place.questions.map(([heading, body], i) => (
+            <article class="bg-paper p-7">
+              <span class="text-sm text-clay">0{i + 1}</span>
+              <h3 class="mt-8 font-display text-3xl">{heading}</h3>
+              <p class="mt-5 leading-7 text-ink/70">{body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p class="eyebrow text-clay">The Bauhu approach</p>
+          <h2 class="mt-4 font-display text-4xl md:text-5xl">Architecture, engineering and delivery considered together.</h2>
+          <p class="mt-7 text-lg leading-8 text-ink/75">{place.angle}</p>
+          <p class="mt-5 leading-8 text-ink/65">{place.caveat}</p>
+          <a class="mt-7 inline-block underline underline-offset-4" href={place.relatedHref}>{place.relatedLabel} →</a>
+        </div>
+        <img src="/images/home/bauhu-architecture-engineering.webp" alt="Bauhu architecture and engineered construction approach" class="h-96 w-full object-cover" loading="lazy" />
+      </div>
+    </section>
+    <section class="section-pad bg-navy text-paper">
+      <div class="mx-auto grid max-w-site gap-9 lg:grid-cols-2">
+        <div><p class="eyebrow text-stone">A discreet first conversation</p><h2 class="mt-5 font-display text-4xl md:text-5xl">Have a site in mind?</h2></div>
+        <div><p class="text-lg leading-8 text-paper/75">Share the location and what you want to create. We can consider the site constraints and whether the Bauhu approach merits further technical investigation.</p><a href="/site-fit/" class="mt-7 inline-flex rounded-full border border-paper/40 px-7 py-3 text-sm">Begin your site review →</a></div>
+      </div>
+    </section>
+    <section class="section-pad bg-paper">
+      <div class="mx-auto max-w-site">
+        <p class="text-sm leading-7 text-ink/55">Independent editorial guide. References to {place.example} are illustrative only. Bauhu is not affiliated with, endorsed by or appointed to the development or its owners/operators. The images on this page depict Bauhu projects or concepts, not the named development. Construction methods are subject to local regulation, third-party permissions and project-specific feasibility.</p>
+        <h2 class="mt-12 font-display text-3xl">Explore other Caribbean locations</h2>
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          {otherPlaces.map((other) => <a class="border border-ink/15 bg-mist p-6 hover:underline" href={`/locations/${other.slug}/`}><span class="eyebrow text-clay">{other.region}</span><h3 class="mt-3 font-display text-2xl">{other.title}</h3></a>)}
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
