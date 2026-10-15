@@ -92,8 +92,7 @@ const articleSchema = JSON.stringify({
     </section>
     <section class="section-pad bg-paper">
       <div class="mx-auto max-w-site">
-        <p class="text-sm leading-7 text-ink/55">Independent Bauhu editorial. Named communities are geographic references, not Bauhu partners or project locations. Imagery is Bauhu’s own. Design and construction remain subject to local requirements.</p>
-        <h2 class="mt-12 font-display text-3xl">Explore other Caribbean locations</h2>
+        <h2 class="font-display text-3xl">Explore other Caribbean locations</h2>
         <div class="mt-6 grid gap-4 md:grid-cols-3">
           {otherPlaces.map((other) => <a class="border border-ink/15 bg-mist p-6 hover:underline" href={`/locations/${other.slug}/`}><span class="eyebrow text-clay">{other.region}</span><h3 class="mt-3 font-display text-2xl">{other.title}</h3></a>)}
         </div>
