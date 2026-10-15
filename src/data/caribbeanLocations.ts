@@ -26,33 +26,7 @@ export const locations = [
     relatedLabel: 'Remote-island shipping and access',
     relatedHref: '/remote-locations/'
   },
-  {
-    slug: 'virgin-gorda',
-    seoTitle: 'Building on Virgin Gorda | Locations Like Oil Nut Bay | Bauhu',
-    seoDescription: 'An independent guide to luxury coastal construction on Virgin Gorda, including settings like Oil Nut Bay, design restrictions, access and engineering.',
-    region: 'Virgin Gorda · British Virgin Islands',
-    title: 'Designing and delivering a coastal home on Virgin Gorda',
-    description: 'Independent guide to luxury residential construction on Virgin Gorda, including exposed sites, design controls and specialist logistics.',
-    image: '/images/residences/jade-pool-view.webp',
-    imageAlt: 'Bauhu Jade residence overlooking a pool',
-    supportingImage: '/images/models/bauhu-st-thomas/bauhu-st-thomas.webp',
-    supportingImageAlt: 'Bauhu St Thomas coastal house design',
-    lead: 'Virgin Gorda combines remarkable elevated plots and sheltered bays with highly varied access and exposure conditions. The success of a substantial home depends on resolving the site and the building system together.',
-    context: 'Communities such as Oil Nut Bay are useful examples of design-controlled luxury residential environments. Oil Nut Bay publicly recommends concrete structures and operates its own construction services; Its established construction guidance makes it an instructive example of the importance of project-specific design criteria.',
-    questions: [
-      ['Development controls', 'Does the plot sit within a managed estate with specific design, contractor and construction-method requirements?'],
-      ['Site access', 'Can components be transferred from port to the final plot, including steep routes and restricted turning areas?'],
-      ['Coastal resilience', 'How will uplift, connections, glazing, salt exposure and maintenance be addressed by the project engineers?']
-    ],
-    angle: 'For eligible independent sites, Bauhu offers a coordinated route from architectural design through structural engineering and building-envelope specification to manufactured components and delivery planning.',
-    caveat: 'Any proposal inside a managed development requires its written acceptance of the design and construction methodology.',
-    example: 'Oil Nut Bay',
-    otherDevelopmentsHeading: "Other distinctive residential locations around Virgin Gorda",
-    otherDevelopmentsText: "Alongside Oil Nut Bay, the island’s luxury residential landscape includes Nail Bay Estates and independently held villa and estate sites around the North Sound. Nearby Moskito Island illustrates a different model: tightly held private estate ownership with limited opportunities for new independent construction. Each requires its own approvals and feasibility assessment.",
-    otherDevelopmentNames: ["Nail Bay Estates","North Sound","Moskito Island"],
-    relatedLabel: 'Engineering for coastal sites',
-    relatedHref: '/engineering/'
-  },
+
   {
     slug: 'barbuda',
     seoTitle: 'Luxury Home Construction in Barbuda | Bauhu',
@@ -224,17 +198,17 @@ export const locations = [
   },
   {
     "slug": "british-virgin-islands",
-    "seoTitle": "BVI Luxury Home Construction | Scrub Island, Tortola & Peter Island | Bauhu",
-    "seoDescription": "Independent guide to building luxury homes across the British Virgin Islands, including Scrub Island, Tortola estates, Peter Island and private-island environments.",
-    "region": "British Virgin Islands · Tortola & outer islands",
+    "seoTitle": "BVI Luxury Homes | Oil Nut Bay, Scrub Island & Tortola | Bauhu",
+    "seoDescription": "Luxury home construction across the British Virgin Islands: Virgin Gorda, Oil Nut Bay, Nail Bay, Tortola, Scrub Island and Moskito Island.",
+    "region": "British Virgin Islands · Virgin Gorda, Tortola & outer islands",
     "title": "Building an exceptional residence across the British Virgin Islands",
     "description": "Guide to residential construction across Tortola and the BVI outer islands, with attention to approved methods, shipping routes and hurricane exposure.",
     "image": "/images/residences/jimmy-hill-front-elevation-hero.webp",
     "imageAlt": "Bauhu Jimmy Hill substantial residence design",
     "supportingImage": "/images/models/bauhu-skyline/bauhu-skyline.webp",
     "supportingImageAlt": "Bauhu Skyline villa architecture",
-    "lead": "Beyond Virgin Gorda, the British Virgin Islands offer varied settings for luxury residences, from elevated Tortola estates to marina-served private-island communities. Their transport routes, developer restrictions and engineering needs can be very different.",
-    "context": "Scrub Island has an active residential real-estate programme including villas, condominiums and advertised land opportunities such as Governor’s Point. Belmont Estate, Trunk Bay and Frenchman’s Cay on Tortola are established villa and estate areas. Peter Island is a well-known private-island hospitality destination, not an assumed open market for independent homesites.",
+    "lead": "From Virgin Gorda’s dramatic coastal estates to elevated homes on Tortola and smaller private-island settings, the British Virgin Islands offer exceptional places to build. Every site calls for its own architectural response and a clear approach to access, engineering and delivery.",
+    "context": "Virgin Gorda is home to Oil Nut Bay and Nail Bay Estates, with their striking North Sound and hillside settings. Scrub Island offers a different marina-oriented residential environment; on Tortola, Belmont Estate, Trunk Bay and Frenchman’s Cay have established private villas. Nearby Moskito Island and Peter Island illustrate further forms of private-island living, each with its own character and development arrangements.",
     "questions": [
       [
         "Estate or independent plot",
@@ -252,8 +226,8 @@ export const locations = [
     "angle": "Bauhu’s coordinated engineering, procurement and shipping approach can be evaluated for eligible Tortola and outer-island sites, with the appointed local team responsible for approvals and construction.",
     "caveat": "A project would begin with a review of the site, development controls and local delivery strategy.",
     "example": "Scrub Island",
-    "otherDevelopmentsHeading": "Other luxury residential settings across the BVI",
-    "otherDevelopmentsText": "Beyond Oil Nut Bay and Virgin Gorda, locations of interest include Scrub Island and its Governor’s Point land offering, Belmont Estate, Trunk Bay and Frenchman’s Cay on Tortola, and the broader private-island context of Peter Island. Each differs in ownership, access and management. Availability and acceptance of independent construction must be checked directly.",
+    "otherDevelopmentsHeading": "Notable residential locations across the BVI",
+    "otherDevelopmentsText": "On Virgin Gorda, Oil Nut Bay, Nail Bay Estates and the North Sound offer distinctive coastal and hillside settings. Elsewhere, Scrub Island and Governor’s Point, Belmont Estate and Trunk Bay on Tortola, Frenchman’s Cay, Moskito Island and Peter Island reflect the variety of luxury residential environments across the archipelago. Site access, architectural controls and logistics vary considerably.",
     "otherDevelopmentNames": [
       "Scrub Island",
       "Governor’s Point Scrub Island",
@@ -264,5 +238,32 @@ export const locations = [
     ],
     "relatedLabel": "Engineering for hurricane-exposed sites",
     "relatedHref": "/engineering/"
+  },
+  {
+    slug: 'grenada-st-kitts-nevis',
+    seoTitle: 'Luxury Home Construction | Grenada, St Kitts & Nevis | Bauhu',
+    seoDescription: 'Explore architect-designed homes in Grenada, St Kitts and Nevis, including Mount Cinnamon, Port Louis, Christophe Harbour, Four Seasons Estates and Pinney’s Beach.',
+    region: 'Grenada · St Kitts & Nevis',
+    title: 'Luxury residences in Grenada, St Kitts and Nevis',
+    description: 'Architectural and engineering perspectives on custom homes across Grenada, St Kitts and Nevis.',
+    image: '/images/models/bauhu-cap-dantibes/bauhu-cap-dantibes.webp',
+    imageAlt: 'Bauhu Cap d’Antibes contemporary residence',
+    supportingImage: '/images/residences/amber-pool-elevation.webp',
+    supportingImageAlt: 'Bauhu Amber residence overlooking a pool',
+    lead: 'From Grenada’s sheltered south-west coast to the sweeping slopes of St Kitts and the quiet estates of Nevis, these islands offer remarkable settings for distinctive private homes.',
+    context: 'Grenada has an established waterfront and hillside residential market around Grand Anse, Lance aux Epines and the Port Louis marina district. In St Kitts, Christophe Harbour and the South East Peninsula offer a contrasting landscape of maritime and coastal development. On Nevis, Four Seasons Estates and the Pinney’s Beach area illustrate the appeal of low-density island living.',
+    questions: [
+      ['Land and setting', 'How should topography, coastal exposure and the desired relationship with outdoor spaces inform the architecture?'],
+      ['Engineering and climate', 'What wind, moisture, corrosion and ground conditions should shape the structural and envelope strategy?'],
+      ['Logistics and access', 'How can design, procurement and shipment be coordinated with the island’s available port, roads and site access?']
+    ],
+    angle: 'Bauhu combines considered architecture with a precision-engineered building system and coordinated procurement and delivery, allowing each residence to be developed around its particular island setting.',
+    caveat: 'Project requirements and approvals are assessed for the individual site.',
+    example: 'Christophe Harbour',
+    otherDevelopmentsHeading: 'Distinctive residential settings on Grenada, St Kitts and Nevis',
+    otherDevelopmentsText: 'On Grenada, locations of interest include Lance aux Epines, Mount Cinnamon, the Port Louis marina area and the residential coastline around Grand Anse. St Kitts includes Christophe Harbour, Turtle Beach and the South East Peninsula. On Nevis, Four Seasons Estates, Pinney’s Beach and the hillside estates around Oualie Bay provide a range of luxurious residential environments.',
+    otherDevelopmentNames: ['Lance aux Epines','Mount Cinnamon Grenada','Port Louis Grenada','Grand Anse','Christophe Harbour','Turtle Beach St Kitts','South East Peninsula St Kitts','Four Seasons Estates Nevis','Pinney’s Beach','Oualie Bay'],
+    relatedLabel: 'Explore Bauhu custom residences',
+    relatedHref: '/residences/'
   }
 ];
