@@ -8,8 +8,22 @@ export function getStaticPaths() {
 }
 const { place } = Astro.props;
 const otherPlaces = locations.filter((item) => item.slug !== place.slug).slice(0, 3);
+const baseUrl = 'https://bauhu.com';
+const articleSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: place.seoTitle.replace(' | Bauhu', ''),
+  description: place.seoDescription,
+  mainEntityOfPage: `${baseUrl}/locations/${place.slug}/`,
+  image: `${baseUrl}${place.image}`,
+  author: { '@type': 'Organization', name: 'Bauhu', url: baseUrl },
+  publisher: { '@type': 'Organization', name: 'Bauhu', url: baseUrl },
+  about: [{ '@type': 'Place', name: place.region }],
+  mentions: [{ '@type': 'Place', name: place.example }]
+});
 ---
-<BaseLayout title={`${place.title} | Bauhu`} description={place.description}>
+<BaseLayout title={place.seoTitle} description={place.seoDescription}>
+  <script type="application/ld+json" set:html={articleSchema} />
   <SiteHeader />
   <main class="bg-paper">
     <section class="relative min-h-[37rem] bg-navy text-paper">
