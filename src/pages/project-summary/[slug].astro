@@ -14,7 +14,7 @@ const storeys = model.storeysMin && model.storeysMin > 0 ? model.storeysMin : 1;
 const groundFootprintSqft = model.builtAreaSqftMin ? Math.round(model.builtAreaSqftMin / storeys) : null;
 ---
 
-<BaseLayout title={`Review your ${model.name} project | Bauhu`} description={`Review the selected site, placement and ${model.name} model before contacting Bauhu.`}>
+<BaseLayout noindex title={`Review your ${model.name} project | Bauhu`} description={`Review the selected site, placement and ${model.name} model before contacting Bauhu.`}>
   <SiteHeader />
   <main class="summary-page" data-ground-footprint-sqft={groundFootprintSqft ?? ''} data-model={model.name}>
     <header class="summary-header">
