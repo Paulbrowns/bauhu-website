@@ -75,3 +75,8 @@
 # Legacy Coconut Villa model naming (two-bedroom version)
 /homes/the-coconut-villa /homes/coconut-villa-2/ 301
 /homes/the-coconut-villa/ /homes/coconut-villa-2/ 301
+
+# Preserve legacy Portugal house ranking with its matching Quinta model
+/homes/portugal /homes/quinta/ 301
+/homes/portugal/ /homes/quinta/ 301
+/homes/portugal.html /homes/quinta/ 301
