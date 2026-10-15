@@ -1,6 +1,8 @@
 export const locations = [
   {
     slug: 'exuma-private-islands',
+    seoTitle: 'Luxury Homes in Exuma, Bahamas | Locations Like Torch Cay | Bauhu',
+    seoDescription: 'Building a luxury home on a private island in Exuma? Explore engineering, shipping and site considerations for settings like Torch Cay. Independent Bauhu guide.',
     region: 'The Exumas · Bahamas',
     title: 'Building a private island residence in the Exumas',
     description: 'Independent guide to designing and delivering an architect-led home on remote Exuma sites, including island access, hurricane exposure and construction logistics.',
@@ -21,6 +23,8 @@ export const locations = [
   },
   {
     slug: 'virgin-gorda',
+    seoTitle: 'Building on Virgin Gorda | Locations Like Oil Nut Bay | Bauhu',
+    seoDescription: 'An independent guide to luxury coastal construction on Virgin Gorda, including settings like Oil Nut Bay, design restrictions, access and engineering.',
     region: 'Virgin Gorda · British Virgin Islands',
     title: 'Designing and delivering a coastal home on Virgin Gorda',
     description: 'Independent guide to luxury residential construction on Virgin Gorda, including exposed sites, design controls and specialist logistics.',
@@ -41,6 +45,8 @@ export const locations = [
   },
   {
     slug: 'barbuda',
+    seoTitle: 'Luxury Home Construction in Barbuda | Bauhu',
+    seoDescription: 'Considering a home on Barbuda? Explore logistics, coastal resilience and design approvals in environments like Barbuda Ocean Club. Independent Bauhu guide.',
     region: 'Barbuda · Antigua & Barbuda',
     title: 'Building a substantial coastal residence on Barbuda',
     description: 'Practical considerations for an architect-designed home on Barbuda, from exposed beachfront sites and shipping to project approvals.',
@@ -61,6 +67,8 @@ export const locations = [
   },
   {
     slug: 'ambergris-cay',
+    seoTitle: 'Building on Ambergris Cay, Turks & Caicos | Bauhu',
+    seoDescription: 'Planning a private island home in Turks and Caicos? Explore shipping and construction considerations around Ambergris Cay and Big Ambergris Cay.',
     region: 'Ambergris Cay · Turks & Caicos',
     title: 'Planning a remote island residence in Turks & Caicos',
     description: 'Independent guidance on private island residential projects in Turks and Caicos: access, weather exposure, building systems and approvals.',
@@ -81,6 +89,8 @@ export const locations = [
   },
   {
     slug: 'grenadines-private-islands',
+    seoTitle: 'Private Island Homes in the Grenadines | Mustique & Beyond | Bauhu',
+    seoDescription: 'Explore building challenges for private island residences in the Grenadines, including controlled environments like Mustique. Independent Bauhu guide.',
     region: 'The Grenadines · St Vincent & the Grenadines',
     title: 'Creating a private island home in the Grenadines',
     description: 'Independent guide to architect-led residences across the Grenadines, with attention to design controls, marine transport and exposed sites.',
