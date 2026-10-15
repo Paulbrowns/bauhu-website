@@ -19,7 +19,7 @@ const articleSchema = JSON.stringify({
   author: { '@type': 'Organization', name: 'Bauhu', url: baseUrl },
   publisher: { '@type': 'Organization', name: 'Bauhu', url: baseUrl },
   about: [{ '@type': 'Place', name: place.region }],
-  mentions: [{ '@type': 'Place', name: place.example }]
+  mentions: [place.example, ...place.otherDevelopmentNames].map((name) => ({ '@type': 'Place', name }))
 });
 ---
 <BaseLayout title={place.seoTitle} description={place.seoDescription}>
@@ -69,6 +69,18 @@ const articleSchema = JSON.stringify({
           <a class="mt-7 inline-block underline underline-offset-4" href={place.relatedHref}>{place.relatedLabel} →</a>
         </div>
         <div class="grid gap-4"><img src={place.supportingImage} alt={place.supportingImageAlt} class="h-80 w-full object-cover" loading="lazy" /><img src="/images/home/bauhu-architecture-engineering.webp" alt="Bauhu architecture and engineered construction approach" class="h-48 w-full object-cover" loading="lazy" /></div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[.8fr_1.2fr]">
+        <div>
+          <p class="eyebrow text-clay">Across the region</p>
+          <h2 class="mt-5 font-display text-4xl md:text-5xl">{place.otherDevelopmentsHeading}</h2>
+        </div>
+        <div>
+          <p class="text-lg leading-8 text-ink/75">{place.otherDevelopmentsText}</p>
+          <p class="mt-7 text-sm leading-7 text-ink/55">Named developments and communities are independent of Bauhu. Their inclusion is for geographical and editorial context only; it does not imply Bauhu has worked there or is permitted to build there.</p>
+        </div>
       </div>
     </section>
     <section class="section-pad bg-navy text-paper">
