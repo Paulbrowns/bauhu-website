@@ -1,6 +1,7 @@
 export const locations = [
   {
     slug: 'bahamas',
+    locationApproach: "Across The Bahamas, the right design response can be very different on an established New Providence estate, a secluded Exuma cay or an Abaco waterfront plot. Bauhu can consider the architecture alongside island access, shipping and local construction arrangements from the outset.",
     seoTitle: 'Luxury Home Construction in The Bahamas | Albany, Royal Island, Torch Cay & More | Bauhu',
     seoDescription: 'Independent guide to luxury home construction across The Bahamas, including Albany, Royal Island, Torch Cay, Baker’s Bay and the Abaco Club.',
     region: 'The Bahamas · New Providence, Eleuthera, Exuma & Abaco',
@@ -29,17 +30,18 @@ export const locations = [
 
   {
     slug: 'barbuda',
-    seoTitle: 'Luxury Home Construction in Barbuda | Bauhu',
-    seoDescription: 'Considering a home on Barbuda? Explore logistics, coastal resilience and design approvals in environments like Barbuda Ocean Club. Independent Bauhu guide.',
+    locationApproach: "Antigua and Barbuda present contrasting settings: Antigua combines established marinas, hillside estates and accessible services, while Barbuda offers expansive, relatively secluded coastal sites. Bauhu can tailor the design and delivery strategy to the realities of each island.",
+    seoTitle: 'Luxury Home Construction in Antigua & Barbuda | Bauhu',
+    seoDescription: 'Luxury homes in Antigua and Barbuda: explore coastal construction, engineering and logistics around Barbuda Ocean Club, Jolly Harbour and English Harbour.',
     region: 'Barbuda · Antigua & Barbuda',
-    title: 'Building a substantial coastal residence on Barbuda',
-    description: 'Practical considerations for an architect-designed home on Barbuda, from exposed beachfront sites and shipping to project approvals.',
+    title: 'Building a luxury residence in Antigua and Barbuda',
+    description: 'Custom residential design and coordinated building delivery for the coastal estates of Antigua and the secluded sites of Barbuda.',
     image: '/images/locations/pool-restaurant.jpg',
     imageAlt: 'Bauhu remote-location architectural photography',
     supportingImage: '/images/models/bauhu-abaco/bauhu-abaco.webp',
     supportingImageAlt: 'Bauhu Abaco residence design',
-    lead: 'Barbuda offers long stretches of low-lying coastline and considerable privacy. Remote logistics, wind exposure, environmental sensitivity and appropriate specification require unusually careful advance coordination.',
-    context: 'Barbuda Ocean Club is one example of a master-planned residential environment on the island, with custom homesites and its own architectural and development processes. Its design-led environment is one example of the high standards expected for new residences on Barbuda.',
+    lead: 'From the established private estates and sheltered anchorages of Antigua to the unspoilt, expansive coastline of Barbuda, these sister islands offer strikingly different opportunities for exceptional homes.',
+    context: 'Antigua has distinctive residential settings around English Harbour, Jolly Harbour, Nonsuch Bay and the island’s western coast. On neighbouring Barbuda, Barbuda Ocean Club offers an example of a master-planned coastal community. Each landscape presents its own balance of views, privacy, site access and architectural opportunity.',
     questions: [
       ['Development permissions', 'Which local approvals, planning restrictions, ownership requirements and estate design standards apply?'],
       ['Site conditions', 'How do wind exposure, storm surge, finished-floor elevation and ground conditions affect the design?'],
@@ -48,14 +50,15 @@ export const locations = [
     angle: 'Bauhu aims to reduce uncertainty in remote projects by coordinating technical design, manufactured building components and shipping before work becomes dependent on last-minute island procurement.',
     caveat: 'Custom homesites do not imply acceptance of independent building systems; any proposal must be reviewed by the relevant developer and authorities.',
     example: 'Barbuda Ocean Club',
-    otherDevelopmentsHeading: "Other luxury residential developments on Barbuda",
-    otherDevelopmentsText: "Barbuda Ocean Club includes the distinct Coco Point and Palmetto Point neighbourhoods. Elsewhere on Barbuda, The Beach Club and its Nobu Beach Inn Residences represent a separate branded residential and hospitality development. These locations are not interchangeable: each has its own ownership, design and construction arrangements.",
-    otherDevelopmentNames: ["Coco Point","Palmetto Point","The Beach Club Barbuda","Nobu Beach Inn Residences"],
+    otherDevelopmentsHeading: "Notable residential environments in Antigua and Barbuda",
+    otherDevelopmentsText: "On Antigua, distinguished residential areas include Jolly Harbour, Nonsuch Bay, English Harbour and the south-western coastline around Carlisle Bay. On Barbuda, the Coco Point and Palmetto Point areas of Barbuda Ocean Club, together with The Beach Club and Nobu Beach Inn Residences, show the range of secluded coastal environments across the two islands.",
+    otherDevelopmentNames: ["Jolly Harbour","Nonsuch Bay","English Harbour","Carlisle Bay Antigua","Coco Point","Palmetto Point","The Beach Club Barbuda","Nobu Beach Inn Residences"],
     relatedLabel: 'Explore the Bauhu building process',
     relatedHref: '/how-it-works/'
   },
   {
     slug: 'ambergris-cay',
+    locationApproach: "On private islands such as Ambergris Cay, planning the residence means considering everything from landing materials to long-term maintenance. Bauhu brings those practical questions into the architectural and engineering process before procurement begins.",
     seoTitle: 'Building on Ambergris Cay, Turks & Caicos | Bauhu',
     seoDescription: 'Planning a private island home in Turks and Caicos? Explore shipping and construction considerations around Ambergris Cay and Big Ambergris Cay.',
     region: 'Ambergris Cay · Turks & Caicos',
@@ -83,6 +86,7 @@ export const locations = [
   },
   {
     slug: 'grenadines-private-islands',
+    locationApproach: "A Grenadines residence might occupy a steep hillside above a bay, a sheltered estate or a remote waterfront site. Bauhu can develop the structural and delivery approach around the particular terrain, marine access and exposure.",
     seoTitle: 'Private Island Homes in the Grenadines | Mustique & Beyond | Bauhu',
     seoDescription: 'Explore building challenges for private island residences in the Grenadines, including controlled environments like Mustique. Independent Bauhu guide.',
     region: 'The Grenadines · St Vincent & the Grenadines',
@@ -110,6 +114,7 @@ export const locations = [
   },
   {
     "slug": "anguilla",
+    locationApproach: "Anguilla's elegant, low-rise villa character calls for architecture that feels at home on the coastline. Bauhu can help align generous indoor-outdoor spaces with the engineering, materials and logistics appropriate to each plot.",
     "seoTitle": "Luxury Home Construction in Anguilla | Shoal Bay West & West End | Bauhu",
     "seoDescription": "An independent guide to architect-designed coastal residences in Anguilla, including Shoal Bay West, Altamer, West End and Meads Bay settings.",
     "region": "Anguilla · British West Indies",
@@ -153,6 +158,7 @@ export const locations = [
   },
   {
     "slug": "st-barts",
+    locationApproach: "St Barts calls for careful responses to dramatic topography and tightly controlled building sites. The design, engineering and shipment strategy can be developed together to make the most of the setting while accommodating practical access constraints.",
     "seoTitle": "Luxury Villa Construction St Barts | Colombier, Gouverneur & Pointe Milou | Bauhu",
     "seoDescription": "Independent guide to architect-led villa construction in St Barthélemy, including Colombier, Gouverneur, Pointe Milou, Flamands and Grand Cul de Sac.",
     "region": "St Barthélemy · French Caribbean",
@@ -198,6 +204,7 @@ export const locations = [
   },
   {
     "slug": "british-virgin-islands",
+    locationApproach: "On Virgin Gorda, Tortola and the smaller BVI islands, the journey from port to plot can shape the project as much as the architecture. Bauhu can consider access, exposed-site engineering and coordinated component delivery as part of the initial brief.",
     "seoTitle": "BVI Luxury Homes | Oil Nut Bay, Scrub Island & Tortola | Bauhu",
     "seoDescription": "Luxury home construction across the British Virgin Islands: Virgin Gorda, Oil Nut Bay, Nail Bay, Tortola, Scrub Island and Moskito Island.",
     "region": "British Virgin Islands · Virgin Gorda, Tortola & outer islands",
@@ -241,6 +248,7 @@ export const locations = [
   },
   {
     slug: 'grenada-st-kitts-nevis',
+    locationApproach: "Grenada, St Kitts and Nevis offer very different architectural settings, from marina-front residences to lush hillside estates. Bauhu can develop the home around its outlook, site conditions and the best route for manufacturing and delivery.",
     seoTitle: 'Luxury Home Construction | Grenada, St Kitts & Nevis | Bauhu',
     seoDescription: 'Explore architect-designed homes in Grenada, St Kitts and Nevis, including Mount Cinnamon, Port Louis, Christophe Harbour, Four Seasons Estates and Pinney’s Beach.',
     region: 'Grenada · St Kitts & Nevis',
