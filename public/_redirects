@@ -80,3 +80,8 @@
 /homes/portugal /homes/quinta/ 301
 /homes/portugal/ /homes/quinta/ 301
 /homes/portugal.html /homes/quinta/ 301
+
+# Legacy Point Eleuthera project page
+/homes/point-eleuthera /projects/ 301
+/homes/point-eleuthera/ /projects/ 301
+/homes/point-eleuthera.html /projects/ 301
