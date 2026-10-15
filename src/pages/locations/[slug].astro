@@ -68,7 +68,7 @@ const articleSchema = JSON.stringify({
           <p class="mt-5 leading-8 text-ink/65">{place.caveat}</p>
           <a class="mt-7 inline-block underline underline-offset-4" href={place.relatedHref}>{place.relatedLabel} →</a>
         </div>
-        <img src="/images/home/bauhu-architecture-engineering.webp" alt="Bauhu architecture and engineered construction approach" class="h-96 w-full object-cover" loading="lazy" />
+        <div class="grid gap-4"><img src={place.supportingImage} alt={place.supportingImageAlt} class="h-80 w-full object-cover" loading="lazy" /><img src="/images/home/bauhu-architecture-engineering.webp" alt="Bauhu architecture and engineered construction approach" class="h-48 w-full object-cover" loading="lazy" /></div>
       </div>
     </section>
     <section class="section-pad bg-navy text-paper">
