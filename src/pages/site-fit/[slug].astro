@@ -20,7 +20,7 @@ const footprintWidthM = Math.sqrt(areaM2 * 1.18);
 const footprintDepthM = areaM2 / footprintWidthM;
 ---
 
-<BaseLayout title={`Test ${model.name} on your site | Bauhu`} description={`Locate a property, identify its parcel and test ${model.name} against the site.`}>
+<BaseLayout noindex title={`Test ${model.name} on your site | Bauhu`} description={`Locate a property, identify its parcel and test ${model.name} against the site.`}>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
   <SiteHeader />
