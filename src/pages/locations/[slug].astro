@@ -42,6 +42,12 @@ const articleSchema = JSON.stringify({
         <div class="space-y-5 text-lg leading-8 text-ink/75">
           <p>{place.context}</p>
           <p>{place.locationApproach}</p>
+          {place.activeWork && (
+            <aside class="border-l-4 border-clay bg-mist px-6 py-5 text-base leading-7">
+              <strong class="block text-ink">Bauhu project experience in this location</strong>
+              <p class="mt-2">{place.activeWork}</p>
+            </aside>
+          )}
         </div>
       </div>
     </section>
