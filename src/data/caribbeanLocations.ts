@@ -20,6 +20,9 @@ export const locations = [
     angle: 'Bauhu can coordinate architecture, engineered components, procurement and shipping as a connected building package—particularly valuable where repeated small deliveries are expensive.',
     caveat: 'Individual cay ownership, environmental approvals, marine access rights and development design rules must be verified independently.',
     example: 'Torch Cay',
+    otherDevelopmentsHeading: "Other notable residential settings in the Exumas",
+    otherDevelopmentsText: "Beyond places such as Torch Cay, the wider Exuma market includes February Point on Great Exuma, the Baymahni Residences concept on Stocking Island, private island properties around Norman’s Cay and individual waterfront estates near Staniel Cay. These are distinct locations with different ownership structures and building rules; they are mentioned as geographical examples, not as approved Bauhu projects.",
+    otherDevelopmentNames: ["February Point","Baymahni Residences","Norman’s Cay","Staniel Cay"],
     relatedLabel: 'Remote-island shipping and access',
     relatedHref: '/remote-locations/'
   },
@@ -44,6 +47,9 @@ export const locations = [
     angle: 'For eligible independent sites, Bauhu offers a coordinated route from architectural design through structural engineering and building-envelope specification to manufactured components and delivery planning.',
     caveat: 'Any proposal inside a managed development requires its written acceptance of the design and construction methodology.',
     example: 'Oil Nut Bay',
+    otherDevelopmentsHeading: "Other distinctive residential locations around Virgin Gorda",
+    otherDevelopmentsText: "Alongside Oil Nut Bay, the island’s luxury residential landscape includes Nail Bay Estates and independently held villa and estate sites around the North Sound. Nearby Moskito Island illustrates a different model: tightly held private estate ownership with limited opportunities for new independent construction. Each requires its own approvals and feasibility assessment.",
+    otherDevelopmentNames: ["Nail Bay Estates","North Sound","Moskito Island"],
     relatedLabel: 'Engineering for coastal sites',
     relatedHref: '/engineering/'
   },
@@ -68,6 +74,9 @@ export const locations = [
     angle: 'Bauhu aims to reduce uncertainty in remote projects by coordinating technical design, manufactured building components and shipping before work becomes dependent on last-minute island procurement.',
     caveat: 'Custom homesites do not imply acceptance of independent building systems; any proposal must be reviewed by the relevant developer and authorities.',
     example: 'Barbuda Ocean Club',
+    otherDevelopmentsHeading: "Other luxury residential developments on Barbuda",
+    otherDevelopmentsText: "Barbuda Ocean Club includes the distinct Coco Point and Palmetto Point neighbourhoods. Elsewhere on Barbuda, The Beach Club and its Nobu Beach Inn Residences represent a separate branded residential and hospitality development. These locations are not interchangeable: each has its own ownership, design and construction arrangements.",
+    otherDevelopmentNames: ["Coco Point","Palmetto Point","The Beach Club Barbuda","Nobu Beach Inn Residences"],
     relatedLabel: 'Explore the Bauhu building process',
     relatedHref: '/how-it-works/'
   },
@@ -92,6 +101,9 @@ export const locations = [
     angle: 'Where permitted, Bauhu can develop the architectural and structural package around the particular site, with manufacturing, procurement and dispatch treated as part of the design exercise.',
     caveat: 'Check live sales availability, ownership terms and estate approvals directly with the relevant property representatives.',
     example: 'Ambergris Cay',
+    otherDevelopmentsHeading: "Other notable luxury island communities in Turks and Caicos",
+    otherDevelopmentsText: "In addition to Ambergris Cay, private-island environments include Pine Cay and Parrot Cay. Elsewhere in the archipelago, Sandy Point on North Caicos and South Bank on Providenciales demonstrate other models of managed luxury waterfront residential development. The degree of independence allowed in building design and delivery varies substantially between them.",
+    otherDevelopmentNames: ["Pine Cay","Parrot Cay","Sandy Point North Caicos","South Bank Providenciales"],
     relatedLabel: 'Bauhu for difficult-access sites',
     relatedHref: '/remote-locations/'
   },
@@ -116,6 +128,9 @@ export const locations = [
     angle: 'Bauhu’s approach brings design, engineered structure and coordinated procurement together for independent island sites where those capabilities are appropriate and approved.',
     caveat: 'Private-island estate policies vary considerably and must be confirmed before any system is proposed.',
     example: 'Mustique',
+    otherDevelopmentsHeading: "Other luxury residential environments across the Grenadines",
+    otherDevelopmentsText: "Beyond Mustique, notable examples include The Liming residential offering on Bequia, with ridge and beachfront villa plots, and luxury residential estates on Canouan. The Grenadines contain a mixture of privately managed communities and independent coastal plots; development permissions and accepted construction approaches must be established separately for each site.",
+    otherDevelopmentNames: ["The Liming Bequia","Canouan luxury estates"],
     relatedLabel: 'Custom architect-designed residences',
     relatedHref: '/residences/'
   }
