@@ -41,14 +41,14 @@ const articleSchema = JSON.stringify({
         <div><p class="eyebrow text-clay">The location</p><h2 class="mt-5 font-display text-4xl">An extraordinary setting demands a considered building strategy.</h2></div>
         <div class="space-y-5 text-lg leading-8 text-ink/75">
           <p>{place.context}</p>
-          <p>Each site suggests its own architectural response. The location, access, climate and local building requirements shape how a Bauhu residence could be designed and delivered.</p>
+          <p>{place.locationApproach}</p>
         </div>
       </div>
     </section>
     <section class="section-pad bg-mist">
       <div class="mx-auto max-w-site">
         <p class="eyebrow text-clay">Early-stage considerations</p>
-        <h2 class="mt-4 max-w-4xl font-display text-4xl md:text-5xl">Three questions worth answering before design advances.</h2>
+        <h2 class="mt-4 max-w-4xl font-display text-4xl md:text-5xl">Questions we can assist with before design advances.</h2>
         <div class="mt-12 grid gap-5 md:grid-cols-3">
           {place.questions.map(([heading, body], i) => (
             <article class="bg-paper p-7">
