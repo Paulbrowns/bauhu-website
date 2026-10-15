@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { locations } from '../../data/caribbeanLocations';
+---
+<BaseLayout title="Caribbean Location Guides | Bauhu" description="Independent guides to designing and delivering exceptional homes in remote Caribbean locations. Practical advice on access, resilience, logistics and site feasibility.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <section class="section-pad bg-navy text-paper">
+      <div class="mx-auto max-w-site pt-16">
+        <p class="eyebrow text-stone">Bauhu / Caribbean location guides</p>
+        <h1 class="mt-6 max-w-5xl font-display text-5xl leading-tight md:text-7xl">Exceptional homes begin with an exceptional understanding of place.</h1>
+        <p class="mt-8 max-w-3xl text-lg leading-8 text-paper/75">Independent perspectives on designing, engineering and delivering residences across some of the Caribbean’s most demanding island environments.</p>
+      </div>
+    </section>
+    <section class="section-pad">
+      <div class="mx-auto max-w-site">
+        <div class="mb-10 max-w-3xl">
+          <p class="eyebrow text-clay">Places & possibilities</p>
+          <h2 class="mt-4 font-display text-4xl md:text-5xl">Explore the locations</h2>
+        </div>
+        <div class="grid gap-7 md:grid-cols-2">
+          {locations.map((place) => (
+            <a href={`/locations/${place.slug}/`} class="group overflow-hidden border border-ink/15 bg-mist transition hover:-translate-y-1">
+              <img src={place.image} alt={place.imageAlt} loading="lazy" class="h-64 w-full object-cover" />
+              <div class="p-7">
+                <p class="eyebrow text-clay">{place.region}</p>
+                <h3 class="mt-4 font-display text-3xl leading-tight">{place.title}</h3>
+                <p class="mt-4 leading-7 text-ink/70">{place.description}</p>
+                <span class="mt-6 inline-block text-sm underline underline-offset-4">Read the guide →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist">
+      <div class="mx-auto grid max-w-site gap-8 lg:grid-cols-2">
+        <h2 class="font-display text-4xl md:text-5xl">Have a particular island or plot in mind?</h2>
+        <div><p class="leading-8 text-ink/70">Tell us where you hope to build. Bauhu begins with the site, its constraints and the design ambition—not an assumption that any construction system will suit every location.</p><a href="/site-fit/" class="mt-7 inline-flex rounded-full bg-navy px-7 py-3 text-sm text-paper">Start with your site →</a></div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
