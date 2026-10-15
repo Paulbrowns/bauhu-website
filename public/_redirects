@@ -71,3 +71,7 @@
 /homes/the-bahamas/ /locations/bahamas/ 301
 /homes/private-residential-homes /residences/ 301
 /homes/private-residential-homes/ /residences/ 301
+
+# Legacy Coconut Villa model naming (two-bedroom version)
+/homes/the-coconut-villa /homes/coconut-villa-2/ 301
+/homes/the-coconut-villa/ /homes/coconut-villa-2/ 301
