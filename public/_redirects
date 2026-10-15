@@ -61,3 +61,13 @@
 /site-placement/* /project-details 301
 /project-home /project-details 301
 /project-home/ /project-details 301
+
+# High-traffic legacy URLs identified in Search Console migration audit (15 Oct 2026)
+/search /models/ 301
+/search/ /models/ 301
+/services /how-it-works/ 301
+/services/ /how-it-works/ 301
+/homes/the-bahamas /locations/bahamas/ 301
+/homes/the-bahamas/ /locations/bahamas/ 301
+/homes/private-residential-homes /residences/ 301
+/homes/private-residential-homes/ /residences/ 301
