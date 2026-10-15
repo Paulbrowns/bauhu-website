@@ -16,7 +16,7 @@ const publicSlug = model.slug.replace(/^bauhu-/, '');
 const modelSrc = `/models/3d/${publicSlug}.glb`;
 ---
 
-<BaseLayout title={`Explore ${model.name} in 3D | Bauhu`} description={`Explore the ${model.name} Bauhu home in an interactive 3D viewer.`}>
+<BaseLayout noindex title={`Explore ${model.name} in 3D | Bauhu`} description={`Explore the ${model.name} Bauhu home in an interactive 3D viewer.`}>
   <SiteHeader />
 
   <main class="viewer-page" data-model-src={modelSrc}>
