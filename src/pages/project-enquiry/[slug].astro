@@ -15,7 +15,7 @@ const { model } = Astro.props;
 const publicSlug = model.slug.replace(/^bauhu-/, '');
 ---
 
-<BaseLayout title={`Send your ${model.name} project to Bauhu`} description={`Share your selected ${model.name} project and site information with Bauhu.`}>
+<BaseLayout noindex title={`Send your ${model.name} project to Bauhu`} description={`Share your selected ${model.name} project and site information with Bauhu.`}>
   <SiteHeader />
   <main class="enquiry-page">
     <header class="enquiry-header">
