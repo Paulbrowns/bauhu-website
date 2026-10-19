@@ -7,7 +7,7 @@ The website now expects two Cloudflare bindings:
 
 It also supports these environment variables/secrets:
 
-- `LEADS_DASHBOARD_TOKEN` — required to read/update the internal Leads dashboard.
+- `TURNSTILE_SECRET_KEY` — required for enquiry submissions. Set this as an encrypted secret in the Cloudflare Pages environment (Production and Preview as needed). Never commit its value.\n- `LEADS_DASHBOARD_TOKEN` — required to read/update the internal Leads dashboard.
 - `RESEND_API_KEY` — optional, enables email notifications.
 - `ENQUIRY_NOTIFICATION_EMAIL` — optional recipient for new-enquiry alerts.
 - `ENQUIRY_NOTIFICATION_FROM` — optional sender, defaults to `Bauhu Website <enquiries@bauhu.com>`.
@@ -37,4 +37,4 @@ It asks for the value of `LEADS_DASHBOARD_TOKEN` and stores that token in sessio
 ## Submission
 
 `/project-contact` posts a multipart form to `/api/enquiries`.
-The structured enquiry is written to D1 and supporting files are written to R2.
+The server verifies Cloudflare Turnstile before processing a submission. The structured enquiry is written to D1 and supporting files are written to R2. Uploaded attachments are served as downloads, not inline web pages.\n\nThe Cloudflare zone rate-limiting rule and crawler firewall exception are configured in the Cloudflare dashboard, not this repository.
