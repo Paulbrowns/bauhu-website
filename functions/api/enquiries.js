@@ -271,7 +271,25 @@ async function saveFiles({ env, enquiryId, now, files }) {
     };
   }
 
+  const allowedExtensions = new Set(['pdf', 'jpg', 'jpeg', 'png', 'webp', 'doc', 'docx', 'xls', 'xlsx', 'dwg', 'dxf', 'txt', 'csv', 'zip']);
   for (const file of files) {
+    const extension = String(file.name || '').split('.').pop().toLowerCase();
+    if (!allowedExtensions.has(extension) || file.size > 30 * 1024 * 1024 || file.size === 0) {
+      failedFiles.push({ name: file.name || 'document', size: file.size || 0, reason: 'Unsupported file type or file exceeds the 30 MB limit.' });
+      continue;
+    }
+    // Reject obvious disguised active content regardless of browser-declared MIME type.
+    const header = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+    const ascii = String.fromCharCode(...header);
+    const isPdf = ascii.startsWith('%PDF-');
+    const isJpeg = header[0] === 0xff && header[1] === 0xd8 && header[2] === 0xff;
+    const isPng = ascii.startsWith('\\x89PNG\\r\\n\\x1a\\n');
+    const isWebp = ascii.slice(0, 4) === 'RIFF' && ascii.slice(8, 12) === 'WEBP';
+    const signatureOk = extension === 'pdf' ? isPdf : ['jpg', 'jpeg'].includes(extension) ? isJpeg : extension === 'png' ? isPng : extension === 'webp' ? isWebp : true;
+    if (!signatureOk) {
+      failedFiles.push({ name: file.name || 'document', size: file.size || 0, reason: 'File contents do not match the file type.' });
+      continue;
+    }
     const fileId = crypto.randomUUID();
     const safeName = (file.name || 'document').replace(/[^a-zA-Z0-9._-]+/g, '-').slice(-120);
     const key = `enquiries/${enquiryId}/${fileId}-${safeName}`;
@@ -279,7 +297,7 @@ async function saveFiles({ env, enquiryId, now, files }) {
     try {
       const body = typeof file.arrayBuffer === 'function' ? await file.arrayBuffer() : file.stream();
       await env.ENQUIRY_FILES.put(key, body, {
-        httpMetadata: { contentType: file.type || 'application/octet-stream' },
+        httpMetadata: { contentType: 'application/octet-stream' },
         customMetadata: { enquiryId, originalName: file.name || safeName }
       });
       await env.DB.prepare(`
@@ -302,6 +320,8 @@ async function saveFiles({ env, enquiryId, now, files }) {
 async function handlePost({ request, env }) {
   if (!env.DB) return json({ error: 'D1 binding DB is not configured.' }, 503);
 
+  const sizeHeader = Number(request.headers.get('content-length') || 0);
+  if (sizeHeader > 100 * 1024 * 1024) return json({ error: 'Request is too large.' }, 413);
   const form = await request.formData();
   const payloadRaw = form.get('payload');
   if (typeof payloadRaw !== 'string') return json({ error: 'Missing enquiry payload.' }, 400);
