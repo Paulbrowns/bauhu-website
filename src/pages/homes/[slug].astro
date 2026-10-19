@@ -53,9 +53,9 @@ const galleryImages = isSunsetCove
     : isAbaco
       ? [heroImage, ...Array.from({ length: 3 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
       : isCaribbeanCottage
-        ? [heroImage, ...Array.from({ length: 6 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
+        ? [heroImage, ...Array.from({ length: 6 }, (_, index) => `${modelImageBase}/${index + 1}.webp`), `${modelImageBase}/caribbean-cottage-18.webp`]
         : isCasaLavanda
-          ? [heroImage, ...Array.from({ length: 10 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
+          ? [heroImage, ...Array.from({ length: 10 }, (_, index) => `${modelImageBase}/${index + 1}.webp`), `${modelImageBase}/casa-lavanda20_900x506.webp`]
           : isCasita
             ? [heroImage, ...Array.from({ length: 6 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
             : isCharlston
@@ -77,6 +77,15 @@ const galleryImages = isSunsetCove
                             : [
         heroImage,
         ...Array.from({ length: 9 }, (_, index) => `${modelImageBase}/${index + 1}.webp`),
+        ...({
+          'north-beach': 'north-beach2_900x506.webp',
+          'red-hawk-ridge': 'red-hawk-ridge19_900x506.webp',
+          'grenada-luxe': 'grenada-luxe-two-bed11_900x506.webp',
+        }[modelPublicSlug] ? [`${modelImageBase}/${{
+          'north-beach': 'north-beach2_900x506.webp',
+          'red-hawk-ridge': 'red-hawk-ridge19_900x506.webp',
+          'grenada-luxe': 'grenada-luxe-two-bed11_900x506.webp',
+        }[modelPublicSlug]}`] : []),
       ];
 const floorPlanImage = `${modelImageBase}/floorplan.webp`;
 const sunsetCoveVideo = '/videos/sunset-cove.mp4';
