@@ -139,8 +139,28 @@ const modelFloorplans: Record<string, { label: string; href: string }[]> = {
   ],
 };
 const floorplans = modelFloorplans[modelPublicSlug] ?? [];
+const modelPageUrl = `https://bauhu.com/homes/${modelPublicSlug}/`;
+const modelSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: `Bauhu ${cleanName} model home`,
+  description: model.shortDescription,
+  image: [new URL(heroImage, 'https://bauhu.com').toString()],
+  url: modelPageUrl,
+  brand: { '@type': 'Brand', name: 'Bauhu' },
+  manufacturer: { '@type': 'Organization', name: 'Bauhu' },
+  category: 'Architect-designed steel-frame model home',
+  additionalProperty: [
+    ...(model.bedroomsMin !== null ? [{ '@type': 'PropertyValue', name: 'Bedrooms', value: model.bedroomsLabel }] : []),
+    ...(model.bathroomsMin !== null ? [{ '@type': 'PropertyValue', name: 'Bathrooms', value: model.bathroomsLabel }] : []),
+    ...(model.builtAreaSqftMin !== null ? [{ '@type': 'PropertyValue', name: 'Built area', value: model.builtAreaLabel, unitText: 'square feet' }] : []),
+    { '@type': 'PropertyValue', name: 'Architectural style', value: model.style }
+  ]
+});
+
 ---
 <BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
+  <script type="application/ld+json" set:html={modelSchema} />
   <SiteHeader />
   <main class="home-detail" data-model-name={model.name} data-model-slug={modelPublicSlug}>
     <section class="home-hero">
