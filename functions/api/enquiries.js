@@ -435,7 +435,6 @@ export async function onRequestPost(context) {
     console.error('Enquiry submission failed', error);
     return json({
       error: 'The enquiry could not be sent.'
-      detail: error?.message || String(error || 'Unknown server error')
     }, 500);
   }
 }
