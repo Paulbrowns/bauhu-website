@@ -200,7 +200,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   <div class="file-row">
                     <div class="file-icon">DOC</div>
                     <div class="file-copy"><strong>${esc(f.filename)}</strong><small>${esc(f.content_type || 'Document')} · ${Math.max(1, Math.round(Number(f.size || 0)/1024))} KB</small></div>
-                    <button class="file-button" data-file-id="${esc(f.id)}" type="button">View</button>
+                    <button class="file-button" data-file-id="${esc(f.id)}" type="button">Download</button>
                   </div>`).join('') : '<p class="muted-note">No supporting documents were supplied.</p>'}</div>
               </section>
 
@@ -245,7 +245,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             const response = await fetch(`/api/enquiries/${encodeURIComponent(id)}/files/${encodeURIComponent(button.dataset.fileId)}`, { headers: auth() });
             if (!response.ok) return;
             const blob = await response.blob();
-            window.open(URL.createObjectURL(blob), '_blank', 'noopener');
+            // Download untrusted attachments; never render a blob as a same-origin page.
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = (files.find(f => f.id === button.dataset.fileId)?.filename || 'attachment').replace(/[\\/]/g, '_');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
           };
         });
       }
