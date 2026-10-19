@@ -412,8 +412,9 @@ export async function onRequestPost(context) {
   try {
     return await handlePost(context);
   } catch (error) {
+    console.error('Enquiry submission failed', error);
     return json({
-      error: 'The enquiry could not be sent.',
+      error: 'The enquiry could not be sent.'
       detail: error?.message || String(error || 'Unknown server error')
     }, 500);
   }
