@@ -7,7 +7,8 @@ The website now expects two Cloudflare bindings:
 
 It also supports these environment variables/secrets:
 
-- `TURNSTILE_SECRET_KEY` — required for enquiry submissions. Set this as an encrypted secret in the Cloudflare Pages environment (Production and Preview as needed). Never commit its value.\n- `LEADS_DASHBOARD_TOKEN` — required to read/update the internal Leads dashboard.
+- `TURNSTILE_SECRET_KEY` — required for enquiry submissions. Set this as an encrypted secret in the Cloudflare Pages environment (Production and Preview as needed). Never commit its value.
+- `LEADS_DASHBOARD_TOKEN` — required to read/update the internal Leads dashboard.
 - `RESEND_API_KEY` — optional, enables email notifications.
 - `ENQUIRY_NOTIFICATION_EMAIL` — optional recipient for new-enquiry alerts.
 - `ENQUIRY_NOTIFICATION_FROM` — optional sender, defaults to `Bauhu Website <enquiries@bauhu.com>`.
