@@ -13,123 +13,6 @@ const clean = (value) => typeof value === 'string' ? value.trim() : '';
 const num = (value) => Number.isFinite(Number(value)) ? Number(value) : null;
 const pick = (...values) => values.map(clean).find(Boolean) || '';
 
-const enquiryColumns = {
-  id: 'TEXT PRIMARY KEY',
-  reference: 'TEXT',
-  created_at: 'TEXT',
-  updated_at: 'TEXT',
-  status: 'TEXT',
-  classification: 'TEXT',
-  owner: 'TEXT',
-  internal_notes: 'TEXT',
-  contact_name: 'TEXT',
-  contact_email: 'TEXT',
-  contact_phone: 'TEXT',
-  preferred_contact: 'TEXT',
-  consent: 'INTEGER',
-  site_location: 'TEXT',
-  site_lat: 'REAL',
-  site_lng: 'REAL',
-  site_source: 'TEXT',
-  project_route: 'TEXT',
-  intended_use: 'TEXT',
-  bedrooms_scale: 'TEXT',
-  land_status: 'TEXT',
-  planning_status: 'TEXT',
-  budget: 'TEXT',
-  target_start: 'TEXT',
-  decision_role: 'TEXT',
-  project_notes: 'TEXT',
-  home_choice: 'TEXT',
-  model_slug: 'TEXT',
-  model_name: 'TEXT',
-  placement_confirmed: 'INTEGER',
-  placement_lat: 'REAL',
-  placement_lng: 'REAL',
-  placement_rotation: 'REAL',
-  attribution_source: 'TEXT',
-  attribution_medium: 'TEXT',
-  attribution_campaign: 'TEXT',
-  attribution_content: 'TEXT',
-  attribution_term: 'TEXT',
-  landing_page: 'TEXT',
-  referrer: 'TEXT',
-  source_url: 'TEXT',
-  message: 'TEXT',
-  raw_json: 'TEXT'
-};
-
-async function ensureEnquirySchema(db) {
-  await db.prepare(`
-    CREATE TABLE IF NOT EXISTS enquiries (
-      id TEXT PRIMARY KEY,
-      reference TEXT,
-      created_at TEXT,
-      updated_at TEXT,
-      status TEXT,
-      classification TEXT,
-      owner TEXT,
-      internal_notes TEXT,
-      contact_name TEXT,
-      contact_email TEXT,
-      contact_phone TEXT,
-      preferred_contact TEXT,
-      consent INTEGER,
-      site_location TEXT,
-      site_lat REAL,
-      site_lng REAL,
-      site_source TEXT,
-      project_route TEXT,
-      intended_use TEXT,
-      bedrooms_scale TEXT,
-      land_status TEXT,
-      planning_status TEXT,
-      budget TEXT,
-      target_start TEXT,
-      decision_role TEXT,
-      project_notes TEXT,
-      home_choice TEXT,
-      model_slug TEXT,
-      model_name TEXT,
-      placement_confirmed INTEGER,
-      placement_lat REAL,
-      placement_lng REAL,
-      placement_rotation REAL,
-      attribution_source TEXT,
-      attribution_medium TEXT,
-      attribution_campaign TEXT,
-      attribution_content TEXT,
-      attribution_term TEXT,
-      landing_page TEXT,
-      referrer TEXT,
-      source_url TEXT,
-      message TEXT,
-      raw_json TEXT
-    )
-  `).run();
-
-  for (const [column, type] of Object.entries(enquiryColumns)) {
-    if (column === 'id') continue;
-    try {
-      await db.prepare(`ALTER TABLE enquiries ADD COLUMN ${column} ${type}`).run();
-    } catch {}
-  }
-}
-
-async function ensureFileSchema(db) {
-  await db.prepare(`
-    CREATE TABLE IF NOT EXISTS enquiry_files (
-      id TEXT PRIMARY KEY,
-      enquiry_id TEXT,
-      r2_key TEXT,
-      filename TEXT,
-      content_type TEXT,
-      size INTEGER,
-      created_at TEXT
-    )
-  `).run();
-}
-
 function normaliseAttribution(attribution = {}, fallback = {}) {
   const firstTouchSource = pick(attribution.firstTouchSource, attribution.first_touch_source, attribution.utmSource, fallback.source);
   const firstTouchMedium = pick(attribution.firstTouchMedium, attribution.first_touch_medium, attribution.utmMedium, fallback.medium);
@@ -259,7 +142,6 @@ async function saveFiles({ env, enquiryId, now, files }) {
   }
 
   try {
-    await ensureFileSchema(env.DB);
   } catch (error) {
     return {
       savedFiles,
@@ -378,7 +260,6 @@ async function handlePost({ request, env }) {
   const contactEmail = clean(contact.email);
   if (!contactName || !contactEmail) return json({ error: 'Name and email are required.' }, 400);
 
-  await ensureEnquirySchema(env.DB);
 
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
@@ -471,8 +352,6 @@ export async function onRequestPost(context) {
 export async function onRequestGet({ request, env }) {
   if (!env.DB) return json({ error: 'D1 binding DB is not configured.' }, 503);
   if (!authorised(request, env)) return json({ error: 'Unauthorised.' }, 401);
-  await ensureEnquirySchema(env.DB);
-  await ensureFileSchema(env.DB);
 
   const url = new URL(request.url);
   const status = clean(url.searchParams.get('status'));
