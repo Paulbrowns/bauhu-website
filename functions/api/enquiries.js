@@ -1,13 +1,9 @@
+import { authorised } from './_dashboard-auth.js';
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
   headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }
 });
 
-const authorised = (request, env) => {
-  if (!env.LEADS_DASHBOARD_TOKEN) return false;
-  const auth = request.headers.get('authorization') || '';
-  return auth === `Bearer ${env.LEADS_DASHBOARD_TOKEN}`;
-};
 
 const clean = (value) => typeof value === 'string' ? value.trim() : '';
 const num = (value) => Number.isFinite(Number(value)) ? Number(value) : null;
@@ -351,7 +347,7 @@ export async function onRequestPost(context) {
 
 export async function onRequestGet({ request, env }) {
   if (!env.DB) return json({ error: 'D1 binding DB is not configured.' }, 503);
-  if (!authorised(request, env)) return json({ error: 'Unauthorised.' }, 401);
+  if (!(await authorised(request, env))) return json({ error: 'Unauthorised.' }, 401);
 
   const url = new URL(request.url);
   const status = clean(url.searchParams.get('status'));
