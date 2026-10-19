@@ -14,9 +14,12 @@ export async function onRequestGet({ request, env, params }) {
   if (!object) return new Response('Not found', { status: 404 });
 
   const headers = new Headers();
-  object.writeHttpMetadata(headers);
-  headers.set('content-type', file.content_type || headers.get('content-type') || 'application/octet-stream');
-  headers.set('content-disposition', `inline; filename="${String(file.filename).replace(/"/g, '')}"`);
+  // Never serve user-supplied HTML, SVG or other active content inline on bauhu.com.
+  const filename = String(file.filename || 'attachment').replace(/[\r\n"\\]/g, '_').slice(0, 120);
+  headers.set('content-type', 'application/octet-stream');
+  headers.set('content-disposition', `attachment; filename="${filename}"`);
+  headers.set('x-content-type-options', 'nosniff');
+  headers.set('content-security-policy', "sandbox; default-src 'none'");
   headers.set('cache-control', 'private, no-store');
   return new Response(object.body, { headers });
 }
