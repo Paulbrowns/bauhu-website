@@ -271,7 +271,25 @@ async function saveFiles({ env, enquiryId, now, files }) {
     };
   }
 
+  const allowedExtensions = new Set(['pdf', 'jpg', 'jpeg', 'png', 'webp', 'doc', 'docx', 'xls', 'xlsx', 'dwg', 'dxf', 'txt', 'csv', 'zip']);
   for (const file of files) {
+    const extension = String(file.name || '').split('.').pop().toLowerCase();
+    if (!allowedExtensions.has(extension) || file.size > 30 * 1024 * 1024 || file.size === 0) {
+      failedFiles.push({ name: file.name || 'document', size: file.size || 0, reason: 'Unsupported file type or file exceeds the 30 MB limit.' });
+      continue;
+    }
+    // Reject obvious disguised active content regardless of browser-declared MIME type.
+    const header = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+    const ascii = String.fromCharCode(...header);
+    const isPdf = ascii.startsWith('%PDF-');
+    const isJpeg = header[0] === 0xff && header[1] === 0xd8 && header[2] === 0xff;
+    const isPng = ascii.startsWith('\\x89PNG\\r\\n\\x1a\\n');
+    const isWebp = ascii.slice(0, 4) === 'RIFF' && ascii.slice(8, 12) === 'WEBP';
+    const signatureOk = extension === 'pdf' ? isPdf : ['jpg', 'jpeg'].includes(extension) ? isJpeg : extension === 'png' ? isPng : extension === 'webp' ? isWebp : true;
+    if (!signatureOk) {
+      failedFiles.push({ name: file.name || 'document', size: file.size || 0, reason: 'File contents do not match the file type.' });
+      continue;
+    }
     const fileId = crypto.randomUUID();
     const safeName = (file.name || 'document').replace(/[^a-zA-Z0-9._-]+/g, '-').slice(-120);
     const key = `enquiries/${enquiryId}/${fileId}-${safeName}`;
@@ -279,7 +297,7 @@ async function saveFiles({ env, enquiryId, now, files }) {
     try {
       const body = typeof file.arrayBuffer === 'function' ? await file.arrayBuffer() : file.stream();
       await env.ENQUIRY_FILES.put(key, body, {
-        httpMetadata: { contentType: file.type || 'application/octet-stream' },
+        httpMetadata: { contentType: 'application/octet-stream' },
         customMetadata: { enquiryId, originalName: file.name || safeName }
       });
       await env.DB.prepare(`
@@ -299,10 +317,41 @@ async function saveFiles({ env, enquiryId, now, files }) {
   return { savedFiles, failedFiles };
 }
 
+async function verifyTurnstile(request, env, token) {
+  if (!env.TURNSTILE_SECRET_KEY) return { ok: false, configurationMissing: true };
+  if (!token || typeof token !== 'string' || token.length > 2048) return { ok: false };
+  try {
+    const body = new FormData();
+    body.append('secret', env.TURNSTILE_SECRET_KEY);
+    body.append('response', token);
+    const ip = request.headers.get('CF-Connecting-IP');
+    if (ip) body.append('remoteip', ip);
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST', body, signal: AbortSignal.timeout(5000)
+    });
+    if (!response.ok) return { ok: false };
+    const result = await response.json();
+    const hostname = String(result.hostname || '').toLowerCase();
+    // Production and Cloudflare Pages preview deployments are both supported.
+    const validHost = hostname === 'bauhu.com' || hostname === 'www.bauhu.com'
+      || hostname === 'bauhu-website.pages.dev'
+      || hostname.endsWith('.bauhu-website.pages.dev');
+    return { ok: result.success === true && validHost };
+  } catch (error) {
+    console.error('Turnstile verification request failed', error);
+    return { ok: false };
+  }
+}
+
 async function handlePost({ request, env }) {
   if (!env.DB) return json({ error: 'D1 binding DB is not configured.' }, 503);
 
+  const sizeHeader = Number(request.headers.get('content-length') || 0);
+  if (sizeHeader > 100 * 1024 * 1024) return json({ error: 'Request is too large.' }, 413);
   const form = await request.formData();
+  const check = await verifyTurnstile(request, env, form.get('cf-turnstile-response'));
+  if (check.configurationMissing) return json({ error: 'Enquiry security verification is not configured.' }, 503);
+  if (!check.ok) return json({ error: 'Security verification failed. Please retry the check.' }, 403);
   const payloadRaw = form.get('payload');
   if (typeof payloadRaw !== 'string') return json({ error: 'Missing enquiry payload.' }, 400);
 
@@ -412,9 +461,9 @@ export async function onRequestPost(context) {
   try {
     return await handlePost(context);
   } catch (error) {
+    console.error('Enquiry submission failed', error);
     return json({
-      error: 'The enquiry could not be sent.',
-      detail: error?.message || String(error || 'Unknown server error')
+      error: 'The enquiry could not be sent.'
     }, 500);
   }
 }
