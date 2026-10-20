@@ -1,5 +1,4 @@
-// Standalone Cloudflare Worker for legacy img.bauhu.com URLs.
-// Does not touch the Cloudflare Pages site, its assets, or the old tunnel.
+// Image recovery via private R2; does not reproduce historic Sharp transformations.
 const REPLACEMENTS = new Map(Object.entries({
   '/assets/images/angel-13.jpg': '/images/models/bauhu-angel/angel-13.webp',
   '/assets/images/angel-7.jpg': '/images/models/bauhu-angel/angel-7.webp',
@@ -16,24 +15,23 @@ const REPLACEMENTS = new Map(Object.entries({
 
 export function parseOriginalImagePath(requestUrl) {
   const url = new URL(requestUrl);
-  const prefix = '/g:sm/';
-  const pos = url.pathname.indexOf(prefix);
-  if (!url.pathname.startsWith('/pr:sharp/') || pos === -1) return null;
-  const encoded = url.pathname.slice(pos + prefix.length);
-  let original;
+  const pos = url.pathname.indexOf('/g:sm/');
+  if (!url.pathname.startsWith('/pr:sharp/') || pos < 0) return null;
+  const encoded = url.pathname.slice(pos + '/g:sm/'.length);
   try {
+    let original;
     if (encoded.startsWith('plain/')) {
-      original = decodeURIComponent(encoded.slice('plain/'.length));
+      original = decodeURIComponent(encoded.slice(6));
     } else {
-      // Old processor URLs sometimes append '.jpg' after the base64url token.
       const token = encoded.replace(/\.jpg$/i, '');
       if (!/^[a-zA-Z0-9_-]+={0,2}$/.test(token)) return null;
-      const b64 = token.replace(/-/g, '+').replace(/_/g, '/');
-      original = atob(b64.padEnd(Math.ceil(b64.length / 4) * 4, '='));
+      original = atob(token.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(token.length / 4) * 4, '='));
     }
     const source = new URL(original);
     if (!['bauhu.com', 'www.bauhu.com'].includes(source.hostname)) return null;
     if (!['http:', 'https:'].includes(source.protocol)) return null;
+    const segments = source.pathname.split('/');
+    if (segments.some(part => part === '..' || part === '.')) return null;
     if (!source.pathname.startsWith('/assets/images/')) return null;
     return source.pathname;
   } catch {
@@ -41,31 +39,41 @@ export function parseOriginalImagePath(requestUrl) {
   }
 }
 
+function mimeType(key) {
+  const ext = key.split('.').pop().toLowerCase();
+  return ({jpg:'image/jpeg', jpeg:'image/jpeg', png:'image/png', webp:'image/webp', gif:'image/gif', avif:'image/avif'})[ext] || 'application/octet-stream';
+}
+const notFound = () => new Response('Legacy image not available', {status:404, headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'public, max-age=300'}});
+
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     const url = new URL(request.url);
     if (!['GET', 'HEAD'].includes(request.method)) {
-      return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
+      return new Response('Method not allowed', {status:405,headers:{Allow:'GET, HEAD'}});
     }
     if (url.pathname === '/robots.txt') {
-      return new Response('User-agent: *\nAllow: /\n', {
-        headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600' }
-      });
+      return new Response('User-agent: *\nAllow: /\n', {headers:{'Content-Type':'text/plain; charset=utf-8'}});
     }
-    const path = parseOriginalImagePath(request.url);
-    const replacement = path && REPLACEMENTS.get(path);
-    if (!replacement) {
-      // Deliberately do not redirect unknown photographs to unrelated model heroes.
-      return new Response('Legacy image not available', {
-        status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=300' }
-      });
-    }
-    return new Response(null, {
-      status: 301,
-      headers: {
-        Location: 'https://bauhu.com' + replacement,
-        'Cache-Control': 'public, max-age=3600'
+    const originalPath = parseOriginalImagePath(request.url);
+    if (!originalPath) return notFound();
+
+    // Exact image recovery from the private archive takes precedence. All
+    // other legacy filenames can therefore work without individual mappings.
+    if (env?.LEGACY_MEDIA) {
+      const object = await env.LEGACY_MEDIA.get(originalPath.slice(1));
+      if (object) {
+        const headers = new Headers();
+        object.writeHttpMetadata(headers);
+        if (!headers.has('Content-Type')) headers.set('Content-Type', mimeType(originalPath));
+        headers.set('Cache-Control', 'public, max-age=86400');
+        headers.set('ETag', object.httpEtag);
+        return new Response(request.method === 'HEAD' ? null : object.body, {status:200,headers});
       }
-    });
+    }
+
+    // Fallback for files known to exist on the new site. Only use exact matches.
+    const replacement = REPLACEMENTS.get(originalPath);
+    if (replacement) return new Response(null, {status:301,headers:{Location:'https://bauhu.com'+replacement,'Cache-Control':'public, max-age=3600'}});
+    return notFound();
   }
 };
