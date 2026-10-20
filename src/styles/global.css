@@ -132,3 +132,8 @@ img {
     gap: 2.75rem !important;
   }
 }
+
+/* Only the orphaned Casa Lavanda film (video file absent); leave other model films intact. */
+section.home-film:has(source[src="/videos/casa-lavanda.mp4"]) {
+  display: none !important;
+}
