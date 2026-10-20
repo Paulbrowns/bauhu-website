@@ -109,6 +109,11 @@ const zenPlans = '/downloads/models/element-zen-plans.pdf';
 const airPlans = '/downloads/models/element-air-plans.pdf';
 const fireflyPlans = '/downloads/models/firefly-plans.pdf';
 const modelFloorplans: Record<string, { label: string; href: string }[]> = {
+  'skyline': [
+    { label: 'Ground floor', href: '/downloads/models/skyline-floorplan-gf.pdf' },
+    { label: 'First floor', href: '/downloads/models/skyline-floorplan-ff.pdf' },
+    { label: 'Second floor', href: '/downloads/models/skyline-floorplan-sf.pdf' },
+  ],
   'casa-lavanda': [
     { label: 'Ground floor', href: '/downloads/models/casa-lavanda-floorplan-gf.pdf' },
     { label: 'First floor', href: '/downloads/models/casa-lavanda-floorplan-ff.pdf' },
@@ -374,7 +379,7 @@ const modelSchema = JSON.stringify({
             <figure class="home-floorplan-image">
               {floorplans.length > 1 && <h3>{plan.label}</h3>}
               <img
-                src={`/images/models/${slug}/${plan.href.endsWith('-gf.pdf') ? 'floorplan-gf.webp' : plan.href.endsWith('-ff.pdf') ? 'floorplan-ff.webp' : 'floorplan.webp'}`}
+                src={`/images/models/${slug}/${plan.href.endsWith('-gf.pdf') ? 'floorplan-gf.webp' : plan.href.endsWith('-ff.pdf') ? 'floorplan-ff.webp' : plan.href.endsWith('-sf.pdf') ? 'floorplan-sf.webp' : 'floorplan.webp'}`}
                 alt={`${cleanName} – ${plan.label}`}
                 loading="lazy"
               />
