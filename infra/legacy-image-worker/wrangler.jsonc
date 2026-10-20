@@ -2,7 +2,10 @@
   "name": "bauhu-legacy-images",
   "main": "src/index.js",
   "compatibility_date": "2026-10-20",
-  "workers_dev": true
-  // No routes or custom domains: deploy and test first, then attach
-  // img.bauhu.com ONLY after confirming all desired mappings.
+  "workers_dev": true,
+  "r2_buckets": [
+    { "binding": "LEGACY_MEDIA", "bucket_name": "bauhu-media-staging" }
+  ]
+  // Deploy in the HB Personal account holding the private R2 bucket.
+  // Do NOT set a route on img.bauhu.com before testing workers.dev.
 }
