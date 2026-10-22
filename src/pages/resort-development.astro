@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import EditorialHero from '../components/EditorialHero.astro';
+const sections = [["Repeatability without uniformity","A coordinated structural and envelope approach can support different layouts and architectural treatments while simplifying interfaces, components and procurement."],["Plan logistics at development scale","Freight, unloading, storage, local labour, assembly sequence and access restrictions need to be considered across the programme, not building by building."],["A clear scope for each site","The viability of the system depends on planning permissions, exposure, ground conditions, infrastructure, local services and client requirements. Bauhu's building supply scope and locally delivered work are defined project by project."]];
+---
+<BaseLayout title="Resort & Multi-Building Development | Bauhu" description="Coordinated residential and hospitality building packages for resorts, villa communities and remote island developments.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <EditorialHero eyebrow="Multiple buildings. One delivery strategy." title="Developments work better when the system is considered as a whole." text="From clusters of private villas to remote hospitality accommodation, repeatable building systems can simplify procurement and delivery — without forcing every residence into the same design." imageSrc="/images/developments/bauhu-projects-hero.jpg" primaryHref="/site-fit/" primaryLabel="Discuss your project" secondaryHref="/how-it-works/" secondaryLabel="How Bauhu works" />
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[.75fr_1.25fr]">
+        <div><p class="eyebrow text-clay">A considered approach</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Start with the right questions.</h2></div>
+        <div class="space-y-5 text-lg leading-8 text-ink/75"><p>From clusters of private villas to remote hospitality accommodation, repeatable building systems can simplify procurement and delivery — without forcing every residence into the same design.</p><p>Explore <a class="underline underline-offset-4" href="/remote-locations/">building in remote locations</a> and <a class="underline underline-offset-4" href="/modular-residential-projects/">our residential project approach</a> as part of the wider Bauhu process.</p></div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist"><div class="mx-auto max-w-site"><p class="eyebrow text-clay">What matters</p><div class="mt-10 grid gap-5 md:grid-cols-3">{sections.map(([heading,copy],index)=><article class="bg-paper p-8"><span class="text-sm text-clay">0{index+1}</span><h2 class="mt-9 font-display text-3xl">{heading}</h2><p class="mt-5 leading-7 text-ink/70">{copy}</p></article>)}</div></div></section>
+    <section class="section-pad bg-navy text-paper"><div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[.8fr_1.2fr]"><div><p class="eyebrow text-stone">Next steps</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Begin with a conversation.</h2></div><div class="space-y-6 text-lg leading-8 text-paper/75"><p>For a proposed resort or multi-building scheme, an early conversation can clarify the development programme, delivery risks and where a coordinated supply approach might help.</p><p><a href="/site-fit/" class="border-b border-paper/60 pb-1 text-paper">Tell us about your project →</a></p></div></div></section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import EditorialHero from '../components/EditorialHero.astro';
+
+const advantages = [
+  { number: '01', heading: 'Begin before the drawings', text: 'Whether you own a site or are still considering one, early decisions about access, terrain, orientation, building form and infrastructure shape everything that follows.' },
+  { number: '02', heading: 'One coordinated design process', text: 'Rather than commissioning separate disciplines in sequence, Bauhu brings architectural design, structural engineering, production planning and construction logistics together from the outset.' },
+  { number: '03', heading: 'Design with delivery in mind', text: 'A beautiful concept is only the beginning. The design must also respond to local conditions, material availability, shipping, construction sequencing and the realities of the site. For larger schemes, see our <a href="/resort-development/" class="underline underline-offset-4">resort and multi-building approach</a>.' },
+];
+
+const included = [
+  ['Architecture', 'A home designed or adapted around your brief, setting and aspirations.'],
+  ['Engineering', 'Structural strategy and coordinated technical development for the proposed building.'],
+  ['Building systems', 'Envelope, openings, materials and interfaces considered as part of the complete package.'],
+  ['Production & logistics', 'Procurement, manufacturing and delivery planned alongside the design.'],
+];
+---
+<BaseLayout title="Build on Your Land | Early Architectural & Engineering Planning | Bauhu" description="Involve Bauhu from the beginning. Explore your site and coordinate architecture, engineering and building delivery through one considered process.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <EditorialHero
+      eyebrow="Your site. One integrated approach."
+      title="The best time to involve Bauhu is at the beginning."
+      text="Before separate drawings, engineering appointments and building decisions take your project in different directions, let us help you consider the site, the architecture and the way your home will be delivered—together."
+      imageSrc="/images/residences/luxuma-facade-wide.webp"
+      primaryHref="/site-fit/"
+      primaryLabel="Tell us about your site"
+      secondaryHref="/how-it-works/"
+      secondaryLabel="See how Bauhu works"
+    />
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[.75fr_1.25fr]">
+        <div><p class="eyebrow text-clay">A different starting point</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Don't design the house in isolation.</h2></div>
+        <div class="space-y-5 text-lg leading-8 text-ink/75">
+          <p>In a conventional project, a landowner often brings in a surveyor, then an architect, then engineers, planning advisers and contractors—each contributing to a design that may already be taking shape.</p>
+          <p>Bauhu takes a more integrated approach. Our team considers the architecture, engineering, building system and practical delivery strategy together, so decisions made at the beginning support the building you ultimately want to create.</p>
+          <p class="font-medium text-ink">You do not need to have appointed an architect or completed a design to start talking to us.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Why early involvement matters</p>
+        <h2 class="mt-4 max-w-4xl font-display text-4xl md:text-5xl">A more considered route from land to residence.</h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-3">
+          {advantages.map((item) => <article class="bg-paper p-8">
+            <span class="text-sm text-clay">{item.number}</span>
+            <h3 class="mt-9 font-display text-3xl">{item.heading}</h3>
+            <p class="mt-5 leading-7 text-ink/70">{item.text}</p>
+          </article>)}
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-2 lg:items-center">
+        <img src="/images/residences/luxuma-pool-terrace.webp" alt="Bauhu residence design with outdoor terrace" class="h-[34rem] w-full object-cover" loading="lazy" />
+        <div>
+          <p class="eyebrow text-clay">An integrated building package</p>
+          <h2 class="mt-5 font-display text-4xl leading-tight md:text-5xl">The disciplines work together. Not one after another.</h2>
+          <p class="mt-6 leading-8 text-ink/75">Bauhu coordinates core architectural, engineering and production design as part of its building supply approach, instead of asking clients to manage those disciplines independently.</p>
+          <div class="mt-8 grid gap-5 sm:grid-cols-2">
+            {included.map(([heading,text]) => <div class="border-t border-ink/20 pt-4"><h3 class="font-display text-2xl">{heading}</h3><p class="mt-2 text-sm leading-6 text-ink/70">{text}</p></div>)}
+          </div>
+          <p class="mt-7 text-sm leading-6 text-ink/60">Site surveys, statutory approvals and locally licensed professional services are coordinated as required; their scope and any third-party costs are confirmed for each project. You can also explore <a href="/project-costs/" class="underline underline-offset-4">what drives total project costs</a> and <a href="/for-architects/" class="underline underline-offset-4">how we work with an existing architect</a>.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-navy text-paper">
+      <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[.8fr_1.2fr]">
+        <div><p class="eyebrow text-stone">How we begin</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Start with a conversation, not a stack of appointments.</h2></div>
+        <div class="space-y-7 text-lg leading-8 text-paper/75">
+          <p><strong class="text-paper">First, free initial guidance.</strong> Share what you know about your site and what you hope to build. We'll discuss the options and the questions worth resolving before design begins.</p>
+          <p><strong class="text-paper">Then, Initial Concept Design.</strong> When you're ready to proceed, we agree a project-specific paid concept design commission that develops the architectural and technical approach, visualisation and preliminary supply and delivery planning.</p>
+          <p><strong class="text-paper">When you're ready to proceed further.</strong> We carry out the full architectural design, structural engineering and construction drawings under a straightforward building supply agreement.</p>
+          <a href="/how-it-works/" class="inline-block border-b border-paper/60 pb-1 text-base text-paper">Explore the Bauhu process →</a>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-paper">
+      <div class="mx-auto max-w-site text-center">
+        <p class="eyebrow text-clay">Have land in mind?</p>
+        <h2 class="mx-auto mt-4 max-w-4xl font-display text-4xl md:text-6xl">Show us where you'd like to build.</h2>
+        <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-ink/70">Whether the site is already yours or you're still exploring the possibilities, we can begin with what you know today.</p>
+        <a href="/site-fit/" class="mt-9 inline-flex rounded-full bg-navy px-8 py-4 text-sm font-medium uppercase tracking-wide text-paper">Tell us about your site →</a>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import EditorialHero from '../components/EditorialHero.astro';
+const sections = [["Start with the whole project","An early assessment should distinguish the Bauhu building supply scope from site-specific work and third-party costs. This gives clients a clearer basis for comparing routes and commissioning design."],["What changes the budget?","Location and access, terrain and ground conditions, wind and flood exposure, building specification, shipping distance, local labour and required infrastructure can all materially influence project cost."],["From guidance to a defined proposal","Our initial conversation can identify cost drivers and practical constraints. A paid Initial Concept Design commission develops the approach further; the full design and drawings are then carried out under a straightforward building supply agreement."]];
+---
+<BaseLayout title="Understanding Project Costs | Bauhu" description="Understand the full cost of building a home, from land and local works to engineered building supply and delivery.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <EditorialHero eyebrow="Clarity before commitment" title="Understanding the real cost of your project." text="A meaningful budget considers far more than the price of a building package. Site conditions, local approvals, foundations, transport, assembly and finishing works all shape the final investment." imageSrc="/images/developments/bauhu-projects-hero.jpg" primaryHref="/site-fit/" primaryLabel="Discuss your project" secondaryHref="/how-it-works/" secondaryLabel="How Bauhu works" />
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[.75fr_1.25fr]">
+        <div><p class="eyebrow text-clay">A considered approach</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Start with the right questions.</h2></div>
+        <div class="space-y-5 text-lg leading-8 text-ink/75"><p>A meaningful budget considers far more than the price of a building package. Site conditions, local approvals, foundations, transport, assembly and finishing works all shape the final investment.</p><p>Explore <a class="underline underline-offset-4" href="/build-on-your-land/">why early involvement helps</a> and <a class="underline underline-offset-4" href="/how-it-works/">how our process works</a> as part of the wider Bauhu process.</p></div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist"><div class="mx-auto max-w-site"><p class="eyebrow text-clay">What matters</p><div class="mt-10 grid gap-5 md:grid-cols-3">{sections.map(([heading,copy],index)=><article class="bg-paper p-8"><span class="text-sm text-clay">0{index+1}</span><h2 class="mt-9 font-display text-3xl">{heading}</h2><p class="mt-5 leading-7 text-ink/70">{copy}</p></article>)}</div></div></section>
+    <section class="section-pad bg-navy text-paper"><div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[.8fr_1.2fr]"><div><p class="eyebrow text-stone">Next steps</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Begin with a conversation.</h2></div><div class="space-y-6 text-lg leading-8 text-paper/75"><p>Tell us about the location and the residence you have in mind. We can help establish which questions need answering before a reliable project budget is possible.</p><p><a href="/site-fit/" class="border-b border-paper/60 pb-1 text-paper">Tell us about your project →</a></p></div></div></section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
