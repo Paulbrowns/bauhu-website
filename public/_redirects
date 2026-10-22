@@ -88,3 +88,8 @@
 
 # Legacy Portugal property landing page (same Quinta house)
 /designer-home-for-sale-portugal.html /homes/quinta/ 301
+
+# Preserve high-traffic historical Grenada Luxe model URL
+/homes/the-grenada-luxe /homes/grenada-luxe/ 301
+/homes/the-grenada-luxe/ /homes/grenada-luxe/ 301
+/homes/the-grenada-luxe.html /homes/grenada-luxe/ 301
