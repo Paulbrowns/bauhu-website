@@ -88,3 +88,13 @@
 
 # Legacy Portugal property landing page (same Quinta house)
 /designer-home-for-sale-portugal.html /homes/quinta/ 301
+
+# Historic /steel/ URLs observed in Matomo (15–21 Oct 2026)
+/steel/index.htm /steel-frame-home-kits/ 301
+/steel/index_fr.htm /steel-frame-home-kits/ 301
+/steel/zero.htm /steel-frame-home-kits/ 301
+
+# Verified thematic matches for observed legacy URLs (Matomo, 15–21 Oct 2026)
+/flat_pack.html /how-it-works/ 301
+/prefabricated.html /off-the-shelf-modular-homes/ 301
+/steel-frame-home-kit-coconut-cottage.html /homes/coconut-cottage/ 301
