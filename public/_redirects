@@ -93,3 +93,11 @@
 /homes/the-grenada-luxe /homes/grenada-luxe/ 301
 /homes/the-grenada-luxe/ /homes/grenada-luxe/ 301
 /homes/the-grenada-luxe.html /homes/grenada-luxe/ 301
+
+# Historic steel and prefab routes found in post-migration 404 logs
+/steel/index.htm /steel-frame-home-kits/ 301
+/steel/index_fr.htm /steel-frame-home-kits/ 301
+/steel/zero.htm /steel-frame-home-kits/ 301
+/flat_pack.html /how-it-works/ 301
+/prefabricated.html /off-the-shelf-modular-homes/ 301
+/steel-frame-home-kit-coconut-cottage.html /homes/coconut-cottage/ 301
