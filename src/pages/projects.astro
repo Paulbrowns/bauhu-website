@@ -33,12 +33,14 @@ const featuredProjects = [
   },
   {
     title: 'St John USVI',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/st-john-usvi',
     location: 'US Virgin Islands',
     summary: 'A steep hillside Bauhu home based on the Coconut Villa concept, combining contemporary Caribbean design with hurricane-rated strength, energy efficiency and panoramic views.',
     image: `${projectImagePath}/st-john.webp`,
   },
   {
     title: 'Eleuthera',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/eleuthera-1',
     location: 'The Bahamas',
     summary: 'A modular Bauhu home near Governor’s Harbour, reinterpreting traditional Bahamian architecture with an elevated structure, Bermuda-style roof and hurricane-resistant construction.',
     image: `${projectImagePath}/eleuthera.webp`,
@@ -57,6 +59,7 @@ const featuredProjects = [
   },
   {
     title: 'Jamaica',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/jamaica-mjhkr',
     location: 'Jamaica',
     summary: 'Xenjoh Villa, Bauhu’s first villa constructed in Jamaica, is presented as a hurricane-safe luxury modular home that remained unscathed by Hurricane Beryl.',
     image: `${projectImagePath}/jamaica.webp`,
@@ -75,54 +78,63 @@ const featuredProjects = [
   },
   {
     title: 'Quinta de Lago',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/quinta-de-lago',
     location: 'Portugal',
     summary: 'A completed minimalist Bauhu home in southern Portugal, combining off-grid functionality, luxury finishes and precision-engineered modular construction.',
     image: `${projectImagePath}/quinta-de-lago.webp`,
   },
   {
     title: 'Scotland Cay',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/scotland-cay',
     location: 'The Bahamas',
     summary: 'A Bauhu project update from Scotland Cay, included in the project news archive as part of the wider island delivery portfolio.',
     image: `${projectImagePath}/scotland-cay.webp`,
   },
   {
     title: 'Abaco',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/abaco',
     location: 'The Bahamas',
     summary: 'An Abaco project update from Bauhu’s project news archive, showing the system applied across island and hurricane-exposed locations.',
     image: `${projectImagePath}/abaco.webp`,
   },
   {
     title: 'Tortola BVI',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/tortola-bvi',
     location: 'British Virgin Islands',
     summary: 'A Tortola project update from Bauhu’s Caribbean project archive, part of the wider record of modular island delivery.',
     image: `${projectImagePath}/tortola.webp`,
   },
   {
     title: 'Antigua',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/antigua',
     location: 'Antigua',
     summary: 'An Antigua project update from Bauhu’s project news archive, showing the system across another Caribbean island setting.',
     image: `${projectImagePath}/antigua.webp`,
   },
   {
     title: 'Hope Town',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/blog-post-title-one-z76nc-4tcds',
     location: 'The Bahamas',
     summary: 'A Hope Town project update connected to Bauhu’s hurricane-resistant island building work in the Bahamas.',
     image: `${projectImagePath}/hope-town.webp`,
   },
   {
     title: 'Little Cayman',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/little-cayman',
     location: 'Cayman Islands',
     summary: 'A Little Cayman project update from Bauhu’s project news archive, part of the wider Caribbean project portfolio.',
     image: `${projectImagePath}/little-cayman.webp`,
   },
   {
     title: 'Great Exuma',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/great-exuma',
     location: 'The Bahamas',
     summary: 'A Great Exuma project update from Bauhu’s archive, showing hurricane-resistant modular construction for the Bahamas and Caribbean.',
     image: `${projectImagePath}/great-exuma.webp`,
   },
   {
     title: 'Cruz Bay, St John USVI',
+    archiveUrl: 'https://www.bauhuhomes.com/bauhuprojectnews/cruz-bay-st-john-usvi',
     location: 'US Virgin Islands',
     summary: 'A Cruz Bay project update from Bauhu’s project news archive, extending the St John project record across multiple sites.',
     image: `${projectImagePath}/cruz-bay.webp`,
@@ -172,6 +184,9 @@ const featuredProjects = [
                     <p class="text-xs uppercase tracking-wide text-stone">{project.location}</p>
                     <h3 class="mt-8 font-display text-4xl leading-tight">{project.title}</h3>
                     <p class="mt-5 min-h-36 leading-7 text-paper/70">{project.summary}</p>
+                    {'archiveUrl' in project && project.archiveUrl && (
+                      <a href={project.archiveUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center border-b border-paper/50 pb-1 text-sm font-medium text-paper hover:border-paper" aria-label={`Read project details for ${project.title} on Bauhu Homes (opens in new tab)`}>Read project details ↗</a>
+                    )}
                   </div>
                 </article>
               ))}
