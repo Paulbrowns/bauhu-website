@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import EditorialHero from '../components/EditorialHero.astro';
+const sections = [["Architecture first","Where a client already has an architect, the intention is to support their design rather than replace their relationship with the client. Roles, design responsibility and deliverables are agreed for each project."],["Design for production and assembly","Early collaboration helps coordinate frame geometry, connections, openings, envelope strategy, procurement, packing and installation sequencing with the architectural intent."],["Complex sites need joined-up thinking","Island logistics, exposed coastal conditions, local approvals and project-specific engineering are easier to address while the design is still adaptable. Local licensed services remain subject to the project’s jurisdiction and agreed scope."]];
+---
+<BaseLayout title="For Architects | Collaborating with Bauhu" description="How architects can collaborate with Bauhu on structural engineering, building systems, manufacturing and remote-site delivery.">
+  <SiteHeader />
+  <main class="bg-paper">
+    <EditorialHero eyebrow="A coordinated design partnership" title="Keep the architectural vision. Make delivery more predictable." text="Bauhu can work alongside an appointed architect, bringing the building system, structural engineering, production coordination and logistics into the design conversation early." imageSrc="/images/developments/bauhu-engineering-hero.webp" primaryHref="/site-fit/" primaryLabel="Discuss your project" secondaryHref="/how-it-works/" secondaryLabel="How Bauhu works" />
+    <section class="section-pad bg-paper">
+      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[.75fr_1.25fr]">
+        <div><p class="eyebrow text-clay">A considered approach</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Start with the right questions.</h2></div>
+        <div class="space-y-5 text-lg leading-8 text-ink/75"><p>Bauhu can work alongside an appointed architect, bringing the building system, structural engineering, production coordination and logistics into the design conversation early.</p><p>Explore <a class="underline underline-offset-4" href="/engineering/">our engineering approach</a> and <a class="underline underline-offset-4" href="/build-on-your-land/">why earlier coordination matters</a> as part of the wider Bauhu process.</p></div>
+      </div>
+    </section>
+    <section class="section-pad bg-mist"><div class="mx-auto max-w-site"><p class="eyebrow text-clay">What matters</p><div class="mt-10 grid gap-5 md:grid-cols-3">{sections.map(([heading,copy],index)=><article class="bg-paper p-8"><span class="text-sm text-clay">0{index+1}</span><h2 class="mt-9 font-display text-3xl">{heading}</h2><p class="mt-5 leading-7 text-ink/70">{copy}</p></article>)}</div></div></section>
+    <section class="section-pad bg-navy text-paper"><div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[.8fr_1.2fr]"><div><p class="eyebrow text-stone">Next steps</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Begin with a conversation.</h2></div><div class="space-y-6 text-lg leading-8 text-paper/75"><p>Have a project in development? Share the site context and current drawings so we can discuss whether the Bauhu system is an appropriate fit.</p><p><a href="/site-fit/" class="border-b border-paper/60 pb-1 text-paper">Tell us about your project →</a></p></div></div></section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
