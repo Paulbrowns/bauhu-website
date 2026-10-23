@@ -3,87 +3,61 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 
-// Editorial layout prototype only. No unverified site details or completion claims.
-const project = {
-  title: 'Eleuthera',
-  region: 'The Bahamas',
-  stage: 'Current project',
-  type: 'Island residence',
-  lead: 'A site-responsive modular residence that brings contemporary construction methods together with the architectural character of The Bahamas.',
-  hero: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402805814-KB6MCVMWNR1OUIA4V6GO/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera%2B3.jpg',
-  caption: 'Construction-stage photography from the Bauhu project archive.',
-  facts: [
-    { label: 'Location', value: 'Eleuthera, The Bahamas' },
-    { label: 'Project type', value: 'Modular island residence' },
-    { label: 'Design language', value: 'Contemporary Bahamian' },
-    { label: 'Status', value: 'Project in progress' }
-  ]
-};
+// Photo-first preview. Captions/facts are grounded in the source article.
+// Keep the original Squarespace site untouched.
+const photos = [
+  { src: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409117947-HGNK23AUL5SFJKMMBO6O/Erecting%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bhurricane%2Bresistant%2Bhome%2Bin%2BSt%2BJohn%2BVI.jpg', alt: 'Steel framing and hillside foundation during construction of a modular residence in St John', caption: 'Steel framing on the hillside site' },
+  { src: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409118029-5H68H1VROCPENTHP5DQZ/Erecting%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bhurricane%2Bresistant%2Bhome%2Bin%2BSt%2BJohn%2BUSVI.jpg', alt: 'Roof trusses and wall framing taking shape at the St John residential project', caption: 'Roof trusses and wall structure' },
+  { src: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409119613-2ME2NMQ74E6S8S6G5TKK/Hurricane%2Bproof%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bprefab%2Bhome.jpg', alt: 'Elevated perspective of the assembled roof framing on the hillside', caption: 'Structure progressing across the elevated site' },
+];
 ---
-<BaseLayout title="Project Page Template Preview | Bauhu" description="Design preview for future Bauhu project stories.">
+<BaseLayout title="St John USVI | Bauhu Project Gallery Preview" description="Construction photo gallery of a Bauhu modular residence on a steep hillside in St John, US Virgin Islands.">
   <SiteHeader />
-  <main class="bg-paper text-ink">
-    <section class="bg-navy px-5 pb-14 pt-28 text-paper lg:px-10 lg:pt-36">
-      <div class="mx-auto max-w-site">
-        <div class="flex flex-wrap items-center justify-between gap-5">
-          <a href="/projects/" class="text-sm text-paper/70 hover:text-paper">← Current projects</a>
-          <span class="border border-paper/30 px-4 py-2 text-xs uppercase tracking-widest text-paper/75">Template preview</span>
-        </div>
-        <p class="eyebrow mt-16 text-stone">Bauhu project journal · {project.region}</p>
-        <h1 class="mt-5 max-w-5xl font-display text-6xl leading-tight md:text-8xl">{project.title}</h1>
-        <p class="mt-8 max-w-3xl text-xl leading-9 text-paper/80 md:text-2xl">{project.lead}</p>
-        <div class="mt-12 flex flex-wrap gap-3 text-xs uppercase tracking-widest text-paper/75"><span class="border border-paper/25 px-4 py-2">{project.type}</span><span class="border border-paper/25 px-4 py-2">{project.stage}</span></div>
+  <main class="project-preview">
+    <div class="project-shell">
+      <nav class="back-nav"><a href="/projects/">← All projects</a><span class="preview-label">Template preview</span></nav>
+      <header class="project-heading">
+        <p class="region">US Virgin Islands · Project gallery</p>
+        <h1>St John</h1>
+        <p class="summary">A Bauhu modular home adapted from the Coconut Villa concept for a steep Caribbean hillside site. The photographs document steel-frame construction and the evolving roof structure.</p>
+        <div class="project-meta"><span>Location: St John, USVI</span><span>Design: Coconut Villa concept</span><span>Construction: Steel frame</span></div>
+      </header>
+      <div class="photo-grid">
+        {photos.map((photo, i) => <figure class:list={['photo', i===0 && 'featured']}>
+          <a href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={'View full-size image: '+photo.alt}>
+            <img src={photo.src} alt={photo.alt} loading={i===0?'eager':'lazy'} decoding="async" />
+          </a>
+          <figcaption>{photo.caption}</figcaption>
+        </figure>)}
       </div>
-    </section>
-    <section class="bg-mist px-5 pb-14 pt-8 lg:px-10">
-      <figure class="mx-auto max-w-site">
-        <div class="flex min-h-[320px] items-center justify-center bg-navy/10">
-          <img src={project.hero} alt="Bauhu project construction work in Eleuthera" class="mx-auto max-h-[560px] w-full object-contain" loading="eager" />
-        </div>
-        <figcaption class="mt-3 text-sm text-ink/60">{project.caption}</figcaption>
-      </figure>
-    </section>
-    <section class="section-pad">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">The project at a glance</p>
-        <div class="mt-8 grid gap-8 border-y border-ink/15 py-10 sm:grid-cols-2 lg:grid-cols-4">
-          {project.facts.map(fact => <div><p class="text-xs uppercase tracking-widest text-ink/55">{fact.label}</p><p class="mt-3 font-display text-2xl">{fact.value}</p></div>)}
-        </div>
-        <div class="mt-24 grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-          <div><p class="eyebrow text-clay">01 / The brief</p><h2 class="mt-5 font-display text-4xl leading-tight md:text-6xl">Architecture shaped by its island setting.</h2></div>
-          <div class="space-y-5 text-lg leading-8 text-ink/75">
-            <p>This project draws on familiar Bahamian architectural proportions while exploring the practical advantages of an engineered modular building system.</p>
-            <p>For the finished case study, this section will describe the actual client brief, the design intent and any project constraints supported by the original source material.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="bg-mist px-5 py-20 lg:px-10">
-      <div class="mx-auto grid max-w-site gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
-        <div class="flex min-h-[320px] items-center justify-center border border-ink/15 bg-paper px-8 py-14 text-center"><div><p class="eyebrow text-clay">Image position 02</p><p class="mt-4 font-display text-3xl">Construction / site detail</p><p class="mt-3 max-w-md text-ink/60">Reserved for a second original high-resolution project photograph — never an enlarged thumbnail.</p></div></div>
-        <div><p class="eyebrow text-clay">02 / The site</p><h2 class="mt-5 font-display text-4xl">Responding to climate, access and terrain.</h2><p class="mt-6 leading-8 text-ink/75">Describe only verified site conditions and design responses here. Location stays at island level; precise addresses and sensitive client details stay private.</p></div>
-      </div>
-    </section>
-    <section class="section-pad">
-      <div class="mx-auto grid max-w-site gap-14 lg:grid-cols-[0.85fr_1.15fr]">
-        <div><p class="eyebrow text-clay">03 / Engineering & delivery</p><h2 class="mt-5 font-display text-4xl md:text-5xl">The building behind the architecture.</h2></div>
-        <div class="space-y-6 leading-8 text-ink/75"><p>The published project story will explain the actual structural approach, external envelope, logistics and assembly sequence where those details are documented.</p><p>No universal wind-rating guarantees, unverified delivery dates or premature claims of completion will be added.</p></div>
-      </div>
-      <div class="mx-auto mt-16 grid max-w-site gap-5 md:grid-cols-2">
-        {['Gallery position 03 — structure or envelope','Gallery position 04 — architectural detail'].map(label => <div class="flex min-h-[250px] items-center justify-center border border-ink/15 bg-mist p-8 text-center font-display text-2xl text-ink/60">{label}</div>)}
-      </div>
-    </section>
-    <section class="section-pad bg-mist">
-      <div class="mx-auto max-w-site">
-        <p class="eyebrow text-clay">04 / Project journal</p><h2 class="mt-5 max-w-3xl font-display text-4xl md:text-5xl">Progress, documented.</h2><p class="mt-6 max-w-3xl leading-8 text-ink/75">A dated series of brief construction updates and captioned photographs will appear here when a project has sufficient original source material. The page remains a current-project record, not an invented completion story.</p>
-      </div>
-    </section>
-    <section class="section-pad bg-navy text-paper">
-      <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-        <div><p class="eyebrow text-stone">Planning a project?</p><h2 class="mt-5 font-display text-4xl md:text-6xl">Every project begins with its site.</h2><p class="mt-6 max-w-xl leading-8 text-paper/70">Tell us about your location, land, access and ambitions. We'll help establish a practical design and delivery route.</p></div>
-        <div class="lg:text-right"><a href="/site-fit/" class="inline-flex rounded-full bg-paper px-8 py-4 text-sm uppercase tracking-wide text-ink">Start your site review →</a></div>
-      </div>
-    </section>
+      <p class="gallery-note">Project photography from the original Bauhu Homes construction archive. The final page can show the full progress sequence, with only factual captions.</p>
+      <div class="footer-strip"><div><h2>Planning an island project?</h2><p>Tell us about your location, access and proposed home.</p></div><a class="cta" href="/site-fit/">Start a site review →</a></div>
+    </div>
   </main>
   <SiteFooter />
 </BaseLayout>
+<style>
+  .project-preview{background:#f8f8f6;color:#1a1d20;min-height:80vh}
+  .project-shell{width:min(1240px,calc(100% - 40px));margin:0 auto;padding:40px 0 90px}
+  .back-nav{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px;color:#476074}
+  .back-nav a{text-decoration:none;color:inherit}
+  .preview-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6a7b86}
+  .project-heading{padding:54px 0 28px;max-width:950px}
+  .region{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#476074;margin:0 0 12px}
+  h1{font-family:Georgia,serif;font-size:clamp(44px,6vw,76px);font-weight:400;letter-spacing:-.035em;line-height:1.12;margin:0 0 19px}
+  .summary{max-width:760px;font-size:17px;line-height:1.65;color:#4b5660;margin:0 0 25px}
+  .project-meta{display:flex;gap:10px 27px;flex-wrap:wrap;border-top:1px solid #dedfdd;padding-top:18px;font-size:13px;color:#515c64}
+  .photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 19px;margin-top:24px}
+  .photo{margin:0;min-width:0}
+  .photo.featured{grid-column:span 2}
+  .photo a{display:flex;justify-content:center;align-items:center;background:#edecea;overflow:hidden}
+  .photo img{width:100%;height:auto;max-height:580px;object-fit:contain;display:block}
+  .photo.featured img{max-height:650px}
+  figcaption{color:#667078;font-size:12px;padding:9px 0 0}
+  .gallery-note{font-size:12px;color:#69747b;line-height:1.6;margin:28px 0 0}
+  .footer-strip{margin-top:72px;padding:28px 0;border-top:1px solid #d6d9d9;display:flex;gap:24px;justify-content:space-between;align-items:center}
+  .footer-strip h2{font-family:Georgia,serif;font-size:27px;font-weight:400;margin:0 0 8px}
+  .footer-strip p{font-size:14px;margin:0;color:#667078}
+  .cta{background:#143a52;color:#fff;text-decoration:none;padding:14px 21px;border-radius:2px;white-space:nowrap;font-size:13px}
+  @media(max-width:680px){.project-shell{width:calc(100% - 30px);padding-top:25px}.project-heading{padding-top:37px}.photo-grid{grid-template-columns:1fr;gap:20px}.photo.featured{grid-column:auto}.photo img,.photo.featured img{max-height:520px}.footer-strip{align-items:flex-start;flex-direction:column}}
+</style>
