@@ -33,12 +33,14 @@ const featuredProjects = [
   },
   {
     title: 'St John USVI',
+    detailSlug: 'st-john-usvi',
     location: 'US Virgin Islands',
     summary: 'A steep hillside Bauhu home based on the Coconut Villa concept, combining contemporary Caribbean design with hurricane-rated strength, energy efficiency and panoramic views.',
     image: `${projectImagePath}/st-john.webp`,
   },
   {
     title: 'Eleuthera',
+    detailSlug: 'eleuthera-bahamas',
     location: 'The Bahamas',
     summary: 'A modular Bauhu home near Governor’s Harbour, reinterpreting traditional Bahamian architecture with an elevated structure, Bermuda-style roof and hurricane-resistant construction.',
     image: `${projectImagePath}/eleuthera.webp`,
@@ -51,6 +53,7 @@ const featuredProjects = [
   },
   {
     title: 'Little Exuma',
+    detailSlug: 'little-exuma-bahamas',
     location: 'The Bahamas',
     summary: 'An elevated oceanfront Bauhu home based on the Angel concept, using a flat roof, panoramic sea views and a highly insulated building envelope for resilient island living.',
     image: `${projectImagePath}/little-exuma.webp`,
@@ -172,6 +175,9 @@ const featuredProjects = [
                     <p class="text-xs uppercase tracking-wide text-stone">{project.location}</p>
                     <h3 class="mt-8 font-display text-4xl leading-tight">{project.title}</h3>
                     <p class="mt-5 min-h-36 leading-7 text-paper/70">{project.summary}</p>
+                    {'detailSlug' in project && project.detailSlug && (
+                      <a href={`/projects/${project.detailSlug}/`} class="mt-6 inline-flex border-b border-paper/50 pb-1 text-sm font-medium text-paper hover:border-paper">Explore project case study →</a>
+                    )}
                   </div>
                 </article>
               ))}
