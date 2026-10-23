@@ -3,9 +3,15 @@ name: Upload Bauhu project WebP images to R2
 on:
   workflow_dispatch:
     inputs:
+      connection_test:
+        description: "Verify bucket access without uploading"
+        required: true
+        default: true
+        type: boolean
       project_slug:
         description: "Project folder under assets/r2-projects (e.g. exuma-waterfront)"
-        required: true
+        required: false
+        default: exuma-waterfront
         type: string
       dry_run:
         description: "Validate only; do not upload"
@@ -24,8 +30,20 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
+      - name: Check R2 connection
+        if: ${{ inputs.connection_test }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          BUCKET: ${{ secrets.R2_BUCKET }}
+        run: |
+          aws s3 ls "s3://$BUCKET/" --endpoint-url "https://$ACCOUNT_ID.r2.cloudflarestorage.com"
       - uses: actions/checkout@v4
+        if: ${{ !inputs.connection_test }}
       - name: Validate staged images
+        if: ${{ !inputs.connection_test }}
         id: validate
         env:
           SLUG: ${{ inputs.project_slug }}
@@ -53,6 +71,7 @@ jobs:
               output.write(f"prefix=projects/{slug}/\n")
           PY
       - name: Show planned keys
+        if: ${{ !inputs.connection_test }}
         env:
           SOURCE: ${{ steps.validate.outputs.source }}
           PREFIX: ${{ steps.validate.outputs.prefix }}
@@ -60,7 +79,7 @@ jobs:
           echo "R2 keys:"
           find "$SOURCE" -maxdepth 1 -type f -name '*.webp' -printf "$PREFIX%f\n" | sort
       - name: Upload images to Cloudflare R2
-        if: ${{ inputs.dry_run == false }}
+        if: ${{ !inputs.connection_test && inputs.dry_run == false }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
