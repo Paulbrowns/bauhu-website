@@ -1,6 +1,12 @@
 name: Upload Bauhu project WebP images to R2
 
 on:
+  push:
+    branches:
+      - feature/exuma-r2-gallery
+    paths:
+      - '.github/workflows/upload-project-images-r2.yml'
+      - 'assets/r2-projects/exuma-waterfront/**'
   workflow_dispatch:
     inputs:
       connection_test:
@@ -20,10 +26,10 @@ on:
         type: boolean
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: r2-project-images-${{ inputs.project_slug }}
+  group: r2-project-images-${{ inputs.project_slug || 'exuma-waterfront' }}
   cancel-in-progress: false
 
 jobs:
@@ -31,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check R2 connection
-        if: ${{ inputs.connection_test }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.connection_test }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
@@ -41,12 +47,12 @@ jobs:
         run: |
           aws s3 ls "s3://$BUCKET/" --endpoint-url "https://$ACCOUNT_ID.r2.cloudflarestorage.com"
       - uses: actions/checkout@v4
-        if: ${{ !inputs.connection_test }}
+        if: ${{ github.event_name == 'push' || !inputs.connection_test }}
       - name: Validate staged images
-        if: ${{ !inputs.connection_test }}
+        if: ${{ github.event_name == 'push' || !inputs.connection_test }}
         id: validate
         env:
-          SLUG: ${{ inputs.project_slug }}
+          SLUG: ${{ inputs.project_slug || 'exuma-waterfront' }}
         run: |
           python3 - <<'PY'
           import os, re
@@ -71,7 +77,7 @@ jobs:
               output.write(f"prefix=projects/{slug}/\n")
           PY
       - name: Show planned keys
-        if: ${{ !inputs.connection_test }}
+        if: ${{ github.event_name == 'push' || !inputs.connection_test }}
         env:
           SOURCE: ${{ steps.validate.outputs.source }}
           PREFIX: ${{ steps.validate.outputs.prefix }}
@@ -79,7 +85,7 @@ jobs:
           echo "R2 keys:"
           find "$SOURCE" -maxdepth 1 -type f -name '*.webp' -printf "$PREFIX%f\n" | sort
       - name: Upload images to Cloudflare R2
-        if: ${{ !inputs.connection_test && inputs.dry_run == false }}
+        if: ${{ github.event_name == 'push' || (!inputs.connection_test && inputs.dry_run == false) }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}

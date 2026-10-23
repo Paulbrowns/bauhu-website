@@ -236,20 +236,49 @@ export const projectJournal = [
     "intro": "An oceanfront modular home inspired by the Grapetree design, with traditional Caribbean character and an elevated pier foundation.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406166205-VBI7BFIJS57QRY3DW89Q/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BElbow%2BCay%2BBahamas%2B5.jpg",
-        "alt": "Exuma Waterfront Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-elevated-concrete-foundation-and-steel-framing.webp",
+        "alt": "Bauhu light gauge steel frame being assembled on an elevated concrete foundation at Exuma Waterfront, Bahamas",
+        "title": "Bauhu light gauge steel frame being assembled on an elevated concrete foundation at Exuma Waterfront, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406164186-QWO2ZHJEXWQJMQ54L57U/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bmodular%2Bhouse%2Bin%2BExuma%2BBahamas%2B1.jpg",
-        "alt": "Exuma Waterfront Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-prefabricated-steel-framed-house.webp",
+        "alt": "Bauhu prefabricated light gauge steel home with concrete ground-floor structure at Exuma Waterfront, Bahamas",
+        "title": "Bauhu prefabricated light gauge steel home with concrete ground-floor structure at Exuma Waterfront, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406165875-6R0TC0EAJN75VUZBZG0I/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bmodular%2Bhouse%2Bin%2BExuma%2BBahamas.jpg",
-        "alt": "Exuma Waterfront construction progress photograph 3"
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-light-gauge-steel-roof-trusses.webp",
+        "alt": "Bauhu light gauge steel roof trusses and wall framing during construction in Exuma, Bahamas",
+        "title": "Bauhu light gauge steel roof trusses and wall framing during construction in Exuma, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406161527-DSHOWVF6FWDVJSGXU3BL/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bmodular%2Bhouse%2Bin%2BExuma%2BBahamas%2B2.jpg?format=2500w",
-        "alt": "Exuma Waterfront foundation and steel-frame assembly beside the sea"
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-galvanised-steel-roof-frame.webp",
+        "alt": "Galvanised light gauge steel roof framing with ocean views at the Bauhu Exuma Waterfront project",
+        "title": "Galvanised light gauge steel roof framing with ocean views at the Bauhu Exuma Waterfront project"
+      },
+      {
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-hurricane-resistant-roof-framing.webp",
+        "alt": "Close view of Bauhu light gauge steel roof framing overlooking the Exuma waterfront in the Bahamas",
+        "title": "Close view of Bauhu light gauge steel roof framing overlooking the Exuma waterfront in the Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-steel-wall-frame-terrace.webp",
+        "alt": "Bauhu light gauge steel wall framing and covered terrace under construction at Exuma Waterfront, Bahamas",
+        "title": "Bauhu light gauge steel wall framing and covered terrace under construction at Exuma Waterfront, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-steel-wall-studs-ocean-view.webp",
+        "alt": "Interior galvanised light gauge steel wall studs framing a view across the Exuma waterfront, Bahamas",
+        "title": "Interior galvanised light gauge steel wall studs framing a view across the Exuma waterfront, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-concrete-and-modular-home-exterior.webp",
+        "alt": "Elevated Bauhu prefabricated home with concrete lower level, roof and covered waterfront terrace in Exuma, Bahamas",
+        "title": "Elevated Bauhu prefabricated home with concrete lower level, roof and covered waterfront terrace in Exuma, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-construction-exterior-terrace.webp",
+        "alt": "Exterior construction progress of the Bauhu steel-frame waterfront home with covered terrace in Exuma, Bahamas",
+        "title": "Exterior construction progress of the Bauhu steel-frame waterfront home with covered terrace in Exuma, Bahamas"
       }
     ]
   },
