@@ -9,7 +9,8 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const title = `${project.title} | Hurricane-Resistant Modular Home Project | Bauhu`;
+const regionalTerm = project.region === "Portugal" ? "Modern Steel-Frame Modular Home" : "Hurricane-Resistant Modular Home";
+const title = `${project.title} | ${regionalTerm} Project | Bauhu`;
 const description = `${project.intro} View original construction photos and the Bauhu project record.`.slice(0, 160);
 ---
 <BaseLayout title={title} description={description}>
