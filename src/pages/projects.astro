@@ -2,135 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { projectJournal } from '../data/project-journal.js';
 
 const fallbackImage = '/images/developments/bauhu-projects-hero.webp';
-const projectImagePath = '/images/models';
 
-const featuredProjects = [
-  {
-    title: 'Ft Myers Beach, Florida',
-    location: 'Florida, USA',
-    summary: 'A custom-designed steel frame Bauhu residence being assembled in a demanding coastal location, elevated for flood-zone requirements and engineered for hurricane-rated performance.',
-    image: `${projectImagePath}/ft-myers-beach.webp`,
-  },
-  {
-    title: 'St Thomas USVI',
-    location: 'US Virgin Islands',
-    summary: 'A luxury modular Bauhu home on an elevated coastal site with commanding ocean views, designed to combine refined island living with modern modular construction and hurricane resistance.',
-    image: `${projectImagePath}/st-thomas-usvi.webp`,
-  },
-  {
-    title: 'Cat Island',
-    location: 'The Bahamas',
-    summary: 'An elevated, off-grid Bauhu residence set above the coastline, combining clean architectural lines with hurricane-rated strength for a remote island site.',
-    image: `${projectImagePath}/cat-island.webp`,
-  },
-  {
-    title: 'Coral Bay, St John VI',
-    location: 'St John, USVI',
-    summary: 'A contemporary Bauhu home overlooking Coral Bay, built on a steep hillside with expansive glass, a custom pergola, a highly insulated envelope and hurricane-resistant hybrid steel frame.',
-    image: `${projectImagePath}/st-john-usvi.webp`,
-  },
-  {
-    title: 'St John USVI',
-    detailSlug: 'st-john-usvi',
-    location: 'US Virgin Islands',
-    summary: 'A steep hillside Bauhu home based on the Coconut Villa concept, combining contemporary Caribbean design with hurricane-rated strength, energy efficiency and panoramic views.',
-    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409117947-HGNK23AUL5SFJKMMBO6O/Erecting%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bhurricane%2Bresistant%2Bhome%2Bin%2BSt%2BJohn%2BVI.jpg',
-  },
-  {
-    title: 'Eleuthera',
-    detailSlug: 'eleuthera-bahamas',
-    location: 'The Bahamas',
-    summary: 'A modular Bauhu home near Governor’s Harbour, reinterpreting traditional Bahamian architecture with an elevated structure, Bermuda-style roof and hurricane-resistant construction.',
-    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402805814-KB6MCVMWNR1OUIA4V6GO/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera%2B3.jpg',
-  },
-  {
-    title: 'Eleuthera, Bahamas',
-    location: 'The Bahamas',
-    summary: 'A second Eleuthera project update from Bauhu’s project news archive, showing island delivery, resilient construction and site-specific Caribbean design.',
-    image: `${projectImagePath}/eleuthera-bahamas.webp`,
-  },
-  {
-    title: 'Little Exuma',
-    detailSlug: 'little-exuma-bahamas',
-    location: 'The Bahamas',
-    summary: 'An elevated oceanfront Bauhu home based on the Angel concept, using a flat roof, panoramic sea views and a highly insulated building envelope for resilient island living.',
-    image: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402344553-Y7THLL7XY2FEUPDJNJCZ/Bauhu-hurricane-proof%2B%2Bkit%2Bhome%2Bfoundations%2Bgreat%2BExuma.jpg',
-  },
-  {
-    title: 'Jamaica',
-    location: 'Jamaica',
-    summary: 'Xenjoh Villa, Bauhu’s first villa constructed in Jamaica, is presented as a hurricane-safe luxury modular home that remained unscathed by Hurricane Beryl.',
-    image: `${projectImagePath}/jamaica.webp`,
-  },
-  {
-    title: 'Exuma Waterfront',
-    location: 'The Bahamas',
-    summary: 'An oceanfront Bauhu modular home based on the Grapetree concept, with classic Caribbean colonial styling, an elevated pier foundation and hybrid steel-frame construction.',
-    image: `${projectImagePath}/exuma-waterfront.webp`,
-  },
-  {
-    title: 'Elbow Cay, The Bahamas',
-    location: 'The Bahamas',
-    summary: 'A modern Caribbean colonial duplex in historic Hope Town, combining two one-bedroom apartments, a ground-floor commercial space and hurricane-resistant modular construction.',
-    image: `${projectImagePath}/elbow-cay.webp`,
-  },
-  {
-    title: 'Quinta de Lago',
-    location: 'Portugal',
-    summary: 'A completed minimalist Bauhu home in southern Portugal, combining off-grid functionality, luxury finishes and precision-engineered modular construction.',
-    image: `${projectImagePath}/quinta-de-lago.webp`,
-  },
-  {
-    title: 'Scotland Cay',
-    location: 'The Bahamas',
-    summary: 'A Bauhu project update from Scotland Cay, included in the project news archive as part of the wider island delivery portfolio.',
-    image: `${projectImagePath}/scotland-cay.webp`,
-  },
-  {
-    title: 'Abaco',
-    location: 'The Bahamas',
-    summary: 'An Abaco project update from Bauhu’s project news archive, showing the system applied across island and hurricane-exposed locations.',
-    image: `${projectImagePath}/abaco.webp`,
-  },
-  {
-    title: 'Tortola BVI',
-    location: 'British Virgin Islands',
-    summary: 'A Tortola project update from Bauhu’s Caribbean project archive, part of the wider record of modular island delivery.',
-    image: `${projectImagePath}/tortola.webp`,
-  },
-  {
-    title: 'Antigua',
-    location: 'Antigua',
-    summary: 'An Antigua project update from Bauhu’s project news archive, showing the system across another Caribbean island setting.',
-    image: `${projectImagePath}/antigua.webp`,
-  },
-  {
-    title: 'Hope Town',
-    location: 'The Bahamas',
-    summary: 'A Hope Town project update connected to Bauhu’s hurricane-resistant island building work in the Bahamas.',
-    image: `${projectImagePath}/hope-town.webp`,
-  },
-  {
-    title: 'Little Cayman',
-    location: 'Cayman Islands',
-    summary: 'A Little Cayman project update from Bauhu’s project news archive, part of the wider Caribbean project portfolio.',
-    image: `${projectImagePath}/little-cayman.webp`,
-  },
-  {
-    title: 'Great Exuma',
-    location: 'The Bahamas',
-    summary: 'A Great Exuma project update from Bauhu’s archive, showing hurricane-resistant modular construction for the Bahamas and Caribbean.',
-    image: `${projectImagePath}/great-exuma.webp`,
-  },
-  {
-    title: 'Cruz Bay, St John USVI',
-    location: 'US Virgin Islands',
-    summary: 'A Cruz Bay project update from Bauhu’s project news archive, extending the St John project record across multiple sites.',
-    image: `${projectImagePath}/cruz-bay.webp`,
-  },
-];
+const featuredProjects = projectJournal.map(p => ({ title: p.title, location: p.region, summary: p.intro, image: p.images[0]?.src || fallbackImage, detailSlug: p.slug }));
 ---
 <BaseLayout title="Current Projects | Bauhu" description="Current and recent Bauhu projects across coastal, island and hurricane-exposed locations.">
   <SiteHeader />
@@ -145,7 +21,7 @@ const featuredProjects = [
         </div>
         <div class="self-end space-y-7 text-lg leading-8 text-paper/75">
           <p>See how Bauhu projects are progressing across real coastal, island and hurricane-exposed locations.</p>
-          <p>This page follows current and recent projects through design intent, site constraints, engineering response, logistics, assembly and delivery.</p>
+          <p>Browse photographs of the homes taking shape, from site work to structural assembly and final details.</p>
         </div>
       </div>
     </section>
@@ -154,7 +30,7 @@ const featuredProjects = [
       <div class="mx-auto max-w-site">
         <div>
           <p class="eyebrow text-clay">Project news</p>
-          <h2 class="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Current and recent Bauhu projects.</h2>
+          <h2 class="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Projects in photographs.</h2>
         </div>
 
         <div class="project-slider mt-14" data-project-slider>
@@ -174,7 +50,7 @@ const featuredProjects = [
                   <div class="p-7">
                     <p class="text-xs uppercase tracking-wide text-stone">{project.location}</p>
                     <h3 class="mt-8 font-display text-4xl leading-tight">{project.title}</h3>
-                    <p class="mt-5 min-h-36 leading-7 text-paper/70">{project.summary}</p>
+                    <p class="mt-5 min-h-20 leading-7 text-paper/70">{project.summary}</p>
                     {'detailSlug' in project && project.detailSlug && (
                       <a href={`/projects/${project.detailSlug}/`} class="mt-6 inline-flex border-b border-paper/50 pb-1 text-sm font-medium text-paper hover:border-paper">Explore project case study →</a>
                     )}
