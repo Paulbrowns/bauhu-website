@@ -235,22 +235,51 @@ export const projectJournal = [
     "source": "https://bauhuhomes.com/bauhuprojectnews/blog-post-title-two-9k8t9-56k4k",
     "intro": "An oceanfront modular home inspired by the Grapetree design, with traditional Caribbean character and an elevated pier foundation.",
     "images": [
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406166205-VBI7BFIJS57QRY3DW89Q/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BElbow%2BCay%2BBahamas%2B5.jpg",
-        "alt": "Exuma Waterfront Bauhu modular home project photograph 1"
-      },
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406164186-QWO2ZHJEXWQJMQ54L57U/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bmodular%2Bhouse%2Bin%2BExuma%2BBahamas%2B1.jpg",
-        "alt": "Exuma Waterfront Bauhu modular home project photograph 2"
-      },
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406165875-6R0TC0EAJN75VUZBZG0I/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bmodular%2Bhouse%2Bin%2BExuma%2BBahamas.jpg",
-        "alt": "Exuma Waterfront construction progress photograph 3"
-      },
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406161527-DSHOWVF6FWDVJSGXU3BL/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bmodular%2Bhouse%2Bin%2BExuma%2BBahamas%2B2.jpg?format=2500w",
-        "alt": "Exuma Waterfront foundation and steel-frame assembly beside the sea"
-      }
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-foundation-anchor-detail.webp",
+                "alt": "Bauhu steel frame anchor connection to the concrete foundation at Exuma Waterfront, Bahamas",
+                "title": "Bauhu steel frame anchor connection to the concrete foundation at Exuma Waterfront, Bahamas"
+          },
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-concrete-platform.webp",
+                "alt": "Concrete foundation platform prepared for a Bauhu light gauge steel home at Exuma Waterfront, Bahamas",
+                "title": "Concrete foundation platform prepared for a Bauhu light gauge steel home at Exuma Waterfront, Bahamas"
+          },
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-steel-framing-ocean-view.webp",
+                "alt": "Bauhu light gauge steel framing installed above an elevated oceanfront foundation in Exuma, Bahamas",
+                "title": "Bauhu light gauge steel framing installed above an elevated oceanfront foundation in Exuma, Bahamas"
+          },
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-elevated-frame.webp",
+                "alt": "Elevated Bauhu steel-frame modular home under construction overlooking the Exuma coastline",
+                "title": "Elevated Bauhu steel-frame modular home under construction overlooking the Exuma coastline"
+          },
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-steel-column-connection.webp",
+                "alt": "Steel column and structural connection during Bauhu prefabricated home assembly at Exuma Waterfront",
+                "title": "Steel column and structural connection during Bauhu prefabricated home assembly at Exuma Waterfront"
+          },
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-interior-steel-studs.webp",
+                "alt": "Interior light gauge steel wall studs in a Bauhu modular home under construction in Exuma, Bahamas",
+                "title": "Interior light gauge steel wall studs in a Bauhu modular home under construction in Exuma, Bahamas"
+          },
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-wall-frame-and-concrete-detail.webp",
+                "alt": "Bauhu light gauge steel wall frame fixed to a concrete structure at Exuma Waterfront, Bahamas",
+                "title": "Bauhu light gauge steel wall frame fixed to a concrete structure at Exuma Waterfront, Bahamas"
+          },
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-exterior-progress.webp",
+                "alt": "Bauhu prefabricated waterfront home with roof and external walls progressing at Exuma, Bahamas",
+                "title": "Bauhu prefabricated waterfront home with roof and external walls progressing at Exuma, Bahamas"
+          },
+          {
+                "src": "https://raw.githubusercontent.com/Paulbrowns/bauhu-website/feature/exuma-r2-gallery/assets/r2-projects/exuma-waterfront/exuma-waterfront-covered-terrace.webp",
+                "alt": "Covered waterfront terrace and glazing installed at the Bauhu Exuma Waterfront home, Bahamas",
+                "title": "Covered waterfront terrace and glazing installed at the Bauhu Exuma Waterfront home, Bahamas"
+          }
     ]
   },
   {
