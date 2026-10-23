@@ -9,6 +9,9 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const projectIndex = projectJournal.findIndex(item => item.slug === project.slug);
+const previousProject = projectJournal[(projectIndex - 1 + projectJournal.length) % projectJournal.length];
+const nextProject = projectJournal[(projectIndex + 1) % projectJournal.length];
 const regionalTerm = project.region === "Portugal" ? "Modern Steel-Frame Modular Home" : "Hurricane-Resistant Modular Home";
 const title = `${project.title} | ${regionalTerm} Project | Bauhu`;
 const description = `${project.intro} View original construction photos and the Bauhu project record.`.slice(0, 160);
@@ -32,6 +35,10 @@ const description = `${project.intro} View original construction photos and the 
       <div class="project-links">
         <p>Explore <a href="/steel-frame-home-kits/">steel-frame home construction</a> and <a href="/remote-locations/">building in remote locations</a>.</p>
       </div>
+      <nav class="project-navigation" aria-label="Project navigation">
+        <a href={`/projects/${previousProject.slug}/`} rel="prev" class="nav-previous"><span>← Previous project</span><strong>{previousProject.title}</strong></a>
+        <a href={`/projects/${nextProject.slug}/`} rel="next" class="nav-next"><span>Next project →</span><strong>{nextProject.title}</strong></a>
+      </nav>
       <div class="enquiry"><div><h2>Planning your own project?</h2><p>Share your site and project details with Bauhu.</p></div><a href="/site-fit/">Start a site review →</a></div>
     </div>
   </main>
@@ -53,9 +60,15 @@ const description = `${project.intro} View original construction photos and the 
   .project-links{margin:28px 0 50px;display:flex;flex-wrap:wrap;gap:10px 25px;color:#65717b;font-size:12px;line-height:1.6}
   .project-links p{margin:0}
   .project-links a{color:#143a52}
+  .project-navigation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:0 0 45px}
+  .project-navigation a{display:flex;flex-direction:column;gap:7px;border:1px solid #d8d9d8;padding:20px 24px;text-decoration:none;color:#143a52;min-width:0;transition:background .15s}
+  .project-navigation a:hover{background:#ecefeb}
+  .project-navigation span{font-size:12px;color:#667078}
+  .project-navigation strong{font:400 21px Georgia,serif;overflow-wrap:anywhere}
+  .nav-next{text-align:right;align-items:flex-end}
   .enquiry{border-top:1px solid #d8d9d8;padding-top:26px;display:flex;align-items:center;justify-content:space-between;gap:25px}
   .enquiry h2{font:400 27px Georgia,serif;margin:0 0 8px}
   .enquiry p{font-size:14px;color:#667078;margin:0}
   .enquiry>a{background:#143a52;color:white;text-decoration:none;font-size:13px;padding:14px 21px;white-space:nowrap}
-  @media(max-width:760px){.photos{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.shell{width:calc(100% - 30px)}.enquiry{align-items:flex-start;flex-direction:column}}
+  @media(max-width:760px){.photos{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.shell{width:calc(100% - 30px)}.enquiry{align-items:flex-start;flex-direction:column}.project-navigation{gap:10px}.project-navigation a{padding:14px}.project-navigation strong{font-size:17px}}
 </style>
