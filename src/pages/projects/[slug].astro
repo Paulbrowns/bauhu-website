@@ -3,7 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 
-const projects = [
+export function getStaticPaths() {
+  const projects = [
   {
     slug: 'st-john-usvi',
     title: 'St John, US Virgin Islands',
@@ -66,7 +67,6 @@ const projects = [
   },
 ];
 
-export function getStaticPaths() {
   return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
 }
 
