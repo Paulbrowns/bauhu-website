@@ -23,6 +23,10 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123158778-3RTQIHRDKT5RLURHU1VI/WhatsApp%2BImage%2B2026-01-23%2Bat%2B23.11.55.jpeg",
         "alt": "Ft Myers Beach steel-frame modular home assembly photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123294582-TJDJEB7KPBA17I4LM18I/WhatsApp%2BImage%2B2026-02-26%2Bat%2B14.14.19.jpeg",
+        "alt": "Ft Myers Beach elevated steel-frame modular home construction progress"
       }
     ]
   },
@@ -48,6 +52,10 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755694360316-0RVNF8HPFUTDU4M8SCER/IMG_3512.JPG",
         "alt": "Coral Bay, St John construction progress photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1760636445742-S95K4UT4QMPHVTRHVXPF/WhatsApp%2BImage%2B2025-10-16%2Bat%2B18.35.08_5d17a496.jpg",
+        "alt": "Coral Bay St John steel-frame home assembly on hillside"
       }
     ]
   },
@@ -73,6 +81,14 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1744639419493-BT8EMNSQH3HR4F05P0CM/D21AE3F882A4174CD0DAC4D005818FE3.jpg",
         "alt": "St Thomas construction progress photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1752588721301-0DPWAH6BCX13CALFBP5K/IMG-20250714-WA0009.jpg",
+        "alt": "St Thomas modular home steel frame overlooking the coast"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755082521868-R1QDHZSL476JEU48YEH9/IMG-20250812-WA0015.jpg",
+        "alt": "St Thomas multi-level steel-frame modular home construction"
       }
     ]
   },
@@ -98,6 +114,18 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746694307805-XHJ86LTWBX08LK39SUNO/IMG-20250503-WA0000.jpg",
         "alt": "Cat Island construction progress photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746694307607-OV73B861BCMIBMZ6D5SQ/IMG-20250503-WA0001.jpg",
+        "alt": "Cat Island steel-frame home with ocean view during construction"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746694309305-EBPNTCWBYXFZWV0YTCCX/IMG-20250503-WA0004.jpg",
+        "alt": "Cat Island steel-frame roof and wall assembly"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746694310936-OCVMT6SE3Y2WZDWF115Q/IMG-20250503-WA0006.jpg",
+        "alt": "Cat Island modular home steel structure construction progress"
       }
     ]
   },
@@ -123,6 +151,14 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409226579-2MTHR9OQ0SKN62EUZPRD/Hurricane%2Bproof%2Bsteel%2Bstructure%2Bfor%2BBauhu%2Bhome%2B4.jpg",
         "alt": "St John construction progress photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409121035-L43JBT0297RJIU24ZWPL/Hurricane%2Bproof%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bhome.jpg",
+        "alt": "St John light-gauge steel interior framing during assembly"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746695549642-R05FZZ47PGXMVD8BU80R/PXL_20250425_194213533.jpg",
+        "alt": "St John Bauhu home exterior and roof construction progress"
       }
     ]
   },
@@ -148,6 +184,22 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402817934-4JP9W6HD5QNVJU0QNH0Z/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera.jpg",
         "alt": "Eleuthera construction progress photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402603873-GF8YIJ4HYMZKTXQ7WY4A/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera%2B4.jpg",
+        "alt": "Eleuthera steel-frame modular home assembly"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755679524423-ZVWU3FL1GQ1YTT1J4RY2/IMG-20250605-WA0010-2.jpg",
+        "alt": "Eleuthera modular home construction with veranda framing"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755679524030-2EMFBDGX5BRH32WCD3TP/IMG-20250605-WA0012-2.jpg",
+        "alt": "Eleuthera building envelope and exterior construction progress"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755679532981-FB1W113B0TPFAZ50064P/PHOTO-2025-08-19-15-30-13_2-3.jpg",
+        "alt": "Eleuthera interior fit-out and wide opening to terrace"
       }
     ]
   },
@@ -194,6 +246,10 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406165875-6R0TC0EAJN75VUZBZG0I/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bmodular%2Bhouse%2Bin%2BExuma%2BBahamas.jpg",
         "alt": "Exuma Waterfront construction progress photograph 3"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1731406161527-DSHOWVF6FWDVJSGXU3BL/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bmodular%2Bhouse%2Bin%2BExuma%2BBahamas%2B2.jpg?format=2500w",
+        "alt": "Exuma Waterfront foundation and steel-frame assembly beside the sea"
       }
     ]
   },
@@ -215,6 +271,22 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717585637059-LEBWV95IO3BOYPEDBSFO/20230829_095549.jpg",
         "alt": "Elbow Cay construction progress photograph 3"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717673889778-LEHPI5Q9GYP8A9RY1LCD/20230906_155021.jpg",
+        "alt": "Elbow Cay waterfront steel-frame duplex assembly"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717673898475-SDED35M1EFF0NXDX2FFH/20230912_163125.jpg",
+        "alt": "Elbow Cay modular duplex steel frame beside the harbour"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717585651116-XU14OT38SIPU40Q46QK3/20231007_145709.jpg",
+        "alt": "Elbow Cay modular duplex roof and wall construction progress"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717584452660-VQOQQO56BSH5451LKOY6/20240427_164633.jpg",
+        "alt": "Elbow Cay finished waterfront modular duplex exterior"
       }
     ]
   },
@@ -240,6 +312,10 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689760876-LBGNWMHBX06FIZ24H7U0/DSC00790.jpg",
         "alt": "Quinta de Lago construction progress photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689777284-4P07AZCGEF9KQ48AK5G0/DSC00840.jpg",
+        "alt": "Quinta de Lago modular home exterior during construction"
       }
     ]
   },
@@ -315,6 +391,10 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688141502-6D1TNV47O0GY2YG64CMX/IMG-20200919-WA0014.jpg",
         "alt": "Abaco construction progress photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688144562-GGAXE6OB9VINHEBI4ZP7/PHOTO-2020-08-29-22-49-07-2.jpg",
+        "alt": "Abaco modular home foundation and steel frame assembly"
       }
     ]
   },
@@ -465,6 +545,10 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717674910643-EGK7X75ACXXXZOOARKI7/WhatsApp%2BImage%2B2023-02-23%2Bat%2B20.17.37.jpeg",
         "alt": "Great Exuma construction progress photograph 4"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717674802289-1Y3L7MKPLZC7AJ829TOB/20240530_161409.jpg",
+        "alt": "Great Exuma modular home exterior during later construction"
       }
     ]
   },
