@@ -1,6 +1,7 @@
 export const locations = [
   {
     slug: 'bahamas',
+    activeWork: 'Bauhu is currently working on projects at Albany on New Providence and Luxuma on Big Farmer’s Cay in Exuma. These engagements provide first-hand experience of planning projects in two distinct Bahamian settings.',
     locationApproach: "Across The Bahamas, the right design response can be very different on an established New Providence estate, a secluded Exuma cay or an Abaco waterfront plot. Bauhu can consider the architecture alongside island access, shipping and local construction arrangements from the outset.",
     seoTitle: 'Luxury Home Construction in The Bahamas | Albany, Royal Island, Torch Cay & More | Bauhu',
     seoDescription: 'Independent guide to luxury home construction across The Bahamas, including Albany, Royal Island, Torch Cay, Baker’s Bay and the Abaco Club.',
@@ -30,6 +31,7 @@ export const locations = [
 
   {
     slug: 'barbuda',
+    activeWork: 'Bauhu is currently working on a project at Barbuda Ocean Club, bringing first-hand experience to the design and delivery considerations of Barbuda.',
     locationApproach: "Antigua and Barbuda present contrasting settings: Antigua combines established marinas, hillside estates and accessible services, while Barbuda offers expansive, relatively secluded coastal sites. Bauhu can tailor the design and delivery strategy to the realities of each island.",
     seoTitle: 'Luxury Home Construction in Antigua & Barbuda | Bauhu',
     seoDescription: 'Luxury homes in Antigua and Barbuda: explore coastal construction, engineering and logistics around Barbuda Ocean Club, Jolly Harbour and English Harbour.',
