@@ -15,6 +15,14 @@ export const projectJournal = [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123157233-YO1AHGQSGDOUN6A9HJJE/WhatsApp%2BImage%2B2026-01-22%2Bat%2B19.44.05%2B%282%29.jpeg",
         "alt": "Ft Myers Beach Bauhu modular home project photograph 2"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123158754-TQ7VWJFA8KIN8QPWX9AH/WhatsApp%2BImage%2B2026-01-22%2Bat%2B19.44.05.jpeg",
+        "alt": "Ft Myers Beach steel-frame modular home assembly photograph 3"
+      },
+      {
+        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123158778-3RTQIHRDKT5RLURHU1VI/WhatsApp%2BImage%2B2026-01-23%2Bat%2B23.11.55.jpeg",
+        "alt": "Ft Myers Beach steel-frame modular home assembly photograph 4"
       }
     ]
   },
