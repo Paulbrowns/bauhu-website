@@ -24,13 +24,15 @@ const cleanName = titleCase(model.name);
 const slug = model.slug;
 const modelPublicSlug = slug.replace(/^bauhu-/, '');
 const modelImageBase = `/images/models/${slug}`;
-const heroImage = `${modelImageBase}/${slug}.webp`;
+const heroImage = isOriginalCottageSlug(modelPublicSlug) ? '/images/models/bauhu-caribbean-cottage/caribbean-cottage-original-hero.webp' : modelPublicSlug === 'caribbean-cottage-compact' ? '/images/models/bauhu-caribbean-cottage/bauhu-caribbean-cottage.webp' : `${modelImageBase}/${slug}.webp`;
+function isOriginalCottageSlug(value: string) { return value === 'caribbean-cottage'; }
 const enquiryHref = `/site-fit?model=${encodeURIComponent(modelPublicSlug)}`;
 const isSunsetCove = modelPublicSlug === 'sunset-cove';
 const isAngel = modelPublicSlug === 'angel';
 const isBahamaBeach = modelPublicSlug === 'bahama-beach';
 const isAbaco = modelPublicSlug === 'abaco';
 const isCaribbeanCottage = modelPublicSlug === 'caribbean-cottage';
+const isCaribbeanCottageCompact = modelPublicSlug === 'caribbean-cottage-compact';
 const isCasaLavanda = modelPublicSlug === 'casa-lavanda';
 const isCasita = modelPublicSlug === 'casita';
 const isCharlston = modelPublicSlug === 'charlston';
@@ -53,7 +55,9 @@ const galleryImages = isSunsetCove
     : isAbaco
       ? [heroImage, ...Array.from({ length: 3 }, (_, index) => `${modelImageBase}/${index + 1}.webp`)]
       : isCaribbeanCottage
-        ? [heroImage, ...Array.from({ length: 6 }, (_, index) => `${modelImageBase}/${index + 1}.webp`), `${modelImageBase}/caribbean-cottage-18.webp`]
+        ? [heroImage, ...['exterior', 'beachside', 'veranda', 'living', 'kitchen', 'master-bedroom', 'guest-bedroom', 'bathroom'].map(name => `/images/models/bauhu-caribbean-cottage/caribbean-cottage-original-${name}.webp`)]
+        : isCaribbeanCottageCompact
+          ? [heroImage, ...Array.from({ length: 6 }, (_, index) => `/images/models/bauhu-caribbean-cottage/${index + 1}.webp`), '/images/models/bauhu-caribbean-cottage/caribbean-cottage-18.webp']
         : isCasaLavanda
           ? [heroImage, ...Array.from({ length: 10 }, (_, index) => `${modelImageBase}/${index + 1}.webp`), `${modelImageBase}/casa-lavanda20_900x506.webp`]
           : isCasita
@@ -187,7 +191,7 @@ const modelSchema = JSON.stringify({
 });
 
 ---
-<BaseLayout title={`${cleanName} | Bauhu Model Residence`} description={`${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
+<BaseLayout title={isCaribbeanCottage ? 'Caribbean Cottage | 2-Bed Hurricane-Resistant Modular Home | Bauhu' : `${cleanName} | Bauhu Model Residence`} description={isCaribbeanCottage ? 'Original Caribbean Cottage: two bedrooms, two bathrooms, 915 sq ft and a covered veranda. Architect-designed modular homes for hurricane-exposed island locations.' : `${cleanName} is a Bauhu model residence that can be refined around your site, brief and way of living.`}>
   <script type="application/ld+json" set:html={modelSchema} />
   <SiteHeader />
   <main class="home-detail" data-model-name={model.name} data-model-slug={modelPublicSlug}>
@@ -217,7 +221,7 @@ const modelSchema = JSON.stringify({
     <section class="home-overview">
       <div>
         <p class="home-kicker">Model Overview</p>
-        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : isCasaLavanda ? 'A large contemporary residence organised around water, landscape and expansive indoor-outdoor living.' : isCasita ? 'A compact two-bedroom residence centred on open-plan living and a covered pool terrace.' : isCharlston ? 'An elevated two-bedroom Caribbean villa with generous indoor-outdoor living and a broad wrap-around terrace.' : isCoconutVilla2 ? 'A compact two-bedroom island villa with two en-suite bedrooms and generous open-plan living.' : isCoconutVilla3 ? 'A three-bedroom island villa with three bathrooms and a flexible open-plan heart.' : isArc ? 'A compact three-bedroom contemporary home built around open-plan living and a covered terrace.' : isEon ? 'A compact three-bedroom contemporary residence with a pitched roof and covered terrace.' : isIce ? 'A compact two-bedroom contemporary residence with generous open-plan living and covered outdoor space.' : isZen ? 'A compact two-bedroom contemporary residence with open-plan living and generous exterior deck space.' : isAir ? 'A compact two-bedroom contemporary residence with open-plan living and generous exterior deck space.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
+        <h2>{isSunsetCove ? 'Open-plan island living, wrapped by a generous covered terrace.' : isAngel ? 'Compact contemporary living with three bedrooms and a strong indoor-outdoor connection.' : isBahamaBeach ? 'A compact three-bedroom island home with a shaded terrace at its heart.' : isAbaco ? 'A substantial two-storey Caribbean residence with generous verandas and a strong sense of arrival.' : isCaribbeanCottage ? 'A hurricane-resistant two-bedroom cottage with two bathrooms and a covered veranda.' : isCaribbeanCottageCompact ? 'A compact one-bedroom cottage with a shaded veranda and flexible work space.' : isCasaLavanda ? 'A large contemporary residence organised around water, landscape and expansive indoor-outdoor living.' : isCasita ? 'A compact two-bedroom residence centred on open-plan living and a covered pool terrace.' : isCharlston ? 'An elevated two-bedroom Caribbean villa with generous indoor-outdoor living and a broad wrap-around terrace.' : isCoconutVilla2 ? 'A compact two-bedroom island villa with two en-suite bedrooms and generous open-plan living.' : isCoconutVilla3 ? 'A three-bedroom island villa with three bathrooms and a flexible open-plan heart.' : isArc ? 'A compact three-bedroom contemporary home built around open-plan living and a covered terrace.' : isEon ? 'A compact three-bedroom contemporary residence with a pitched roof and covered terrace.' : isIce ? 'A compact two-bedroom contemporary residence with generous open-plan living and covered outdoor space.' : isZen ? 'A compact two-bedroom contemporary residence with open-plan living and generous exterior deck space.' : isAir ? 'A compact two-bedroom contemporary residence with open-plan living and generous exterior deck space.' : 'A starting point for a site-specific Bauhu residence.'}</h2>
       </div>
       <div class="home-copy">
         {isSunsetCove ? (
@@ -246,7 +250,13 @@ const modelSchema = JSON.stringify({
           </>
         ) : isCaribbeanCottage ? (
           <>
-            <p>Caribbean Cottage is a compact one-bedroom, one-bathroom residence designed around a 22 m² open-plan living and kitchen space, with an 8 m² office and a 17 m² covered deck.</p>
+            <p>The original Caribbean Cottage is a hurricane-resistant, architect-designed modular home with two bedrooms, two bathrooms and open-plan kitchen and living accommodation opening onto a covered veranda.</p>
+            <p>The original Bauhu brochure records a gross ground floor area of approximately 85 m² / 915 ft², including a covered terrace of 18 m² / 194 ft². The design is suited to a guest home, vacation rental or compact family home.</p>
+            <p>Its structural system and specification are adapted to the site's climate and applicable local building codes. Final engineering and scope are confirmed for each project.</p>
+          </>
+        ) : isCaribbeanCottageCompact ? (
+          <>
+            <p>Caribbean Cottage Compact is a compact one-bedroom, one-bathroom residence designed around a 22 m² open-plan living and kitchen space, with an 8 m² office and a 17 m² covered deck.</p>
             <p>The current architectural set records approximately 60.3 m² / 649 ft² of enclosed building area, with a 14 m² bedroom and a 6 m² bathroom. Including the deck, the room schedule totals approximately 67 m² / 717 ft².</p>
             <p>A Bauhu model is the architectural starting point, not the finished specification. Orientation, glazing, finishes, shading, foundation strategy and other details can be refined around the site and project requirements.</p>
           </>
@@ -349,7 +359,8 @@ const modelSchema = JSON.stringify({
           {isSunsetCove && <h2>Two bedrooms. Two bathrooms. Designed around the deck.</h2>}
           {isAngel && <h2>Three bedrooms, flexible work space and a covered terrace.</h2>}
           {isBahamaBeach && <h2>Three bedrooms, two bathrooms and a generous covered terrace.</h2>}
-          {isCaribbeanCottage && <h2>One bedroom, flexible office space and a covered deck.</h2>}
+          {isCaribbeanCottage && <h2>Two bedrooms, two bathrooms and a covered veranda.</h2>}
+          {isCaribbeanCottageCompact && <h2>One bedroom, flexible office space and a covered deck.</h2>}
           {isCasaLavanda && <h2>Four bedrooms across two floors, with extensive terraces and pool-facing living spaces.</h2>}
           {isCasita && <h2>Two bedrooms, two bathrooms and a covered pool terrace.</h2>}
           {isCharlston && <h2>Two bedroom suites, open-plan living and a 68 m² wrap-around terrace.</h2>}
@@ -365,7 +376,8 @@ const modelSchema = JSON.stringify({
         {isSunsetCove && <a class="home-text-link" href={sunsetCovePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isAngel && <a class="home-text-link" href={angelPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isBahamaBeach && <a class="home-text-link" href={bahamaBeachPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
-        {isCaribbeanCottage && <a class="home-text-link" href={caribbeanCottagePlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
+        {isCaribbeanCottage && <a class="home-text-link" href="/downloads/models/caribbean-cottage-original-plans.pdf" target="_blank" rel="noopener">View original two-bedroom plans ↗</a>}
+        {isCaribbeanCottageCompact && <a class="home-text-link" href={caribbeanCottagePlans} target="_blank" rel="noopener">View compact plans ↗</a>}
         {isCasaLavanda && <a class="home-text-link" href={casaLavandaPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isCasita && <a class="home-text-link" href={casitaPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
         {isCharlston && <a class="home-text-link" href={charlstonPlans} target="_blank" rel="noopener">View architectural plans ↗</a>}
@@ -398,7 +410,7 @@ const modelSchema = JSON.stringify({
           <figcaption>Floor plan image to be added.</figcaption>
         </figure>
       )}
-      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage || isCasaLavanda || isCasita || isCharlston || isCoconutVilla2 || isCoconutVilla3 || isArc || isEon || isIce || isZen || isAir || isFirefly || floorplans.length > 0) && (
+      {(isSunsetCove || isAngel || isBahamaBeach || isCaribbeanCottage || isCaribbeanCottageCompact || isCasaLavanda || isCasita || isCharlston || isCoconutVilla2 || isCoconutVilla3 || isArc || isEon || isIce || isZen || isAir || isFirefly || floorplans.length > 0) && (
         <p class="home-plan-note">Plans shown are the current reference design and are provided for model evaluation. Final project information is developed and coordinated for the specific site and approved project scope.</p>
       )}
     </section>

@@ -105,6 +105,8 @@ function parseCsv(content: string): CsvRow[] {
 }
 
 function heroImageForModel(slug: string) {
+  if (slug === 'bauhu-caribbean-cottage') return '/images/models/bauhu-caribbean-cottage/caribbean-cottage-original-hero.webp';
+  if (slug === 'bauhu-caribbean-cottage-compact') return '/images/models/bauhu-caribbean-cottage/bauhu-caribbean-cottage.webp';
   return `/images/models/${slug}/${slug}.webp`;
 }
 
