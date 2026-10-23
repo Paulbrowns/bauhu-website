@@ -11,7 +11,7 @@ const photos = [
   { src: 'https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409119613-2ME2NMQ74E6S8S6G5TKK/Hurricane%2Bproof%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bprefab%2Bhome.jpg', alt: 'Elevated perspective of the assembled roof framing on the hillside', caption: 'Structure progressing across the elevated site' },
 ];
 ---
-<BaseLayout title="St John USVI | Bauhu Project Gallery Preview" description="Construction photo gallery of a Bauhu modular residence on a steep hillside in St John, US Virgin Islands.">
+<BaseLayout title="Hurricane-Resistant Modular Home Project in St John, USVI | Bauhu" description="See a hurricane-resistant modular home taking shape in St John, US Virgin Islands. Bauhu steel-frame construction, hillside installation and project progress photos.">
   <SiteHeader />
   <main class="project-preview">
     <div class="project-shell">
@@ -19,7 +19,7 @@ const photos = [
       <header class="project-heading">
         <p class="region">US Virgin Islands · Project gallery</p>
         <h1>St John</h1>
-        <p class="summary">A Bauhu modular home adapted from the Coconut Villa concept for a steep Caribbean hillside site. The photographs document steel-frame construction and the evolving roof structure.</p>
+        <p class="summary">A hurricane-resistant modular home project in St John, US Virgin Islands, adapted from the Coconut Villa concept for a steep hillside site. Photographs show the light-gauge steel frame and roof structure taking shape.</p>
         <div class="project-meta"><span>Location: St John, USVI</span><span>Design: Coconut Villa concept</span><span>Construction: Steel frame</span></div>
       </header>
       <div class="photo-grid">
@@ -47,17 +47,17 @@ const photos = [
   h1{font-family:Georgia,serif;font-size:clamp(44px,6vw,76px);font-weight:400;letter-spacing:-.035em;line-height:1.12;margin:0 0 19px}
   .summary{max-width:760px;font-size:17px;line-height:1.65;color:#4b5660;margin:0 0 25px}
   .project-meta{display:flex;gap:10px 27px;flex-wrap:wrap;border-top:1px solid #dedfdd;padding-top:18px;font-size:13px;color:#515c64}
-  .photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 19px;margin-top:24px}
+  .photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:24px}
   .photo{margin:0;min-width:0}
-  .photo.featured{grid-column:span 2}
+  .photo.featured{grid-column:auto}
   .photo a{display:flex;justify-content:center;align-items:center;background:#edecea;overflow:hidden}
-  .photo img{width:100%;height:auto;max-height:580px;object-fit:contain;display:block}
-  .photo.featured img{max-height:650px}
+  .photo img{width:100%;height:auto;max-height:300px;object-fit:contain;display:block}
+  .photo.featured img{max-height:300px}
   figcaption{color:#667078;font-size:12px;padding:9px 0 0}
   .gallery-note{font-size:12px;color:#69747b;line-height:1.6;margin:28px 0 0}
   .footer-strip{margin-top:72px;padding:28px 0;border-top:1px solid #d6d9d9;display:flex;gap:24px;justify-content:space-between;align-items:center}
   .footer-strip h2{font-family:Georgia,serif;font-size:27px;font-weight:400;margin:0 0 8px}
   .footer-strip p{font-size:14px;margin:0;color:#667078}
   .cta{background:#143a52;color:#fff;text-decoration:none;padding:14px 21px;border-radius:2px;white-space:nowrap;font-size:13px}
-  @media(max-width:680px){.project-shell{width:calc(100% - 30px);padding-top:25px}.project-heading{padding-top:37px}.photo-grid{grid-template-columns:1fr;gap:20px}.photo.featured{grid-column:auto}.photo img,.photo.featured img{max-height:520px}.footer-strip{align-items:flex-start;flex-direction:column}}
+  @media(max-width:680px){.project-shell{width:calc(100% - 30px);padding-top:25px}.project-heading{padding-top:37px}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.photo.featured{grid-column:auto}.photo img,.photo.featured img{max-height:260px}.footer-strip{align-items:flex-start;flex-direction:column}}
 </style>
