@@ -1,79 +1,88 @@
 {
   "projectSlug": "exuma-waterfront",
-  "source": "Google Drive: BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos",
+  "source": "Selected Website Photos in Google Drive",
   "status": "prepared-not-uploaded",
   "images": [
     {
       "order": 1,
-      "filename": "exuma-waterfront-foundation-anchor-detail.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-foundation-anchor-detail.webp",
-      "alt": "Bauhu steel frame anchor connection to the concrete foundation at Exuma Waterfront, Bahamas",
-      "source": "20240516_110002.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-elevated-concrete-foundation-and-steel-framing.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-elevated-concrete-foundation-and-steel-framing.webp",
+      "alt": "Bauhu light gauge steel frame being assembled on an elevated concrete foundation at Exuma Waterfront, Bahamas",
+      "title": "Bauhu light gauge steel frame being assembled on an elevated concrete foundation at Exuma Waterfront, Bahamas",
+      "source": "Clean.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     },
     {
       "order": 2,
-      "filename": "exuma-waterfront-concrete-platform.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-concrete-platform.webp",
-      "alt": "Concrete foundation platform prepared for a Bauhu light gauge steel home at Exuma Waterfront, Bahamas",
-      "source": "20240517_135330.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-prefabricated-steel-framed-house.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-prefabricated-steel-framed-house.webp",
+      "alt": "Bauhu prefabricated light gauge steel home with concrete ground-floor structure at Exuma Waterfront, Bahamas",
+      "title": "Bauhu prefabricated light gauge steel home with concrete ground-floor structure at Exuma Waterfront, Bahamas",
+      "source": "20240527_155520.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     },
     {
       "order": 3,
-      "filename": "exuma-waterfront-steel-framing-ocean-view.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-steel-framing-ocean-view.webp",
-      "alt": "Bauhu light gauge steel framing installed above an elevated oceanfront foundation in Exuma, Bahamas",
-      "source": "20240521_162748.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-light-gauge-steel-roof-trusses.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-light-gauge-steel-roof-trusses.webp",
+      "alt": "Bauhu light gauge steel roof trusses and wall framing during construction in Exuma, Bahamas",
+      "title": "Bauhu light gauge steel roof trusses and wall framing during construction in Exuma, Bahamas",
+      "source": "20240524_152646.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     },
     {
       "order": 4,
-      "filename": "exuma-waterfront-elevated-frame.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-elevated-frame.webp",
-      "alt": "Elevated Bauhu steel-frame modular home under construction overlooking the Exuma coastline",
-      "source": "20240521_163040.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-galvanised-steel-roof-frame.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-galvanised-steel-roof-frame.webp",
+      "alt": "Galvanised light gauge steel roof framing with ocean views at the Bauhu Exuma Waterfront project",
+      "title": "Galvanised light gauge steel roof framing with ocean views at the Bauhu Exuma Waterfront project",
+      "source": "20240529_144218.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     },
     {
       "order": 5,
-      "filename": "exuma-waterfront-steel-column-connection.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-steel-column-connection.webp",
-      "alt": "Steel column and structural connection during Bauhu prefabricated home assembly at Exuma Waterfront",
-      "source": "20240523_154238.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-hurricane-resistant-roof-framing.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-hurricane-resistant-roof-framing.webp",
+      "alt": "Close view of Bauhu light gauge steel roof framing overlooking the Exuma waterfront in the Bahamas",
+      "title": "Close view of Bauhu light gauge steel roof framing overlooking the Exuma waterfront in the Bahamas",
+      "source": "bauhu-projects-hero.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     },
     {
       "order": 6,
-      "filename": "exuma-waterfront-interior-steel-studs.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-interior-steel-studs.webp",
-      "alt": "Interior light gauge steel wall studs in a Bauhu modular home under construction in Exuma, Bahamas",
-      "source": "20240604_141932.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-steel-wall-frame-terrace.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-steel-wall-frame-terrace.webp",
+      "alt": "Bauhu light gauge steel wall framing and covered terrace under construction at Exuma Waterfront, Bahamas",
+      "title": "Bauhu light gauge steel wall framing and covered terrace under construction at Exuma Waterfront, Bahamas",
+      "source": "20240604_125020.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     },
     {
       "order": 7,
-      "filename": "exuma-waterfront-wall-frame-and-concrete-detail.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-wall-frame-and-concrete-detail.webp",
-      "alt": "Bauhu light gauge steel wall frame fixed to a concrete structure at Exuma Waterfront, Bahamas",
-      "source": "IMG-20240605-WA0006.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-steel-wall-studs-ocean-view.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-steel-wall-studs-ocean-view.webp",
+      "alt": "Interior galvanised light gauge steel wall studs framing a view across the Exuma waterfront, Bahamas",
+      "title": "Interior galvanised light gauge steel wall studs framing a view across the Exuma waterfront, Bahamas",
+      "source": "20240604_141954.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     },
     {
       "order": 8,
-      "filename": "exuma-waterfront-exterior-progress.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-exterior-progress.webp",
-      "alt": "Bauhu prefabricated waterfront home with roof and external walls progressing at Exuma, Bahamas",
-      "source": "IMG-20241112-WA0005.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-concrete-and-modular-home-exterior.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-concrete-and-modular-home-exterior.webp",
+      "alt": "Elevated Bauhu prefabricated home with concrete lower level, roof and covered waterfront terrace in Exuma, Bahamas",
+      "title": "Elevated Bauhu prefabricated home with concrete lower level, roof and covered waterfront terrace in Exuma, Bahamas",
+      "source": "IMG-20241112-WA0003.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     },
     {
       "order": 9,
-      "filename": "exuma-waterfront-covered-terrace.webp",
-      "key": "projects/exuma-waterfront/exuma-waterfront-covered-terrace.webp",
-      "alt": "Covered waterfront terrace and glazing installed at the Bauhu Exuma Waterfront home, Bahamas",
-      "source": "IMG-20241112-WA0012.jpg",
-      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos"
+      "filename": "exuma-waterfront-construction-exterior-terrace.webp",
+      "key": "projects/exuma-waterfront/exuma-waterfront-construction-exterior-terrace.webp",
+      "alt": "Exterior construction progress of the Bauhu steel-frame waterfront home with covered terrace in Exuma, Bahamas",
+      "title": "Exterior construction progress of the Bauhu steel-frame waterfront home with covered terrace in Exuma, Bahamas",
+      "source": "IMG-20241112-WA0005.jpg",
+      "sourceFolder": "BAUHU-Projects/1. Completed projects/Paul Pintiliescu/Photos and videos/website photos"
     }
   ]
 }
