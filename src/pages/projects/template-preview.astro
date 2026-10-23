@@ -24,9 +24,7 @@ const photos = [
       </header>
       <div class="photo-grid">
         {photos.map((photo, i) => <figure class:list={['photo', i===0 && 'featured']}>
-          <a href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={'View full-size image: '+photo.alt}>
-            <img src={photo.src} alt={photo.alt} loading={i===0?'eager':'lazy'} decoding="async" />
-          </a>
+          <img src={photo.src} alt={photo.alt} loading={i===0?'eager':'lazy'} decoding="async" />
           <figcaption>{photo.caption}</figcaption>
         </figure>)}
       </div>
