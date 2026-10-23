@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+const projects = [
+  {
+    slug: 'st-john-usvi',
+    title: 'St John, US Virgin Islands',
+    label: 'Completed hillside home',
+    image: '/images/models/st-john.webp',
+    location: 'St John, US Virgin Islands',
+    intro: 'A completed Bauhu modular home on a steep Caribbean hillside, based on the Coconut Villa architectural concept.',
+    facts: [
+      { label: 'Location', value: 'St John, US Virgin Islands' },
+      { label: 'Design starting point', value: 'Coconut Villa' },
+      { label: 'Site condition', value: 'Steep hillside' },
+      { label: 'Project status', value: 'Reported completed' },
+    ],
+    sections: [
+      { heading: 'A difficult hillside site', body: 'This project demonstrates how a Bauhu residence can respond to challenging island topography without sacrificing panoramic views or a strong connection to its setting. The home uses the Coconut Villa concept as an architectural starting point.' },
+      { heading: 'Resilience and precision', body: 'The project record describes a hurricane-resistant hybrid steel-frame structure, an energy-efficient building envelope and contemporary Caribbean design. Engineering requirements are confirmed for the precise site and its applicable codes.' },
+      { heading: 'What this project demonstrates', body: 'For clients planning on steep or exposed island plots, early attention to access, foundations, local conditions and the building envelope is central to a successful design and delivery strategy.' },
+    ],
+    archive: 'https://bauhuhomes.com/bauhuprojectnews/st-john-usvi',
+  },
+  {
+    slug: 'eleuthera-bahamas',
+    title: 'Eleuthera, The Bahamas',
+    label: 'Island home',
+    image: '/images/models/eleuthera.webp',
+    location: 'Near Governor’s Harbour, Eleuthera, The Bahamas',
+    intro: 'A Bauhu modular home reinterpreting traditional Bahamian architecture for a contemporary, hurricane-exposed island setting.',
+    facts: [
+      { label: 'Location', value: 'Near Governor’s Harbour, Eleuthera' },
+      { label: 'Architectural character', value: 'Bahamian colonial influences' },
+      { label: 'Roof expression', value: 'Bermuda-style roof' },
+      { label: 'Setting', value: 'Elevated island site' },
+    ],
+    sections: [
+      { heading: 'Respecting island architecture', body: 'The design translates features of traditional Bahamian residential architecture into a more contemporary modular home. Its elevated form and Bermuda-style roof give the residence a recognisably local character.' },
+      { heading: 'Designed for the climate', body: 'The original project description identifies hurricane-resistant construction and an elevated structure. As with every Bauhu commission, the final structure, wind loading, envelope and foundation approach must be assessed against the individual site.' },
+      { heading: 'What this project demonstrates', body: 'A factory-engineered modular system need not produce a generic building. The architectural expression can respond to local context while retaining Bauhu’s underlying approach to manufacture and delivery.' },
+    ],
+    archive: 'https://bauhuhomes.com/bauhuprojectnews/eleuthera-1',
+  },
+  {
+    slug: 'little-exuma-bahamas',
+    title: 'Little Exuma, The Bahamas',
+    label: 'Completed oceanfront home',
+    image: '/images/models/little-exuma.webp',
+    location: 'Little Exuma, The Bahamas',
+    intro: 'An elevated three-bedroom oceanfront home based on Bauhu’s Angel concept, designed for a demanding Caribbean coastal setting.',
+    facts: [
+      { label: 'Location', value: 'Little Exuma, The Bahamas' },
+      { label: 'Design starting point', value: 'Angel' },
+      { label: 'Bedrooms', value: 'Three' },
+      { label: 'Project status', value: 'Reported completed' },
+    ],
+    sections: [
+      { heading: 'An oceanfront starting point', body: 'This completed residence takes the Angel concept as a starting point. An elevated structure and flat-roof form frame sea views, while broad glazed openings connect the interior to its coastal surroundings.' },
+      { heading: 'A resilient building envelope', body: 'The project account highlights hurricane-resistant construction and a highly insulated building envelope. A local contractor assembled the home on site, demonstrating the relationship between off-site preparation and local delivery.' },
+      { heading: 'What this project demonstrates', body: 'Remote island projects benefit from coordinated engineering, careful packing and logistics, and clear division of work between factory supply and site contractors. The details still depend on the location and project brief.' },
+    ],
+    archive: 'https://bauhuhomes.com/bauhuprojectnews/little-exuma',
+  },
+];
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const canonical = `https://bauhu.com/projects/${project.slug}/`;
+const structuredData = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: `${project.title} | Bauhu Projects`,
+  description: project.intro,
+  url: canonical,
+  image: new URL(project.image, 'https://bauhu.com').toString(),
+  publisher: { '@type': 'Organization', name: 'Bauhu', url: 'https://bauhu.com/' },
+});
+---
+<BaseLayout title={`${project.title} | Hurricane-Resistant Modular Home Project | Bauhu`} description={project.intro}>
+  <script type="application/ld+json" set:html={structuredData} />
+  <SiteHeader />
+  <main class="bg-paper text-ink">
+    <section class="bg-navy text-paper">
+      <div class="mx-auto max-w-site px-5 pb-16 pt-32 lg:px-10">
+        <a class="text-sm text-paper/70 underline-offset-4 hover:underline" href="/projects/">← All Bauhu projects</a>
+        <p class="eyebrow mt-14 text-stone">{project.label} · {project.location}</p>
+        <h1 class="mt-5 max-w-5xl font-display text-5xl leading-tight md:text-7xl">{project.title}</h1>
+        <p class="mt-7 max-w-3xl text-xl leading-8 text-paper/80">{project.intro}</p>
+      </div>
+      <img src={project.image} alt={`Bauhu modular home project in ${project.location}`} class="h-[42vh] w-full object-cover md:h-[60vh]" loading="eager" />
+    </section>
+    <section class="section-pad">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">At a glance</p>
+        <div class="mt-8 grid gap-6 border-y border-ink/15 py-8 sm:grid-cols-2 lg:grid-cols-4">
+          {project.facts.map((fact) => (
+            <div><p class="text-xs uppercase tracking-wider text-ink/55">{fact.label}</p><p class="mt-2 font-display text-2xl">{fact.value}</p></div>
+          ))}
+        </div>
+        <div class="mt-16 grid gap-14 lg:grid-cols-[1fr_1.5fr]">
+          <div><p class="eyebrow text-clay">Project story</p><h2 class="mt-5 font-display text-4xl md:text-5xl">Real places. Site-specific solutions.</h2></div>
+          <div class="space-y-12">
+            {project.sections.map((section) => (
+              <section><h3 class="font-display text-3xl">{section.heading}</h3><p class="mt-4 max-w-2xl text-lg leading-8 text-ink/75">{section.body}</p></section>
+            ))}
+            <p class="border-t border-ink/15 pt-7 text-sm leading-7 text-ink/65">This case study is based on Bauhu’s published project record. Some technical details and site-specific specifications are not publicly available. <a class="underline underline-offset-4" href={project.archive} target="_blank" rel="noopener noreferrer">View the original project archive ↗</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section-pad bg-navy text-paper">
+      <div class="mx-auto flex max-w-site flex-col justify-between gap-8 lg:flex-row lg:items-center">
+        <div><p class="eyebrow text-stone">Your site</p><h2 class="mt-5 max-w-2xl font-display text-4xl md:text-5xl">Planning a project in an exposed or remote location?</h2><p class="mt-6 max-w-xl text-paper/70">Start with the site, access, climate and your design brief. We'll assess the right next steps.</p></div>
+        <a href="/site-fit/" class="inline-flex self-start rounded-full bg-paper px-8 py-4 text-sm uppercase tracking-wide text-ink">Start a site review ↗</a>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
