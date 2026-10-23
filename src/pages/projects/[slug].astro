@@ -26,13 +26,10 @@ const description = `${project.intro} View original construction photos and the 
       </header>
       <div class="photos">
         {project.images.map((photo, i) => <figure>
-          <a href={photo.src} rel="noopener noreferrer" target="_blank" aria-label={`Open photograph ${i+1}: ${photo.alt}`}>
-            <img src={photo.src} alt={photo.alt} loading={i===0?'eager':'lazy'} decoding="async" />
-          </a>
+          <img src={photo.src} alt={photo.alt} loading={i===0?'eager':'lazy'} decoding="async" />
         </figure>)}
       </div>
       <div class="project-links">
-        <p>See the original project photography and updates on <a href={project.source} rel="noopener noreferrer" target="_blank">Bauhu Homes ↗</a></p>
         <p>Explore <a href="/steel-frame-home-kits/">steel-frame home construction</a> and <a href="/remote-locations/">building in remote locations</a>.</p>
       </div>
       <div class="enquiry"><div><h2>Planning your own project?</h2><p>Share your site and project details with Bauhu.</p></div><a href="/site-fit/">Start a site review →</a></div>
@@ -51,7 +48,7 @@ const description = `${project.intro} View original construction photos and the 
   .facts{border-top:1px solid #d8d9d8;margin-top:23px;padding-top:15px;color:#67727c;font-size:13px}
   .photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin-top:20px}
   figure{margin:0;min-width:0;background:#edecea;display:flex;align-items:center;justify-content:center}
-  figure a{display:block;width:100%;text-align:center}
+  
   img{display:block;width:100%;max-height:300px;object-fit:contain}
   .project-links{margin:28px 0 50px;display:flex;flex-wrap:wrap;gap:10px 25px;color:#65717b;font-size:12px;line-height:1.6}
   .project-links p{margin:0}
