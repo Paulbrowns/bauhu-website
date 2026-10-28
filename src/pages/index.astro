@@ -3,6 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import EditorialHero from '../components/EditorialHero.astro';
+import { bauhuModels } from '../data/models';
+const featuredModelSlugs = ['caribbean-cottage', 'angel', 'bahama-beach', 'sunset-cove'];
+const featuredModels = featuredModelSlugs.map((slug) => bauhuModels.find((model) => model.slug.replace(/^bauhu-/, '') === slug)).filter((model) => model !== undefined);
 ---
 <BaseLayout title="Hurricane-Resistant Caribbean Homes | Prefab & Modular | Bauhu" description="Bauhu designs hurricane-resistant Caribbean homes, from custom residences to prefabricated and modular steel-frame building systems for coastal and remote island sites.">
   <SiteHeader />
@@ -10,7 +13,7 @@ import EditorialHero from '../components/EditorialHero.astro';
     <EditorialHero
       eyebrow="Hurricane-resistant Caribbean homes"
       title="Architect-designed homes engineered for the Caribbean."
-      text="Bauhu designs custom, prefabricated and modular homes for the Caribbean and The Bahamas, combining refined architecture with an engineered steel-frame system developed for hurricane-exposed coastal and remote island sites."
+      text="Bauhu designs luxury modular and prefabricated homes for the Caribbean and The Bahamas, combining refined architecture with hurricane-resistant steel-frame engineering for coastal and remote island sites."
       primaryHref="/residences"
       primaryLabel="Commission a residence"
       secondaryHref="/models"
@@ -50,6 +53,33 @@ import EditorialHero from '../components/EditorialHero.astro';
             <p class="mt-5 max-w-md leading-7 text-ink/70">A clear starting point using proven Bauhu ranges, refined for your site and budget.</p>
           </div>
         </a>
+      </div>
+    </section>
+
+
+    <section class="section-pad bg-paper" aria-labelledby="featured-caribbean-models">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Explore Bauhu homes</p>
+        <div class="mt-5 flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <h2 id="featured-caribbean-models" class="font-display text-4xl leading-tight md:text-6xl">Prefab and modular homes for Caribbean living.</h2>
+            <p class="mt-5 max-w-3xl text-lg leading-8 text-ink/70">Explore individual Bauhu designs for island sites, from compact holiday homes to larger family residences. Each model is a starting point for a site-specific project.</p>
+          </div>
+          <a href="/models/" class="text-sm font-semibold underline underline-offset-4">View all home models</a>
+        </div>
+        <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {featuredModels.map((model) => (
+            <a href={`/homes/${model.slug.replace(/^bauhu-/, '')}/`} class="group block border border-ink/15 bg-mist">
+              <img src={model.image} alt={`Bauhu ${model.name} modular home design`} loading="lazy" class="h-52 w-full object-cover" />
+              <div class="p-5">
+                <h3 class="font-display text-3xl">{model.name}</h3>
+                <p class="mt-2 text-sm leading-6 text-ink/70">{model.shortDescription}</p>
+                <span class="mt-4 inline-block text-sm font-semibold underline underline-offset-4">Explore this home</span>
+              </div>
+            </a>
+          ))}
+        </div>
+        <p class="mt-7 text-base leading-7 text-ink/70">Planning a home in a specific location? Explore <a class="underline underline-offset-4" href="/locations/bahamas/">building in The Bahamas</a>, <a class="underline underline-offset-4" href="/remote-locations/">remote island construction</a> and <a class="underline underline-offset-4" href="/engineering/">hurricane-resistant engineering</a>.</p>
       </div>
     </section>
 
