@@ -3,6 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import EditorialHero from '../components/EditorialHero.astro';
+import { bauhuModels } from '../data/models';
+const featuredModelSlugs = ['caribbean-cottage', 'angel', 'bahama-beach', 'sunset-cove'];
+const featuredModels = featuredModelSlugs.map((slug) => bauhuModels.find((model) => model.slug.replace(/^bauhu-/, '') === slug)).filter((model) => model !== undefined);
 ---
 <BaseLayout title="Hurricane-Resistant Caribbean Homes | Prefab & Modular | Bauhu" description="Bauhu designs hurricane-resistant Caribbean homes, from custom residences to prefabricated and modular steel-frame building systems for coastal and remote island sites.">
   <SiteHeader />
@@ -65,17 +68,12 @@ import EditorialHero from '../components/EditorialHero.astro';
           <a href="/models/" class="text-sm font-semibold underline underline-offset-4">View all home models</a>
         </div>
         <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {[
-            { name: 'Caribbean Cottage', href: '/homes/caribbean-cottage/', image: '/images/models/bauhu-caribbean-cottage/caribbean-cottage-original-hero.webp', description: 'Two-bedroom hurricane-resistant cottage' },
-            { name: 'Angel', href: '/homes/angel/', image: '/images/models/bauhu-angel/bauhu-angel.webp', description: 'Three-bedroom contemporary island home' },
-            { name: 'Bahama Beach', href: '/homes/bahama-beach/', image: '/images/models/bauhu-bahama-beach/bauhu-bahama-beach.webp', description: 'Three-bedroom home with a covered terrace' },
-            { name: 'Sunset Cove', href: '/homes/sunset-cove/', image: '/images/models/bauhu-sunset-cove/bauhu-sunset-cove.webp', description: 'Two-bedroom home for indoor-outdoor living' },
-          ].map((model) => (
-            <a href={model.href} class="group block border border-ink/15 bg-mist">
+          {featuredModels.map((model) => (
+            <a href={`/homes/${model.slug.replace(/^bauhu-/, '')}/`} class="group block border border-ink/15 bg-mist">
               <img src={model.image} alt={`Bauhu ${model.name} modular home design`} loading="lazy" class="h-52 w-full object-cover" />
               <div class="p-5">
                 <h3 class="font-display text-3xl">{model.name}</h3>
-                <p class="mt-2 text-sm leading-6 text-ink/70">{model.description}</p>
+                <p class="mt-2 text-sm leading-6 text-ink/70">{model.shortDescription}</p>
                 <span class="mt-4 inline-block text-sm font-semibold underline underline-offset-4">Explore this home</span>
               </div>
             </a>
