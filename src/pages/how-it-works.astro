@@ -44,6 +44,28 @@ const steps = [
       </div>
     </section>
 
+    <section class="section-pad bg-mist" aria-labelledby="bauhu-services-heading">
+      <div class="mx-auto max-w-site">
+        <p class="eyebrow text-clay">Services</p>
+        <h2 id="bauhu-services-heading" class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">The services behind every Bauhu project.</h2>
+        <p class="mt-7 max-w-3xl text-lg leading-8 text-ink/70">As on the original Bauhu Services page, our capabilities are presented individually. The scope of each service is agreed for the particular residence or development, with specialist consultants and local professionals involved as required.</p>
+        <div class="mt-12 grid gap-5 md:grid-cols-2">
+          {[
+            { title: 'Architectural design', description: 'Developing an appropriate design response to the site, brief, climate and intended use, from model adaptation to bespoke residences.', href: '/bespoke-modular-homes/' },
+            { title: 'Structural engineering', description: 'Coordinating steel-frame structure, wind exposure, connections, roof, openings and the applicable requirements of the project location.', href: '/engineering/' },
+            { title: 'Project master planning', description: 'Early planning for multiple buildings, residential communities and hospitality developments, considering access, infrastructure and delivery.', href: '/resort-development/' },
+            { title: '3D design and visualisation', description: 'Architectural views and visual material to support design decisions, communicate the proposed residence and refine project options.', href: '/residences/' },
+          ].map((service) => (
+            <article class="bg-paper p-7 md:p-10">
+              <h3 class="font-display text-3xl md:text-4xl">{service.title}</h3>
+              <p class="mt-5 leading-7 text-ink/70">{service.description}</p>
+              <a href={service.href} class="mt-6 inline-block text-sm underline underline-offset-4">Learn more</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section class="section-pad bg-navy text-paper">
       <div class="mx-auto grid max-w-site gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
