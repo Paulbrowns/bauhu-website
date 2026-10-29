@@ -491,24 +491,52 @@ export const projectJournal = [
     "intro": "A contemporary modular home in southern Portugal, featuring expansive glazing and minimalist design. The project photographs document the architecture and interior fit-out.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689745175-YXZO50GR15DW41Z9HJSE/DSC00781.jpg",
-        "alt": "Quinta de Lago Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-modern-modular-villa-glass-facade.webp",
+        "alt": "Contemporary modular villa with extensive glazed façade in Quinta do Lago, Algarve, Portugal"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689744554-1RHWELH2ZHPFVZPP11QP/DSC00783.jpg",
-        "alt": "Quinta de Lago Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-luxury-villa-expansive-terrace-glazing.webp",
+        "alt": "Luxury contemporary villa with panoramic sliding glass doors opening onto a spacious Algarve terrace"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689760621-48L58RNVC6TI1W7TU0FI/DSC00787.jpg",
-        "alt": "Quinta de Lago construction progress photograph 3"
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-luxury-villa-wide-glazed-terrace.webp",
+        "alt": "Wide glazed terrace frontage of a modern luxury villa in Quinta do Lago, Portugal"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689760876-LBGNWMHBX06FIZ24H7U0/DSC00790.jpg",
-        "alt": "Quinta de Lago construction progress photograph 4"
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-modern-villa-pool-terrace-construction.webp",
+        "alt": "Pool terrace and glass balustrade during exterior finishing of a modern Algarve villa"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689777284-4P07AZCGEF9KQ48AK5G0/DSC00840.jpg",
-        "alt": "Quinta de Lago modular home exterior during construction"
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-modern-villa-exterior-glazing-installation.webp",
+        "alt": "Installation and finishing of full-height glazing on a contemporary modular villa in Portugal"
+      },
+      {
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-modern-villa-garden-entrance.webp",
+        "alt": "Landscaped entrance with stone paving and planting at a contemporary villa in Quinta do Lago"
+      },
+      {
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-modern-home-courtyard-entrance.webp",
+        "alt": "Minimalist courtyard entrance with timber screens at a luxury residence in the Algarve"
+      },
+      {
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-contemporary-villa-courtyard-glazing.webp",
+        "alt": "Full-height glazed courtyard and minimalist architecture of a modern Quinta do Lago home"
+      },
+      {
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-luxury-villa-living-room-pool-terrace.webp",
+        "alt": "Luxury villa living room with sliding glass doors overlooking an outdoor swimming pool and terrace"
+      },
+      {
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-luxury-villa-kitchen-pool-view.webp",
+        "alt": "Contemporary kitchen with island and pendant lighting overlooking the pool terrace in an Algarve villa"
+      },
+      {
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-villa-dining-room-courtyard-windows.webp",
+        "alt": "Modern dining room with tall courtyard windows in a luxury Quinta do Lago residence"
+      },
+      {
+        "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-luxury-villa-stone-finish-bathroom.webp",
+        "alt": "Luxury bathroom with stone-effect tiling and illuminated vanity in a contemporary Algarve villa"
       }
     ]
   },
