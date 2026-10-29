@@ -666,10 +666,10 @@ export const projectJournal = [
   },
   {
     "slug": "eleuthera-archive",
-    "title": "Eleuthera — Earlier project",
+    "title": "South Eleuthera",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/eleuthera",
-    "intro": "A separate modular building project in Eleuthera, Bahamas, documented from structural assembly through exterior construction.",
+    "intro": "A modular building project in South Eleuthera, Bahamas, documented from structural assembly through exterior construction.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687230799-X8I4FLDF06OZOPPFBJZ4/20210721_172348.jpg",
