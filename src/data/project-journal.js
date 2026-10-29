@@ -168,32 +168,52 @@ export const projectJournal = [
     "intro": "Site preparation and foundations for an elevated, off-grid modular home on Cat Island, planned for coastal exposure and the practical demands of remote-island construction.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409504721-EOG6WZRPKW36SOKHYVW6/Hurricane%2Bproof%2Bfoundations%2Bfor%2BBauhu%2Bhome%2Bon%2BCat%2Bisland%2BBahamas%2B2.jpg",
-        "alt": "Cat Island Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/cat-island/cat-island-steel-frame-coastal-elevation.webp",
+        "alt": "Elevated steel-frame structure above concrete foundations beside the sea on Cat Island"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409504655-QFO1SKOS9BQK80WJ5R1H/Hurricane%2Bproof%2Bfoundations%2Bfor%2BBauhu%2Bhome%2Bon%2BCat%2Bisland%2BBahamas%2B3.jpg",
-        "alt": "Cat Island Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/cat-island/cat-island-steel-framing-beach-view.webp",
+        "alt": "Steel roof trusses and wall framing overlooking the turquoise waters of Cat Island"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409506136-LX0YSPJKKBQ1S47WY36O/Hurricane%2Bproof%2Bfoundations%2Bfor%2BBauhu%2Bhome%2Bon%2BCat%2Bisland%2BBahamas%2B1.jpg",
-        "alt": "Cat Island construction progress photograph 3"
+        "src": "/images/project-gallery/cat-island/cat-island-steel-framing-ocean-opening.webp",
+        "alt": "Steel framed ocean-facing wall opening with beach and turquoise sea beyond on Cat Island"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746694307805-XHJ86LTWBX08LK39SUNO/IMG-20250503-WA0000.jpg",
-        "alt": "Cat Island construction progress photograph 4"
+        "src": "/images/project-gallery/cat-island/cat-island-interior-services-steel-studs.webp",
+        "alt": "Interior steel wall studs and service pipework during construction of the Cat Island home"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746694307607-OV73B861BCMIBMZ6D5SQ/IMG-20250503-WA0001.jpg",
-        "alt": "Cat Island steel-frame home with ocean view during construction"
+        "src": "/images/project-gallery/cat-island/cat-island-interior-frame-ocean-view.webp",
+        "alt": "Interior steel stud framing and building services overlooking the Caribbean Sea on Cat Island"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746694309305-EBPNTCWBYXFZWV0YTCCX/IMG-20250503-WA0004.jpg",
-        "alt": "Cat Island steel-frame roof and wall assembly"
+        "src": "/images/project-gallery/cat-island/cat-island-oceanfront-window-installation.webp",
+        "alt": "Large ocean-facing glazed opening within steel wall framing during Cat Island construction"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746694310936-OCVMT6SE3Y2WZDWF115Q/IMG-20250503-WA0006.jpg",
-        "alt": "Cat Island modular home steel structure construction progress"
+        "src": "/images/project-gallery/cat-island/cat-island-exterior-facade-construction.webp",
+        "alt": "Two-storey coastal home's exterior façade and temporary construction platform on Cat Island"
+      },
+      {
+        "src": "/images/project-gallery/cat-island/cat-island-exterior-staircase-construction.webp",
+        "alt": "Exterior of the Cat Island home with temporary timber staircase and deck framing"
+      },
+      {
+        "src": "/images/project-gallery/cat-island/cat-island-coastal-home-construction-site.webp",
+        "alt": "Coastal construction site with a two-storey modular home taking shape on Cat Island, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/cat-island/cat-island-home-beachfront-setting.webp",
+        "alt": "Cat Island coastal residence seen from the sandy beach and surrounding vegetation"
+      },
+      {
+        "src": "/images/project-gallery/cat-island/cat-island-completed-kitchen-island.webp",
+        "alt": "Completed kitchen with a large central island in the Cat Island coastal residence"
+      },
+      {
+        "src": "/images/project-gallery/cat-island/cat-island-completed-kitchen-sea-view.webp",
+        "alt": "Finished kitchen with sea views, pale blue cabinetry and central island on Cat Island"
       }
     ]
   },
