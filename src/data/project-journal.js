@@ -418,32 +418,68 @@ export const projectJournal = [
     "intro": "A Bahamas duplex incorporating two one-bedroom apartments and ground-floor commercial space, with colonial-inspired proportions and a Bermuda-style roof.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717585526370-1REOK2KVYAPRV01Z8WS4/20240405_151021.jpg",
-        "alt": "Elbow Cay Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-prefabricated-steel-frame-waterfront.webp",
+        "alt": "Prefabricated steel framing for a waterfront modular duplex in Elbow Cay, Abaco, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717585526108-4DXBV5J111LPLYQUZ9MZ/20240405_162934.jpg",
-        "alt": "Elbow Cay Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-steel-roof-frame-marina.webp",
+        "alt": "Galvanised steel framework for a modular waterfront building beside the marina in Elbow Cay"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717585637059-LEBWV95IO3BOYPEDBSFO/20230829_095549.jpg",
-        "alt": "Elbow Cay construction progress photograph 3"
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-steel-roof-trusses-installation.webp",
+        "alt": "Installation of light-gauge steel roof trusses on an Elbow Cay modular building in the Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717673889778-LEHPI5Q9GYP8A9RY1LCD/20230906_155021.jpg",
-        "alt": "Elbow Cay waterfront steel-frame duplex assembly"
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-complete-steel-roof-structure.webp",
+        "alt": "Completed steel roof truss structure for a waterfront modular duplex in Elbow Cay, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717673898475-SDED35M1EFF0NXDX2FFH/20230912_163125.jpg",
-        "alt": "Elbow Cay modular duplex steel frame beside the harbour"
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-interior-steel-roof-trusses.webp",
+        "alt": "Interior view looking up at prefabricated steel roof trusses in an Elbow Cay duplex"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717585651116-XU14OT38SIPU40Q46QK3/20231007_145709.jpg",
-        "alt": "Elbow Cay modular duplex roof and wall construction progress"
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-waterfront-roof-assembly.webp",
+        "alt": "Construction workers assembling the steel roof structure overlooking the harbour at Elbow Cay"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717584452660-VQOQQO56BSH5451LKOY6/20240427_164633.jpg",
-        "alt": "Elbow Cay finished waterfront modular duplex exterior"
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-elevated-roof-and-wall-sheathing.webp",
+        "alt": "Roof and exterior wall sheathing installation on a prefabricated coastal duplex in Elbow Cay"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-coastal-home-exterior-construction.webp",
+        "alt": "Exterior construction progress on a prefabricated waterfront duplex in Elbow Cay, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-coastal-home-front-elevation.webp",
+        "alt": "Front elevation of the modular waterfront building under construction on Elbow Cay"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-prefab-home-waterfront-facade.webp",
+        "alt": "Waterfront elevation of a prefabricated steel-frame duplex beside the marina in Elbow Cay"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-marina-home-side-elevation.webp",
+        "alt": "Side elevation with external stair and veranda of the Elbow Cay waterfront modular duplex"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-waterfront-home-exterior.webp",
+        "alt": "White prefabricated waterfront duplex with verandas and harbour frontage in Elbow Cay, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-luxury-modular-home-balcony.webp",
+        "alt": "Upper balcony and shaded veranda on the waterfront modular duplex in Elbow Cay"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-waterfront-balcony-terrace.webp",
+        "alt": "Covered first-floor terrace and sliding doors overlooking the Elbow Cay marina"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-marina-view-from-balcony.webp",
+        "alt": "View of sailing boats and the harbour from the balcony of the Elbow Cay modular duplex"
+      },
+      {
+        "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-modular-home-kitchen.webp",
+        "alt": "White fitted kitchen and central island inside the prefabricated duplex at Elbow Cay, Bahamas"
       }
     ]
   },
