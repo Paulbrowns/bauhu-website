@@ -638,24 +638,28 @@ export const projectJournal = [
     "intro": "Photographic record of Bauhu's Abaco modular building work in The Bahamas. Images document construction and architectural details from the original project archive.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688140001-K0BUOOFU75YFC65VWDF7/IMG-20200919-WA0003.jpg",
-        "alt": "Abaco Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/abaco/abaco-bahamas-coastal-modular-home-ocean-view.webp",
+        "alt": "Coastal view from a modular home construction site overlooking turquoise water in Abaco, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688140079-4L8FGAWR8MMXMBT91DD0/IMG-20200919-WA0005.jpg",
-        "alt": "Abaco Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/abaco/abaco-bahamas-prefab-home-seafront-foundation.webp",
+        "alt": "Prefabricated home steel structure assembled on coastal foundations beside the water in Abaco, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688141411-MZI9D7LAR1J2QRN51VH1/IMG-20200919-WA0006.jpg",
-        "alt": "Abaco construction progress photograph 3"
+        "src": "/images/project-gallery/abaco/abaco-bahamas-prefabricated-steel-roof-construction.webp",
+        "alt": "Workers installing prefabricated steel roof framing for a modular home in Abaco, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688141502-6D1TNV47O0GY2YG64CMX/IMG-20200919-WA0014.jpg",
-        "alt": "Abaco construction progress photograph 4"
+        "src": "/images/project-gallery/abaco/abaco-bahamas-hurricane-resistant-steel-roof-framing.webp",
+        "alt": "Steel roof framing for a hurricane-resistant modular home under construction in Abaco, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688144562-GGAXE6OB9VINHEBI4ZP7/PHOTO-2020-08-29-22-49-07-2.jpg",
-        "alt": "Abaco modular home foundation and steel frame assembly"
+        "src": "/images/project-gallery/abaco/abaco-bahamas-modular-home-steel-roof-interior.webp",
+        "alt": "Interior view of steel roof trusses and framing in a prefabricated Abaco home"
+      },
+      {
+        "src": "/images/project-gallery/abaco/abaco-bahamas-luxury-modular-home-terrace-glazing.webp",
+        "alt": "Wide terrace glazing on a luxury modular residence under construction in Abaco, Bahamas"
       }
     ]
   },
