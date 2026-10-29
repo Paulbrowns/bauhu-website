@@ -21,9 +21,6 @@ import { drawingBoardProjects } from '../data/drawing-board.js';
       </div>
     </section>
     <section class="mx-auto max-w-site px-5 py-12 sm:py-16 lg:px-10 lg:py-24">
-      <div class="mb-8 flex flex-wrap justify-between gap-3 border-b border-ink/20 pb-5 text-xs uppercase tracking-[0.12em] text-ink/55 sm:mb-12 sm:tracking-[0.18em]">
-        <span>Selected designs</span><span>{String(drawingBoardProjects.length).padStart(2, '0')} projects</span>
-      </div>
       <div class="space-y-16 sm:space-y-24 lg:space-y-36">
         {drawingBoardProjects.map((project, index) => (
           <article id={project.slug} class="scroll-mt-24">
