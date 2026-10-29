@@ -103,28 +103,60 @@ export const projectJournal = [
     "intro": "Construction images of a custom modular home on an elevated coastal site in St Thomas. The design includes open-plan living areas, expansive glazing and a hybrid steel structure.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1744639416535-BG7D7OFHJS3U9QW4BSUR/0BF9D999CDA0C86B3A1F936FAC9A4959.jpg",
-        "alt": "St Thomas Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-oceanfront-steel-frame-aerial.webp",
+        "alt": "Aerial view of the galvanised steel frame of a luxury modular home overlooking the ocean in St Thomas, US Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1744639416535-D4SCCW28ORUX8P4OLAUM/4CA876B6F57C0CB3E32BFD10972BB2FA.jpg",
-        "alt": "St Thomas Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-coastal-foundation-works.webp",
+        "alt": "Aerial view of reinforced concrete foundation works on an exposed coastal hillside in St Thomas, US Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1744639419409-FM7PWAJ0VFPZXOMU2R5S/244C97866380B4EB9057FD98ECDF99B8.jpg",
-        "alt": "St Thomas construction progress photograph 3"
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-steel-frame-coastal-elevation.webp",
+        "alt": "Light gauge steel framing of a modular home beside a steep coastal slope in St Thomas, US Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1744639419493-BT8EMNSQH3HR4F05P0CM/D21AE3F882A4174CD0DAC4D005818FE3.jpg",
-        "alt": "St Thomas construction progress photograph 4"
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-steel-floor-and-roof-trusses.webp",
+        "alt": "Prefabricated steel floor and roof trusses installed on the St Thomas coastal residence"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1752588721301-0DPWAH6BCX13CALFBP5K/IMG-20250714-WA0009.jpg",
-        "alt": "St Thomas modular home steel frame overlooking the coast"
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-framing-site-overview.webp",
+        "alt": "Elevated view of two steel-framed building volumes on the St Thomas hillside construction site"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755082521868-R1QDHZSL476JEU48YEH9/IMG-20250812-WA0015.jpg",
-        "alt": "St Thomas multi-level steel-frame modular home construction"
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-interior-framing-ocean-view.webp",
+        "alt": "Interior of a galvanised steel framed room looking towards the sea at the St Thomas modular home"
+      },
+      {
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-roof-frame-overhead.webp",
+        "alt": "Detailed view of the prefabricated steel roof framing and wall structure in St Thomas"
+      },
+      {
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-structural-trusses-and-view.webp",
+        "alt": "Steel roof trusses and stored framing sections overlooking the coastline in St Thomas"
+      },
+      {
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-extended-structural-frame.webp",
+        "alt": "Steel-framed elevated residence showing a long structural span and roof framing during assembly"
+      },
+      {
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-underfloor-steel-framing.webp",
+        "alt": "Galvanised steel beams and trusses beneath an elevated modular residence under construction in St Thomas"
+      },
+      {
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-hillside-steel-frame-overview.webp",
+        "alt": "Steel framing and coastal hillside setting of a modular residence in St Thomas, US Virgin Islands"
+      },
+      {
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-framing-assembly-coastal-site.webp",
+        "alt": "Prefabricated steel frame and floor assembly during construction on St Thomas, US Virgin Islands"
+      },
+      {
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-interior-steel-studs-and-trusses.webp",
+        "alt": "Interior steel wall studs and roof trusses of the St Thomas modular home during construction"
+      },
+      {
+        "src": "/images/project-gallery/st-thomas-usvi/st-thomas-steel-structure-early-erection.webp",
+        "alt": "Early erection of a galvanised steel structure on a coastal building site in St Thomas"
       }
     ]
   },
