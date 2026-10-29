@@ -6,9 +6,18 @@ import { projectJournal } from '../data/project-journal.js';
 
 const fallbackImage = '/images/developments/bauhu-projects-hero.webp';
 
-const featuredProjects = projectJournal.map(p => ({ title: p.title, location: p.region, summary: p.intro, image: p.images[0]?.src || fallbackImage, detailSlug: p.slug }));
+// Curated portfolio covers; project galleries retain their construction sequence.
+const portfolioCovers = {
+  "ft-myers-beach": "/images/project-gallery/ft-myers-beach/ft-myers-beach-elevated-steel-frame-structure.webp",
+  "coral-bay-st-john": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-finished-modern-exterior.webp",
+  "st-thomas-usvi": "/images/project-gallery/st-thomas-usvi/st-thomas-oceanfront-steel-frame-aerial.webp",
+  "cat-island": "/images/project-gallery/cat-island/cat-island-home-beachfront-setting.webp",
+  "exuma-waterfront": "/images/project-gallery/exuma-waterfront/exuma-waterfront-prefabricated-steel-framed-house.webp",
+  "elbow-cay": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-waterfront-home-exterior.webp"
+};
+const featuredProjects = projectJournal.map(p => ({ title: p.title, location: p.region, summary: p.intro, image: portfolioCovers[p.slug] || p.images[0]?.src || fallbackImage, detailSlug: p.slug }));
 ---
-<BaseLayout title="Current Projects | Bauhu" description="Current and recent Bauhu projects across coastal, island and hurricane-exposed locations.">
+<BaseLayout title="Caribbean Modular Home Projects | Bauhu" description="Explore Bauhu's hurricane-resistant modular homes, luxury prefabricated villas and steel-frame construction projects across the Bahamas, US Virgin Islands and Caribbean.">
   <SiteHeader />
   <main class="bg-paper">
     <section class="relative flex min-h-[78vh] items-end overflow-hidden bg-navy text-paper">
@@ -17,11 +26,11 @@ const featuredProjects = projectJournal.map(p => ({ title: p.title, location: p.
       <div class="relative z-10 mx-auto grid w-full max-w-site gap-12 px-5 pb-16 pt-36 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:pb-20">
         <div>
           <p class="eyebrow text-stone">Current projects</p>
-          <h1 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-7xl">Bauhu in the field, not just in the catalogue.</h1>
+          <h1 class="mt-5 max-w-4xl font-display text-5xl leading-tight md:text-7xl">Hurricane-Resistant Modular Homes. Real Caribbean Projects.</h1>
         </div>
         <div class="self-end space-y-7 text-lg leading-8 text-paper/75">
-          <p>See how Bauhu projects are progressing across real coastal, island and hurricane-exposed locations.</p>
-          <p>Browse photographs of the homes taking shape, from site work to structural assembly and final details.</p>
+          <p>Explore Bauhu's portfolio of luxury modular homes, prefabricated steel-frame buildings and hurricane-resistant construction across the Bahamas, US Virgin Islands and wider Caribbean.</p>
+          <p>From structural assembly to completed coastal residences, see how Bauhu homes take shape in challenging island locations.</p>
         </div>
       </div>
     </section>
@@ -29,8 +38,8 @@ const featuredProjects = projectJournal.map(p => ({ title: p.title, location: p.
     <section class="section-pad bg-mist">
       <div class="mx-auto max-w-site">
         <div>
-          <p class="eyebrow text-clay">Project news</p>
-          <h2 class="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Projects in photographs.</h2>
+          <p class="eyebrow text-clay">Our projects</p>
+          <h2 class="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">Modular Home Projects Across the Caribbean and Beyond.</h2>
         </div>
 
         <div class="project-slider mt-14" data-project-slider>
@@ -67,8 +76,8 @@ const featuredProjects = projectJournal.map(p => ({ title: p.title, location: p.
       <div class="mx-auto grid max-w-site gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
         <div>
           <p class="eyebrow text-stone">Start a project</p>
-          <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">Have a difficult site? Bring Bauhu in early.</h2>
-          <p class="mt-8 max-w-2xl text-lg leading-8 text-paper/70">The earlier Bauhu can review the site, climate, access, planning position and project objectives, the more control the team can build into the design and delivery strategy.</p>
+          <h2 class="mt-5 max-w-4xl font-display text-4xl leading-tight md:text-6xl">Planning a Modular Home in the Caribbean?</h2>
+          <p class="mt-8 max-w-2xl text-lg leading-8 text-paper/70">Whether you're building a luxury island villa, a hurricane-resistant home or a coastal development, Bauhu can help assess your site, design requirements, construction strategy and delivery logistics.</p>
         </div>
         <div class="flex flex-col gap-4 sm:flex-row lg:justify-end">
           <a href="/site-fit" class="inline-flex rounded-full bg-paper px-7 py-4 text-sm uppercase tracking-wide text-ink">Start site review</a>
