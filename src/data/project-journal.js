@@ -225,28 +225,44 @@ export const projectJournal = [
     "intro": "A hurricane-resistant modular home based on the Coconut Villa concept, built on a steep hillside on St John. Photographs document the light-gauge steel frame and roof trusses.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409117947-HGNK23AUL5SFJKMMBO6O/Erecting%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bhurricane%2Bresistant%2Bhome%2Bin%2BSt%2BJohn%2BVI.jpg",
-        "alt": "St John Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/st-john-usvi/st-john-elevated-hillside-steel-structure.webp",
+        "alt": "Elevated modular steel-frame home under construction on a hillside in St John, US Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409118029-5H68H1VROCPENTHP5DQZ/Erecting%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bhurricane%2Bresistant%2Bhome%2Bin%2BSt%2BJohn%2BUSVI.jpg",
-        "alt": "St John Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/st-john-usvi/st-john-hillside-steel-roof-framing.webp",
+        "alt": "Prefabricated steel roof trusses and wall framing for a hillside home in St John"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409119613-2ME2NMQ74E6S8S6G5TKK/Hurricane%2Bproof%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bprefab%2Bhome.jpg",
-        "alt": "St John construction progress photograph 3"
+        "src": "/images/project-gallery/st-john-usvi/st-john-steel-wall-and-roof-frame.webp",
+        "alt": "Galvanised steel wall framing and roof structure during modular home construction in St John"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409226579-2MTHR9OQ0SKN62EUZPRD/Hurricane%2Bproof%2Bsteel%2Bstructure%2Bfor%2BBauhu%2Bhome%2B4.jpg",
-        "alt": "St John construction progress photograph 4"
+        "src": "/images/project-gallery/st-john-usvi/st-john-roof-trusses-coastal-view.webp",
+        "alt": "Steel roof trusses under construction with views across St John, US Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733409121035-L43JBT0297RJIU24ZWPL/Hurricane%2Bproof%2Blight%2Bgauge%2Bsteel%2Bframe%2Bfor%2BBauhu%2Bhome.jpg",
-        "alt": "St John light-gauge steel interior framing during assembly"
+        "src": "/images/project-gallery/st-john-usvi/st-john-interior-steel-framing.webp",
+        "alt": "Interior galvanised steel wall framing in the St John modular home"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1746695549642-R05FZZ47PGXMVD8BU80R/PXL_20250425_194213533.jpg",
-        "alt": "St John Bauhu home exterior and roof construction progress"
+        "src": "/images/project-gallery/st-john-usvi/st-john-interior-steel-roof-trusses.webp",
+        "alt": "Interior view of light-gauge steel roof trusses and partitions during St John construction"
+      },
+      {
+        "src": "/images/project-gallery/st-john-usvi/st-john-steel-roof-connection-detail.webp",
+        "alt": "Close view of steel roof beam connections and brackets in a St John home"
+      },
+      {
+        "src": "/images/project-gallery/st-john-usvi/st-john-metal-roof-hillside-construction.webp",
+        "alt": "Metal roof installation on a hillside residence in St John overlooking the islands"
+      },
+      {
+        "src": "/images/project-gallery/st-john-usvi/st-john-metal-roof-coastal-elevation.webp",
+        "alt": "Completed metal roof viewed from above with the Caribbean coastline beyond in St John"
+      },
+      {
+        "src": "/images/project-gallery/st-john-usvi/st-john-exterior-metal-roof-detail.webp",
+        "alt": "Metal roof and exterior wall finishing during construction of a St John residence"
       }
     ]
   },
