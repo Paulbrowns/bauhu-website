@@ -671,20 +671,52 @@ export const projectJournal = [
     "intro": "A modular building project in Tortola, British Virgin Islands, with photographs documenting construction progress on site.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687718436-W4V0QNFRE5IV2UOWZD37/8fe5c390-6302-4758-97a7-954323545835.jpg",
-        "alt": "Tortola Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-finished-coastal-modular-home.webp",
+        "alt": "Finished coastal modular residence in Tortola, British Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687722838-B6TG60XRTVWB558P3FT5/20210929_114503.jpg",
-        "alt": "Tortola Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-coastal-home-sliding-glass-doors.webp",
+        "alt": "Large sliding glazed doors opening from a coastal modular home in Tortola, BVI"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687798541-WG8BCD9VQZKRFYT3C7OV/IMG_0759.jpg",
-        "alt": "Tortola construction progress photograph 3"
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-beachfront-steel-structure.webp",
+        "alt": "Steel frame structure beside a beach during prefabricated home construction in Tortola"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687719980-Z9HWMT5D9UTF3DH683YO/c55c0b7a-d89e-4c3d-9cfd-a6b9d5ade615.jpg",
-        "alt": "Tortola construction progress photograph 4"
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-oceanfront-steel-structure-installation.webp",
+        "alt": "Installation of structural steel framing at an oceanfront construction site in Tortola, British Virgin Islands"
+      },
+      {
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-hurricane-resistant-steel-frame.webp",
+        "alt": "Galvanised steel framing for a hurricane-resistant modular home in Tortola, BVI"
+      },
+      {
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-hurricane-resistant-steel-frame-assembly.webp",
+        "alt": "Assembly of steel framing for a hurricane-resistant prefabricated residence in Tortola"
+      },
+      {
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-precision-steel-frame-installation.webp",
+        "alt": "Prefabricated steel frame members being installed on a Tortola coastal residence"
+      },
+      {
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-luxury-modular-home-construction.webp",
+        "alt": "Luxury modular coastal home during construction in Tortola, British Virgin Islands"
+      },
+      {
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-modular-home-steel-roof-framing.webp",
+        "alt": "Steel roof framing of a modular home under construction in Tortola"
+      },
+      {
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-steel-roof-trusses-interior.webp",
+        "alt": "Interior view of light-gauge steel roof trusses in a Tortola modular residence"
+      },
+      {
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-modular-home-interior-construction.webp",
+        "alt": "Interior building works in a prefabricated coastal residence in Tortola"
+      },
+      {
+        "src": "/images/project-gallery/tortola-bvi/tortola-bvi-beachfront-building-steel-components.webp",
+        "alt": "Steel building components laid out beside the beachfront construction site in Tortola"
       }
     ]
   },
@@ -696,20 +728,40 @@ export const projectJournal = [
     "intro": "A modular building project in South Eleuthera, Bahamas, documented from structural assembly through exterior construction.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687230799-X8I4FLDF06OZOPPFBJZ4/20210721_172348.jpg",
-        "alt": "Eleuthera — Earlier project Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-gabled-steel-framed-home.webp",
+        "alt": "Gabled steel-frame modular home under construction in South Eleuthera, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687230165-HN84UZYA8QM6E5D57HLH/20210728_180010.jpg",
-        "alt": "Eleuthera — Earlier project Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-steel-frame-structure-erection.webp",
+        "alt": "Erection of prefabricated steel structural framing for a modular home in South Eleuthera"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687337507-H5TGYALUEZJ56VATCAGT/5f64839f-8b60-4f87-a8ce-7646180185b7.jpg",
-        "alt": "Eleuthera — Earlier project construction progress photograph 3"
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-modular-steel-house-construction.webp",
+        "alt": "Steel-frame modular house structure taking shape in South Eleuthera, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687238683-4IH6ECVTBEVNR87ZK1XP/20210730_165805.jpg",
-        "alt": "Eleuthera — Earlier project construction progress photograph 4"
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-hurricane-resistant-steel-home-construction.webp",
+        "alt": "Structural assembly of a hurricane-resistant steel-frame modular home in South Eleuthera"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-galvanised-steel-roof-framing.webp",
+        "alt": "Galvanised steel roof framework during prefabricated home construction in South Eleuthera"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-steel-frame-roof-installation.webp",
+        "alt": "Steel roof frame installation at a modular residence in South Eleuthera, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-modular-home-exterior-construction.webp",
+        "alt": "Exterior construction progress on a modular home in South Eleuthera"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-luxury-modular-home-interior-fitout.webp",
+        "alt": "Interior fit-out of a modular residence in South Eleuthera, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-archive/south-eleuthera-upper-floor-interior-finishes.webp",
+        "alt": "Upper-floor interior finishing works at a South Eleuthera modular home"
       }
     ]
   },
