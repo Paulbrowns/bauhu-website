@@ -54,24 +54,44 @@ export const projectJournal = [
     "intro": "A contemporary hurricane-resistant modular home under construction on a steep St John hillside, with steel framing and an insulated building envelope.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755694358971-JQQ6BX2TDM51AD9PFOGO/IMG_3509.JPG",
-        "alt": "Coral Bay, St John Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-concrete-foundation-ocean-view.webp",
+        "alt": "Reinforced concrete foundations on a steep waterfront site in Coral Bay, St John, US Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755694359039-ZA4U8ZV87AHFWJ7XE384/IMG_3510.JPG",
-        "alt": "Coral Bay, St John Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-elevated-steel-framing.webp",
+        "alt": "Galvanised steel wall framing assembled above an elevated concrete structure in St John, USVI"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755694360169-B5FEIGG0IS894OAHBWJR/IMG_3511.JPG",
-        "alt": "Coral Bay, St John construction progress photograph 3"
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-steel-frame-on-hillside.webp",
+        "alt": "Prefabricated steel framing with hillside views at a Bauhu home under construction in Coral Bay"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755694360316-0RVNF8HPFUTDU4M8SCER/IMG_3512.JPG",
-        "alt": "Coral Bay, St John construction progress photograph 4"
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-roof-trusses-and-wall-framing.webp",
+        "alt": "Interior steel wall framing and light-gauge steel roof trusses at the Coral Bay modular home"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1760636445742-S95K4UT4QMPHVTRHVXPF/WhatsApp%2BImage%2B2025-10-16%2Bat%2B18.35.08_5d17a496.jpg",
-        "alt": "Coral Bay St John steel-frame home assembly on hillside"
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-exterior-insulation-and-steel-framing.webp",
+        "alt": "External insulated wall assembly and exposed steel framing during construction in St John"
+      },
+      {
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-rendered-exterior-during-construction.webp",
+        "alt": "Modern flat-roof modular home with rendered exterior and scaffolding in Coral Bay, St John"
+      },
+      {
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-coastal-site-and-construction.webp",
+        "alt": "Hillside access road and waterfront setting of a Bauhu home during construction in St John"
+      },
+      {
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-finished-modern-exterior.webp",
+        "alt": "Modern rendered modular home with covered entrance and paved terrace in Coral Bay, St John"
+      },
+      {
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-waterfront-view-from-bedroom.webp",
+        "alt": "View across Coral Bay from a bedroom through sliding glass doors onto a coastal terrace"
+      },
+      {
+        "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-finished-terrace.webp",
+        "alt": "Modern covered terrace with architectural columns and glazed doors at the Coral Bay residence"
       }
     ]
   },
