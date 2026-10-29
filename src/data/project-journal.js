@@ -339,20 +339,40 @@ export const projectJournal = [
     "intro": "An elevated oceanfront modular home based on Bauhu's Angel concept, with a flat roof and insulated building envelope. Images show the early foundation works.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402344553-Y7THLL7XY2FEUPDJNJCZ/Bauhu-hurricane-proof%2B%2Bkit%2Bhome%2Bfoundations%2Bgreat%2BExuma.jpg",
-        "alt": "Little Exuma Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-oceanfront-elevated-foundation-steel-columns.webp",
+        "alt": "Elevated reinforced concrete foundation and steel columns for an oceanfront modular home in Little Exuma, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402344585-6VY8BILS9VDIS4H0YX2D/Bauhu-hurricane-proof%2B%2Bkit%2Bhome%2Bfoundations%2BExumas.jpg",
-        "alt": "Little Exuma Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-reinforced-concrete-foundation-detail.webp",
+        "alt": "Reinforced concrete foundation supporting prefabricated steel columns on Little Exuma, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402346107-EN47GBPS10MJ0UWU7GUP/Bauhu-hurricane-proof%2B%2Bkit%2Bhome%2Bfoundations%2BExuma.jpg",
-        "alt": "Little Exuma construction progress photograph 3"
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-steel-columns-waterfront-foundation.webp",
+        "alt": "Structural steel columns installed on a coastal concrete foundation in Little Exuma, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733426059436-RWJZROFPKU48J57BA9HA/Hurricane%2Bresistant%2Bhome%2Bfoundation.jpg",
-        "alt": "Little Exuma construction progress photograph 4"
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-hurricane-resistant-steel-structure.webp",
+        "alt": "Steel structural framing for a hurricane-resistant modular home beside the water in Little Exuma, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-prefabricated-steel-wall-framing.webp",
+        "alt": "Prefabricated steel wall framing assembled on an elevated modular home in Little Exuma, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-elevated-modular-home-construction.webp",
+        "alt": "Elevated modular home construction with steel framing and reinforced concrete supports in Little Exuma"
+      },
+      {
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-coastal-prefab-home-wall-assembly.webp",
+        "alt": "Wall framing assembly of a prefabricated coastal home on Little Exuma, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-exterior-wall-sheathing-progress.webp",
+        "alt": "Exterior wall sheathing being installed on an elevated modular residence in Little Exuma"
+      },
+      {
+        "src": "/images/project-gallery/little-exuma-bahamas/little-exuma-bahamas-prefab-coastal-home-exterior-shell.webp",
+        "alt": "Exterior shell of a prefabricated coastal home above concrete columns in Little Exuma, Bahamas"
       }
     ]
   },
