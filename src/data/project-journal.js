@@ -8,26 +8,42 @@ export const projectJournal = [
     "source": "https://bauhuhomes.com/bauhuprojectnews/ft-meyers-beach-fl",
     "intro": "A custom steel-frame modular residence being assembled on an elevated coastal site in Florida. The project photographs follow the structure taking shape.",
     "images": [
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123157327-IMMP3I9FLE9GDBT912D8/WhatsApp%2BImage%2B2026-01-22%2Bat%2B19.44.05%2B%281%29.jpeg",
-        "alt": "Ft Myers Beach Bauhu modular home project photograph 1"
-      },
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123157233-YO1AHGQSGDOUN6A9HJJE/WhatsApp%2BImage%2B2026-01-22%2Bat%2B19.44.05%2B%282%29.jpeg",
-        "alt": "Ft Myers Beach Bauhu modular home project photograph 2"
-      },
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123158754-TQ7VWJFA8KIN8QPWX9AH/WhatsApp%2BImage%2B2026-01-22%2Bat%2B19.44.05.jpeg",
-        "alt": "Ft Myers Beach steel-frame modular home assembly photograph 3"
-      },
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123158778-3RTQIHRDKT5RLURHU1VI/WhatsApp%2BImage%2B2026-01-23%2Bat%2B23.11.55.jpeg",
-        "alt": "Ft Myers Beach steel-frame modular home assembly photograph 4"
-      },
-      {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1772123294582-TJDJEB7KPBA17I4LM18I/WhatsApp%2BImage%2B2026-02-26%2Bat%2B14.14.19.jpeg",
-        "alt": "Ft Myers Beach elevated steel-frame modular home construction progress"
-      }
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-steel-frame-assembly-telehandler.webp",
+                "alt": "Telehandler assisting steel-frame assembly of a modular home in Ft Myers Beach, Florida"
+          },
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-elevated-steel-frame-structure.webp",
+                "alt": "Elevated galvanised steel frame and roof trusses during home construction in Ft Myers Beach"
+          },
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-prefabricated-steel-framing.webp",
+                "alt": "Prefabricated steel framing of a two-storey coastal residence in Ft Myers Beach"
+          },
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-two-storey-exterior-sheathing.webp",
+                "alt": "Two-storey modular home with exterior wall sheathing in Ft Myers Beach, Florida"
+          },
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-side-elevation-sheathing.webp",
+                "alt": "Side elevation with exterior sheathing and roof construction at the Ft Myers Beach project"
+          },
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-covered-terrace-steel-columns.webp",
+                "alt": "Covered terrace with steel columns alongside the modular home under construction"
+          },
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-corner-exterior-construction.webp",
+                "alt": "Corner view of the two-storey residence showing steel columns and exterior wall sheathing"
+          },
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-upper-storey-window-framing.webp",
+                "alt": "Upper-storey window openings and exterior sheathing during coastal home construction"
+          },
+          {
+                "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-extended-exterior-wall.webp",
+                "alt": "Extended exterior wall and steel-supported terrace at the Ft Myers Beach residence"
+          }
     ]
   },
   {
