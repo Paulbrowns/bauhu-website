@@ -573,20 +573,40 @@ export const projectJournal = [
     "intro": "Photographic record of Bauhu's St John modular building work in US Virgin Islands. Images document construction and architectural details from the original project archive.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688776966-M0E71RO9CJEZUO00EE91/cf4906bb-80a9-4e73-a70b-6f37b10a1f83.jpg",
-        "alt": "St John — Earlier project Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-steel-frame-roof-trusses-interior.webp",
+        "alt": "Interior view of prefabricated steel roof trusses in a modular home under construction in St John, US Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688777079-SC73W9E181KI688TB8PR/IMG_0267.JPG",
-        "alt": "St John — Earlier project Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-prefabricated-steel-structure-assembly.webp",
+        "alt": "Steel structural frame assembled above a hillside harbour in St John, US Virgin Islands"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688778127-9D3C0ICBWTL5RX6G48OC/IMG_0281.JPG",
-        "alt": "St John — Earlier project construction progress photograph 3"
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-modular-home-steel-column-assembly.webp",
+        "alt": "Workers erecting structural steel columns for a modular home overlooking the harbour in St John"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688780754-JFJPAEHVI7MZC37GRLS0/on%2Bsite.jpg",
-        "alt": "St John — Earlier project construction progress photograph 4"
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-modular-home-wall-and-roof-framing.webp",
+        "alt": "Prefabricated steel wall panels and pitched roof framing during construction in St John, US Virgin Islands"
+      },
+      {
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-hurricane-resistant-steel-roof-frame.webp",
+        "alt": "Steel roof framing for a hurricane-resistant modular home in St John, US Virgin Islands"
+      },
+      {
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-steep-hillside-metal-roof-construction.webp",
+        "alt": "Metal roof installation on a prefabricated home at a steep hillside site in St John"
+      },
+      {
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-metal-roof-hillside-coastal-view.webp",
+        "alt": "Standing seam metal roof of a modular island home with coastal views in St John"
+      },
+      {
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-prefabricated-home-roof-and-veranda.webp",
+        "alt": "Prefabricated home with metal roof and covered veranda under construction in St John"
+      },
+      {
+        "src": "/images/project-gallery/st-john-archive/st-john-vi-completed-modular-home-hillside-exterior.webp",
+        "alt": "Completed white modular home with pitched metal roof and veranda in St John, US Virgin Islands"
       }
     ]
   },
