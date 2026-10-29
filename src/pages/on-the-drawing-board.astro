@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { drawingBoardProjects } from '../data/drawing-board.js';
+---
+<BaseLayout title="On the Drawing Board | Architecture in Development | Bauhu" description="Explore Bauhu residences in design, including Luxuma and Albany Residence in The Bahamas. An evolving collection of architectural visualisations and concepts.">
+  <SiteHeader />
+  <main class="bg-paper text-ink">
+    <section class="border-b border-ink/15">
+      <div class="mx-auto grid max-w-site gap-12 px-5 pb-20 pt-32 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:px-10 lg:pt-44">
+        <div>
+          <p class="eyebrow text-clay">Bauhu / Architecture in development</p>
+          <h1 class="mt-8 font-display text-6xl leading-[0.95] md:text-8xl xl:text-[8rem]">On the<br /><em>Drawing Board.</em></h1>
+        </div>
+        <div class="max-w-md">
+          <p class="text-xl leading-9">A look at the homes taking shape before they take shape.</p>
+          <p class="mt-5 leading-8 text-ink/65">Architectural studies and developing residential designs. Each project begins with its own site, brief and ambitions.</p>
+          <p class="mt-8 text-xs uppercase tracking-[0.15em] text-ink/50">Concepts and visualisations / Not completed buildings</p>
+        </div>
+      </div>
+    </section>
+    <section class="mx-auto max-w-site px-5 py-16 lg:px-10 lg:py-24">
+      <div class="mb-12 flex justify-between border-b border-ink/20 pb-5 text-xs uppercase tracking-[0.18em] text-ink/55">
+        <span>Selected designs</span><span>{String(drawingBoardProjects.length).padStart(2, '0')} projects</span>
+      </div>
+      <div class="space-y-24 lg:space-y-36">
+        {drawingBoardProjects.map((project, index) => (
+          <article id={project.slug} class="scroll-mt-24">
+            <div class="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-12">
+              <div class="relative min-h-[24rem] overflow-hidden bg-[#dfe3de] lg:min-h-[35rem]">
+                {project.images.length ? (
+                  <img src={project.images[0].src} alt={project.images[0].alt} loading="lazy" class="absolute inset-0 h-full w-full object-cover" />
+                ) : (
+                  <div class="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
+                    <span class="text-xs uppercase tracking-[0.18em] text-[#68746c]">Visualisation reserved / {String(index + 1).padStart(2, '0')}</span>
+                    <div class="border-t border-[#9daaa1] pt-6">
+                      <span class="font-display text-5xl text-[#738078] md:text-7xl">{project.title}</span>
+                      <p class="mt-3 text-sm text-[#68746c]">New architectural imagery to follow</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div class="flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between gap-4 border-b border-ink/20 pb-4 text-xs uppercase tracking-[0.16em] text-ink/50">
+                    <span>{String(index + 1).padStart(2, '0')} / {project.category}</span><span>In design</span>
+                  </div>
+                  <p class="eyebrow mt-10 text-clay">{project.location}</p>
+                  <h2 class="mt-5 font-display text-5xl leading-[1] md:text-7xl">{project.title}</h2>
+                  <p class="mt-8 max-w-md text-lg leading-8 text-ink/65">{project.overview}</p>
+                </div>
+                <p class="mt-12 border-t border-ink/15 pt-5 text-xs leading-6 text-ink/50">Architectural concept in development. Visualisations do not represent a completed property.</p>
+              </div>
+            </div>
+            {project.images.length > 1 && (
+              <div class="mt-5 grid gap-5 md:grid-cols-2">
+                {project.images.slice(1).map(image => <img src={image.src} alt={image.alt} class="h-80 w-full object-cover" loading="lazy" />)}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+    <section class="bg-mist">
+      <div class="mx-auto grid max-w-site gap-6 px-5 py-20 lg:grid-cols-[1fr_1fr] lg:items-end lg:px-10">
+        <div><p class="eyebrow text-clay">From idea to architecture</p><h2 class="mt-5 font-display text-5xl leading-tight md:text-6xl">Every residence starts somewhere.</h2></div>
+        <div><p class="max-w-lg text-lg leading-8 text-ink/65">Have a site or a concept of your own? Talk to Bauhu about how your project could take shape.</p><a class="mt-8 inline-block border-b border-ink pb-2 text-sm font-semibold" href="/site-fit/">Start your project →</a></div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</BaseLayout>
