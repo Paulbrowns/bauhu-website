@@ -9,6 +9,7 @@ export const drawingBoardProjects = [
     images: [
       { src: '/images/drawing-board/luxuma-four-bedroom-day-angled.png', alt: 'Angled exterior architectural rendering of a bespoke luxury Caribbean home in the Exuma Cays, The Bahamas' },
       { src: '/images/drawing-board/luxuma-four-bedroom-day-wide.png', alt: 'Wide exterior view of a contemporary Bahamas island home design with expansive glazing and sheltered outdoor living spaces' },
+      { src: '/images/drawing-board/luxuma-three-bedroom-rear.png', alt: 'Rear architectural visualisation of a three-bedroom luxury island residence in the Exuma Cays, The Bahamas' },
     ],
   },
   {
@@ -20,6 +21,7 @@ export const drawingBoardProjects = [
     images: [
       { src: '/images/drawing-board/albany-residence-pool-day.png', alt: 'Poolside architectural visualisation of a custom luxury residence in New Providence, The Bahamas' },
       { src: '/images/drawing-board/albany-residence-pool-view.png', alt: 'Contemporary hurricane-resistant Bahamas home design shown from the swimming pool and outdoor terrace' },
+      { src: '/images/drawing-board/new-providence-entrance-day.png', alt: 'Entrance elevation rendering of a bespoke contemporary luxury residence in New Providence, The Bahamas' },
     ],
   },
 ];
