@@ -567,7 +567,7 @@ export const projectJournal = [
   },
   {
     "slug": "st-john-archive",
-    "title": "St John — Earlier project",
+    "title": "St John VI",
     "region": "US Virgin Islands",
     "source": "https://bauhuhomes.com/bauhuprojectnews/st-john-usvi",
     "intro": "Photographic record of Bauhu's St John modular building work in US Virgin Islands. Images document construction and architectural details from the original project archive.",
