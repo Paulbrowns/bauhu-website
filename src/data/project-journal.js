@@ -568,20 +568,28 @@ export const projectJournal = [
     "intro": "A modular home project in Scotland Cay, Abaco, Bahamas, documented through structural assembly and roof framing.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689272611-2VMBGIZ9Q6YBCPICGILO/IMG-20210307-WA0001.jpg",
-        "alt": "Scotland Cay Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/scotland-cay/scotland-cay-bahamas-elevated-coastal-home-construction.webp",
+        "alt": "Elevated modular coastal home under construction on Scotland Cay, Abaco, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689273227-52JNPJJAIHQITJKUY2NG/IMG-20210307-WA0002.jpg",
-        "alt": "Scotland Cay Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/scotland-cay/scotland-cay-bahamas-hillside-home-covered-veranda.webp",
+        "alt": "Covered veranda and exterior construction of a modular home on Scotland Cay, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689274179-M3YR2MVWQ4V6M0W88UQY/IMG-20210311-WA0018.jpg",
-        "alt": "Scotland Cay construction progress photograph 3"
+        "src": "/images/project-gallery/scotland-cay/scotland-cay-bahamas-modular-home-steel-column-installation.webp",
+        "alt": "Installation of structural steel columns for a modular home on Scotland Cay, Abaco"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689274826-F9I12YD08UXBOH0JE0JR/IMG-20210311-WA0022.jpg",
-        "alt": "Scotland Cay construction progress photograph 4"
+        "src": "/images/project-gallery/scotland-cay/scotland-cay-bahamas-hurricane-resistant-steel-roof-trusses.webp",
+        "alt": "Light-gauge steel roof trusses for a hurricane-resistant modular home on Scotland Cay, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/scotland-cay/scotland-cay-bahamas-prefabricated-steel-roof-framing.webp",
+        "alt": "Prefabricated steel roof framing during modular home construction on Scotland Cay"
+      },
+      {
+        "src": "/images/project-gallery/scotland-cay/scotland-cay-bahamas-modular-home-interior-steel-framing.webp",
+        "alt": "Interior steel wall and roof framing of a prefabricated home on Scotland Cay, Abaco"
       }
     ]
   },
