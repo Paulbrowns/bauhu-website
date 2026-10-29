@@ -274,36 +274,60 @@ export const projectJournal = [
     "intro": "A modular island residence combining contemporary construction with Bahamian architectural character, including an elevated structure and Bermuda-style roof.",
     "images": [
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402805814-KB6MCVMWNR1OUIA4V6GO/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera%2B3.jpg",
-        "alt": "Eleuthera Bauhu modular home project photograph 1"
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-completed-front-elevation-daylight.webp",
+        "alt": "Completed luxury modular home in Eleuthera, Bahamas, with white metal roof and covered entrance"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402812623-04DXSFDF1U7CMEQVH0N5/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera%2B2.jpg",
-        "alt": "Eleuthera Bauhu modular home project photograph 2"
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-completed-rear-elevation.webp",
+        "alt": "Rear elevation of a luxury prefabricated home in Eleuthera with large glazing and covered terrace"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402814687-GHP3XB9Z1CWQHWU44L6Q/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera%2B1.jpg",
-        "alt": "Eleuthera construction progress photograph 3"
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-completed-rear-terrace-dusk.webp",
+        "alt": "Illuminated rear terrace of a completed luxury modular residence in Eleuthera, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402817934-4JP9W6HD5QNVJU0QNH0Z/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera.jpg",
-        "alt": "Eleuthera construction progress photograph 4"
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-completed-front-elevation-dusk.webp",
+        "alt": "Luxury modular home in Eleuthera, Bahamas, with exterior lighting at dusk"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402603873-GF8YIJ4HYMZKTXQ7WY4A/Assembling%2Ba%2BBauhu%2Bhurricane%2Bproof%2Bhouse%2Bin%2BEleuthera%2B4.jpg",
-        "alt": "Eleuthera steel-frame modular home assembly"
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-foundation-and-steel-delivery.webp",
+        "alt": "Prepared foundations and delivered prefabricated steel sections for a modular home in Eleuthera"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755679524423-ZVWU3FL1GQ1YTT1J4RY2/IMG-20250605-WA0010-2.jpg",
-        "alt": "Eleuthera modular home construction with veranda framing"
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-roof-and-wall-framing-construction.webp",
+        "alt": "Light-gauge steel roof and wall framing for a hurricane-resistant modular home in Eleuthera, Bahamas"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755679524030-2EMFBDGX5BRH32WCD3TP/IMG-20250605-WA0012-2.jpg",
-        "alt": "Eleuthera building envelope and exterior construction progress"
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-terrace-steel-connection-detail.webp",
+        "alt": "Structural steel connection detail for the terrace of a prefabricated home in Eleuthera"
       },
       {
-        "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1755679532981-FB1W113B0TPFAZ50064P/PHOTO-2025-08-19-15-30-13_2-3.jpg",
-        "alt": "Eleuthera interior fit-out and wide opening to terrace"
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-exterior-steel-balcony.webp",
+        "alt": "Steel framing supporting the balcony of a modular home under construction in Eleuthera"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-exterior-scaffolding-and-stairs.webp",
+        "alt": "Scaffolding and exterior steps during prefabricated home construction in Eleuthera, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-exterior-wall-finishing.webp",
+        "alt": "Exterior wall finishes under construction on a modular island residence in Eleuthera"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-exterior-construction-front-steps.webp",
+        "alt": "Front steps and external construction work at a luxury modular home in Eleuthera, Bahamas"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-exterior-finishes-and-glazing.webp",
+        "alt": "Glazing and exterior finishes being installed on a prefabricated home in Eleuthera"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-interior-roof-and-terrace-opening.webp",
+        "alt": "Exposed steel floor structure and wide terrace opening inside an Eleuthera modular home"
+      },
+      {
+        "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-interior-living-terrace-opening.webp",
+        "alt": "Open-plan living space and large glazed terrace opening overlooking vegetation in Eleuthera, Bahamas"
       }
     ]
   },
