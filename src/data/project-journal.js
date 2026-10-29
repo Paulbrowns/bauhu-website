@@ -6,7 +6,7 @@ export const projectJournal = [
     "title": "Ft Myers Beach",
     "region": "Florida, USA",
     "source": "https://bauhuhomes.com/bauhuprojectnews/ft-meyers-beach-fl",
-    "intro": "A custom steel-frame modular residence being assembled on an elevated coastal site in Florida. The project photographs follow the structure taking shape.",
+    "intro": "An elevated coastal residence in Ft Myers Beach, Florida, with prefabricated steel framing, roof trusses and a two-storey structure taking shape.",
     "images": [
           {
                 "src": "/images/project-gallery/ft-myers-beach/ft-myers-beach-steel-frame-assembly-telehandler.webp",
@@ -51,7 +51,7 @@ export const projectJournal = [
     "title": "Coral Bay, St John",
     "region": "US Virgin Islands",
     "source": "https://bauhuhomes.com/bauhuprojectnews/st-john-usvi-1-fyd4a-hwgzb",
-    "intro": "A contemporary hurricane-resistant modular home under construction on a steep St John hillside, with steel framing and an insulated building envelope.",
+    "intro": "A contemporary modular hillside home in Coral Bay, St John, with reinforced concrete foundations, steel framing and finished terraces overlooking the water.",
     "images": [
       {
         "src": "/images/project-gallery/coral-bay-st-john/coral-bay-st-john-concrete-foundation-ocean-view.webp",
@@ -100,7 +100,7 @@ export const projectJournal = [
     "title": "St Thomas",
     "region": "US Virgin Islands",
     "source": "https://bauhuhomes.com/bauhuprojectnews/st-john-usvi-1-fyd4a",
-    "intro": "Construction images of a custom modular home on an elevated coastal site in St Thomas. The design includes open-plan living areas, expansive glazing and a hybrid steel structure.",
+    "intro": "A custom coastal residence in St Thomas, US Virgin Islands, with an extensive steel structure, prefabricated roof trusses and elevated hillside construction.",
     "images": [
       {
         "src": "/images/project-gallery/st-thomas-usvi/st-thomas-coastal-foundation-works.webp",
@@ -165,7 +165,7 @@ export const projectJournal = [
     "title": "Cat Island",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/cat-island",
-    "intro": "Site preparation and foundations for an elevated, off-grid modular home on Cat Island, planned for coastal exposure and the practical demands of remote-island construction.",
+    "intro": "An elevated modular home on Cat Island, Bahamas, featuring steel-frame construction, ocean-facing rooms and a completed kitchen overlooking the sea.",
     "images": [
       {
         "src": "/images/project-gallery/cat-island/cat-island-steel-frame-coastal-elevation.webp",
@@ -222,7 +222,7 @@ export const projectJournal = [
     "title": "St John",
     "region": "US Virgin Islands",
     "source": "https://bauhuhomes.com/bauhuprojectnews/st-john-usvi-1",
-    "intro": "A hurricane-resistant modular home based on the Coconut Villa concept, built on a steep hillside on St John. Photographs document the light-gauge steel frame and roof trusses.",
+    "intro": "A hillside modular home based on Bauhu's Coconut Villa concept in St John, US Virgin Islands, featuring light-gauge steel roof trusses and a metal roof.",
     "images": [
       {
         "src": "/images/project-gallery/st-john-usvi/st-john-elevated-hillside-steel-structure.webp",
@@ -271,7 +271,7 @@ export const projectJournal = [
     "title": "Eleuthera",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/upjclwrq19sva3hj4ttgfw9jkmlw19",
-    "intro": "A modular island residence combining contemporary construction with Bahamian architectural character, including an elevated structure and Bermuda-style roof.",
+    "intro": "A completed luxury modular residence in Eleuthera, Bahamas, combining a Bermuda-style roof, generous terrace glazing and contemporary island architecture.",
     "images": [
       {
         "src": "/images/project-gallery/eleuthera-bahamas/eleuthera-completed-front-elevation-daylight.webp",
@@ -336,7 +336,7 @@ export const projectJournal = [
     "title": "Little Exuma",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/eleuthera-1-n5smm",
-    "intro": "An elevated oceanfront modular home based on Bauhu's Angel concept, with a flat roof and insulated building envelope. Images show the early foundation works.",
+    "intro": "An elevated oceanfront modular home on Little Exuma, Bahamas, based on the Angel concept, with concrete foundations and a prefabricated steel structure.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1733402344553-Y7THLL7XY2FEUPDJNJCZ/Bauhu-hurricane-proof%2B%2Bkit%2Bhome%2Bfoundations%2Bgreat%2BExuma.jpg",
@@ -361,7 +361,7 @@ export const projectJournal = [
     "title": "Exuma Waterfront",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/blog-post-title-two-9k8t9-56k4k",
-    "intro": "An oceanfront modular home inspired by the Grapetree design, with traditional Caribbean character and an elevated pier foundation.",
+    "intro": "An oceanfront modular home in Exuma, Bahamas, inspired by the Grapetree design, with elevated concrete foundations, steel wall framing and roof trusses.",
     "images": [
       {
         "src": "/images/project-gallery/exuma-waterfront/exuma-waterfront-elevated-concrete-foundation-and-steel-framing.webp",
@@ -415,7 +415,7 @@ export const projectJournal = [
     "title": "Elbow Cay",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/blog-post-title-one-z76nc-4tcds",
-    "intro": "A Bahamas duplex incorporating two one-bedroom apartments and ground-floor commercial space, with colonial-inspired proportions and a Bermuda-style roof.",
+    "intro": "A waterfront modular duplex in Elbow Cay, Abaco, with two one-bedroom apartments, ground-floor commercial space, a Bermuda-style roof and harbour-facing verandas.",
     "images": [
       {
         "src": "/images/project-gallery/elbow-cay/elbow-cay-bahamas-prefabricated-steel-frame-waterfront.webp",
@@ -488,7 +488,7 @@ export const projectJournal = [
     "title": "Quinta de Lago",
     "region": "Portugal",
     "source": "https://bauhuhomes.com/bauhuprojectnews/quinta-de-lago",
-    "intro": "A contemporary modular home in southern Portugal, featuring expansive glazing and minimalist design. The project photographs document the architecture and interior fit-out.",
+    "intro": "A contemporary modular villa in the Algarve, Portugal, featuring expansive glazing, poolside living spaces, minimalist interiors and landscaped courtyard access.",
     "images": [
       {
         "src": "/images/project-gallery/quinta-de-lago/quinta-do-lago-modern-modular-villa-glass-facade.webp",
@@ -545,7 +545,7 @@ export const projectJournal = [
     "title": "Scotland Cay",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/scotland-cay",
-    "intro": "Photographic record of Bauhu's Scotland Cay modular building work in The Bahamas. Images document construction and architectural details from the original project archive.",
+    "intro": "A modular home project in Scotland Cay, Abaco, Bahamas, documented through structural assembly and roof framing.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717689272611-2VMBGIZ9Q6YBCPICGILO/IMG-20210307-WA0001.jpg",
@@ -570,7 +570,7 @@ export const projectJournal = [
     "title": "St John VI",
     "region": "US Virgin Islands",
     "source": "https://bauhuhomes.com/bauhuprojectnews/st-john-usvi",
-    "intro": "Photographic record of Bauhu's St John modular building work in US Virgin Islands. Images document construction and architectural details from the original project archive.",
+    "intro": "A steel-frame modular residence in St John, US Virgin Islands, with prefabricated wall and roof assemblies, a metal roof and hillside construction.",
     "images": [
       {
         "src": "/images/project-gallery/st-john-archive/st-john-vi-steel-frame-roof-trusses-interior.webp",
@@ -615,7 +615,7 @@ export const projectJournal = [
     "title": "Abaco",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/abaco",
-    "intro": "Photographic record of Bauhu's Abaco modular building work in The Bahamas. Images document construction and architectural details from the original project archive.",
+    "intro": "A modular coastal home project in Abaco, Bahamas, showing prefabricated steel roofing, structural framing and large glazed openings overlooking the water.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717688140001-K0BUOOFU75YFC65VWDF7/IMG-20200919-WA0003.jpg",
@@ -644,7 +644,7 @@ export const projectJournal = [
     "title": "Tortola",
     "region": "British Virgin Islands",
     "source": "https://bauhuhomes.com/bauhuprojectnews/tortola-bvi",
-    "intro": "Photographic record of Bauhu's Tortola modular building work in British Virgin Islands. Images document construction and architectural details from the original project archive.",
+    "intro": "A modular building project in Tortola, British Virgin Islands, with photographs documenting construction progress on site.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687718436-W4V0QNFRE5IV2UOWZD37/8fe5c390-6302-4758-97a7-954323545835.jpg",
@@ -669,7 +669,7 @@ export const projectJournal = [
     "title": "Eleuthera — Earlier project",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/eleuthera",
-    "intro": "Photographic record of Bauhu's Eleuthera modular building work in The Bahamas. Images document construction and architectural details from the original project archive.",
+    "intro": "A separate modular building project in Eleuthera, Bahamas, documented from structural assembly through exterior construction.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717687230799-X8I4FLDF06OZOPPFBJZ4/20210721_172348.jpg",
@@ -694,7 +694,7 @@ export const projectJournal = [
     "title": "Antigua",
     "region": "Antigua and Barbuda",
     "source": "https://bauhuhomes.com/bauhuprojectnews/antigua",
-    "intro": "Photographic record of Bauhu's Antigua modular building work in Antigua and Barbuda. Images document construction and architectural details from the original project archive.",
+    "intro": "A modular building project in Antigua and Barbuda, with photographs recording structural and exterior construction stages.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717686969834-8QEAGDJSU78UEN9JODI7/20210429_114704.jpg",
@@ -719,7 +719,7 @@ export const projectJournal = [
     "title": "Hope Town",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/hope-town",
-    "intro": "Photographic record of Bauhu's Hope Town modular building work in The Bahamas. Images document construction and architectural details from the original project archive.",
+    "intro": "A modular building project in Hope Town, Abaco, Bahamas, recording the structure taking shape in an island setting.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717682959340-0I6W6R0G6416ZIZMYMQ5/20240424_130929.jpg",
@@ -744,7 +744,7 @@ export const projectJournal = [
     "title": "Little Cayman",
     "region": "Cayman Islands",
     "source": "https://bauhuhomes.com/bauhuprojectnews/little-cayman",
-    "intro": "Photographic record of Bauhu's Little Cayman modular building work in Cayman Islands. Images document construction and architectural details from the original project archive.",
+    "intro": "A modular home project on Little Cayman, Cayman Islands, with photographs documenting foundations and later construction progress.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717682346794-IVXLETD7K7JX2NRWF463/slab2.jpg",
@@ -769,7 +769,7 @@ export const projectJournal = [
     "title": "Great Exuma",
     "region": "The Bahamas",
     "source": "https://bauhuhomes.com/bauhuprojectnews/great-exuma",
-    "intro": "Photographic record of Bauhu's Great Exuma modular building work in The Bahamas. Images document construction and architectural details from the original project archive.",
+    "intro": "A modular home project on Great Exuma, Bahamas, showing structural works, building assembly and exterior construction.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717675209235-9BM625SD8C7B5REP2ZIP/PHOTO-2023-02-20-20-31-46.jpg",
@@ -798,7 +798,7 @@ export const projectJournal = [
     "title": "Cruz Bay, St John",
     "region": "US Virgin Islands",
     "source": "https://bauhuhomes.com/bauhuprojectnews/cruz-bay-st-john-usvi",
-    "intro": "Photographic record of Bauhu's Cruz Bay, St John modular building work in US Virgin Islands. Images document construction and architectural details from the original project archive.",
+    "intro": "A modular building project in Cruz Bay, St John, US Virgin Islands, with site photographs showing construction and the developing structure.",
     "images": [
       {
         "src": "https://images.squarespace-cdn.com/content/v1/64ca8a095698ca7a9fa869d5/1717673192835-QX9B93K9KKYHLR2QAC5H/PXL_20230804_144829454.jpg",
