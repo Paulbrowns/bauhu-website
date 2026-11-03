@@ -94,25 +94,31 @@ const navItems = [
     transition: transform 390ms cubic-bezier(.18,.95,.22,1.15);
   }
   .bauhu-magnetic-cta__arrow { font-size: 1.3em; line-height: 1; }
-  .bauhu-magnetic-cta:hover,
-  .bauhu-magnetic-cta:focus-visible {
-    border-radius: 8px;
-    border-color: rgba(235,249,253,.92);
-    background-color: #20566d;
-    box-shadow: 0 5px 20px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.14);
+  /* Interactive effects only on desktop devices with a real hover pointer. */
+  @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+    .bauhu-magnetic-cta:hover {
+      border-radius: 8px;
+      border-color: rgba(235,249,253,.92);
+      background-color: #20566d;
+      box-shadow: 0 5px 20px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.14);
+    }
+    .bauhu-magnetic-cta:hover::before { opacity: 1; }
+    .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__frame {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__arrow {
+      transform: translate3d(calc(var(--content-x) + 3px),calc(var(--content-y) - 3px),0);
+    }
+    .bauhu-magnetic-cta:active { scale: .96; }
   }
-  .bauhu-magnetic-cta:hover::before,
-  .bauhu-magnetic-cta:focus-visible::before { opacity: 1; }
-  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__frame,
-  .bauhu-magnetic-cta:focus-visible .bauhu-magnetic-cta__frame {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__arrow {
-    transform: translate3d(calc(var(--content-x) + 3px),calc(var(--content-y) - 3px),0);
-  }
-  .bauhu-magnetic-cta:active { scale: .96; }
   .bauhu-magnetic-cta:focus-visible { outline: 2px solid #f6f3ec; outline-offset: 4px; }
+  @media (max-width: 1023px), (hover: none), (pointer: coarse) {
+    .bauhu-magnetic-cta,
+    .bauhu-magnetic-cta__label,
+    .bauhu-magnetic-cta__arrow,
+    .bauhu-magnetic-cta__frame { transition: none; transform: none !important; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .bauhu-magnetic-cta,
     .bauhu-magnetic-cta__label,
@@ -124,7 +130,7 @@ const navItems = [
 <script>
   const cta = document.querySelector<HTMLElement>('[data-magnetic-cta]');
   if (cta) {
-    const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+    const finePointer = matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const reset = () => {
       cta.style.setProperty('--magnetic-x','0px');
