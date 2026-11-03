@@ -19,8 +19,8 @@ const navItems = [
       {navItems.map((item) => <a class="transition hover:text-stone" href={item.href}>{item.label}</a>)}
     </nav>
     <div class="flex items-center gap-3">
-      <a href="/site-fit" class="bauhu-magnetic-cta hidden rounded-full border px-5 py-3 text-xs uppercase tracking-wide sm:inline-flex" data-magnetic-cta>
-        <span class="bauhu-magnetic-cta__glow" aria-hidden="true"></span>
+      <a href="/site-fit" class="bauhu-magnetic-cta hidden border px-5 py-3 text-xs uppercase tracking-wide sm:inline-flex" data-magnetic-cta>
+        <span class="bauhu-magnetic-cta__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         <span class="bauhu-magnetic-cta__label">Start your project</span>
         <span class="bauhu-magnetic-cta__arrow" aria-hidden="true">↗</span>
       </a>
@@ -31,354 +31,136 @@ const navItems = [
 
 <style>
   .bauhu-magnetic-cta {
-    --mx: 0px;
-    --my: 0px;
-    --inner-x: 0px;
-    --inner-y: 0px;
-    --light-x: 50%;
-    --light-y: 50%;
+    --magnetic-x: 0px;
+    --magnetic-y: 0px;
+    --content-x: 0px;
+    --content-y: 0px;
+    --spot-x: 50%;
+    --spot-y: 50%;
     position: relative;
+    isolation: isolate;
     align-items: center;
     justify-content: center;
-    gap: .85rem;
-    min-height: 42px;
-    isolation: isolate;
+    gap: .8rem;
+    min-height: 44px;
     overflow: hidden;
-    border-color: rgba(246,243,236,.55);
+    border-radius: 999px;
+    border-color: rgba(246,243,236,.58);
+    background: #173e54;
     color: #f6f3ec;
-    background: linear-gradient(120deg, #163e53, #205870 48%, #163e53);
-    box-shadow: inset 0 1px rgba(255,255,255,.18), 0 2px 10px rgba(0,0,0,.09);
-    transform: translate3d(var(--mx),var(--my),0);
-    transition: transform 520ms cubic-bezier(.18,1.15,.32,1), box-shadow 320ms ease, border-color 320ms ease, background-color 320ms ease;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+    transform: translate3d(var(--magnetic-x),var(--magnetic-y),0);
+    transition: transform 390ms cubic-bezier(.18,.95,.22,1.15),
+      border-radius 480ms cubic-bezier(.18,.8,.25,1),
+      background-color 260ms ease, border-color 260ms ease,
+      box-shadow 260ms ease;
   }
-
   .bauhu-magnetic-cta::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0;
-    background: radial-gradient(circle at var(--light-x) var(--light-y), rgba(218,240,247,.52), rgba(137,196,218,.22) 32%, transparent 72%);
-    transition: opacity 300ms ease;
-  }
-  .bauhu-magnetic-cta::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: linear-gradient(110deg,transparent 21%,rgba(255,255,255,.26) 48%,transparent 77%);
-    transform: translateX(-145%);
-    transition: transform 850ms cubic-bezier(.16,.7,.2,1);
-  }
-  .bauhu-magnetic-cta__glow {
-    position: absolute;
-    inset: auto 12% -18px;
-    height: 20px;
-    background: #8dcbdf;
-    filter: blur(17px);
-    border-radius: 100%;
+    background: radial-gradient(circle at var(--spot-x) var(--spot-y),
+      rgba(180,219,231,.31), transparent 65%);
     opacity: 0;
-    pointer-events: none;
     transition: opacity 300ms ease;
   }
+  .bauhu-magnetic-cta__frame {
+    position: absolute;
+    inset: 5px;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(.93);
+    transition: opacity 290ms ease, transform 460ms cubic-bezier(.2,.8,.2,1);
+  }
+  .bauhu-magnetic-cta__frame i {
+    position: absolute;
+    width: 13px;
+    height: 11px;
+    border-color: rgba(231,245,250,.92);
+    border-style: solid;
+    border-width: 0;
+  }
+  .bauhu-magnetic-cta__frame i:nth-child(1) { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+  .bauhu-magnetic-cta__frame i:nth-child(2) { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+  .bauhu-magnetic-cta__frame i:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+  .bauhu-magnetic-cta__frame i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
   .bauhu-magnetic-cta__label,
   .bauhu-magnetic-cta__arrow {
     position: relative;
     display: inline-block;
-    transform: translate3d(var(--inner-x),var(--inner-y),0);
-    transition: transform 500ms cubic-bezier(.18,1.1,.32,1);
+    transform: translate3d(var(--content-x),var(--content-y),0);
+    transition: transform 390ms cubic-bezier(.18,.95,.22,1.15);
   }
-  .bauhu-magnetic-cta__arrow {
-    font-size: 1.3em;
-    line-height: 1;
-    transition: transform 500ms cubic-bezier(.18,1.1,.32,1);
-  }
-  .bauhu-magnetic-cta:hover {
-    border-color: rgba(213,243,255,.98);
-    box-shadow: inset 0 1px rgba(255,255,255,.3),0 6px 24px rgba(7,31,44,.3),0 0 0 3px rgba(129,205,232,.13);
+  .bauhu-magnetic-cta__arrow { font-size: 1.3em; line-height: 1; }
+  .bauhu-magnetic-cta:hover,
+  .bauhu-magnetic-cta:focus-visible {
+    border-radius: 8px;
+    border-color: rgba(235,249,253,.92);
+    background-color: #20566d;
+    box-shadow: 0 5px 20px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.14);
   }
   .bauhu-magnetic-cta:hover::before,
-  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__glow { opacity: 1; }
-  .bauhu-magnetic-cta:hover::after { transform: translateX(145%); }
-  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__arrow {
-    transform: translate3d(calc(var(--inner-x) + 4px),calc(var(--inner-y) - 3px),0);
+  .bauhu-magnetic-cta:focus-visible::before { opacity: 1; }
+  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__frame,
+  .bauhu-magnetic-cta:focus-visible .bauhu-magnetic-cta__frame {
+    opacity: 1;
+    transform: scale(1);
   }
-  .bauhu-magnetic-cta:active { scale: .94; }
+  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__arrow {
+    transform: translate3d(calc(var(--content-x) + 3px),calc(var(--content-y) - 3px),0);
+  }
+  .bauhu-magnetic-cta:active { scale: .96; }
   .bauhu-magnetic-cta:focus-visible { outline: 2px solid #f6f3ec; outline-offset: 4px; }
-
   @media (prefers-reduced-motion: reduce) {
     .bauhu-magnetic-cta,
     .bauhu-magnetic-cta__label,
-    .bauhu-magnetic-cta__arrow { transform: none !important; transition: none !important; }
-    .bauhu-magnetic-cta::after { display: none; }
+    .bauhu-magnetic-cta__arrow,
+    .bauhu-magnetic-cta__frame { transition: none !important; transform: none !important; }
   }
 </style>
 
 <script>
-  const magneticCTA = document.querySelector<HTMLElement>('[data-magnetic-cta]');
-  const pointerIsFine = window.matchMedia('(hover: hover) and (pointer: fine)');
-  const motionIsReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  if (magneticCTA) {
+  const cta = document.querySelector<HTMLElement>('[data-magnetic-cta]');
+  if (cta) {
+    const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const reset = () => {
-      magneticCTA.style.setProperty('--mx', '0px');
-      magneticCTA.style.setProperty('--my', '0px');
-      magneticCTA.style.setProperty('--inner-x', '0px');
-      magneticCTA.style.setProperty('--inner-y', '0px');
-      magneticCTA.style.setProperty('--light-x', '50%');
-      magneticCTA.style.setProperty('--light-y', '50%');
+      cta.style.setProperty('--magnetic-x','0px');
+      cta.style.setProperty('--magnetic-y','0px');
+      cta.style.setProperty('--content-x','0px');
+      cta.style.setProperty('--content-y','0px');
+      cta.style.setProperty('--spot-x','50%');
+      cta.style.setProperty('--spot-y','50%');
     };
-    const header = magneticCTA.closest('header');
-    // Measure against its original position, avoiding feedback as the button moves.
-    header?.addEventListener('pointermove', (event: PointerEvent) => {
-      if (!pointerIsFine.matches || motionIsReduced.matches || event.pointerType !== 'mouse') {
+    cta.closest('header')?.addEventListener('pointermove', (event: PointerEvent) => {
+      if (!finePointer.matches || reducedMotion.matches || event.pointerType !== 'mouse') {
         reset();
         return;
       }
-      const rect = magneticCTA.getBoundingClientRect();
-      const offsetX = parseFloat(magneticCTA.style.getPropertyValue('--mx')) || 0;
-      const offsetY = parseFloat(magneticCTA.style.getPropertyValue('--my')) || 0;
-      const cx = rect.left + rect.width / 2 - offsetX;
-      const cy = rect.top + rect.height / 2 - offsetY;
-      const dx = event.clientX - cx;
-      const dy = event.clientY - cy;
+      const bounds = cta.getBoundingClientRect();
+      const previousX = parseFloat(cta.style.getPropertyValue('--magnetic-x')) || 0;
+      const previousY = parseFloat(cta.style.getPropertyValue('--magnetic-y')) || 0;
+      const dx = event.clientX - (bounds.left + bounds.width / 2 - previousX);
+      const dy = event.clientY - (bounds.top + bounds.height / 2 - previousY);
+      const reach = 125;
       const distance = Math.hypot(dx,dy);
-      const radius = 160;
-      if (distance >= radius) { reset(); return; }
-      const intensity = Math.pow(1 - distance / radius, 1.5);
-      const moveX = Math.max(-17,Math.min(17,dx * intensity * .4));
-      const moveY = Math.max(-12,Math.min(12,dy * intensity * .35));
-      magneticCTA.style.setProperty('--mx', `${moveX.toFixed(2)}px`);
-      magneticCTA.style.setProperty('--my', `${moveY.toFixed(2)}px`);
-      magneticCTA.style.setProperty('--inner-x', `${(moveX*.42).toFixed(2)}px`);
-      magneticCTA.style.setProperty('--inner-y', `${(moveY*.42).toFixed(2)}px`);
-      magneticCTA.style.setProperty('--light-x', `${(50 + dx/rect.width*90).toFixed(1)}%`);
-      magneticCTA.style.setProperty('--light-y', `${(50 + dy/rect.height*80).toFixed(1)}%`);
+      if (distance >= reach) { reset(); return; }
+      const influence = Math.pow(1 - distance / reach, 1.45);
+      const x = Math.max(-11,Math.min(11,dx * .25 * influence));
+      const y = Math.max(-8,Math.min(8,dy * .25 * influence));
+      cta.style.setProperty('--magnetic-x', `${x.toFixed(2)}px`);
+      cta.style.setProperty('--magnetic-y', `${y.toFixed(2)}px`);
+      cta.style.setProperty('--content-x', `${(x*.38).toFixed(2)}px`);
+      cta.style.setProperty('--content-y', `${(y*.38).toFixed(2)}px`);
+      cta.style.setProperty('--spot-x', `${(50+dx/bounds.width*70).toFixed(1)}%`);
+      cta.style.setProperty('--spot-y', `${(50+dy/bounds.height*65).toFixed(1)}%`);
     });
-    header?.addEventListener('pointerleave', reset);
-    magneticCTA.addEventListener('blur', reset);
-    pointerIsFine.addEventListener('change', reset);
-    motionIsReduced.addEventListener('change', reset);
-
-    // A schematic architectural plan unfurls from the top-right CTA into the page.
-    // It is intentionally illustrative: no real Bauhu project dimensions are implied.
-    let navigating = false;
-    magneticCTA.addEventListener('click', (event: MouseEvent) => {
-      if (event.defaultPrevented || navigating || event.button !== 0 ||
-          event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
-          motionIsReduced.matches) return;
-
-      const href = magneticCTA.getAttribute('href');
-      if (!href) return;
-      event.preventDefault();
-      navigating = true;
-      const canvas = document.createElement('canvas');
-      canvas.setAttribute('aria-hidden', 'true');
-      canvas.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;z-index:49;pointer-events:none;';
-      document.body.appendChild(canvas);
-      const ctx = canvas.getContext('2d');
-      if (!ctx) { canvas.remove(); window.location.assign(href); return; }
-
-      const width = window.innerWidth, height = window.innerHeight;
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(width * pixelRatio);
-      canvas.height = Math.round(height * pixelRatio);
-      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      const rect = magneticCTA.getBoundingClientRect();
-      const right = Math.min(width - 18, rect.left + rect.width * .55);
-      const top = rect.bottom + 48;
-      const w = Math.min(590, width * .66, right - 24);
-      const h = Math.min(395, height * .57, height - top - 46);
-      if (w < 240 || h < 160) {
-        canvas.remove();
-        window.location.assign(href);
-        return;
-      }
-      const x = right - w, y = top;
-      const duration = 3200;
-      const start = performance.now();
-      const clamp = (v: number) => Math.max(0, Math.min(1, v));
-      const smooth = (v: number) => { const t=clamp(v); return t*t*(3-2*t); };
-      const ink = (alpha: number) => `rgba(15,18,20,${Math.max(0,Math.min(1,alpha))})`;
-
-      const line = (ax:number,ay:number,bx:number,by:number,alpha:number,weight=.75) => {
-        ctx.strokeStyle = ink(alpha);
-        ctx.lineWidth = weight;
-        ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();
-      };
-      const poly = (points: number[][],alpha:number,weight=.8) => {
-        ctx.strokeStyle=ink(alpha);ctx.lineWidth=weight;
-        ctx.beginPath();points.forEach(([px,py],i)=>i?ctx.lineTo(px,py):ctx.moveTo(px,py));ctx.stroke();
-      };
-      const box = (bx:number,by:number,bw:number,bh:number,alpha:number,weight=.8) => {
-        ctx.strokeStyle=ink(alpha);ctx.lineWidth=weight;ctx.strokeRect(bx,by,bw,bh);
-      };
-      const text = (label:string,px:number,py:number,alpha:number,size=9) => {
-        ctx.fillStyle=ink(alpha);ctx.font=`${size}px ui-monospace, SFMono-Regular, Consolas, monospace`;
-        ctx.textAlign='center';ctx.fillText(label,px,py);
-      };
-      const dimension = (ax:number,ay:number,bx:number,by:number,label:string,vertical:boolean,a:number) => {
-        line(ax,ay,bx,by,a,.65);
-        const tick=5;
-        if(vertical){
-          line(ax-tick,ay-tick,ax+tick,ay+tick,a,.7);
-          line(bx-tick,by-tick,bx+tick,by+tick,a,.7);
-          ctx.save();ctx.translate(ax-8,(ay+by)/2);ctx.rotate(-Math.PI/2);
-          text(label,0,0,a,9);ctx.restore();
-        } else {
-          line(ax-tick,ay+tick,ax+tick,ay-tick,a,.7);
-          line(bx-tick,by+tick,bx+tick,by-tick,a,.7);
-          text(label,(ax+bx)/2,ay-7,a,9);
-        }
-      };
-      const door = (cx:number,cy:number,r:number,startAngle:number,endAngle:number,a:number) => {
-        ctx.strokeStyle=ink(a*.82);ctx.lineWidth=.65;
-        ctx.beginPath();ctx.arc(cx,cy,r,startAngle,endAngle);ctx.stroke();
-        line(cx,cy,cx+r*Math.cos(endAngle),cy+r*Math.sin(endAngle),a,.85);
-      };
-      const furniture = (a:number) => {
-        // Kitchen island, table and four chairs: fine furniture outlines in plan.
-        box(x+w*.10,y+h*.17,w*.21,h*.105,a,.65);
-        line(x+w*.10,y+h*.20,x+w*.31,y+h*.20,a*.65,.5);
-        box(x+w*.30,y+h*.31,w*.12,h*.13,a,.6);
-        for (const [fx,fy] of [[.34,.28],[.34,.47],[.275,.37],[.43,.37]]) {
-          box(x+w*fx,y+h*fy,w*.035,h*.035,a*.75,.55);
-        }
-        // Bed and side tables.
-        box(x+w*.70,y+h*.57,w*.17,h*.20,a,.75);
-        line(x+w*.70,y+h*.63,x+w*.87,y+h*.63,a,.55);
-        box(x+w*.72,y+h*.58,w*.055,h*.04,a*.75,.5);
-        box(x+w*.79,y+h*.58,w*.055,h*.04,a*.75,.5);
-        // Bathroom fixtures.
-        box(x+w*.69,y+h*.14,w*.12,h*.12,a,.65);
-        ctx.strokeStyle=ink(a);ctx.lineWidth=.6;
-        ctx.beginPath();ctx.ellipse(x+w*.88,y+h*.19,w*.035,h*.055,0,0,Math.PI*2);ctx.stroke();
-      };
-      const draw = (now:number) => {
-        const p=clamp((now-start)/duration);
-        const fade=clamp(p*12)*smooth((1-p)/.12);
-        ctx.clearRect(0,0,width,height);
-        const reveal=smooth((p-.02)/.66);
-        const ix=right-w*reveal, iy=y+h*reveal;
-
-        ctx.save();
-        // Reveal moves left and down from the CTA, rather than radiating outward.
-        ctx.beginPath();ctx.rect(ix,y,Math.max(0,right-ix),Math.max(0,iy-y));ctx.clip();
-        const a=fade*.95, detail=fade*smooth((p-.25)/.35);
-        // Exterior wall pairs and their inner faces.
-        box(x,y,w,h,a,1.05);box(x+6,y+6,w-12,h-12,a,.65);
-        // Plan partitions with intentional door openings.
-        for(const dx of [0,5]){
-          line(x+w*.58+dx,y+6,x+w*.58+dx,y+h*.38,a,.9);
-          line(x+w*.58+dx,y+h*.55,x+w*.58+dx,y+h-6,a,.9);
-          line(x+6,y+h*.53+dx,x+w*.21,y+h*.53+dx,a,.85);
-          line(x+w*.33,y+h*.53+dx,x+w*.58,y+h*.53+dx,a,.85);
-          line(x+w*.58,y+h*.36+dx,x+w-6,y+h*.36+dx,a,.85);
-          line(x+w*.79+dx,y+h*.36,x+w*.79+dx,y+h-6,a,.85);
-        }
-        // Door swings and openings.
-        door(x+w*.58,y+h*.55,h*.12,Math.PI*1.5,Math.PI*2,detail);
-        door(x+w*.33,y+h*.53,w*.10,Math.PI,Math.PI*1.5,detail);
-        door(x+w*.79,y+h*.63,w*.08,Math.PI,Math.PI*1.5,detail);
-        // Glazing with multiple parallel fine lines, mullions and sill marks.
-        for(const fy of [.16,.175,.19]){
-          line(x+w*.12,y+h*fy,x+w*.42,y+h*fy,detail,.55);
-        }
-        for(const fx of [.12,.27,.42]){
-          line(x+w*fx,y+h*.15,x+w*fx,y+h*.20,detail,.55);
-        }
-        for(const fx of [.965,.977]){
-          line(x+w*fx,y+h*.52,x+w*fx,y+h*.79,detail,.55);
-        }
-        // Terrace/deck hatch marks.
-        for(let i=0;i<8;i++){
-          const xx=x+w*(.615+i*.043);
-          line(xx,y+h*.03,xx+12,y+h*.31,detail*.5,.45);
-        }
-        furniture(detail);
-        // Drawing symbols, centre marks and room IDs.
-        text('LIVING / KITCHEN',x+w*.25,y+h*.46,detail,9);
-        text('TERRACE',x+w*.78,y+h*.30,detail,9);
-        text('BEDROOM 01',x+w*.70,y+h*.88,detail,9);
-        text('BATH',x+w*.88,y+h*.32,detail,9);
-        for(const [cx,cy] of [[x+w*.24,y+h*.24],[x+w*.72,y+h*.68]]){
-          line(cx-6,cy,cx+6,cy,detail*.48,.45);
-          line(cx,cy-6,cx,cy+6,detail*.48,.45);
-        }
-        // Fine structural grid and axis bubbles, based on drawing conventions.
-        const gridAlpha = detail * .72;
-        ctx.setLineDash([9,4,2,4]);
-        for (const gx of [.12,.43,.71,.91]) {
-          const xx=x+w*gx;
-          line(xx,y-38,xx,y+h+39,gridAlpha*.72,.5);
-        }
-        for (const gy of [.12,.47,.81]) {
-          const yy=y+h*gy;
-          line(x-41,yy,right+35,yy,gridAlpha*.72,.5);
-        }
-        ctx.setLineDash([]);
-        const bubble=(label:string,bx:number,by:number)=>{
-          ctx.strokeStyle=ink(gridAlpha);ctx.lineWidth=.7;
-          ctx.beginPath();ctx.arc(bx,by,10,0,Math.PI*2);ctx.stroke();
-          text(label,bx,by+3,gridAlpha,9);
-        };
-        ['A','B','C','D'].forEach((label,i)=>bubble(label,x+w*[.12,.43,.71,.91][i],y-46));
-        ['1','2','3'].forEach((label,i)=>bubble(label,x-48,y+h*[.12,.47,.81][i]));
-        // Column symbols at axis intersections.
-        for(const gx of [.12,.43,.71,.91]){
-          for(const gy of [.12,.47,.81]){
-            const px=x+w*gx,py=y+h*gy;
-            box(px-2.4,py-2.4,4.8,4.8,gridAlpha*.8,.55);
-          }
-        }
-        // Fine balcony hatch and floor finish joints.
-        for(let i=0;i<23;i++){
-          const xx=x+w*(.60+i*.016);
-          line(xx,y+9,xx,y+h*.34,detail*.28,.4);
-        }
-        for(let i=0;i<7;i++){
-          const yy=y+h*(.59+i*.047);
-          line(x+8,yy,x+w*.55,yy,detail*.21,.4);
-        }
-        // Additional fittings: wardrobe cabinet lines and sanitary fixtures.
-        box(x+w*.85,y+h*.79,w*.09,h*.07,detail*.75,.5);
-        line(x+w*.895,y+h*.79,x+w*.895,y+h*.86,detail*.6,.5);
-        box(x+w*.62,y+h*.39,w*.10,h*.12,detail*.8,.6);
-        for (const fy of [.405,.44,.475]) {
-          line(x+w*.63,y+h*fy,x+w*.71,y+h*fy,detail*.38,.45);
-        }
-        ctx.restore();
-
-        // Outer extension lines and authentic-looking dimension strings.
-        const da=fade*smooth((p-.48)/.24);
-        if(da){
-          const topDim=y-18, leftDim=x-23;
-          for(const tx of [x,x+w*.58,right]){
-            line(tx,y-4,tx,topDim-6,da*.6,.55);
-          }
-          for(const ty of [y,y+h*.53,y+h]){
-            line(x-4,ty,leftDim-7,ty,da*.6,.55);
-          }
-          dimension(x,topDim,x+w*.58,topDim,'7 200',false,da);
-          dimension(x,y-62,right,y-62,'12 400',false,da*.78);
-          dimension(x+w*.58,topDim,right,topDim,'5 200',false,da);
-          dimension(leftDim,y,leftDim,y+h*.53,'4 600',true,da);
-          dimension(leftDim,y+h*.53,leftDim,y+h,'4 050',true,da);
-          dimension(x-66,y,x-66,y+h,'8 650',true,da*.78);
-          text('BAUHU / SCHEMATIC 01',x+w*.21,y+h+21,da,9);
-          text('CONCEPT STUDY  •  NTS',x+w*.78,y+h+21,da,9);
-          // Material tags and drawing reference notes.
-          text('W-01',x+w*.25,y+21,da*.8,8);
-          text('D-02',x+w*.58,y+h*.51,da*.8,8);
-          text('1:100 / ILLUSTRATIVE',x+w*.50,y+h+37,da*.8,8);
-        }
-        if(p<1) requestAnimationFrame(draw);
-        else canvas.remove();
-      };
-      requestAnimationFrame(draw);
-      window.setTimeout(()=>window.location.assign(href),duration);
-    });
+    cta.closest('header')?.addEventListener('pointerleave',reset);
+    cta.addEventListener('blur',reset);
+    finePointer.addEventListener('change',reset);
+    reducedMotion.addEventListener('change',reset);
+    // Native anchor navigation is intentionally left untouched.
   }
 </script>
