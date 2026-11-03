@@ -197,7 +197,7 @@ const navItems = [
         return;
       }
       const x = right - w, y = top;
-      const duration = 2700;
+      const duration = 3200;
       const start = performance.now();
       const clamp = (v: number) => Math.max(0, Math.min(1, v));
       const smooth = (v: number) => { const t=clamp(v); return t*t*(3-2*t); };
@@ -258,19 +258,15 @@ const navItems = [
       };
       const draw = (now:number) => {
         const p=clamp((now-start)/duration);
-        const fade=clamp(p*12)*smooth((1-p)/.18);
+        const fade=clamp(p*12)*smooth((1-p)/.12);
         ctx.clearRect(0,0,width,height);
-        const reveal=smooth((p-.02)/.60);
+        const reveal=smooth((p-.02)/.66);
         const ix=right-w*reveal, iy=y+h*reveal;
 
         ctx.save();
-        // Subtle drawing-paper field allows precise black ink over photography.
-        ctx.fillStyle=`rgba(247,246,241,${.89*fade*reveal})`;
-        ctx.fillRect(ix,y,right-ix,Math.max(0,iy-y));
-
         // Reveal moves left and down from the CTA, rather than radiating outward.
         ctx.beginPath();ctx.rect(ix,y,Math.max(0,right-ix),Math.max(0,iy-y));ctx.clip();
-        const a=fade*.95, detail=fade*smooth((p-.24)/.30);
+        const a=fade*.95, detail=fade*smooth((p-.25)/.35);
         // Exterior wall pairs and their inner faces.
         box(x,y,w,h,a,1.05);box(x+6,y+6,w-12,h-12,a,.65);
         // Plan partitions with intentional door openings.
@@ -311,19 +307,50 @@ const navItems = [
           line(cx-6,cy,cx+6,cy,detail*.48,.45);
           line(cx,cy-6,cx,cy+6,detail*.48,.45);
         }
+        // Fine structural grid and axis bubbles, based on drawing conventions.
+        const gridAlpha = detail * .72;
+        ctx.setLineDash([9,4,2,4]);
+        for (const gx of [.12,.43,.71,.91]) {
+          const xx=x+w*gx;
+          line(xx,y-38,xx,y+h+39,gridAlpha*.72,.5);
+        }
+        for (const gy of [.12,.47,.81]) {
+          const yy=y+h*gy;
+          line(x-41,yy,right+35,yy,gridAlpha*.72,.5);
+        }
+        ctx.setLineDash([]);
+        const bubble=(label:string,bx:number,by:number)=>{
+          ctx.strokeStyle=ink(gridAlpha);ctx.lineWidth=.7;
+          ctx.beginPath();ctx.arc(bx,by,10,0,Math.PI*2);ctx.stroke();
+          text(label,bx,by+3,gridAlpha,9);
+        };
+        ['A','B','C','D'].forEach((label,i)=>bubble(label,x+w*[.12,.43,.71,.91][i],y-46));
+        ['1','2','3'].forEach((label,i)=>bubble(label,x-48,y+h*[.12,.47,.81][i]));
+        // Column symbols at axis intersections.
+        for(const gx of [.12,.43,.71,.91]){
+          for(const gy of [.12,.47,.81]){
+            const px=x+w*gx,py=y+h*gy;
+            box(px-2.4,py-2.4,4.8,4.8,gridAlpha*.8,.55);
+          }
+        }
+        // Fine balcony hatch and floor finish joints.
+        for(let i=0;i<23;i++){
+          const xx=x+w*(.60+i*.016);
+          line(xx,y+9,xx,y+h*.34,detail*.28,.4);
+        }
+        for(let i=0;i<7;i++){
+          const yy=y+h*(.59+i*.047);
+          line(x+8,yy,x+w*.55,yy,detail*.21,.4);
+        }
+        // Additional fittings: wardrobe cabinet lines and sanitary fixtures.
+        box(x+w*.85,y+h*.79,w*.09,h*.07,detail*.75,.5);
+        line(x+w*.895,y+h*.79,x+w*.895,y+h*.86,detail*.6,.5);
+        box(x+w*.62,y+h*.39,w*.10,h*.12,detail*.8,.6);
+        for (const fy of [.405,.44,.475]) {
+          line(x+w*.63,y+h*fy,x+w*.71,y+h*fy,detail*.38,.45);
+        }
         ctx.restore();
 
-        // Three-quarter wireframe walls rise slightly from the floor plan.
-        const lift=fade*smooth((p-.52)/.24);
-        if(lift){
-          const vx=-24*lift,vy=-35*lift;
-          const corners=[[x,y],[right,y],[right,y+h],[x,y+h],
-            [x+w*.58,y],[x+w*.58,y+h*.38],[x+w*.79,y+h*.36]];
-          corners.forEach(([cx,cy])=>line(cx,cy,cx+vx,cy+vy,lift*.72,.6));
-          poly([[x+vx,y+vy],[right+vx,y+vy],[right+vx,y+h+vy],[x+vx,y+h+vy],[x+vx,y+vy]],lift*.65,.7);
-          line(x+w*.58+vx,y+vy,x+w*.58+vx,y+h*.38+vy,lift*.48,.6);
-          line(x+w*.58,y,x+w*.58+vx,y+vy,lift*.5,.6);
-        }
         // Outer extension lines and authentic-looking dimension strings.
         const da=fade*smooth((p-.48)/.24);
         if(da){
@@ -335,15 +362,17 @@ const navItems = [
             line(x-4,ty,leftDim-7,ty,da*.6,.55);
           }
           dimension(x,topDim,x+w*.58,topDim,'7 200',false,da);
+          dimension(x,y-62,right,y-62,'12 400',false,da*.78);
           dimension(x+w*.58,topDim,right,topDim,'5 200',false,da);
           dimension(leftDim,y,leftDim,y+h*.53,'4 600',true,da);
           dimension(leftDim,y+h*.53,leftDim,y+h,'4 050',true,da);
+          dimension(x-66,y,x-66,y+h,'8 650',true,da*.78);
           text('BAUHU / SCHEMATIC 01',x+w*.21,y+h+21,da,9);
           text('CONCEPT STUDY  •  NTS',x+w*.78,y+h+21,da,9);
-          // Axes and section marker.
-          ctx.strokeStyle=ink(da*.6);ctx.lineWidth=.55;ctx.setLineDash([3,4]);
-          line(x-34,y+h*.53,right+14,y+h*.53,da*.42,.5);
-          ctx.setLineDash([]);
+          // Material tags and drawing reference notes.
+          text('W-01',x+w*.25,y+21,da*.8,8);
+          text('D-02',x+w*.58,y+h*.51,da*.8,8);
+          text('1:100 / ILLUSTRATIVE',x+w*.50,y+h+37,da*.8,8);
         }
         if(p<1) requestAnimationFrame(draw);
         else canvas.remove();
