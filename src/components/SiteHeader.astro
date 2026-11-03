@@ -19,7 +19,8 @@ const navItems = [
       {navItems.map((item) => <a class="transition hover:text-stone" href={item.href}>{item.label}</a>)}
     </nav>
     <div class="flex items-center gap-3">
-      <a href="/site-fit" class="bauhu-magnetic-cta hidden rounded-full border border-paper/40 px-4 py-2 text-xs uppercase tracking-wide sm:inline-flex" data-magnetic-cta>
+      <a href="/site-fit" class="bauhu-magnetic-cta hidden rounded-full border px-5 py-3 text-xs uppercase tracking-wide sm:inline-flex" data-magnetic-cta>
+        <span class="bauhu-magnetic-cta__glow" aria-hidden="true"></span>
         <span class="bauhu-magnetic-cta__label">Start your project</span>
         <span class="bauhu-magnetic-cta__arrow" aria-hidden="true">↗</span>
       </a>
@@ -30,54 +31,88 @@ const navItems = [
 
 <style>
   .bauhu-magnetic-cta {
-    --magnetic-x: 0px;
-    --magnetic-y: 0px;
+    --mx: 0px;
+    --my: 0px;
+    --inner-x: 0px;
+    --inner-y: 0px;
+    --light-x: 50%;
+    --light-y: 50%;
     position: relative;
     align-items: center;
     justify-content: center;
-    gap: .65rem;
+    gap: .85rem;
+    min-height: 42px;
     isolation: isolate;
     overflow: hidden;
-    color: inherit;
-    transform: translate3d(var(--magnetic-x), var(--magnetic-y), 0);
-    transition: transform 420ms cubic-bezier(.2,.85,.25,1), background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+    border-color: rgba(246,243,236,.55);
+    color: #f6f3ec;
+    background: linear-gradient(120deg, #163e53, #205870 48%, #163e53);
+    box-shadow: inset 0 1px rgba(255,255,255,.18), 0 2px 10px rgba(0,0,0,.09);
+    transform: translate3d(var(--mx),var(--my),0);
+    transition: transform 520ms cubic-bezier(.18,1.15,.32,1), box-shadow 320ms ease, border-color 320ms ease, background-color 320ms ease;
   }
 
   .bauhu-magnetic-cta::before {
     content: "";
     position: absolute;
+    inset: -1px;
     z-index: -1;
-    inset: 0;
     pointer-events: none;
-    background: linear-gradient(110deg, transparent 18%, rgba(255,255,255,.22) 46%, transparent 73%);
+    opacity: 0;
+    background: radial-gradient(circle at var(--light-x) var(--light-y), rgba(218,240,247,.52), rgba(137,196,218,.22) 32%, transparent 72%);
+    transition: opacity 300ms ease;
+  }
+  .bauhu-magnetic-cta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(110deg,transparent 21%,rgba(255,255,255,.26) 48%,transparent 77%);
     transform: translateX(-145%);
-    transition: transform 650ms cubic-bezier(.2,.7,.2,1);
+    transition: transform 850ms cubic-bezier(.16,.7,.2,1);
   }
-
-  .bauhu-magnetic-cta:hover {
-    background: rgba(246,243,236,.12);
-    border-color: rgba(246,243,236,.85);
-    box-shadow: 0 5px 22px rgba(0,0,0,.12);
+  .bauhu-magnetic-cta__glow {
+    position: absolute;
+    inset: auto 12% -18px;
+    height: 20px;
+    background: #8dcbdf;
+    filter: blur(17px);
+    border-radius: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease;
   }
-
-  .bauhu-magnetic-cta:hover::before { transform: translateX(145%); }
-
+  .bauhu-magnetic-cta__label,
   .bauhu-magnetic-cta__arrow {
+    position: relative;
     display: inline-block;
-    font-size: 1.08em;
-    line-height: 1;
-    transition: transform 300ms cubic-bezier(.2,.8,.2,1);
+    transform: translate3d(var(--inner-x),var(--inner-y),0);
+    transition: transform 500ms cubic-bezier(.18,1.1,.32,1);
   }
-
-  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__arrow { transform: translate(2px, -2px); }
-  .bauhu-magnetic-cta:active { scale: .97; }
+  .bauhu-magnetic-cta__arrow {
+    font-size: 1.3em;
+    line-height: 1;
+    transition: transform 500ms cubic-bezier(.18,1.1,.32,1);
+  }
+  .bauhu-magnetic-cta:hover {
+    border-color: rgba(213,243,255,.98);
+    box-shadow: inset 0 1px rgba(255,255,255,.3),0 6px 24px rgba(7,31,44,.3),0 0 0 3px rgba(129,205,232,.13);
+  }
+  .bauhu-magnetic-cta:hover::before,
+  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__glow { opacity: 1; }
+  .bauhu-magnetic-cta:hover::after { transform: translateX(145%); }
+  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__arrow {
+    transform: translate3d(calc(var(--inner-x) + 4px),calc(var(--inner-y) - 3px),0);
+  }
+  .bauhu-magnetic-cta:active { scale: .94; }
   .bauhu-magnetic-cta:focus-visible { outline: 2px solid #f6f3ec; outline-offset: 4px; }
 
   @media (prefers-reduced-motion: reduce) {
-    .bauhu-magnetic-cta { transform: none !important; transition: none; }
-    .bauhu-magnetic-cta::before,
-    .bauhu-magnetic-cta__arrow { transition: none; }
-    .bauhu-magnetic-cta::before { display: none; }
+    .bauhu-magnetic-cta,
+    .bauhu-magnetic-cta__label,
+    .bauhu-magnetic-cta__arrow { transform: none !important; transition: none !important; }
+    .bauhu-magnetic-cta::after { display: none; }
   }
 </style>
 
@@ -88,37 +123,43 @@ const navItems = [
 
   if (magneticCTA) {
     const reset = () => {
-      magneticCTA.style.setProperty('--magnetic-x', '0px');
-      magneticCTA.style.setProperty('--magnetic-y', '0px');
+      magneticCTA.style.setProperty('--mx', '0px');
+      magneticCTA.style.setProperty('--my', '0px');
+      magneticCTA.style.setProperty('--inner-x', '0px');
+      magneticCTA.style.setProperty('--inner-y', '0px');
+      magneticCTA.style.setProperty('--light-x', '50%');
+      magneticCTA.style.setProperty('--light-y', '50%');
     };
-
-    // Listen on the header so attraction starts just before the pointer reaches the button.
     const header = magneticCTA.closest('header');
+    // Measure against its original position, avoiding feedback as the button moves.
     header?.addEventListener('pointermove', (event: PointerEvent) => {
-      if (!pointerIsFine.matches || motionIsReduced.matches) {
+      if (!pointerIsFine.matches || motionIsReduced.matches || event.pointerType !== 'mouse') {
         reset();
         return;
       }
-      // Ignore touch and pen events.
-      if (event.pointerType !== 'mouse') return;
       const rect = magneticCTA.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
+      const offsetX = parseFloat(magneticCTA.style.getPropertyValue('--mx')) || 0;
+      const offsetY = parseFloat(magneticCTA.style.getPropertyValue('--my')) || 0;
+      const cx = rect.left + rect.width / 2 - offsetX;
+      const cy = rect.top + rect.height / 2 - offsetY;
       const dx = event.clientX - cx;
       const dy = event.clientY - cy;
-      const distance = Math.hypot(dx, dy);
-      const radius = 110;
-      if (distance >= radius) {
-        reset();
-        return;
-      }
-      const strength = (1 - distance / radius) * 9;
-      magneticCTA.style.setProperty('--magnetic-x', `${(dx / Math.max(distance, 1) * strength).toFixed(2)}px`);
-      magneticCTA.style.setProperty('--magnetic-y', `${(dy / Math.max(distance, 1) * strength).toFixed(2)}px`);
+      const distance = Math.hypot(dx,dy);
+      const radius = 160;
+      if (distance >= radius) { reset(); return; }
+      const intensity = Math.pow(1 - distance / radius, 1.5);
+      const moveX = Math.max(-17,Math.min(17,dx * intensity * .4));
+      const moveY = Math.max(-12,Math.min(12,dy * intensity * .35));
+      magneticCTA.style.setProperty('--mx', `${moveX.toFixed(2)}px`);
+      magneticCTA.style.setProperty('--my', `${moveY.toFixed(2)}px`);
+      magneticCTA.style.setProperty('--inner-x', `${(moveX*.42).toFixed(2)}px`);
+      magneticCTA.style.setProperty('--inner-y', `${(moveY*.42).toFixed(2)}px`);
+      magneticCTA.style.setProperty('--light-x', `${(50 + dx/rect.width*90).toFixed(1)}%`);
+      magneticCTA.style.setProperty('--light-y', `${(50 + dy/rect.height*80).toFixed(1)}%`);
     });
-
     header?.addEventListener('pointerleave', reset);
     magneticCTA.addEventListener('blur', reset);
+    pointerIsFine.addEventListener('change', reset);
     motionIsReduced.addEventListener('change', reset);
   }
 </script>
