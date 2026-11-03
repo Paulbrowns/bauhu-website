@@ -19,8 +19,106 @@ const navItems = [
       {navItems.map((item) => <a class="transition hover:text-stone" href={item.href}>{item.label}</a>)}
     </nav>
     <div class="flex items-center gap-3">
-      <a href="/site-fit" class="hidden rounded-full border border-paper/40 px-4 py-2 text-xs uppercase tracking-wide transition hover:bg-paper hover:text-ink sm:inline-flex">Start your project</a>
+      <a href="/site-fit" class="bauhu-magnetic-cta hidden rounded-full border border-paper/40 px-4 py-2 text-xs uppercase tracking-wide sm:inline-flex" data-magnetic-cta>
+        <span class="bauhu-magnetic-cta__label">Start your project</span>
+        <span class="bauhu-magnetic-cta__arrow" aria-hidden="true">↗</span>
+      </a>
       <MobileMenu />
     </div>
   </div>
 </header>
+
+<style>
+  .bauhu-magnetic-cta {
+    --magnetic-x: 0px;
+    --magnetic-y: 0px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    gap: .65rem;
+    isolation: isolate;
+    overflow: hidden;
+    color: inherit;
+    transform: translate3d(var(--magnetic-x), var(--magnetic-y), 0);
+    transition: transform 420ms cubic-bezier(.2,.85,.25,1), background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+  }
+
+  .bauhu-magnetic-cta::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(110deg, transparent 18%, rgba(255,255,255,.22) 46%, transparent 73%);
+    transform: translateX(-145%);
+    transition: transform 650ms cubic-bezier(.2,.7,.2,1);
+  }
+
+  .bauhu-magnetic-cta:hover {
+    background: rgba(246,243,236,.12);
+    border-color: rgba(246,243,236,.85);
+    box-shadow: 0 5px 22px rgba(0,0,0,.12);
+  }
+
+  .bauhu-magnetic-cta:hover::before { transform: translateX(145%); }
+
+  .bauhu-magnetic-cta__arrow {
+    display: inline-block;
+    font-size: 1.08em;
+    line-height: 1;
+    transition: transform 300ms cubic-bezier(.2,.8,.2,1);
+  }
+
+  .bauhu-magnetic-cta:hover .bauhu-magnetic-cta__arrow { transform: translate(2px, -2px); }
+  .bauhu-magnetic-cta:active { scale: .97; }
+  .bauhu-magnetic-cta:focus-visible { outline: 2px solid #f6f3ec; outline-offset: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bauhu-magnetic-cta { transform: none !important; transition: none; }
+    .bauhu-magnetic-cta::before,
+    .bauhu-magnetic-cta__arrow { transition: none; }
+    .bauhu-magnetic-cta::before { display: none; }
+  }
+</style>
+
+<script>
+  const magneticCTA = document.querySelector<HTMLElement>('[data-magnetic-cta]');
+  const pointerIsFine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const motionIsReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (magneticCTA) {
+    const reset = () => {
+      magneticCTA.style.setProperty('--magnetic-x', '0px');
+      magneticCTA.style.setProperty('--magnetic-y', '0px');
+    };
+
+    // Listen on the header so attraction starts just before the pointer reaches the button.
+    const header = magneticCTA.closest('header');
+    header?.addEventListener('pointermove', (event: PointerEvent) => {
+      if (!pointerIsFine.matches || motionIsReduced.matches) {
+        reset();
+        return;
+      }
+      // Ignore touch and pen events.
+      if (event.pointerType !== 'mouse') return;
+      const rect = magneticCTA.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = event.clientX - cx;
+      const dy = event.clientY - cy;
+      const distance = Math.hypot(dx, dy);
+      const radius = 110;
+      if (distance >= radius) {
+        reset();
+        return;
+      }
+      const strength = (1 - distance / radius) * 9;
+      magneticCTA.style.setProperty('--magnetic-x', `${(dx / Math.max(distance, 1) * strength).toFixed(2)}px`);
+      magneticCTA.style.setProperty('--magnetic-y', `${(dy / Math.max(distance, 1) * strength).toFixed(2)}px`);
+    });
+
+    header?.addEventListener('pointerleave', reset);
+    magneticCTA.addEventListener('blur', reset);
+    motionIsReduced.addEventListener('change', reset);
+  }
+</script>
