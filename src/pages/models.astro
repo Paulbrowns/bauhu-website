@@ -93,7 +93,11 @@ const steps = [
         <p class="models-kicker">BAUHU Model Residences</p>
         <h1>Choose a design direction. Refine it around your site. Make it your own.</h1>
         <p>BAUHU model residences are architect-designed starting points for Caribbean homes. They offer a faster route to a Bauhu residence without beginning from a blank page.</p>
-        <a class="models-button" href="#choose-my-home">Choose My Home</a>
+        <div class="models-hero-actions">
+          <a class="models-button" href="#choose-my-home">Browse Models</a>
+          <a class="models-button models-button-accent" href="/ux-lab/compare-models/">Compare Models</a>
+          <a class="models-button models-button-accent" href="/ux-lab/choose-for-me/">Choose for Me</a>
+        </div>
       </div>
     </section>
 
@@ -414,6 +418,10 @@ const steps = [
     cursor: pointer;
   }
 
+  .models-hero-actions { display:flex;flex-wrap:wrap;gap:12px;align-items:center; }
+  .models-hero-actions .models-button { margin-top:2rem; }
+  .models-button-accent { background:rgba(23,57,76,.66);border-color:#c5a66a; }
+  .models-button-accent:hover,.models-button-accent:focus-visible { background:#c5a66a;color:#17394c; }
   .models-selector,
   .models-results,
   .models-process,
