@@ -33,13 +33,24 @@ const designImages = [
 <BaseLayout title="Custom Residences | Bauhu" description="One of a kind luxury Bauhu residences engineered for remote Caribbean sites.">
   <SiteHeader />
   <main class="bauhu-residences-page">
-    <section class="bauhu-hero">
+    <section class="bauhu-hero bauhu-hero-sketch" aria-labelledby="residences-heading" data-sketch-hero>
+      <div class="bauhu-hero-media" aria-hidden="true">
+        <video
+          class="bauhu-sketch-video"
+          muted
+          playsinline
+          preload="auto"
+          aria-hidden="true"
+        >
+          <source src="/videos/bauhu-sketch-to-render-v3.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div class="bauhu-hero-inner">
-        <div class="bauhu-kicker">BAUHU Custom Residences</div>
-        <h1>One-of-a-kind luxury residences, engineered for the Caribbean.</h1>
+        <h1 id="residences-heading">Your vision. Beautifully realised.</h1>
         <p>Custom contemporary homes designed by experienced architects, tailored to each client, each site and each extraordinary view.</p>
         <a class="bauhu-button" href="/site-fit">Commission a Residence</a>
       </div>
+      <span class="bauhu-hero-progress" aria-hidden="true"></span>
     </section>
 
     <section class="bauhu-intro">
@@ -136,7 +147,23 @@ const designImages = [
   :global(html), :global(body) { overflow-x: hidden !important; }
   .bauhu-residences-page { background:#17394C; color:#f8f6f0; overflow:hidden; font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight:300; font-synthesis:none; }
   .bauhu-residences-page * { box-sizing:border-box; }
-  .bauhu-hero { position:relative; min-height:94vh; display:flex; align-items:flex-end; padding:110px 7vw; color:#f8f6f0; background:linear-gradient(180deg, rgba(23,57,76,0.10), rgba(23,57,76,0.68)), url('/images/residences/jimmy-hill-front-elevation-hero.webp') center/cover no-repeat; overflow:hidden; }
+  .bauhu-hero { position:relative; min-height:94vh; display:flex; align-items:flex-end; padding:110px 7vw; color:#f8f6f0; background:#f6f3ec; overflow:hidden; }
+  /* Use the actual video dimensions at every breakpoint; never crop its top edge. */
+  .bauhu-hero-sketch { display:block; min-height:0; height:auto; aspect-ratio:auto; padding:0; isolation:isolate; margin-top:var(--bauhu-header-height, 88px); background:#f6f3ec; }
+  .bauhu-hero-sketch .bauhu-hero-media { display:block; position:relative; inset:auto; width:100%; height:auto; overflow:hidden; z-index:0; }
+  .bauhu-hero-sketch .bauhu-hero-media::after { display:none; }
+  .bauhu-hero-sketch .bauhu-sketch-video { display:block; width:100%; height:auto; max-height:none; object-fit:contain; object-position:center; }
+  .bauhu-hero-sketch .bauhu-hero-inner { position:absolute; inset:auto 0 0; width:100%; max-width:none; margin:0; padding:48px 7vw 56px; z-index:2; background:linear-gradient(0deg,rgba(15,36,48,.92),rgba(15,36,48,.48) 70%,transparent); }
+  .bauhu-hero-sketch .bauhu-hero-inner { opacity:0; transform:translateY(20px); transition:opacity 1.2s ease,transform 1.2s ease; }
+  .bauhu-hero-sketch.is-revealed .bauhu-hero-inner { opacity:1; transform:none; }
+  .bauhu-hero-progress { position:absolute; bottom:0; left:0; height:2px; width:100%; background:#c8a96a; transform:scaleX(0); transform-origin:left; opacity:.7; z-index:3; pointer-events:none; }
+  .bauhu-hero-sketch.is-playing .bauhu-hero-progress { animation:bauhu-sketch-progress 16s linear forwards; }
+  .bauhu-hero-sketch.is-revealed .bauhu-hero-progress { opacity:0; }
+  @keyframes bauhu-sketch-progress { to {transform:scaleX(1);} }
+  @media (prefers-reduced-motion:reduce) {
+    .bauhu-hero-sketch .bauhu-hero-inner { opacity:1; transform:none; transition:none; }
+    .bauhu-hero-progress { display:none; }
+  }
   .bauhu-hero-inner, .bauhu-design-inner, .bauhu-proof-inner, .bauhu-quote-inner { max-width:1500px; margin:0 auto; }
   .bauhu-hero-inner { width:100%; position:relative; z-index:2; }
   .bauhu-kicker { color:#c8a96a; text-transform:uppercase; letter-spacing:0.22em; font-size:12px; margin:0 0 22px; font-family:Inter, system-ui, sans-serif; font-weight:500; }
@@ -176,8 +203,14 @@ const designImages = [
   .bauhu-cta-section h2 { font-family:"Cormorant Garamond", Georgia, "Times New Roman", serif; font-size:clamp(42px,6vw,88px); line-height:.96; letter-spacing:-.05em; font-weight:400; margin:0 auto 26px; max-width:1000px; color:#f8f6f0; }
   .bauhu-cta-section p { max-width:720px; margin:0 auto; font-family:Inter, system-ui, sans-serif; color:rgba(248,246,240,.66); font-size:clamp(18px,1.5vw,21px); line-height:1.6; font-weight:300; }
   .bauhu-final-button { margin-top:38px; }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1100px){
     .bauhu-hero{min-height:86vh; padding:90px 22px 70px;}
+    /* Tablet/mobile: full 16:9 film in normal flow, with content below. */
+    .bauhu-hero-sketch{display:block; height:auto; min-height:0; padding:0; aspect-ratio:auto; background:#f6f3ec;}
+    .bauhu-hero-sketch .bauhu-hero-media{position:relative; inset:auto; width:100%; height:auto;}
+    .bauhu-hero-sketch .bauhu-sketch-video{width:100%; height:auto; max-height:none; object-fit:contain;}
+    .bauhu-hero-sketch .bauhu-hero-inner{position:relative; inset:auto; width:100%; padding:36px 22px 58px; background:#17394C; opacity:1; transform:none; transition:none;}
+    .bauhu-hero-sketch .bauhu-hero-progress{display:none;}
     .bauhu-hero h1{font-size:clamp(36px,10.5vw,62px); line-height:.94; letter-spacing:-.045em; max-width:100%;}
     .bauhu-hero p{max-width:100%;}
     .bauhu-intro{padding:78px 22px;}
@@ -203,3 +236,62 @@ const designImages = [
     .bauhu-cta-section p{max-width:100%;}
   }
 </style>
+
+<script>
+  const sketchHero = document.querySelector('[data-sketch-hero]');
+  const sketchVideo = sketchHero?.querySelector('video');
+  // The site navigation is fixed and would otherwise cover the opening
+  // architectural lines, particularly on tablet and mobile.
+  const navigation = document.querySelector('body > header');
+  if (sketchHero && navigation) {
+    const positionFilm = () => {
+      sketchHero.style.setProperty('--bauhu-header-height', `${Math.ceil(navigation.getBoundingClientRect().height)}px`);
+    };
+    positionFilm();
+    window.addEventListener('resize', positionFilm, { passive:true });
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(positionFilm).observe(navigation);
+    }
+  }
+  if (sketchHero && sketchVideo) {
+    const reveal = () => {
+      sketchHero.classList.remove('is-playing');
+      sketchHero.classList.add('is-revealed');
+    };
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = navigator.connection?.saveData === true;
+    if (reduceMotion || saveData) {
+      sketchVideo.pause();
+      sketchVideo.removeAttribute('autoplay');
+      reveal();
+    } else {
+      const start = async () => {
+        if (sketchHero.dataset.started) return;
+        sketchHero.dataset.started = 'true';
+        try {
+          sketchVideo.muted = true;
+          await sketchVideo.play();
+          sketchHero.classList.add('is-playing');
+        } catch {
+          reveal();
+        }
+      };
+      sketchVideo.addEventListener('ended', reveal, { once:true });
+      sketchVideo.addEventListener('error', reveal, { once:true });
+      // No infinite loop. Keep the last frame on screen and reveal the CTA.
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            observer.disconnect();
+            start();
+          }
+        }, {threshold:.2});
+        observer.observe(sketchHero);
+      } else start();
+      // Avoid leaving the headline hidden if the video fails to load.
+      sketchVideo.addEventListener('stalled', () => {
+        if (sketchVideo.readyState === 0) reveal();
+      }, {once:true});
+    }
+  }
+</script>

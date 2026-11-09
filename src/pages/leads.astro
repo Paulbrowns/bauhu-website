@@ -19,6 +19,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </section>
 
     <section id="dashboard" class="dashboard" hidden>
+      <nav class="leads-tabs" aria-label="Dashboard views">
+        <button type="button" id="tab-enquiries" class="is-active" aria-pressed="true">Project enquiries</button>
+        <button type="button" id="tab-newsletter" aria-pressed="false">Newsletter subscribers <span id="tab-newsletter-count"></span></button>
+      </nav>
+      <section id="newsletter-view" class="newsletter-dashboard" hidden aria-label="Newsletter subscribers">
+        <div class="newsletter-summary">
+          <article><span>Active subscribers</span><strong id="newsletter-active">0</strong></article>
+          <article><span>Unsubscribed</span><strong id="newsletter-unsubscribed">0</strong></article>
+          <article><span>Total signups</span><strong id="newsletter-total">0</strong></article>
+        </div>
+        <div class="newsletter-tools">
+          <input id="newsletter-search" type="search" placeholder="Search subscriber email or source" aria-label="Search newsletter subscribers" />
+          <select id="newsletter-status" aria-label="Newsletter subscriber status"><option value="all">All statuses</option><option value="subscribed">Subscribed</option><option value="unsubscribed">Unsubscribed</option></select>
+          <button type="button" id="newsletter-export">Export visible CSV</button>
+        </div>
+        <div class="table-shell">
+          <table class="newsletter-table">
+            <thead><tr><th>Email</th><th>Status</th><th>Subscribed</th><th>Source</th><th>Consent recorded</th><th>Unsubscribed</th></tr></thead>
+            <tbody id="newsletter-rows"></tbody>
+          </table>
+        </div>
+        <p id="newsletter-empty" class="empty" hidden>No subscribers match these filters.</p>
+        <p id="newsletter-error" class="newsletter-error" role="alert" hidden></p>
+        <p class="newsletter-caption">Showing the latest 1,000 signups. CSV export includes the currently displayed rows.</p>
+      </section>
+      <div id="enquiries-view">
       <div class="metrics">
         <article><span>New</span><strong id="metric-new">0</strong></article>
         <article><span>Qualified</span><strong id="metric-qualified">0</strong></article>
@@ -40,6 +66,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </table>
       </div>
       <p id="empty" class="empty" hidden>No enquiries found.</p>
+      </div>
     </section>
 
     <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
@@ -64,6 +91,81 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const backdrop = document.getElementById('drawer-backdrop');
       const body = document.getElementById('drawer-body');
       let leads = [];
+      let subscribers = [];
+      let newsletterStats = { total:0, subscribed:0, unsubscribed:0 };
+      let currentView = 'enquiries';
+      const newsletterSearch = document.getElementById('newsletter-search');
+      const newsletterStatus = document.getElementById('newsletter-status');
+
+      function filteredSubscribers() {
+        const q = newsletterSearch.value.trim().toLowerCase();
+        const s = newsletterStatus.value;
+        return subscribers.filter(row =>
+          (s === 'all' || row.status === s) &&
+          (!q || row.email.toLowerCase().includes(q) || String(row.source || '').toLowerCase().includes(q))
+        );
+      }
+
+      function renderNewsletter() {
+        document.getElementById('newsletter-active').textContent = String(newsletterStats.subscribed);
+        document.getElementById('newsletter-unsubscribed').textContent = String(newsletterStats.unsubscribed);
+        document.getElementById('newsletter-total').textContent = String(newsletterStats.total);
+        document.getElementById('tab-newsletter-count').textContent = '(' + newsletterStats.subscribed + ')';
+        const data = filteredSubscribers();
+        document.getElementById('newsletter-rows').innerHTML = data.map(row => `
+          <tr>
+            <td><strong>${esc(row.email)}</strong></td>
+            <td><span class="status ${row.status === 'subscribed' ? 'status-qualified' : 'status-lost'}">${esc(row.status)}</span></td>
+            <td>${esc(row.subscribed_at ? new Date(row.subscribed_at).toLocaleDateString() : '—')}</td>
+            <td>${esc(row.source || '—')}</td>
+            <td>${esc(row.consent_at ? new Date(row.consent_at).toLocaleString() : '—')}</td>
+            <td>${esc(row.unsubscribed_at ? new Date(row.unsubscribed_at).toLocaleDateString() : '—')}</td>
+          </tr>
+        `).join('');
+        document.getElementById('newsletter-empty').hidden = data.length > 0;
+      }
+
+      async function loadNewsletter() {
+        const data = await api('/api/newsletter/subscribers');
+        subscribers = data.subscribers || [];
+        newsletterStats = data.stats || { total:0, subscribed:0, unsubscribed:0 };
+        document.getElementById('newsletter-error').hidden = true;
+        renderNewsletter();
+      }
+
+      function setDashboardView(view) {
+        currentView = view;
+        const newsletter = view === 'newsletter';
+        document.getElementById('enquiries-view').hidden = newsletter;
+        document.getElementById('newsletter-view').hidden = !newsletter;
+        document.getElementById('tab-enquiries').classList.toggle('is-active', !newsletter);
+        document.getElementById('tab-newsletter').classList.toggle('is-active', newsletter);
+        document.getElementById('tab-enquiries').setAttribute('aria-pressed', String(!newsletter));
+        document.getElementById('tab-newsletter').setAttribute('aria-pressed', String(newsletter));
+        if (newsletter) loadNewsletter().catch(error => {
+          const p = document.getElementById('newsletter-error');
+          p.textContent = error.message || 'Unable to load newsletter subscribers.';
+          p.hidden = false;
+        });
+      }
+
+      document.getElementById('tab-enquiries').addEventListener('click', () => setDashboardView('enquiries'));
+      document.getElementById('tab-newsletter').addEventListener('click', () => setDashboardView('newsletter'));
+      newsletterSearch.addEventListener('input', renderNewsletter);
+      newsletterStatus.addEventListener('change', renderNewsletter);
+      document.getElementById('newsletter-export').addEventListener('click', () => {
+        const columns = ['email','status','subscribed_at','source','consent_at','consent_version','unsubscribed_at'];
+        const cell = value => '"' + String(value ?? '').replace(/"/g, '""') + '"';
+        const csv = [columns.join(','), ...filteredSubscribers().map(row => columns.map(key => cell(row[key])).join(','))].join('\r\n');
+        const blob = new Blob([csv], { type:'text/csv;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'bauhu-newsletter-subscribers.csv';
+        document.body.append(link); link.click(); link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+      });
+
 
       const token = () => sessionStorage.getItem(tokenKey) || '';
       const auth = () => ({ authorization: `Bearer ${token()}` });
@@ -271,7 +373,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       });
       search.addEventListener('input', render);
       statusFilter.addEventListener('change', render);
-      document.getElementById('refresh').onclick = () => load().catch(() => {});
+      document.getElementById('refresh').onclick = async () => {
+        try { await load(); if (currentView === 'newsletter') await loadNewsletter(); } catch {}
+      };
       const closeDrawer = () => {
         drawer.hidden = true;
         backdrop.hidden = true;
@@ -287,6 +391,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style is:global>
+.leads-tabs{display:flex;flex-wrap:wrap;gap:.65rem;margin:0 0 1.25rem;border-bottom:1px solid rgba(23,57,76,.2)}
+.leads-tabs button{padding:.85rem 1rem;border:0;border-bottom:3px solid transparent;background:transparent;font-size:.72rem;font-weight:700;color:#607680;cursor:pointer}
+.leads-tabs button.is-active{border-bottom-color:#17394c;color:#17394c}
+.newsletter-dashboard[hidden],#enquiries-view[hidden]{display:none!important}
+.newsletter-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}
+.newsletter-summary article{padding:1rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.12)}
+.newsletter-summary span{font-size:.6rem;color:#697e86;text-transform:uppercase;letter-spacing:.08em}
+.newsletter-summary strong{display:block;margin-top:.4rem;font:400 2rem 'Cormorant Garamond',serif}
+.newsletter-tools{display:grid;grid-template-columns:minmax(0,1fr) 195px auto;gap:.7rem;margin:1rem 0}
+.newsletter-tools input,.newsletter-tools select,.newsletter-tools button{padding:.8rem;border:1px solid rgba(23,57,76,.16);background:#fff;color:#17394c}
+.newsletter-tools button{cursor:pointer;background:#17394c;color:#fff}
+.newsletter-table{min-width:760px}
+.newsletter-caption{font-size:.64rem;color:#667983;margin-top:1rem}
+.newsletter-error{padding:1rem;background:#f7e1da;color:#8b3b32}
+@media(max-width:700px){.newsletter-summary{grid-template-columns:1fr 1fr}.newsletter-tools{grid-template-columns:1fr}}
+
 .leads-page{min-height:100vh;background:#ebe9e2;color:#17394c;font-family:Inter,sans-serif}
 .leads-header{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding:2rem 3vw;background:#101b21;color:#f5f1e8}
 .leads-header p{margin:0 0 .35rem;font-size:.62rem;letter-spacing:.22em;color:#c5a66a}
