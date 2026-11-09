@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<BaseLayout title="Discover Your Bauhu Model Residence | Bauhu" description="Explore Bauhu model residences suited to your preferred style, bedrooms and guide price.">
+  <link rel="stylesheet" href="/ux-lab/prototype-kit.css" />
+  <SiteHeader />
+  <div class="bauhu-finder-page">
+    <main><section class="intro"><p class="eyebrow">BAUHU / FIND YOUR RESIDENCE</p><h1>Discover a home<br><em>that suits your vision.</em></h1><p>Explore Bauhu model residences based on your preferred design style, bedroom requirements and guide price.</p><div class="meta">PUBLISHED MODEL DATA / MODEL SELECTION ONLY / NOT A SITE FEASIBILITY RESULT</div></section>
+<section class="prototype" aria-label="Choose for Me"><div class="tool"><div class="toolbar"><span><i class="dot"></i>THE BAUHU DESIGN FINDER</span></div><div class="inner">
+<div class="reel-config"><div class="reel-filter"><label for="style">01 / DESIGN STYLE</label><select id="style" class="control"><option value="any">Surprise me</option><option value="Classic">Classic</option><option value="Contemporary">Contemporary</option><option value="Caribbean">Caribbean</option></select></div><div class="reel-filter"><label for="beds">02 / BEDROOMS NEEDED</label><select id="beds" class="control"><option value="any">Flexible</option><option value="1">At least 1</option><option value="2">At least 2</option><option value="3">At least 3</option><option value="4">At least 4</option><option value="5">At least 5</option></select></div><div class="reel-filter"><label for="budget">03 / MODEL GUIDE PRICE</label><select id="budget" class="control"><option value="any">Flexible</option><option value="250000">Up to $250,000</option><option value="500000">Up to $500,000</option><option value="750000">Up to $750,000</option><option value="1000000">Up to $1 million</option><option value="1500000">Up to $1.5 million</option></select></div></div>
+<div class="machine"><div class="machine-top"><span>BAUHU / RESIDENCE SELECTOR</span><span>THE DESIGN EDITION</span></div><div class="reels" aria-live="off"><div class="reel" data-reel="first"><span class="reel-title">01 / YOUR PICK</span><div class="reel-value">READY</div></div><div class="reel" data-reel="second"><span class="reel-title">02 / ALTERNATIVE</span><div class="reel-value">SET</div></div><div class="reel" data-reel="third"><span class="reel-title">03 / ALTERNATIVE</span><div class="reel-value">SPIN</div></div></div><div class="machine-bottom"><p id="spin-status" role="status" aria-live="polite">A good starting point is just one spin away.</p><button type="button" class="btn" id="spin">FIND MY BAUHU HOME ↗</button></div></div>
+<section class="result" id="results" aria-labelledby="result-title"><span class="eyebrow">THE RESULT / DESIGN DIRECTIONS</span><h2 id="result-title">Your possibilities.</h2><p id="result-explain" class="intro-note"></p><div id="result-grid" class="result-grid"></div></section>
+<p class="compare-note">This is an exploratory model recommendation, not a random suitability guarantee. Model guide prices are not total project costs; site conditions, construction scope and approvals require separate assessment. Homes without published guide prices are excluded when a budget ceiling is selected.</p>
+</div></div></section></main>
+  </div>
+  <SiteFooter />
+  <script is:inline src="/ux-lab/models.js" defer></script>
+  <script is:inline src="/ux-lab/choose-for-me/choose.js" defer></script>
+</BaseLayout>
+<style is:global>
+  .bauhu-finder-page{padding-top:88px;background:#ebe9e2;color:#17394c;min-height:78vh}
+  .bauhu-finder-page .intro{padding-top:clamp(50px,7vw,85px)}
+  .bauhu-finder-page .intro h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400}
+  .bauhu-finder-page .prototype{max-width:1600px}
+  @media(max-width:900px){.bauhu-finder-page{padding-top:80px}}
+</style>
