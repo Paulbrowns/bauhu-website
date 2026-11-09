@@ -156,7 +156,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       document.getElementById('newsletter-export').addEventListener('click', () => {
         const columns = ['email','status','subscribed_at','source','consent_at','consent_version','unsubscribed_at'];
         const cell = value => '"' + String(value ?? '').replace(/"/g, '""') + '"';
-        const csv = [columns.join(','), ...filteredSubscribers().map(row => columns.map(key => cell(row[key])).join(','))].join('\\r\\n');
+        const csv = [columns.join(','), ...filteredSubscribers().map(row => columns.map(key => cell(row[key])).join(','))].join('\r\n');
         const blob = new Blob([csv], { type:'text/csv;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
