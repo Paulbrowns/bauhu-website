@@ -27,7 +27,11 @@ import SiteFooter from '../components/SiteFooter.astro';
         </div>
         <div class="turnstile-container"><div class="cf-turnstile" data-sitekey="0x4AAAAAAFbeuRxlXR015Fra"></div></div>
         <input id="project-payload" type="hidden" name="projectPayload" />
-        <div class="form-actions"><a href="/project-details">← Back to project details</a><button type="submit">Send enquiry</button></div>
+        <div class="form-actions"><a href="/project-details">← Back to project details</a><button type="submit" id="send-enquiry-button"><span class="send-button-label">Send enquiry</span><span class="send-button-icon" aria-hidden="true"></span></button></div>
+        <div id="send-feedback" class="send-feedback" data-state="idle" role="status" aria-live="polite" aria-atomic="true">
+          <span class="send-feedback-symbol" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none"><circle class="send-spinner" cx="18" cy="18" r="14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" /><path class="send-check" d="M10 18.5l5.3 5.3L26 13" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="send-feedback-copy"><strong id="send-feedback-title">Preparing your enquiry</strong><span id="send-feedback-detail">Your project brief is ready to send.</span></span>
+        </div>
         <p id="submission-note" class="submission-note">Your project details and any supporting documents will be sent securely to Bauhu.</p>
       </form>
 
@@ -150,8 +154,19 @@ import SiteFooter from '../components/SiteFooter.astro';
 
         const button = form.querySelector('button[type="submit"]');
         const note = document.getElementById('submission-note');
+        const feedback = document.getElementById('send-feedback');
+        const feedbackTitle = document.getElementById('send-feedback-title');
+        const feedbackDetail = document.getElementById('send-feedback-detail');
+        const setSendingState = (state, title, detail) => {
+          feedback.dataset.state = state;
+          feedbackTitle.textContent = title;
+          feedbackDetail.textContent = detail;
+          button.classList.toggle('is-sending', state === 'sending');
+          button.classList.toggle('is-sent', state === 'sent');
+          button.querySelector('.send-button-label').textContent = state === 'sending' ? 'Sending…' : state === 'sent' ? 'Sent' : 'Send enquiry';
+        };
         button.disabled = true;
-        button.textContent = 'Sending…';
+        setSendingState('sending', 'Sending your project', 'Securely transferring your enquiry to Bauhu…');
         note.textContent = 'Sending your project information securely to Bauhu.';
         note.classList.remove('ready');
 
@@ -185,11 +200,21 @@ import SiteFooter from '../components/SiteFooter.astro';
             if (window.BauhuEnquiryFiles) await window.BauhuEnquiryFiles.clear();
           } catch {}
 
-          location.assign(`/project-sent?ref=${encodeURIComponent(result.reference || '')}`);
+          setSendingState('sent', 'Successfully sent', 'Your project enquiry has been received.');
+          note.textContent = 'Thank you. Opening your confirmation…';
+          note.classList.add('ready');
+          const confirmationUrl = `/project-sent?ref=${encodeURIComponent(result.reference || '')}`;
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            location.assign(confirmationUrl);
+          } else {
+            window.setTimeout(() => location.assign(confirmationUrl), 1450);
+          }
         } catch (error) {
-          note.textContent = error?.message || 'The enquiry could not be sent. Please try again.';
+          const message = error?.message || 'The enquiry could not be sent. Please try again.';
+          setSendingState('error', 'Enquiry not sent', message);
+          note.textContent = message;
+          note.classList.remove('ready');
           button.disabled = false;
-          button.textContent = 'Send enquiry';
           window.turnstile?.reset?.();
         }
       });
@@ -201,4 +226,29 @@ import SiteFooter from '../components/SiteFooter.astro';
 .turnstile-container{margin:1rem 0 1.25rem;min-height:65px}
 .project-privacy-note{margin:1rem 0 1.4rem;padding:1.1rem 1.25rem;background:#eeeae0;border-left:2px solid #b89a62;color:#17394c}.project-privacy-note strong{font:600 .85rem Inter,sans-serif}.project-privacy-note p{margin:.4rem 0 0;font:400 .79rem/1.65 Inter,sans-serif}.project-privacy-note a{color:inherit;text-decoration:underline}
 .journey-page{min-height:100vh;padding-top:5.5rem;background:#ebe9e2;color:#17394c}.journey-header{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:4rem;padding:3.4rem 4vw 2.4rem;border-bottom:1px solid rgba(23,57,76,.18)}.kicker,.journey-header aside>span{margin:0 0 .8rem;font:700 .68rem/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#9b7b49}.journey-header h1{margin:0 0 1rem;font:400 clamp(2.8rem,5.6vw,5.8rem)/.94 'Cormorant Garamond',serif}.journey-header>div>p:last-child{max-width:760px;font:300 1rem/1.7 Inter,sans-serif;color:rgba(23,57,76,.7)}.journey-header aside{display:flex;flex-direction:column;justify-content:flex-end;gap:.45rem;padding-left:2rem;border-left:1px solid rgba(23,57,76,.18);font-family:Inter,sans-serif}.journey-header aside strong{font:400 1.8rem 'Cormorant Garamond',serif}.contact-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:1rem;padding:2rem 4vw 4rem}.contact-form,.recap{padding:1.5rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.14)}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.contact-form label{display:block;margin-bottom:1rem}.contact-form label>span{display:block;margin-bottom:.45rem;font:700 .66rem Inter,sans-serif}.contact-form label em{font-style:normal;font-weight:400;color:rgba(23,57,76,.55)}.contact-form input,.contact-form select,.contact-form textarea{width:100%;box-sizing:border-box;padding:.88rem;border:1px solid rgba(23,57,76,.2);background:#fff;color:#17394c;font:400 .78rem Inter,sans-serif}.consent{display:flex!important;align-items:flex-start;gap:.65rem}.consent input{width:auto;margin-top:.18rem}.consent span{font-weight:400!important;line-height:1.5}.consent a{color:#17394c;font-weight:700}.form-actions{display:flex;justify-content:space-between;align-items:center}.form-actions a{color:#17394c;font:700 .68rem Inter,sans-serif}.form-actions button{padding:.95rem 1.2rem;border:0;background:#17394c;color:#fff;font:700 .7rem Inter,sans-serif}.submission-note{margin:1rem 0 0;padding:1rem;background:#eee4cf;font:400 .64rem/1.55 Inter,sans-serif}.submission-note.ready{background:#dde8df}.recap h2{margin:.2rem 0 1rem;font:400 2rem 'Cormorant Garamond',serif}.recap dl{margin:0}.recap dl div{display:flex;justify-content:space-between;gap:1rem;padding:.68rem 0;border-top:1px solid rgba(23,57,76,.12);font:400 .66rem/1.4 Inter,sans-serif}.recap dd{margin:0;text-align:right;font-weight:700}@media(max-width:820px){.journey-header{grid-template-columns:1fr;gap:2rem}.journey-header aside{padding:1.3rem 0 0;border-left:0;border-top:1px solid rgba(23,57,76,.18)}.contact-shell{grid-template-columns:1fr}.recap{grid-row:1}}@media(max-width:620px){.field-grid{grid-template-columns:1fr}.form-actions{align-items:stretch;flex-direction:column-reverse;gap:.8rem}.form-actions button{width:100%}}
+
+/* Final contact-form feedback: sending, confirmed sent and retryable error. */
+.form-actions button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:160px;transition:background-color .25s ease,transform .25s ease}
+.form-actions button:disabled{cursor:progress;opacity:.9}
+.form-actions button.is-sent{background:#315f55;cursor:default}
+.form-actions button.is-sending .send-button-icon{width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:send-btn-spin .7s linear infinite}
+.form-actions button.is-sent .send-button-icon{width:8px;height:13px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);margin:-3px 3px 3px}
+.send-feedback{margin:1rem 0 0;padding:0 16px;display:grid;grid-template-columns:0 minmax(0,1fr);align-items:center;gap:0;overflow:hidden;max-height:0;opacity:0;background:#e5ebe7;border-left:3px solid #638a7c;transition:max-height .35s ease,padding .35s ease,opacity .3s ease,grid-template-columns .35s ease,gap .35s ease}
+.send-feedback:not([data-state="idle"]){max-height:160px;padding:17px 16px;opacity:1;grid-template-columns:42px minmax(0,1fr);gap:12px}
+.send-feedback[data-state="error"]{background:#f2e5e0;border-left-color:#a45244}
+.send-feedback-symbol{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#d5e4de;color:#285a50}
+.send-feedback[data-state="error"] .send-feedback-symbol{background:#ead2c9;color:#9a4138}
+.send-feedback-symbol svg{width:30px;height:30px}
+.send-spinner{transform-origin:50% 50%;stroke-dasharray:66 23;animation:send-ring 1s linear infinite}
+.send-check{stroke-dasharray:28;stroke-dashoffset:28;opacity:0}
+.send-feedback[data-state="sent"] .send-spinner,.send-feedback[data-state="error"] .send-spinner{display:none}
+.send-feedback[data-state="sent"] .send-check{opacity:1;animation:send-check-draw .5s ease-out forwards}
+.send-feedback[data-state="error"] .send-check{opacity:1;stroke-dashoffset:0;d:path("M12 12l12 12m0-12L12 24")}
+.send-feedback-copy{display:flex;flex-direction:column;gap:3px;min-width:0;font-family:Inter,sans-serif;color:#17394c}
+.send-feedback-copy strong{font-size:13px;font-weight:600}
+.send-feedback-copy>span{font-size:12px;line-height:1.5}
+@keyframes send-ring{to{transform:rotate(360deg)}}
+@keyframes send-btn-spin{to{transform:rotate(360deg)}}
+@keyframes send-check-draw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.send-feedback,.form-actions button{transition:none}.send-spinner,.form-actions button.is-sending .send-button-icon{animation:none}.send-feedback[data-state="sent"] .send-check{animation:none;stroke-dashoffset:0}}
 </style>
