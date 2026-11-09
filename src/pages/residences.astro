@@ -150,11 +150,12 @@ const designImages = [
   .bauhu-residences-page { background:#17394C; color:#f8f6f0; overflow:hidden; font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight:300; font-synthesis:none; }
   .bauhu-residences-page * { box-sizing:border-box; }
   .bauhu-hero { position:relative; min-height:94vh; display:flex; align-items:flex-end; padding:110px 7vw; color:#f8f6f0; background:linear-gradient(180deg, rgba(23,57,76,0.10), rgba(23,57,76,0.68)), url('/images/residences/jimmy-hill-front-elevation-hero.webp') center/cover no-repeat; overflow:hidden; }
-  .bauhu-hero-sketch { isolation:isolate; background-color:#17394C; min-height:0; aspect-ratio:16/9; padding:clamp(40px,5vw,90px) 7vw; }
-  .bauhu-hero-media, .bauhu-hero-media::after { position:absolute; inset:0; }
-  .bauhu-hero-media { z-index:0; overflow:hidden; }
-  .bauhu-hero-media::after { content:""; z-index:1; pointer-events:none; background:linear-gradient(180deg,rgba(14,32,41,.10) 26%,rgba(14,32,41,.72) 100%); }
-  .bauhu-sketch-video { display:block; height:100%; width:100%; object-fit:contain; object-position:center center; }
+  /* Let the film define the hero dimensions; no viewport-height crop. */
+  .bauhu-hero-sketch { display:block; min-height:0; height:auto; aspect-ratio:auto; padding:0; isolation:isolate; background:#17394C; }
+  .bauhu-hero-sketch .bauhu-hero-media { display:block; position:relative; inset:auto; width:100%; height:auto; aspect-ratio:16/9; overflow:hidden; z-index:0; }
+  .bauhu-hero-sketch .bauhu-hero-media::after { display:none; }
+  .bauhu-hero-sketch .bauhu-sketch-video { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; object-position:center; }
+  .bauhu-hero-sketch .bauhu-hero-inner { position:absolute; inset:auto 0 0; width:100%; max-width:none; margin:0; padding:48px 7vw 56px; z-index:2; background:linear-gradient(0deg,rgba(15,36,48,.92),rgba(15,36,48,.48) 70%,transparent); }
   .bauhu-hero-sketch .bauhu-hero-inner { opacity:0; transform:translateY(20px); transition:opacity 1.2s ease,transform 1.2s ease; }
   .bauhu-hero-sketch.is-revealed .bauhu-hero-inner { opacity:1; transform:none; }
   .bauhu-hero-progress { position:absolute; bottom:0; left:0; height:2px; width:100%; background:#c8a96a; transform:scaleX(0); transform-origin:left; opacity:.7; z-index:3; pointer-events:none; }
@@ -204,14 +205,14 @@ const designImages = [
   .bauhu-cta-section h2 { font-family:"Cormorant Garamond", Georgia, "Times New Roman", serif; font-size:clamp(42px,6vw,88px); line-height:.96; letter-spacing:-.05em; font-weight:400; margin:0 auto 26px; max-width:1000px; color:#f8f6f0; }
   .bauhu-cta-section p { max-width:720px; margin:0 auto; font-family:Inter, system-ui, sans-serif; color:rgba(248,246,240,.66); font-size:clamp(18px,1.5vw,21px); line-height:1.6; font-weight:300; }
   .bauhu-final-button { margin-top:38px; }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1100px){
     .bauhu-hero{min-height:86vh; padding:90px 22px 70px;}
-    /* On narrow screens show the entire 16:9 film above the copy, never crop it. */
-    .bauhu-hero-sketch{min-height:0; aspect-ratio:auto; padding:0; display:flex; flex-direction:column; align-items:stretch; background:#17394C;}
-    .bauhu-hero-sketch .bauhu-hero-media{position:relative; inset:auto; aspect-ratio:16/9; width:100%; flex:none;}
-    .bauhu-hero-sketch .bauhu-hero-media::after{display:none;}
-    .bauhu-hero-sketch .bauhu-hero-inner{width:100%; padding:36px 22px 64px;}
-    .bauhu-hero-sketch .bauhu-hero-progress{top:calc(100vw * 9 / 16); bottom:auto;}
+    /* Tablet/mobile: full 16:9 film in normal flow, with content below. */
+    .bauhu-hero-sketch{display:block; height:auto; min-height:0; padding:0; aspect-ratio:auto;}
+    .bauhu-hero-sketch .bauhu-hero-media{position:relative; inset:auto; width:100%; height:auto; aspect-ratio:16/9;}
+    .bauhu-hero-sketch .bauhu-sketch-video{width:100%; height:auto; aspect-ratio:16/9; object-fit:contain;}
+    .bauhu-hero-sketch .bauhu-hero-inner{position:relative; inset:auto; width:100%; padding:36px 22px 58px; background:#17394C; opacity:1; transform:none; transition:none;}
+    .bauhu-hero-sketch .bauhu-hero-progress{display:none;}
     .bauhu-hero h1{font-size:clamp(36px,10.5vw,62px); line-height:.94; letter-spacing:-.045em; max-width:100%;}
     .bauhu-hero p{max-width:100%;}
     .bauhu-intro{padding:78px 22px;}
