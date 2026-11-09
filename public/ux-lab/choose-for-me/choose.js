@@ -33,7 +33,7 @@ function showCandidates(matches,picks){
   const h=document.createElement('h3');h.textContent=m.name;
   const p=document.createElement('p');p.textContent=m.style+' · '+(m.bedrooms==null?'Bedrooms unpublished':m.bedrooms+' bedrooms')+' · '+lab.price(m.price);
   const description=document.createElement('p');description.textContent=m.description;
-  const link=document.createElement('a');link.href='https://bauhu.com'+lab.detail(m);link.target='_blank';link.rel='noopener noreferrer';link.textContent='EXPLORE THIS RESIDENCE ↗';
+  const link=document.createElement('a');link.href=lab.detail(m);link.textContent='EXPLORE THIS RESIDENCE ↗';
   article.append(eyebrow,photo,h,p,description,link);grid.append(article);
  }
  const f=[];if(selectors.style.value!=='any')f.push(selectors.style.value+' style');if(selectors.beds.value!=='any')f.push('at least '+selectors.beds.value+' bedrooms');if(selectors.budget.value!=='any')f.push('published guide price at or below '+lab.price(Number(selectors.budget.value)));
