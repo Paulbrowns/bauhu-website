@@ -8,13 +8,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="header-actions"><button id="refresh" type="button">Refresh</button><button id="logout" type="button">Lock</button></div>
     </header>
 
-    <section id="login-panel" class="login-panel">
+    <section id="login-panel" class="login-panel" aria-label="Private dashboard access">
       <form id="login-form">
-        <h2>Open leads dashboard</h2>
-        <p>Enter the private dashboard token configured in Cloudflare.</p>
-        <input id="token" type="password" autocomplete="current-password" placeholder="Dashboard token" required />
-        <button type="submit">Open dashboard</button>
-        <small id="login-error"></small>
+        <label for="token">Private access</label>
+        <input id="token" type="password" autocomplete="current-password" placeholder="Access token" required />
+        <button type="submit">Unlock →</button>
+        <small id="login-error" role="alert"></small>
       </form>
     </section>
 
@@ -415,14 +414,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .header-actions{display:flex;gap:.5rem}
 .header-actions button{padding:.65rem .8rem;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;cursor:pointer}
 
-.login-panel{display:grid;place-items:center;min-height:70vh}
-.login-panel form{width:min(420px,90vw);padding:2rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.15)}
-.login-panel h2{margin:0 0 .5rem;font:400 2rem 'Cormorant Garamond',serif}
-.login-panel p{font-size:.72rem;line-height:1.6;color:rgba(23,57,76,.65)}
-.login-panel input,.login-panel button{width:100%;box-sizing:border-box;padding:.9rem;margin-top:.7rem}
-.login-panel input{border:1px solid rgba(23,57,76,.2)}
-.login-panel button{border:0;background:#17394c;color:#fff;font-weight:700;cursor:pointer}
-.login-panel small{display:block;margin-top:.6rem;color:#8a3d33}
+.leads-page [hidden]{display:none!important}
+.login-panel{display:block;padding:1rem 3vw;background:#ebe9e2}
+.login-panel form{display:flex;align-items:center;flex-wrap:wrap;gap:.7rem;margin:0;max-width:100%;padding:.8rem 1rem;background:#f7f5ef;border:1px solid rgba(23,57,76,.15)}
+.login-panel label{font-size:.7rem;font-weight:700;color:#17394c;white-space:nowrap;margin-right:.4rem}
+.login-panel input{width:min(320px,100%);padding:.75rem;border:1px solid rgba(23,57,76,.2);background:white;color:#17394c}
+.login-panel button{padding:.78rem 1.25rem;border:0;background:#17394c;color:#fff;font-size:.7rem;font-weight:700;cursor:pointer}
+.login-panel small{font-size:.7rem;color:#8a3d33}
+@media(max-width:580px){.login-panel form{align-items:stretch}.login-panel label{width:100%}.login-panel input{flex:1;min-width:0}.login-panel button{white-space:nowrap}}
 
 .dashboard{padding:1.5rem 3vw 4rem}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem}
