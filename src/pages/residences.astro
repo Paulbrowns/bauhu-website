@@ -40,7 +40,6 @@ const designImages = [
           muted
           playsinline
           preload="auto"
-          poster="/images/residences/jimmy-hill-front-elevation-hero.webp"
           aria-hidden="true"
         >
           <source src="/videos/bauhu-sketch-to-render-v3.mp4" type="video/mp4" />
@@ -151,7 +150,7 @@ const designImages = [
   .bauhu-residences-page * { box-sizing:border-box; }
   .bauhu-hero { position:relative; min-height:94vh; display:flex; align-items:flex-end; padding:110px 7vw; color:#f8f6f0; background:linear-gradient(180deg, rgba(23,57,76,0.10), rgba(23,57,76,0.68)), url('/images/residences/jimmy-hill-front-elevation-hero.webp') center/cover no-repeat; overflow:hidden; }
   /* Let the film define the hero dimensions; no viewport-height crop. */
-  .bauhu-hero-sketch { display:block; min-height:0; height:auto; aspect-ratio:auto; padding:0; isolation:isolate; background:#17394C; }
+  .bauhu-hero-sketch { display:block; min-height:0; height:auto; aspect-ratio:auto; padding:0; isolation:isolate; margin-top:var(--bauhu-header-height, 80px); background:#f6f3ec; }
   .bauhu-hero-sketch .bauhu-hero-media { display:block; position:relative; inset:auto; width:100%; height:auto; aspect-ratio:16/9; overflow:hidden; z-index:0; }
   .bauhu-hero-sketch .bauhu-hero-media::after { display:none; }
   .bauhu-hero-sketch .bauhu-sketch-video { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; object-position:center; }
@@ -208,7 +207,7 @@ const designImages = [
   @media screen and (max-width:1100px){
     .bauhu-hero{min-height:86vh; padding:90px 22px 70px;}
     /* Tablet/mobile: full 16:9 film in normal flow, with content below. */
-    .bauhu-hero-sketch{display:block; height:auto; min-height:0; padding:0; aspect-ratio:auto;}
+    .bauhu-hero-sketch{display:block; height:auto; min-height:0; padding:0; aspect-ratio:auto; background:#f6f3ec;}
     .bauhu-hero-sketch .bauhu-hero-media{position:relative; inset:auto; width:100%; height:auto; aspect-ratio:16/9;}
     .bauhu-hero-sketch .bauhu-sketch-video{width:100%; height:auto; aspect-ratio:16/9; object-fit:contain;}
     .bauhu-hero-sketch .bauhu-hero-inner{position:relative; inset:auto; width:100%; padding:36px 22px 58px; background:#17394C; opacity:1; transform:none; transition:none;}
@@ -242,6 +241,19 @@ const designImages = [
 <script>
   const sketchHero = document.querySelector('[data-sketch-hero]');
   const sketchVideo = sketchHero?.querySelector('video');
+  // The site navigation is fixed and would otherwise cover the opening
+  // architectural lines, particularly on tablet and mobile.
+  const navigation = document.querySelector('body > header');
+  if (sketchHero && navigation) {
+    const positionFilm = () => {
+      sketchHero.style.setProperty('--bauhu-header-height', `${Math.ceil(navigation.getBoundingClientRect().height)}px`);
+    };
+    positionFilm();
+    window.addEventListener('resize', positionFilm, { passive:true });
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(positionFilm).observe(navigation);
+    }
+  }
   if (sketchHero && sketchVideo) {
     const reveal = () => {
       sketchHero.classList.remove('is-playing');
