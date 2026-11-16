@@ -8,6 +8,9 @@ function publicSlug(modelSlug: string) {
   return modelSlug.replace(/^bauhu-/, '');
 }
 
+// Keep HALO's standalone product page, but do not list it in the model catalogue.
+const visibleModels = bauhuModels.filter((model) => model.slug !== 'bauhu-halo');
+
 const filterGroups = [
   {
     key: 'style',
@@ -108,7 +111,7 @@ const steps = [
           <h2>Find the Bauhu models that suit your brief.</h2>
           <p>Our models are architect-designed starting points, not catalogue kit homes. Filter the collection by style, guide price, bedrooms, bathrooms, storeys and built area, then refine the right starting point around your site.</p>
           <div class="models-filter-status">
-            <span id="model-result-count">{bauhuModels.length}</span> model residences shown
+            <span id="model-result-count">{visibleModels.length}</span> model residences shown
           </div>
           <button class="models-reset" type="button" id="model-reset-filters">Reset filters</button>
         </div>
@@ -143,7 +146,7 @@ const steps = [
         </div>
 
         <div class="models-grid" id="models-grid">
-          {bauhuModels.map((model) => (
+          {visibleModels.map((model) => (
             <article
               class="model-card"
               data-model-card
